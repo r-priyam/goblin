@@ -1,29 +1,31 @@
-import type { ListenerOptions, PieceContext } from '@sapphire/framework';
-import { Listener, Store } from '@sapphire/framework';
+import { readFile } from 'node:fs/promises';
+import { ApplyOptions } from '@sapphire/decorators';
+import type { Store } from '@sapphire/framework';
+import { Events, Listener } from '@sapphire/framework';
 import { blue, gray, green, magenta, magentaBright, white, yellow } from 'colorette';
+import figlet from 'figlet';
+import gradient from 'gradient-string';
 
-const dev = process.env.NODE_ENV !== 'production';
+import { Config } from '#root/config';
 
-export class UserEvent extends Listener {
-	private readonly style = dev ? yellow : blue;
+@ApplyOptions<Listener.Options>({
+	name: 'ClientReady',
+	event: Events.ClientReady,
+	once: true
+})
+export class Ready extends Listener {
+	private readonly style = Config.isDevelopment ? yellow : blue;
 
-	public constructor(context: PieceContext, options?: ListenerOptions) {
-		super(context, {
-			...options,
-			once: true
-		});
-	}
-
-	public run() {
-		this.printBanner();
+	public async run() {
+		await this.printBanner();
 		this.printStoreDebugInformation();
 	}
 
-	private printBanner() {
+	private async printBanner() {
 		const success = green('+');
 
-		const llc = dev ? magentaBright : white;
-		const blc = dev ? magenta : blue;
+		const llc = Config.isDevelopment ? magentaBright : white;
+		const blc = Config.isDevelopment ? magenta : blue;
 
 		const line01 = llc('');
 		const line02 = llc('');
@@ -31,12 +33,14 @@ export class UserEvent extends Listener {
 
 		// Offset Pad
 		const pad = ' '.repeat(7);
+		const { version } = JSON.parse(await readFile(new URL('../../package.json', import.meta.url), 'utf8'));
 
 		console.log(
 			String.raw`
-${line01} ${pad}${blc('1.0.0')}
+${gradient.atlas.multiline(figlet.textSync('Goblin'))}
+${line01} ${pad}${blc(version)}
 ${line02} ${pad}[${success}] Gateway
-${line03}${dev ? ` ${pad}${blc('<')}${llc('/')}${blc('>')} ${llc('DEVELOPMENT MODE')}` : ''}
+${line03}${Config.isDevelopment ? ` ${pad}${blc('<')}${llc('/')}${blc('>')} ${llc('DEVELOPMENT MODE')}` : ''}
 		`.trim()
 		);
 	}
@@ -49,6 +53,7 @@ ${line03}${dev ? ` ${pad}${blc('<')}${llc('/')}${blc('>')} ${llc('DEVELOPMENT MO
 		for (const store of stores) {
 			logger.info(this.styleStore(store, false));
 		}
+
 		logger.info(this.styleStore(last, true));
 	}
 
