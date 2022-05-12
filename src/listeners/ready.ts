@@ -9,7 +9,6 @@ import gradient from 'gradient-string';
 import { Config } from '#root/config';
 
 @ApplyOptions<Listener.Options>({
-	name: 'ClientReady',
 	event: Events.ClientReady,
 	once: true
 })
