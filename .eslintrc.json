@@ -1,0 +1,20 @@
+{
+	"extends": ["@sapphire"],
+	"plugins": ["prettier", "import"],
+	"rules": {
+		"import/order": [
+			"error",
+			{
+				"groups": ["builtin", "external", "internal", "index", "sibling", "parent"],
+				"alphabetize": {
+					"order": "asc"
+				}
+			}
+		],
+		"curly": "error",
+		"new-cap": "off",
+		"import/first": "error",
+		"import/no-duplicates": "error",
+		"import/newline-after-import": "error"
+	}
+}
