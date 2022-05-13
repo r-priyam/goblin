@@ -6,14 +6,14 @@ import { blue, gray, green, magenta, magentaBright, white, yellow } from 'colore
 import figlet from 'figlet';
 import gradient from 'gradient-string';
 
-import { Config } from '#root/config';
+import config from '#root/config';
 
 @ApplyOptions<Listener.Options>({
 	event: Events.ClientReady,
 	once: true
 })
 export class Ready extends Listener {
-	private readonly style = Config.isDevelopment ? yellow : blue;
+	private readonly style = config.development ? yellow : blue;
 
 	public async run() {
 		await this.printBanner();
@@ -23,8 +23,8 @@ export class Ready extends Listener {
 	private async printBanner() {
 		const success = green('+');
 
-		const llc = Config.isDevelopment ? magentaBright : white;
-		const blc = Config.isDevelopment ? magenta : blue;
+		const llc = config.development ? magentaBright : white;
+		const blc = config.development ? magenta : blue;
 
 		const line01 = llc('');
 		const line02 = llc('');
@@ -39,7 +39,7 @@ export class Ready extends Listener {
 ${gradient.atlas.multiline(figlet.textSync('Goblin'))}
 ${line01} ${pad}${blc(version)}
 ${line02} ${pad}[${success}] Gateway
-${line03}${Config.isDevelopment ? ` ${pad}${blc('<')}${llc('/')}${blc('>')} ${llc('DEVELOPMENT MODE')}` : ''}
+${line03}${config.development ? ` ${pad}${blc('<')}${llc('/')}${blc('>')} ${llc('DEVELOPMENT MODE')}` : ''}
 		`.trim()
 		);
 	}
