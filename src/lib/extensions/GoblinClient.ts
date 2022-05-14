@@ -1,5 +1,6 @@
-import { SapphireClient } from '@sapphire/framework';
+import { SapphireClient, container } from '@sapphire/framework';
 import { GatewayIntentBits } from 'discord-api-types/v9';
+import config from '#root/config';
 
 export class GoblinClient extends SapphireClient {
 	public constructor() {
@@ -23,5 +24,17 @@ export class GoblinClient extends SapphireClient {
 				]
 			}
 		});
+	}
+
+	public override async login(token?: string) {
+		await container.coc.login({
+			email: config.clash.email,
+			password: config.clash.password,
+			keyCount: 5,
+			keyName: config.clash.keyName
+		});
+		this.logger.info('Successfully logged into clash api.');
+
+		return super.login(token);
 	}
 }

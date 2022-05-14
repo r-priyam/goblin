@@ -4,6 +4,11 @@ const config = {
 	bot: {
 		token: process.env.BOT_TOKEN,
 		owners: ['292332992251297794', '554882868091027456']
+	},
+	clash: {
+		email: process.env.CLASH_EMAIL!,
+		password: process.env.CLASH_PASSWORD!,
+		keyName: process.env.CLASH_KEY_NAME!
 	}
 };
 

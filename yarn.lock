@@ -849,6 +849,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"clashofclans.js@npm:dev":
+  version: 2.6.1-dev.208c20e
+  resolution: "clashofclans.js@npm:2.6.1-dev.208c20e"
+  dependencies:
+    node-fetch: ^2.6.7
+  checksum: 9cf8c70fbc305ccb54adb2e125c44a3b8183d060f41ebb11b3ac4d74791b1ff9a1df2f8be0444cd7a601e2f3731d42bc27b3d83d21ee192ccab7441647b084c4
+  languageName: node
+  linkType: hard
+
 "clean-stack@npm:^2.0.0":
   version: 2.2.0
   resolution: "clean-stack@npm:2.2.0"
@@ -1961,6 +1970,7 @@ __metadata:
     "@types/figlet": ^1.5.4
     "@types/gradient-string": ^1.1.2
     "@types/node": ^17.0.33
+    clashofclans.js: dev
     colorette: ^2.0.16
     discord-api-types: ^0.30.0
     discord.js: ^13.7.0
@@ -2695,7 +2705,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-fetch@npm:2.6.7, node-fetch@npm:^2.6.1, node-fetch@npm:^2.6.5":
+"node-fetch@npm:2.6.7, node-fetch@npm:^2.6.1, node-fetch@npm:^2.6.5, node-fetch@npm:^2.6.7":
   version: 2.6.7
   resolution: "node-fetch@npm:2.6.7"
   dependencies:

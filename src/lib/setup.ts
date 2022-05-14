@@ -3,8 +3,8 @@ import '@sapphire/plugin-logger/register';
 
 import { fileURLToPath } from 'node:url';
 import { inspect } from 'node:util';
-import type { Logger } from '@sapphire/framework';
-import { ApplicationCommandRegistries, container, Piece, RegisterBehavior } from '@sapphire/framework';
+import { ApplicationCommandRegistries, Logger, container, Piece, RegisterBehavior } from '@sapphire/framework';
+import { Client } from 'clashofclans.js';
 import { createColors } from 'colorette';
 import dotenv from 'dotenv';
 import type { GoblinClient } from './extensions/GoblinClient';
@@ -17,14 +17,20 @@ createColors({ useColor: true });
 
 ApplicationCommandRegistries.setDefaultBehaviorWhenNotIdentical(RegisterBehavior.Overwrite);
 
+container.coc = new Client({});
+
 Object.defineProperties(Piece.prototype, {
 	client: { get: () => container.client },
 	logger: { get: () => container.logger }
 });
 
 declare module '@sapphire/pieces' {
+	interface Container {
+		coc: Client;
+	}
 	interface Piece {
 		client: GoblinClient;
 		logger: Logger;
+		coc: Client;
 	}
 }
