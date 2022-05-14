@@ -1944,6 +1944,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "goblin@workspace:."
   dependencies:
+    "@discordjs/builders": ^0.13.0
     "@sapphire/decorators": ^4.3.4
     "@sapphire/discord-utilities": ^2.10.3
     "@sapphire/discord.js-utilities": ^4.10.0
