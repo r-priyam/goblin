@@ -4,6 +4,7 @@ import '@sapphire/plugin-logger/register';
 import { fileURLToPath } from 'node:url';
 import { inspect } from 'node:util';
 import { ApplicationCommandRegistries, Logger, container, Piece, RegisterBehavior } from '@sapphire/framework';
+import { Time } from '@sapphire/time-utilities';
 import { Client } from 'clashofclans.js';
 import { createColors } from 'colorette';
 import dotenv from 'dotenv';
@@ -17,7 +18,7 @@ createColors({ useColor: true });
 
 ApplicationCommandRegistries.setDefaultBehaviorWhenNotIdentical(RegisterBehavior.Overwrite);
 
-container.coc = new Client({});
+container.coc = new Client({ restRequestTimeout: Time.Second * 30 });
 
 Object.defineProperties(Piece.prototype, {
 	client: { get: () => container.client },
