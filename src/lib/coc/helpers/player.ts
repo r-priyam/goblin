@@ -2,7 +2,7 @@ import { container, UserError } from '@sapphire/framework';
 import { HTTPError, Player, Util } from 'clashofclans.js';
 import { ErrorMessages } from '#lib/coc';
 
-class PlayerHelper extends null {
+class PlayerHelper {
 	private readonly coc = container.coc;
 	private readonly identifier = 'player-helper';
 
@@ -25,6 +25,27 @@ class PlayerHelper extends null {
 		}
 
 		return player!;
+	}
+
+	public async verifyPlayer(tag: string, token: string) {
+		let status = false;
+
+		try {
+			status = await this.coc.verifyPlayerToken(tag, token);
+		} catch (error) {
+			if (error instanceof HTTPError) {
+				throw new UserError({
+					identifier: this.identifier,
+					message: error.status === 404 ? 'No player found for the requested tag!' : ErrorMessages[error.status]
+				});
+			}
+		}
+
+		if (!status) {
+			throw new UserError({ identifier: this.identifier, message: 'Invalid API token!' });
+		}
+
+		return this.info(tag);
 	}
 }
 

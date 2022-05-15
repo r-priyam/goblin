@@ -2,7 +2,7 @@ import { UserError, container } from '@sapphire/framework';
 import { Clan, Util, HTTPError } from 'clashofclans.js';
 import { ErrorMessages } from '#lib/coc';
 
-class ClanHelper extends null {
+class ClanHelper {
 	private readonly coc = container.coc;
 	private readonly identifier = 'clan-helper';
 
