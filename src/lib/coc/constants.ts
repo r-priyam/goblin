@@ -69,3 +69,10 @@ export const Spells: { [key: number]: string } = {
 	28: 'Bat Spell',
 	35: 'Invisibility Spell'
 };
+
+export const ErrorMessages: { [key: string]: string } = {
+	500: 'Something went wrong when requesting from the API.',
+	504: 'Request to API was timed out, Please try again!',
+	503: 'Game API is under maintenance, try again after it ends.',
+	429: 'Request was throttled, because amount of requests was above the threshold defined for the used API token.'
+};
