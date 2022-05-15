@@ -1,5 +1,5 @@
 import { ApplyOptions } from '@sapphire/decorators';
-import { type ChatInputCommandErrorPayload, Events, Listener, UserError } from '@sapphire/framework';
+import { ChatInputCommandErrorPayload, Events, Listener, UserError } from '@sapphire/framework';
 
 import type { CommandInteraction } from 'discord.js';
 
