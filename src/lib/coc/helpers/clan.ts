@@ -1,6 +1,6 @@
 import { UserError, container } from '@sapphire/framework';
 import { Clan, Util, HTTPError } from 'clashofclans.js';
-import { ErrorMessages } from '../constants';
+import { ErrorMessages } from '#lib/coc';
 
 class ClanHelper extends null {
 	private readonly coc = container.coc;
