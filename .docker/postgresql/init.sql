@@ -11,7 +11,7 @@ CREATE TABLE public.clans
     linked_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE INDEX idx_user_clans ON clans (user_id, clan_tag);
+CREATE UNIQUE INDEX idx_user_clans ON clans (user_id, clan_tag);
 
 COMMENT ON COLUMN public.clans.id IS 'The unique identifier for the linked clan';
 COMMENT ON COLUMN public.clans.user_id IS 'The user id of the user to whom clan is linked';
