@@ -56,7 +56,7 @@ export class SlashCommand extends GoblinCommand {
 		}
 
 		return interaction.editReply({
-			embeds: [embedBuilder.success(`Successfully linked **${clan.name} (${clan.tag})** to your discord account`)]
+			embeds: [embedBuilder.success(`Linked **${clan.name} (${clan.tag})** to your discord account`)]
 		});
 	}
 
@@ -78,7 +78,7 @@ export class SlashCommand extends GoblinCommand {
 		}
 
 		return interaction.editReply({
-			embeds: [embedBuilder.success(`Successfully linked **${player.name} (${player.tag})** to your discord account`)]
+			embeds: [embedBuilder.success(`Linked **${player.name} (${player.tag})** to your discord account`)]
 		});
 	}
 }
