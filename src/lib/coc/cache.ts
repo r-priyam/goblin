@@ -1,4 +1,5 @@
 import { container } from '@sapphire/framework';
+import { isNullish } from '@sapphire/utilities';
 
 export class Cache {
 	private readonly redis = container.redis;
@@ -10,7 +11,8 @@ export class Cache {
 
 	public async get(key: string) {
 		const data = await this.redis.get(key);
-		if (data === null) {
+
+		if (isNullish(data)) {
 			return null;
 		}
 
