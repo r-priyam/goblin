@@ -27,6 +27,8 @@ export class GoblinClient extends SapphireClient {
 	}
 
 	public override async login(token?: string) {
+		await container.redis.connect();
+
 		await container.coc.login({
 			email: config.clash.email,
 			password: config.clash.password,
@@ -36,5 +38,9 @@ export class GoblinClient extends SapphireClient {
 		this.logger.info('Successfully logged into clash api.');
 
 		return super.login(token);
+	}
+
+	public override async destroy() {
+		await container.redis.quit();
 	}
 }

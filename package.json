@@ -45,6 +45,7 @@
 		"figlet": "^1.5.2",
 		"gradient-string": "^2.0.1",
 		"postgres": "^3.1.0",
+		"redis": "^4.1.0",
 		"reflect-metadata": "^0.1.13"
 	},
 	"devDependencies": {

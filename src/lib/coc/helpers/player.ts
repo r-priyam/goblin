@@ -3,7 +3,6 @@ import { HTTPError, Player, Util } from 'clashofclans.js';
 import { ErrorMessages } from '#lib/coc';
 
 class PlayerHelper {
-	private readonly coc = container.coc;
 	private readonly identifier = 'player-helper';
 
 	public async info(tag: string) {
@@ -14,7 +13,7 @@ class PlayerHelper {
 		let player: Player;
 
 		try {
-			player = await this.coc.getPlayer(tag);
+			player = await container.coc.getPlayer(tag);
 		} catch (error) {
 			if (error instanceof HTTPError) {
 				throw new UserError({
@@ -31,7 +30,7 @@ class PlayerHelper {
 		let status = false;
 
 		try {
-			status = await this.coc.verifyPlayerToken(tag, token);
+			status = await container.coc.verifyPlayerToken(tag, token);
 		} catch (error) {
 			if (error instanceof HTTPError) {
 				throw new UserError({

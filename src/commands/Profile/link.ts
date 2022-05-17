@@ -3,6 +3,7 @@ import { ChatInputCommand, UserError } from '@sapphire/framework';
 import { embedBuilder } from '#lib/classes/embeds';
 import { clanHelper, playerHelper } from '#lib/coc';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
+import { redis } from '#utils/redis';
 
 @ApplyOptions<ChatInputCommand.Options>({
 	description: 'Commands related to user profile'
@@ -43,7 +44,7 @@ export class SlashCommand extends GoblinCommand {
 
 		try {
 			await this.sql`INSERT INTO clans (user_id, clan_name, clan_tag)
-                           VALUES (${interaction.member.id}, ${clan.name}, ${clan.tag})`;
+			               VALUES (${interaction.member.id}, ${clan.name}, ${clan.tag})`;
 		} catch (error) {
 			if (error instanceof this.sql.PostgresError) {
 				if (error.code === '23505') {
@@ -55,6 +56,7 @@ export class SlashCommand extends GoblinCommand {
 			}
 		}
 
+		await redis.handleClanOrPlayerCache('CLAN', 'UPDATE', interaction.member.id, clan.tag, clan.name);
 		return interaction.editReply({
 			embeds: [embedBuilder.success(`Linked **${clan.name} (${clan.tag})** to your discord account`)]
 		});
@@ -77,6 +79,7 @@ export class SlashCommand extends GoblinCommand {
 			}
 		}
 
+		await redis.handleClanOrPlayerCache('PLAYER', 'UPDATE', interaction.member.id, player.tag, player.name);
 		return interaction.editReply({
 			embeds: [embedBuilder.success(`Linked **${player.name} (${player.tag})** to your discord account`)]
 		});
