@@ -3,6 +3,7 @@ import type { ChatInputCommand } from '@sapphire/framework';
 import { Util } from 'clashofclans.js';
 import { embedBuilder } from '#lib/classes/embeds';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
+import { redis } from '#utils/redis';
 
 @ApplyOptions<ChatInputCommand.Options>({
 	description: 'Unlink a clan or a player from your discord account'
@@ -55,6 +56,7 @@ export class SlashCommand extends GoblinCommand {
 			return interaction.editReply({ content: `**${tag}** isn't linked to your profile` });
 		}
 
+		await redis.handleClanOrPlayerCache('CLAN', 'REMOVE', interaction.member.id, tag);
 		return interaction.editReply({
 			embeds: [embedBuilder.success(`Removed **${result.clanName} (${tag})** from your discord account`)]
 		});
@@ -77,6 +79,7 @@ export class SlashCommand extends GoblinCommand {
 			return interaction.editReply({ content: `**${tag}** isn't linked to your profile` });
 		}
 
+		await redis.handleClanOrPlayerCache('PLAYER', 'REMOVE', interaction.member.id, tag);
 		return interaction.editReply({
 			embeds: [embedBuilder.success(`Removed **${result.playerName} (${tag})** from your discord account`)]
 		});
