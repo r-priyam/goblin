@@ -41,7 +41,7 @@ class RedisUtil {
 
 		if (method === 'UPDATE') {
 			if (isNullish(cachedData)) {
-				return this.set(`${initial}-${userId}`, JSON.stringify({ name: name!, tag }));
+				return this.set(`${initial}-${userId}`, JSON.stringify([{ name: name!, tag }]));
 			}
 
 			cachedData.push({ name: name!, tag });
@@ -53,6 +53,10 @@ class RedisUtil {
 		}
 
 		const updated = cachedData.filter((data) => data.tag === tag);
+		if (updated.length === 0) {
+			return this.delete(`${initial}-${userId}`);
+		}
+
 		return this.set(`${initial}-${userId}`, JSON.stringify(updated));
 	}
 }
