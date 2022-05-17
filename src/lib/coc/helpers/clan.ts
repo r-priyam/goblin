@@ -3,7 +3,6 @@ import { Clan, Util, HTTPError } from 'clashofclans.js';
 import { ErrorMessages } from '#lib/coc';
 
 class ClanHelper {
-	private readonly coc = container.coc;
 	private readonly identifier = 'clan-helper';
 
 	public async info(tag: string) {
@@ -14,7 +13,7 @@ class ClanHelper {
 		let clan: Clan;
 
 		try {
-			clan = await this.coc.getClan(tag);
+			clan = await container.coc.getClan(tag);
 		} catch (error) {
 			if (error instanceof HTTPError) {
 				throw new UserError({
