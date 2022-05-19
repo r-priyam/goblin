@@ -29,3 +29,9 @@ export const enum Colors {
 	Yellow = 0xffeb3b,
 	Yellow300 = 0xfff176
 }
+
+export const enum Emotes {
+	Typing = '<a:typing:597589448607399949>',
+	Success = '<:success:959344194785271809>',
+	Error = '<:error:959359264533643274>'
+}
