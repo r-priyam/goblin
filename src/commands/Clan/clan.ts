@@ -2,7 +2,7 @@ import { ApplyOptions } from '@sapphire/decorators';
 import type { ChatInputCommand, Command } from '@sapphire/framework';
 import { none } from '@sapphire/framework';
 import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
-import { Clan, Util } from 'clashofclans.js';
+import type { Clan } from 'clashofclans.js';
 import { MessageEmbed } from 'discord.js';
 import Fuse from 'fuse.js';
 import { embedBuilder } from '#lib/classes/embeds';
@@ -10,6 +10,8 @@ import {
 	BlueNumberEmotes,
 	clanHelper,
 	getFuzzyTagSuggestions,
+	handleNoFuzzyMatch,
+	handleNoValue,
 	LabelEmotes,
 	MiscEmotes,
 	RawClanType,
@@ -67,24 +69,16 @@ export class SlashCommand extends GoblinCommand {
 		const focused = interaction.options.getFocused(true);
 
 		if (isNullishOrEmpty(focused.value)) {
-			return interaction.respond(
-				cachedData
-					.map((data) => ({
-						name: `${data.name} (${data.tag})`,
-						value: data.tag
-					}))
-					.slice(0, 14)
-			);
+			return interaction.respond(handleNoValue(cachedData));
 		}
 
-		const rawTag = Util.formatTag(String(focused.value));
-		const matches = fuse.search(rawTag);
+		const matches = fuse.search(String(focused.value));
 
 		if (isNullishOrEmpty(matches)) {
-			return interaction.respond([{ name: rawTag, value: rawTag }]);
+			handleNoFuzzyMatch(String(focused.value));
 		}
 
-		return interaction.respond(getFuzzyTagSuggestions(rawTag, matches));
+		return interaction.respond(getFuzzyTagSuggestions(String(focused.value), matches));
 	}
 
 	private async clanComposition(interaction: ChatInputCommand.Interaction<'cached'>, embed: MessageEmbed, clan: Clan) {
