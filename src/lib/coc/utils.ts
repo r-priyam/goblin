@@ -1,3 +1,5 @@
+import type Fuse from 'fuse.js';
+
 export function parseArmyLink(link: string) {
 	const units: { troopId: number; count: number }[] = [];
 	const spells: { spellId: number; count: number }[] = [];
@@ -21,4 +23,20 @@ export function parseArmyLink(link: string) {
 	}
 
 	return { units, spells };
+}
+
+export function getFuzzyTagSuggestions(rawTag: string, matches: Fuse.FuseResult<{ name: string; tag: string }>[]) {
+	const result = matches
+		.map((fuzzy) => ({
+			name: `${fuzzy.item.name} (${fuzzy.item.tag})`,
+			value: fuzzy.item.tag
+		}))
+		.slice(0, 14);
+
+	if (result[0].value === rawTag) {
+		return result;
+	}
+
+	result.unshift({ name: rawTag, value: rawTag });
+	return result;
 }
