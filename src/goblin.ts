@@ -10,6 +10,6 @@ try {
 	client.logger.info('Successfully logged in.');
 } catch (error) {
 	client.logger.error(error);
-	client.destroy();
+	void client.destroy();
 	process.exit(1);
 }
