@@ -2061,11 +2061,11 @@ __metadata:
     figlet: ^1.5.2
     fuse.js: ^6.6.2
     gradient-string: ^2.0.1
-    postgres: ^3.1.0
+    postgres: ^3.2.2
     prettier: ^2.6.2
     redis: ^4.1.0
     reflect-metadata: ^0.1.13
-    tsup: ^5.12.7
+    tsup: ^5.12.8
     typescript: ^4.6.4
   languageName: unknown
   linkType: soft
@@ -3065,7 +3065,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postgres@npm:^3.1.0":
+"postgres@npm:^3.2.2":
   version: 3.2.2
   resolution: "postgres@npm:3.2.2"
   checksum: 1aaf14c0fc305a08d06ffbb14f78b19586db123b3ffcc6098027173bc15ce5e6a7f083c6ed656492047605f8f9858e135c971ea9b2d76dddbdf365aac4f1873a
@@ -3638,7 +3638,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tsup@npm:^5.12.7":
+"tsup@npm:^5.12.8":
   version: 5.12.8
   resolution: "tsup@npm:5.12.8"
   dependencies:
