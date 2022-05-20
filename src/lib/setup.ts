@@ -4,7 +4,7 @@ import '@sapphire/plugin-logger/register';
 import { fileURLToPath } from 'node:url';
 import { inspect } from 'node:util';
 import { SqlHighlighter } from '@mikro-orm/sql-highlighter';
-import { ApplicationCommandRegistries, Logger, container, Piece, RegisterBehavior } from '@sapphire/framework';
+import { ApplicationCommandRegistries, container, Logger, Piece, RegisterBehavior } from '@sapphire/framework';
 import { Time } from '@sapphire/time-utilities';
 import { Client } from 'clashofclans.js';
 import { blueBright, createColors, cyan, greenBright, redBright, yellow } from 'colorette';
@@ -56,7 +56,8 @@ container.sql = postgres({
 Object.defineProperties(Piece.prototype, {
 	client: { get: () => container.client },
 	logger: { get: () => container.logger },
-	sql: { get: () => container.sql }
+	sql: { get: () => container.sql },
+	redis: { get: () => container.redis }
 });
 
 declare module '@sapphire/pieces' {
