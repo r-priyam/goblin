@@ -1,27 +1,11 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import type { ChatInputCommand, Command } from '@sapphire/framework';
-import { none } from '@sapphire/framework';
-import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
 import type { Clan } from 'clashofclans.js';
 import { MessageEmbed } from 'discord.js';
-import Fuse from 'fuse.js';
 import { embedBuilder } from '#lib/classes/embeds';
-import {
-	BlueNumberEmotes,
-	clanHelper,
-	getFuzzyTagSuggestions,
-	handleNoFuzzyMatch,
-	handleNoValue,
-	LabelEmotes,
-	MiscEmotes,
-	RawClanType,
-	RawWarFrequency,
-	TownHallEmotes,
-	WarLeagueEmotes
-} from '#lib/coc';
+import { BlueNumberEmotes, clanHelper, LabelEmotes, MiscEmotes, RawClanType, RawWarFrequency, TownHallEmotes, WarLeagueEmotes } from '#lib/coc';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors, Emotes } from '#utils/constants';
-import { redis } from '#utils/redis';
 
 @ApplyOptions<ChatInputCommand.Options>({
 	description: 'Get info about a clan'
@@ -58,27 +42,8 @@ export class SlashCommand extends GoblinCommand {
 		return this.clanComposition(interaction, infoEmbed, clan);
 	}
 
-	public override async autocompleteRun(interaction: Command.AutocompleteInteraction) {
-		const cachedData: { name: string; tag: string }[] = await redis.get(`c-${interaction.user.id}`);
-
-		if (isNullish(cachedData)) {
-			return none();
-		}
-
-		const fuse = new Fuse(cachedData, { includeScore: true, keys: ['name', 'tag'] });
-		const focused = interaction.options.getFocused(true);
-
-		if (isNullishOrEmpty(focused.value)) {
-			return interaction.respond(handleNoValue(cachedData));
-		}
-
-		const matches = fuse.search(String(focused.value));
-
-		if (isNullishOrEmpty(matches)) {
-			handleNoFuzzyMatch(String(focused.value));
-		}
-
-		return interaction.respond(getFuzzyTagSuggestions(String(focused.value), matches));
+	public override autocompleteRun(interaction: Command.AutocompleteInteraction) {
+		return this.handleClanOrPlayerTagAutoComplete(interaction, 'CLAN');
 	}
 
 	private async clanComposition(interaction: ChatInputCommand.Interaction<'cached'>, embed: MessageEmbed, clan: Clan) {
