@@ -1,4 +1,4 @@
-import { SapphireClient, container } from '@sapphire/framework';
+import { container, LogLevel, SapphireClient } from '@sapphire/framework';
 import { GatewayIntentBits } from 'discord-api-types/v9';
 import config from '#root/config';
 
@@ -13,8 +13,8 @@ export class GoblinClient extends SapphireClient {
 				GatewayIntentBits.GuildVoiceStates,
 				GatewayIntentBits.GuildMessageReactions
 			],
-			logger: {},
-			loadDefaultErrorListeners: false,
+			logger: { level: config.debug ? LogLevel.Debug : LogLevel.Info },
+			loadDefaultErrorListeners: config.debug,
 			presence: {
 				activities: [
 					{
