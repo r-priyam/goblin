@@ -1,7 +1,6 @@
 import type { Message, MessageComponentInteraction } from 'discord.js';
 
 export async function verifyUser(interaction: MessageComponentInteraction, userId: string) {
-	console.log('called');
 	if (interaction.user.id !== userId) {
 		await interaction.followUp({
 			content: "These buttons can't be controlled by you, sorry!",
