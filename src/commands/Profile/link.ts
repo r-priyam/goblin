@@ -46,13 +46,11 @@ export class SlashCommand extends GoblinCommand {
 			await this.sql`INSERT INTO clans (user_id, clan_name, clan_tag)
 			               VALUES (${interaction.member.id}, ${clan.name}, ${clan.tag})`;
 		} catch (error) {
-			if (error instanceof this.sql.PostgresError) {
-				if (error.code === '23505') {
-					throw new UserError({
-						identifier: 'database-error',
-						message: `**${clan.name} (${clan.tag})** is already linked to your account`
-					});
-				}
+			if (error instanceof this.sql.PostgresError && error.code === '23505') {
+				throw new UserError({
+					identifier: 'database-error',
+					message: `**${clan.name} (${clan.tag})** is already linked to your account`
+				});
 			}
 		}
 
@@ -69,13 +67,11 @@ export class SlashCommand extends GoblinCommand {
 			await this.sql`INSERT INTO players (user_id, player_name, player_tag)
                            VALUES (${interaction.member.id}, ${player.name}, ${player.tag})`;
 		} catch (error) {
-			if (error instanceof this.sql.PostgresError) {
-				if (error.code === '23505') {
-					throw new UserError({
-						identifier: 'database-error',
-						message: `**${player.name} (${player.tag})** is already linked to your account`
-					});
-				}
+			if (error instanceof this.sql.PostgresError && error.code === '23505') {
+				throw new UserError({
+					identifier: 'database-error',
+					message: `**${player.name} (${player.tag})** is already linked to your account`
+				});
 			}
 		}
 

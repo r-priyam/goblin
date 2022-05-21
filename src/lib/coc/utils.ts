@@ -10,14 +10,14 @@ export function parseArmyLink(link: string) {
 	for (const match of matches) {
 		if (match.groups?.units) {
 			for (const unit of match.groups.units.split('-')) {
-				const [count, troopId] = unit.split('x').map((e) => Number(e));
+				const [count, troopId] = unit.split('x').map(Number);
 				units.push({ count, troopId });
 			}
 		}
 
 		if (match.groups?.spells) {
 			for (const spell of match.groups.spells.split('-')) {
-				const [count, spellId] = spell.split('x').map((e) => Number(e));
+				const [count, spellId] = spell.split('x').map(Number);
 				spells.push({ count, spellId });
 			}
 		}

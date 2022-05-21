@@ -1,5 +1,5 @@
 {
-	"extends": ["@sapphire"],
+	"extends": ["@sapphire", "plugin:unicorn/recommended"],
 	"plugins": ["prettier", "import"],
 	"rules": {
 		"import/order": [
@@ -15,6 +15,15 @@
 		"new-cap": "off",
 		"import/first": "error",
 		"import/no-duplicates": "error",
-		"import/newline-after-import": "error"
+		"import/newline-after-import": "error",
+		"unicorn/no-unsafe-regex": "error",
+		"unicorn/prefer-at": "error",
+		"unicorn/prefer-top-level-await": "error",
+		"unicorn/prevent-abbreviations": "off",
+		"unicorn/no-nested-ternary": "off",
+		"unicorn/filename-case": "off",
+		"unicorn/explicit-length-check": "off",
+		"unicorn/no-null": "off",
+		"unicorn/new-for-builtins": "off"
 	}
 }

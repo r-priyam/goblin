@@ -66,7 +66,7 @@ export class ClanCommand extends GoblinCommand {
 
 		// remove placeholder field for composition fetch
 		embed.spliceFields(2, 1);
-		embed.addField('\u200b', formattedComposition, false);
+		embed.addField('\u200B', formattedComposition, false);
 		return interaction.editReply({ embeds: [embed] });
 	}
 
@@ -94,12 +94,12 @@ export class ClanCommand extends GoblinCommand {
 			.setDescription(description)
 			.addFields(
 				{
-					name: '\u200b',
+					name: '\u200B',
 					value: infoField,
 					inline: false
 				},
 				{
-					name: '\u200b',
+					name: '\u200B',
 					value: `**War Stats**\n${MiscEmotes.Win} ${clan.warWins} Won ${MiscEmotes.Lose} ${clan.warLosses} Lost ${MiscEmotes.Draw} ${
 						clan.warTies
 					} Tied\n**Win Streak**\n${MiscEmotes.Streak} ${clan.warWinStreak}\n**War Frequency**\n${
