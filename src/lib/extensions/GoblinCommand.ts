@@ -1,6 +1,6 @@
 import type { Piece } from '@sapphire/framework';
-import { Command, none, UserError } from '@sapphire/framework';
-import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
+import { Command, UserError } from '@sapphire/framework';
+import { isNullishOrEmpty } from '@sapphire/utilities';
 import Fuse from 'fuse.js';
 import { getFuzzyTagSuggestions, handleNoFuzzyMatch, handleNoValue } from '#lib/coc';
 import { redis } from '#utils/redis';
@@ -17,13 +17,13 @@ export abstract class GoblinCommand extends Command {
 	protected async handleClanOrPlayerTagAutoComplete(interaction: Command.AutocompleteInteraction, type: 'PLAYER' | 'CLAN') {
 		const shortType = type === 'CLAN' ? 'c-' : 'p-';
 		const cachedData: { name: string; tag: string }[] = await redis.get(`${shortType}${interaction.user.id}`);
+		const focused = interaction.options.getFocused(true);
 
-		if (isNullish(cachedData)) {
-			return none();
+		if (!isNullishOrEmpty(focused.value)) {
+			return interaction.respond(handleNoFuzzyMatch(String(focused.value)));
 		}
 
 		const fuse = new Fuse(cachedData, { includeScore: true, keys: ['name', 'tag'] });
-		const focused = interaction.options.getFocused(true);
 
 		if (isNullishOrEmpty(focused.value)) {
 			return interaction.respond(handleNoValue(cachedData));
