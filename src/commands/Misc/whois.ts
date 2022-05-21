@@ -10,7 +10,7 @@ const sortRanks = (x: Role, y: Role) => Number(y.position > x.position) || Numbe
 @ApplyOptions<ChatInputCommand.Options>({
 	description: 'Get information about an user'
 })
-export class SlashCommand extends GoblinCommand {
+export class WhoIsCommand extends GoblinCommand {
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
 		registry.registerChatInputCommand((builder) =>
 			builder
@@ -53,7 +53,7 @@ export class SlashCommand extends GoblinCommand {
 			})
 			.setTimestamp();
 
-		return interaction.editReply({ embeds: [embed], components: [SlashCommand.avatarUrlButton(member)] });
+		return interaction.editReply({ embeds: [embed], components: [WhoIsCommand.avatarUrlButton(member)] });
 	}
 
 	private static avatarUrlButton(member: GuildMember) {

@@ -10,7 +10,7 @@ import { Colors, Emotes } from '#utils/constants';
 @ApplyOptions<ChatInputCommand.Options>({
 	description: 'Get info about a clan'
 })
-export class SlashCommand extends GoblinCommand {
+export class ClanCommand extends GoblinCommand {
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
 		registry.registerChatInputCommand(
 			(builder) =>
@@ -36,7 +36,7 @@ export class SlashCommand extends GoblinCommand {
 		if (clan.memberCount === 0) {
 			return interaction.editReply({ embeds: [embedBuilder.error('Clan has 0 members, failed to collect the required data')] });
 		}
-		const infoEmbed = SlashCommand.infoEmbed(clan);
+		const infoEmbed = ClanCommand.infoEmbed(clan);
 
 		await interaction.editReply({ embeds: [infoEmbed] });
 		return this.clanComposition(interaction, infoEmbed, clan);
