@@ -1,7 +1,7 @@
 import { time, TimestampStyles } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import type { ChatInputCommand } from '@sapphire/framework';
-import { MessageEmbed, Role } from 'discord.js';
+import { GuildMember, MessageActionRow, MessageButton, MessageEmbed, Role } from 'discord.js';
 import { Colors } from '#lib/util/constants';
 import { GoblinCommand } from '#root/lib/extensions/GoblinCommand';
 
@@ -53,6 +53,15 @@ export class SlashCommand extends GoblinCommand {
 			})
 			.setTimestamp();
 
-		return interaction.editReply({ embeds: [embed] });
+		return interaction.editReply({ embeds: [embed], components: [SlashCommand.avatarUrlButton(member)] });
+	}
+
+	private static avatarUrlButton(member: GuildMember) {
+		return new MessageActionRow().addComponents([
+			new MessageButton() //
+				.setLabel('🖼️ Avatar')
+				.setStyle('LINK')
+				.setURL(member.displayAvatarURL({ size: 512, format: 'png', dynamic: true }))
+		]);
 	}
 }
