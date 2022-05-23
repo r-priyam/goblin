@@ -999,12 +999,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clashofclans.js@npm:dev":
-  version: 2.6.1-dev.208c20e
-  resolution: "clashofclans.js@npm:2.6.1-dev.208c20e"
+"clashofclans.js@npm:2.7.0":
+  version: 2.7.0
+  resolution: "clashofclans.js@npm:2.7.0"
   dependencies:
     node-fetch: ^2.6.7
-  checksum: 9cf8c70fbc305ccb54adb2e125c44a3b8183d060f41ebb11b3ac4d74791b1ff9a1df2f8be0444cd7a601e2f3731d42bc27b3d83d21ee192ccab7441647b084c4
+  checksum: b2599de2c4750bd92913bae4f127a02afaea1c6763d327c7d95347efc764b6e047668805a2c6b394707d240d1ceb80503264bb7a1e254b27a24ae634785bada4
   languageName: node
   linkType: hard
 
@@ -2253,6 +2253,7 @@ __metadata:
     "@sapphire/framework": next
     "@sapphire/plugin-logger": ^2.2.1
     "@sapphire/prettier-config": ^1.4.3
+    "@sapphire/stopwatch": ^1.4.1
     "@sapphire/time-utilities": ^1.7.4
     "@sapphire/ts-config": ^3.3.4
     "@sapphire/type": ^2.2.4
@@ -2263,7 +2264,7 @@ __metadata:
     "@types/node": ^17.0.35
     "@typescript-eslint/eslint-plugin": ^5.25.0
     "@typescript-eslint/parser": ^5.25.0
-    clashofclans.js: dev
+    clashofclans.js: 2.7.0
     colorette: ^2.0.16
     discord-api-types: ^0.30.0
     discord.js: ^13.7.0
