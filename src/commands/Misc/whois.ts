@@ -12,16 +12,18 @@ const sortRanks = (x: Role, y: Role) => Number(y.position > x.position) || Numbe
 })
 export class WhoIsCommand extends GoblinCommand {
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
-		registry.registerChatInputCommand((builder) =>
-			builder
-				.setName(this.name)
-				.setDescription(this.description)
-				.addUserOption((option) =>
-					option //
-						.setName('user')
-						.setDescription('The user to get information for')
-						.setRequired(false)
-				)
+		registry.registerChatInputCommand(
+			(builder) =>
+				builder
+					.setName(this.name)
+					.setDescription(this.description)
+					.addUserOption((option) =>
+						option //
+							.setName('user')
+							.setDescription('The user to get information for')
+							.setRequired(false)
+					),
+			{ idHints: ['974749593696874506'] }
 		);
 	}
 
