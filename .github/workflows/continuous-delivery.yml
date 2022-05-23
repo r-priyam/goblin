@@ -12,7 +12,7 @@ on:
 
 jobs:
   Publish:
-    name: Publish expecto patronum docker image
+    name: Publish docker image
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Project
