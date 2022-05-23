@@ -57,7 +57,8 @@ Object.defineProperties(Piece.prototype, {
 	client: { get: () => container.client },
 	logger: { get: () => container.logger },
 	sql: { get: () => container.sql },
-	redis: { get: () => container.redis }
+	redis: { get: () => container.redis },
+	coc: { get: () => container.coc }
 });
 
 declare module '@sapphire/pieces' {
