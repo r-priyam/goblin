@@ -1,5 +1,6 @@
 import { container, LogLevel, SapphireClient } from '@sapphire/framework';
 import { GatewayIntentBits } from 'discord-api-types/v9';
+import { Options } from 'discord.js';
 import config from '#root/config';
 
 export class GoblinClient extends SapphireClient {
@@ -15,6 +16,50 @@ export class GoblinClient extends SapphireClient {
 			],
 			logger: { level: config.debug ? LogLevel.Debug : LogLevel.Info },
 			loadDefaultErrorListeners: config.debug,
+			makeCache: Options.cacheWithLimits({
+				MessageManager: {
+					maxSize: 80
+				},
+				PresenceManager: 0,
+				GuildMemberManager: {
+					maxSize: 100,
+					keepOverLimit: (user) => user.id === this.user!.id
+				},
+				UserManager: {
+					maxSize: 100,
+					keepOverLimit: (user) => user.id === this.user!.id
+				}
+			}),
+			sweepers: {
+				bans: {
+					interval: 300,
+					filter: () => null
+				},
+				emojis: {
+					interval: 60,
+					filter: () => null
+				},
+				invites: {
+					interval: 120,
+					filter: () => null
+				},
+				messages: {
+					interval: 120,
+					lifetime: 360
+				},
+				reactions: {
+					interval: 5,
+					filter: () => null
+				},
+				voiceStates: {
+					interval: 60,
+					filter: () => null
+				},
+				threads: {
+					interval: 3600,
+					lifetime: 14_400
+				}
+			},
 			presence: {
 				activities: [
 					{
