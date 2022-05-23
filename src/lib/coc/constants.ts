@@ -173,7 +173,105 @@ export const LabelEmotes: { [key: string]: string } = {
 	Veteran: '<:Veteran:701551996263596124>'
 };
 
+export const HomeBaseTroopEmotes: { [key: string]: string } = {
+	Barbarian: '<:Barbarian:701626910207115274>',
+	Archer: '<:Archer:701626909498409040>',
+	Giant: '<:Giant:701626915026370671>',
+	Goblin: '<:Goblin:701626915165044828>',
+	'Wall Breaker': '<:wallbreaker:763264884040663040>',
+	Balloon: '<:Balloon:701626912241352745>',
+	Wizard: '<:Wizard:701626914841821186> ',
+	Healer: '<:Healer:701626914930163783>',
+	Dragon: '<:Dragon:701626910752374804>',
+	'P.E.K.K.A': '<:PEKKA:701626915328491610>',
+	'Baby Dragon': '<:BabyDragon:701626909586358364>',
+	Miner: '<:Miner:701626913793245255>',
+	'Electro Dragon': '<:ElectroDragon:701626910735728672>',
+	Yeti: '<:Yeti:701626914816655431>',
+	'Dragon Rider': '<:DragonRider:854373772412977152>',
+	Minion: '<:Minion:701626915311583294>',
+	'Hog Rider': '<:HogRider:701626914506276895>',
+	Valkyrie: '<:Valkyrie:701626915680681994>',
+	Golem: '<:Golem:701626915395600394>',
+	Witch: '<:Witch:701626915173433385> ',
+	'Lava Hound': '<:LavaHound:701626915479355483>',
+	Bowler: '<:Bowler:701626910614093844>',
+	'Ice Golem': '<:IceGolem:701626913701101668>',
+	Headhunter: '<:Headhunter:742121658386481262>'
+};
+
+export const BuilderBaseTroopEmotes: { [key: string]: string } = {
+	'Raged Barbarian': '<:RagedBarbarian:701625285107515462>',
+	'Sneaky Archer': '<:SneakyArcher:701625285279219765>',
+	'Boxer Giant': '<:BoxerGiant:701625285061115915>',
+	'Beta Minion': '<:BetaMinion:701625285069504562>',
+	Bomber: '<:Bomber:701625279562383410>',
+	'Baby Dragon': '<:BabyDragon:701625278849351721>',
+	'Cannon Cart': '<:CannonCart:701625284847206400>',
+	'Night Witch': '<:NightWitch:701625285161910372>',
+	'Drop Ship': '<:DropShip:701625285061115955>',
+	'Super P.E.K.K.A': '<:SuperPEKKA:701625285031886941>',
+	'Hog Glider': '<:HogGlider:701625283354296331>'
+};
+
+export const SpellEmotes: { [key: string]: string } = {
+	'Lightning Spell': '<:LightningSpell:742119333974638602>',
+	'Healing Spell': '<:HealingSpell:701613920368066660>',
+	'Rage Spell': '<:RageSpell:701613920703611003>',
+	'Jump Spell': '<:JumpSpell:701613920355352596>',
+	'Freeze Spell': '<:FreezeSpell:742119333538299954>',
+	'Clone Spell': '<:CloneSpell:701613916542992445>',
+	'Invisibility Spell': '<:InvisibilitySpell:785540460914671646>',
+	'Poison Spell': '<:PoisonSpell:701613920011550722>',
+	'Earthquake Spell': '<:EarthquakeSpell:701613918396612629>',
+	'Haste Spell': '<:HasteSpell:701613920045236316>',
+	'Skeleton Spell': '<:SkeletonSpell:701613919948636282>',
+	'Bat Spell': '<:BatSpell:701613916198797402>'
+};
+
+export const HeroEmotes: { [key: string]: string } = {
+	'Barbarian King': '<:BarbarianKing:838081409850671114>',
+	'Archer Queen': '<:ArcherQueen:838081404125970484>',
+	'Grand Warden': '<:GrandWarden:838081425671716895>',
+	'Royal Champion': '<:RoyalChampion:838081414448283698>',
+	'Battle Machine': '<:BattleMachine:838081431905239050>'
+};
+
+export const HeroPetEmotes: { [key: string]: string } = {
+	'L.A.S.S.I': '<:LASSI:830510531168829521>',
+	'Electro Owl': '<:ElectroOwl:830511434269982790>',
+	'Mighty Yak': '<:MightyYak:830510531222962278>',
+	Unicorn: '<:Unicorn:830510531483795516>'
+};
+
+export const SiegeMachineEmotes: { [key: string]: string } = {
+	'Wall Wrecker': '<:WallWrecker:701628825142034482>',
+	'Battle Blimp': '<:BattleBlimp:701628824395317328>',
+	'Stone Slammer': '<:StoneSlammer:701628824688918588>',
+	'Siege Barracks': '<:SiegeBarracks:701628824651169913>',
+	'Log Launcher': '<:LogLauncher:785540240358113312>',
+	'Flame Flinger': '<:FlameFlinger:918875579904847873>'
+};
+
+export const SuperTroopEmotes: { [key: string]: string } = {
+	'Super Barbarian': '<:SuperBarbarian:701626916087529673>',
+	'Super Archer': '<:SuperArcher:750010593045643355>',
+	'Super Giant': '<:SuperGiant:701626915902980197>',
+	'Sneaky Goblin': '<:SneakyGoblin:701626916129734787>',
+	'Super Wall Breaker': '<:SuperWallBreaker:701626916133666896>',
+	'Rocket Balloon': '<:RocketBalloon:854368171682431006>',
+	'Super Wizard': '<:SuperWizard:785536616864153610>',
+	'Super Dragon': '<:SuperDragon:918876075809964072>',
+	'Inferno Dragon': '<:InfernoDragon:742121658386743366>',
+	'Super Minion': '<:SuperMinion:771375748916576286>',
+	'Super Valkyrie': '<:SuperValkyrie:771375748815519825>',
+	'Super Witch': '<:SuperWitch:742121660324511818>',
+	'Ice Hound': '<:IceHound:785539963068481546>',
+	'Super Bowler': '<:SuperBowler:892035736168185876>'
+};
+
 export const MiscEmotes: { [key: string]: string } = {
+	Info: '<:Info:978189428138836058>',
 	Leader: '<:Crown:836470125255327774>',
 	'Co-Leader': '',
 	Elder: '',
@@ -185,7 +283,23 @@ export const MiscEmotes: { [key: string]: string } = {
 	HomeTrophy: '<:HomeTrophy:976670888424534026>',
 	BuilderTrophy: '<:BuilderTrophy:836314424469094464>',
 	Members: '<:Members:976673068908945450>',
-	TownHall: '<:Hall:976733387857485854>'
+	TownHall: '<:Hall:976733387857485854>',
+	Exp: '<:Exp:978130453133418536>',
+	Gold: '<:Gold:978127614910816267>',
+	Elixir: '<:Elixir:978127550872178788>',
+	Dark: '<:Dark:978127674709016586>',
+	ClanGold: '<:ClanGold:978127724096942101>',
+	ClanGames: '<:ClanGames:978129366066278400>',
+	WarStars: '<:WarStars:978129022410166282>',
+	GoldStar: '<:GoldStar:978187920475291679>',
+	Sword: '<:Sword:978173762795110401>',
+	Shield: '<:Shield:978181796523020308>',
+	In: '<:In:978176368238026773>',
+	Out: '<:Out:978174817708683294>',
+	Clan: '<:Clan:978180829643681802>',
+	SiegeDonations: '<:SiegeDonations:978184895530688533>',
+	TroopDonations: '<:TroopDonations:978184984168894465>',
+	SpellDonations: '<:SpellDonations:978185026216808488>'
 };
 
 export const TownHallEmotes: { [key: string | number]: string } = {

@@ -1,5 +1,5 @@
-import { UserError, container } from '@sapphire/framework';
-import { Clan, Util, HTTPError } from 'clashofclans.js';
+import { container, UserError } from '@sapphire/framework';
+import { Clan, HTTPError, Util } from 'clashofclans.js';
 import { ErrorMessages } from '#lib/coc';
 
 class ClanHelper {

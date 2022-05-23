@@ -11,7 +11,6 @@
 				}
 			}
 		],
-		"curly": "error",
 		"new-cap": "off",
 		"import/first": "error",
 		"import/no-duplicates": "error",

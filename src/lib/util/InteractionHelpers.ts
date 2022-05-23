@@ -1,6 +1,10 @@
-import type { Message, MessageComponentInteraction } from 'discord.js';
+import type { MessageComponentInteraction } from 'discord.js';
 
-export async function verifyUser(interaction: MessageComponentInteraction, userId: string) {
+export async function collectorFiler(interaction: MessageComponentInteraction, userId: string, messageId: string) {
+	if (interaction.message.id !== messageId) {
+		return false;
+	}
+
 	if (interaction.user.id !== userId) {
 		await interaction.followUp({
 			content: "These buttons can't be controlled by you, sorry!",
@@ -10,12 +14,4 @@ export async function verifyUser(interaction: MessageComponentInteraction, userI
 	}
 
 	return true;
-}
-
-export async function waitForButtonClick(interactionMessage: Message, userId: string, timeout: number) {
-	return interactionMessage.awaitMessageComponent({
-		componentType: 'BUTTON',
-		time: timeout,
-		filter: async (interaction) => verifyUser(interaction, userId)
-	});
 }
