@@ -43,7 +43,7 @@ export function handleNoFuzzyMatch(tag: string) {
 }
 
 export function getFuzzyTagSuggestions(rawTag: string, matches: Fuse.FuseResult<{ name: string; tag: string }>[]) {
-	const formattedTag = Util.formatTag(String(rawTag));
+	const formattedTag = Util.formatTag(rawTag);
 	const validateTag = Util.isValidTag(formattedTag);
 
 	const result = matches
@@ -53,6 +53,7 @@ export function getFuzzyTagSuggestions(rawTag: string, matches: Fuse.FuseResult<
 		}))
 		.slice(0, 14);
 
+	// TODO: there's a possible bug here to skip the suggestions for clan name
 	if (validateTag && result[0].value === Util.formatTag(String(rawTag))) {
 		return result;
 	}

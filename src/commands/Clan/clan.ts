@@ -1,5 +1,5 @@
 import { ApplyOptions } from '@sapphire/decorators';
-import type { ChatInputCommand, Command } from '@sapphire/framework';
+import type { ChatInputCommand } from '@sapphire/framework';
 import type { Clan } from 'clashofclans.js';
 import { MessageEmbed } from 'discord.js';
 
@@ -41,10 +41,6 @@ export class ClanCommand extends GoblinCommand {
 
 		await interaction.editReply({ embeds: [infoEmbed] });
 		return this.clanComposition(interaction, infoEmbed, clan);
-	}
-
-	public override autocompleteRun(interaction: Command.AutocompleteInteraction) {
-		return this.handleClanOrPlayerTagAutoComplete(interaction, 'CLAN');
 	}
 
 	private async clanComposition(interaction: ChatInputCommand.Interaction<'cached'>, embed: MessageEmbed, clan: Clan) {

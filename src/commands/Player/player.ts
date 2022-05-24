@@ -1,6 +1,6 @@
 import { bold } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
-import type { ChatInputCommand, Command } from '@sapphire/framework';
+import type { ChatInputCommand } from '@sapphire/framework';
 import { Time } from '@sapphire/time-utilities';
 import { isNullishOrEmpty } from '@sapphire/utilities';
 import type { Achievement, Player } from 'clashofclans.js';
@@ -56,10 +56,6 @@ export class PlayerCommand extends GoblinCommand {
 		});
 
 		collector.on('end', async () => void (await interaction.editReply({ components: [] }).catch(() => null)));
-	}
-
-	public override autocompleteRun(interaction: Command.AutocompleteInteraction) {
-		return this.handleClanOrPlayerTagAutoComplete(interaction, 'PLAYER');
 	}
 
 	private static get components() {
