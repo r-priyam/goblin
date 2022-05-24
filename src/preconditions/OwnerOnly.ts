@@ -1,6 +1,7 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { Precondition } from '@sapphire/framework';
 import type { CommandInteraction } from 'discord.js';
+
 import config from '#root/config';
 
 @ApplyOptions<Precondition.Options>({

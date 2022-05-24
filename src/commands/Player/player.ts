@@ -5,10 +5,11 @@ import { Time } from '@sapphire/time-utilities';
 import { isNullishOrEmpty } from '@sapphire/utilities';
 import type { Achievement, Player } from 'clashofclans.js';
 import { MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
+
 import { LabelEmotes, MiscEmotes, playerHelper, PlayerUnits, RawPosition } from '#lib/coc';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
-import { collectorFiler } from '#utils/InteractionHelpers';
 import { Colors } from '#utils/constants';
+import { collectorFiler } from '#utils/InteractionHelpers';
 import { humanizeNumber } from '#utils/utils';
 
 @ApplyOptions<ChatInputCommand.Options>({

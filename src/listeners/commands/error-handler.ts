@@ -1,6 +1,5 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { ChatInputCommandErrorPayload, Events, Listener, UserError } from '@sapphire/framework';
-
 import type { CommandInteraction } from 'discord.js';
 
 import { embedBuilder } from '#lib/classes/embeds';

@@ -1,6 +1,7 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import type { ChatInputCommand } from '@sapphire/framework';
 import { Util } from 'clashofclans.js';
+
 import { embedBuilder } from '#lib/classes/embeds';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { redis } from '#utils/redis';

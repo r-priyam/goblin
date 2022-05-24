@@ -7,8 +7,10 @@
 			{
 				"groups": ["builtin", "external", "internal", "index", "sibling", "parent"],
 				"alphabetize": {
-					"order": "asc"
-				}
+					"order": "asc",
+					"caseInsensitive": true
+				},
+				"newlines-between": "always"
 			}
 		],
 		"new-cap": "off",

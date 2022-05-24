@@ -2,6 +2,7 @@ import type { Piece } from '@sapphire/framework';
 import { Command, UserError } from '@sapphire/framework';
 import { isNullishOrEmpty } from '@sapphire/utilities';
 import Fuse from 'fuse.js';
+
 import { getFuzzyTagSuggestions, handleNoFuzzyMatch, handleNoValue } from '#lib/coc';
 import { redis } from '#utils/redis';
 

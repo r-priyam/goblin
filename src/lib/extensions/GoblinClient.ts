@@ -1,6 +1,7 @@
 import { container, LogLevel, SapphireClient } from '@sapphire/framework';
 import { GatewayIntentBits } from 'discord-api-types/v9';
 import { Options } from 'discord.js';
+
 import config from '#root/config';
 
 export class GoblinClient extends SapphireClient {

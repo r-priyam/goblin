@@ -1,4 +1,5 @@
 import { readFile } from 'node:fs/promises';
+
 import { ApplyOptions } from '@sapphire/decorators';
 import type { Store } from '@sapphire/framework';
 import { Events, Listener } from '@sapphire/framework';

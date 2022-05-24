@@ -3,6 +3,7 @@ import '@sapphire/plugin-logger/register';
 
 import { fileURLToPath } from 'node:url';
 import { inspect } from 'node:util';
+
 import { SqlHighlighter } from '@mikro-orm/sql-highlighter';
 import { ApplicationCommandRegistries, container, Logger, Piece, RegisterBehavior } from '@sapphire/framework';
 import { Time } from '@sapphire/time-utilities';
@@ -11,7 +12,9 @@ import { blueBright, createColors, cyan, greenBright, redBright, yellow } from '
 import dotenv from 'dotenv';
 import postgres, { Sql } from 'postgres';
 import { createClient as redisClient, RedisClientType } from 'redis';
+
 import type { GoblinClient } from './extensions/GoblinClient';
+
 import { Cache } from '#lib/coc';
 import { srcFolder } from '#utils/constants';
 
