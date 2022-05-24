@@ -17,11 +17,27 @@ export class Ready extends Listener {
 	private readonly style = config.development ? yellow : blue;
 
 	public async run() {
-		await this.printBanner();
+		await Ready.printBanner();
 		this.printStoreDebugInformation();
 	}
 
-	private async printBanner() {
+	private printStoreDebugInformation() {
+		const { client, logger } = this.container;
+		const stores = [...client.stores.values()];
+		const last = stores.pop()!;
+
+		for (const store of stores) {
+			logger.info(this.styleStore(store, false));
+		}
+
+		logger.info(this.styleStore(last, true));
+	}
+
+	private styleStore(store: Store<any>, last: boolean) {
+		return gray(`${last ? '└─' : '├─'} Loaded ${this.style(store.size.toString().padEnd(3, ' '))} ${store.name}.`);
+	}
+
+	private static async printBanner() {
 		const success = green('+');
 
 		const llc = config.development ? magentaBright : white;
@@ -43,21 +59,5 @@ ${line02} ${pad}[${success}] Gateway
 ${line03}${config.development ? ` ${pad}${blc('<')}${llc('/')}${blc('>')} ${llc('DEVELOPMENT MODE')}` : ''}
 		`.trim()
 		);
-	}
-
-	private printStoreDebugInformation() {
-		const { client, logger } = this.container;
-		const stores = [...client.stores.values()];
-		const last = stores.pop()!;
-
-		for (const store of stores) {
-			logger.info(this.styleStore(store, false));
-		}
-
-		logger.info(this.styleStore(last, true));
-	}
-
-	private styleStore(store: Store<any>, last: boolean) {
-		return gray(`${last ? '└─' : '├─'} Loaded ${this.style(store.size.toString().padEnd(3, ' '))} ${store.name}.`);
 	}
 }

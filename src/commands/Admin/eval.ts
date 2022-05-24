@@ -76,7 +76,7 @@ export class EvalCommand extends GoblinCommand {
 		await interaction.editReply({ embeds: [embed], files });
 	}
 
-	private async eval(
+	protected async eval(
 		interaction: ChatInputCommand.Interaction<'cached'>,
 		code: string,
 		{ isAsync, depth }: { isAsync: boolean | null; depth: number | null }
@@ -93,6 +93,7 @@ export class EvalCommand extends GoblinCommand {
 
 			// @ts-expect-error use as a variable if needed in eval
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
+			// noinspection JSUnusedLocalSymbols
 			const i = interaction;
 			// eslint-disable-next-line no-eval
 			result = eval(code);
