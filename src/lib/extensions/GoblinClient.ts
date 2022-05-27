@@ -1,4 +1,5 @@
 import { container, LogLevel, SapphireClient } from '@sapphire/framework';
+import { ScheduledTaskRedisStrategy } from '@sapphire/plugin-scheduled-tasks/register-redis';
 import { GatewayIntentBits } from 'discord-api-types/v9';
 import { Options } from 'discord.js';
 
@@ -12,6 +13,7 @@ export class GoblinClient extends SapphireClient {
 				GatewayIntentBits.GuildBans,
 				GatewayIntentBits.GuildMembers,
 				GatewayIntentBits.GuildMessages,
+				GatewayIntentBits.GuildPresences,
 				GatewayIntentBits.GuildVoiceStates,
 				GatewayIntentBits.GuildMessageReactions
 			],
@@ -68,6 +70,9 @@ export class GoblinClient extends SapphireClient {
 						type: 'PLAYING'
 					}
 				]
+			},
+			tasks: {
+				strategy: new ScheduledTaskRedisStrategy({})
 			}
 		});
 	}
