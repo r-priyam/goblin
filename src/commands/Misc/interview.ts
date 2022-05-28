@@ -1,4 +1,4 @@
-import { userMention } from '@discordjs/builders';
+import { userMention, channelMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { fetch, FetchResultTypes } from '@sapphire/fetch';
 import type { ChatInputCommand } from '@sapphire/framework';
@@ -7,6 +7,7 @@ import { MessageEmbed, TextChannel } from 'discord.js';
 
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import config from '#root/config';
+import { embedBuilder } from '#root/lib/classes/embeds';
 import { Colors } from '#utils/constants';
 
 @ApplyOptions<ChatInputCommand.Options>({
@@ -44,12 +45,12 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 					)
 					.addSubcommand((command) =>
 						command
-							.setName('stop')
-							.setDescription('Stops the ongoing interview in channel')
+							.setName('close')
+							.setDescription('Closes the ongoing interview in channel')
 							.addStringOption((option) =>
 								option //
 									.setName('reason')
-									.setDescription('Reason to end the interview')
+									.setDescription('Reason to close the interview')
 									.setRequired(true)
 							)
 					),
@@ -63,7 +64,7 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 		}
 
 		await interaction.deferReply();
-		const subCommand = interaction.options.getSubcommand(true) as 'start' | 'stop';
+		const subCommand = interaction.options.getSubcommand(true) as 'start' | 'close';
 		return this[subCommand](interaction);
 	}
 
@@ -97,20 +98,26 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 		await member.roles.remove('318003116773474304');
 		await member.roles.add('728426658377367664');
 
-		return channel.send({
+		await channel.send({
 			content: userMention(member.id),
 			embeds: [new MessageEmbed().setColor(Colors.LightGreen).setDescription(this.#welcomeMessage)]
 		});
+
+		return interaction.editReply({ embeds: [embedBuilder.success(`Successfully created ${channelMention(channel.id)}`)] });
 	}
 
-	private async stop(interaction: ChatInputCommand.Interaction<'cached'>) {
+	private async close(interaction: ChatInputCommand.Interaction<'cached'>) {
 		const reason = interaction.options.getString('reason', true);
 		const { channel, member } = interaction;
 
 		const messages: string[] = [];
 		await channel?.messages.fetch({ limit: 100 }, { force: true }).then((data) => {
-			for (const message of data.values()) {
-				messages.push(message.cleanContent);
+			for (const message of [...data.values()].sort((a, b) => a.createdTimestamp - b.createdTimestamp)) {
+				if (message.embeds.length) {
+					messages.push(`${message.createdAt} » ${message.author.username} » ${message.embeds[0].description}`);
+				}
+
+				if (message.content.length) messages.push(`${message.createdAt} » ${message.author.username} » ${message.content}`);
 			}
 		});
 
@@ -126,7 +133,7 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 		const successData = {
 			embeds: [
 				new MessageEmbed()
-					.setDescription(`Backup file for ${channel?.name} is saved at https://gist.github.com/${gistId}`)
+					.setDescription(`Backup file for ${channel?.name} is saved at https://gist.github.com/robo-goblin/${gistId}`)
 					.setColor(Colors.Indigo)
 			]
 		};
