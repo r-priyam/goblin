@@ -20,7 +20,7 @@ services:
       - POSTGRES_PASSWORD=goblin
       - POSTGRES_DB=goblin
     ports:
-    - '5432:5432'
+    - '7777:5432'
     volumes:
       - goblin:/var/lib/postgresql/data
     networks:
