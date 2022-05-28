@@ -23,8 +23,6 @@ services:
     - '7777:5432'
     volumes:
       - goblin:/var/lib/postgresql/data
-    networks:
-      - goblin
 
   redis:
     <<: *logging
@@ -33,8 +31,6 @@ services:
     container_name: redis
     ports:
       - '127.0.0.1:6379:6379'
-    networks:
-      - goblin
 
   bot:
     <<: *logging
@@ -45,15 +41,10 @@ services:
       context: ../
     env_file:
       - ../src/.env
-    networks:
-      - goblin
     depends_on:
       - postgres
       - redis
     tty: true
 
 volumes:
-  goblin:
-
-networks:
   goblin:

@@ -25,7 +25,7 @@ createColors({ useColor: true });
 
 ApplicationCommandRegistries.setDefaultBehaviorWhenNotIdentical(RegisterBehavior.Overwrite);
 
-container.redis = redisClient();
+container.redis = redisClient({ url: 'redis://:@redis:6379' });
 container.redis.on('ready', () => container.logger.info(`${cyan('[REDIS]')} Successfully connected`));
 container.redis.on('error', (error) => container.logger.error(error));
 container.redis.on('reconnecting', () => container.logger.warn(`${yellow('[REDIS]')} Attempting reconnect`));
