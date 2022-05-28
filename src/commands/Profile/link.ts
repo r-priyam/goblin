@@ -29,7 +29,7 @@ export class SlashCommand extends GoblinCommand {
 							.addStringOption((option) => option.setName('tag').setDescription('Tag of the player').setRequired(true))
 							.addStringOption((option) => option.setName('token').setDescription('API token of the player').setRequired(true))
 					),
-			{ idHints: ['975266632299606106'] }
+			{ idHints: ['975266632299606106', '980131947475009556'] }
 		);
 	}
 

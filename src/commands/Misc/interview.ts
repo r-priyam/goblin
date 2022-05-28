@@ -54,7 +54,7 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 									.setRequired(true)
 							)
 					),
-			{ idHints: ['979827529579921458'] }
+			{ idHints: ['979827529579921458', '980131952327802930'] }
 		);
 	}
 

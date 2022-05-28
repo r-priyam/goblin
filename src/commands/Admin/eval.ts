@@ -47,7 +47,7 @@ export class EvalCommand extends GoblinCommand {
 							.setDescription('The depth of the displayed return type')
 							.setRequired(false)
 					),
-			{ idHints: ['978257844585500702'], guildIds: ['789853678730608651'] }
+			{ idHints: ['978257844585500702', '980132037891592293'], guildIds: ['789853678730608651'] }
 		);
 	}
 

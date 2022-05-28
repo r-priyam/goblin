@@ -25,7 +25,7 @@ export class ClanCommand extends GoblinCommand {
 							.setRequired(false)
 							.setAutocomplete(true)
 					),
-			{ idHints: ['975586954982867024'] }
+			{ idHints: ['975586954982867024', '980132035089809429'] }
 		);
 	}
 

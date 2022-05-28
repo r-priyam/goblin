@@ -29,7 +29,7 @@ export class PlayerCommand extends GoblinCommand {
 							.setRequired(false)
 							.setAutocomplete(true)
 					),
-			{ idHints: ['977007152600350761'] }
+			{ idHints: ['977007152600350761', '980131956241092648'] }
 		);
 	}
 

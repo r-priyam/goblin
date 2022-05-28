@@ -29,7 +29,7 @@ export class SlashCommand extends GoblinCommand {
 							.setDescription('The tag to unlink')
 							.setRequired(true)
 					),
-			{ idHints: ['975442552134197248'] }
+			{ idHints: ['975442552134197248', '980131949911883847'] }
 		);
 	}
 
