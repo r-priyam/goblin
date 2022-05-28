@@ -2,19 +2,19 @@
 #    Base Stage    #
 # ================ #
 
-FROM node:18-alpine as base
+FROM node:18-bullseye-slim as base
 
 WORKDIR /usr/src/app
 
 ENV HUSKY=0
 ENV CI=true
 
-RUN apk add --update --no-cache alpine-sdk && \
-	apk add --no-cache python3 && \
-	rm -rf /var/cache/apk/*
-
-RUN wget -O /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.2.5/dumb-init_1.2.5_x86_64
-RUN chmod +x /usr/local/bin/dumb-init
+RUN apt-get update && \
+    apt-get upgrade -y --no-install-recommends && \
+    apt-get install -y --no-install-recommends build-essential python3 dumb-init && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
+    apt-get autoremove
 
 COPY --chown=node:node yarn.lock .
 COPY --chown=node:node package.json .
@@ -31,6 +31,8 @@ ENTRYPOINT ["dumb-init", "--"]
 
 FROM base as builder
 
+ENV NODE_ENV="development"
+
 COPY --chown=node:node tsconfig.base.json tsconfig.base.json
 COPY --chown=node:node tsup.config.ts .
 COPY --chown=node:node src/ src/
@@ -38,15 +40,13 @@ COPY --chown=node:node src/ src/
 RUN yarn install --immutable
 RUN yarn run build
 
-RUN curl -sf https://gobinaries.com/tj/node-prune | sh
-RUN node-prune
-
 # ================ #
 #   Runner Stage   #
 # ================ #
 
 FROM base AS runner
 
+ENV NODE_ENV="production"
 ENV NODE_OPTIONS="--enable-source-maps"
 
 COPY --chown=node:node --from=builder /usr/src/app/dist dist
