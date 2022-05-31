@@ -1,4 +1,4 @@
-import { userMention } from '@discordjs/builders';
+import { inlineCode, userMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { ScheduledTask } from '@sapphire/plugin-scheduled-tasks';
 import { Constants, TextChannel } from 'discord.js';
@@ -6,7 +6,7 @@ import { Constants, TextChannel } from 'discord.js';
 import { embedBuilder } from '#root/lib/classes/embeds';
 
 @ApplyOptions<ScheduledTask.Options>({
-	cron: '*/1 * * * *',
+	cron: '*/10 * * * *',
 	bullJobOptions: {
 		removeOnComplete: true
 	}
@@ -20,13 +20,15 @@ export class EygMemberCheck extends ScheduledTask {
 		const eygGuild = await this.client.guilds.fetch('289171810195603457');
 		// TODO: Write pending members check
 		// const pendingMembers = await eygGuild.members.fetch().then((data) => [...data.values()].filter((member) => member.pending));
-		const checkRoleMembers = await eygGuild.roles.fetch(this.checkRoleId).then((role) => role?.members.values());
+
+		const checkRoleMembers = await eygGuild.members
+			.fetch()
+			.then((member) => [...member.values()].filter((member) => member.roles.cache.has(this.checkRoleId)));
 
 		if (!checkRoleMembers) return;
 
 		for (const member of checkRoleMembers) {
-			// @ts-expect-error `joinedAt` won't be null when whole guild members are fetched
-			const minutes = Number.parseInt(String((Math.abs(Date.now() - member.joinedAt) / (1000 * 60)) % 60), 10);
+			const minutes = this.getMinutes(member.joinedAt!);
 			const gatewayChannel = (await this.client.channels.fetch('318003864211030017')) as TextChannel;
 
 			if (minutes === 60 * 12) {
@@ -43,11 +45,17 @@ export class EygMemberCheck extends ScheduledTask {
 				await gatewayChannel.send({
 					embeds: [
 						embedBuilder.info(
-							`Automatically kicked ${userMention(member.id)} from the server as they've been in \`gateway for 24 hours+\``
+							`Automatically kicked ${inlineCode(member.displayName)} from the server as they've been in \`gateway for 24 hours+\``
 						)
 					]
 				});
 			}
 		}
+	}
+
+	private getMinutes(time: Date) {
+		let diff = (time.getTime() - Date.now()) / 1000;
+		diff /= 60;
+		return Math.abs(Math.round(diff));
 	}
 }
