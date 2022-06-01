@@ -16,6 +16,8 @@
 		"dev": "tsup --watch --onSuccess \"yarn start\"",
 		"format": "prettier --write --loglevel=warn \"src/**/*.ts\"",
 		"lint": "eslint src --ext ts --fix",
+		"release": "cliff-jumper",
+		"release:test": "cliff-jumper --dry-run",
 		"start": "node --enable-source-maps dist/goblin.js",
 		"typecheck": "tsc -b src",
 		"watch": "tsup --watch"
@@ -53,6 +55,7 @@
 		"reflect-metadata": "^0.1.13"
 	},
 	"devDependencies": {
+		"@favware/cliff-jumper": "^1.8.0",
 		"@sapphire/eslint-config": "^4.3.5",
 		"@sapphire/prettier-config": "^1.4.3",
 		"@sapphire/ts-config": "^3.3.4",
