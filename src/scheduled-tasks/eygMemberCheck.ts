@@ -6,7 +6,7 @@ import { Constants, TextChannel } from 'discord.js';
 import { embedBuilder } from '#root/lib/classes/embeds';
 
 @ApplyOptions<ScheduledTask.Options>({
-	cron: '*/10 * * * *',
+	cron: '*/01 * * * *',
 	bullJobOptions: {
 		removeOnComplete: true
 	}
