@@ -1,7 +1,6 @@
 import 'reflect-metadata';
 import '@sapphire/plugin-logger/register';
 
-import { fileURLToPath } from 'node:url';
 import { inspect } from 'node:util';
 
 import { SqlHighlighter } from '@mikro-orm/sql-highlighter';
@@ -9,23 +8,20 @@ import { ApplicationCommandRegistries, container, Logger, Piece, RegisterBehavio
 import { Time } from '@sapphire/time-utilities';
 import { Client } from 'clashofclans.js';
 import { blueBright, createColors, cyan, greenBright, redBright, yellow } from 'colorette';
-import dotenv from 'dotenv';
 import postgres, { Sql } from 'postgres';
 import { createClient as redisClient, RedisClientType } from 'redis';
 
 import type { GoblinClient } from './extensions/GoblinClient';
 
 import { Cache } from '#lib/coc';
-import { srcFolder } from '#utils/constants';
-
-dotenv.config({ path: fileURLToPath(new URL('.env', srcFolder)) });
+import config from '#root/config';
 
 inspect.defaultOptions.depth = 1;
 createColors({ useColor: true });
 
 ApplicationCommandRegistries.setDefaultBehaviorWhenNotIdentical(RegisterBehavior.Overwrite);
 
-container.redis = redisClient({ url: 'redis://:@redis:6379' });
+container.redis = redisClient({ url: `redis://:@${config.redis.host}:${config.redis.port}` });
 container.redis.on('ready', () => container.logger.info(`${cyan('[REDIS]')} Successfully connected`));
 container.redis.on('error', (error) => container.logger.error(error));
 container.redis.on('reconnecting', () => container.logger.warn(`${yellow('[REDIS]')} Attempting reconnect`));

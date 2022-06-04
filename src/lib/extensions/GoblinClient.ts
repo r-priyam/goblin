@@ -75,7 +75,9 @@ export class GoblinClient extends SapphireClient {
 				strategy: new ScheduledTaskRedisStrategy({
 					bull: {
 						redis: {
-							host: 'redis'
+							host: config.redis.host,
+							port: config.redis.port,
+							db: config.redis.taskDb
 						}
 					}
 				})

@@ -1,3 +1,11 @@
+import { fileURLToPath } from 'node:url';
+
+import dotenv from 'dotenv';
+
+import { srcFolder } from '#utils/constants';
+
+dotenv.config({ path: fileURLToPath(new URL('.env', srcFolder)) });
+
 const config = {
 	development: process.env.DEVELOPMENT === 'true',
 	debug: process.env.DEBUG === 'true',
@@ -10,6 +18,12 @@ const config = {
 		email: process.env.CLASH_EMAIL!,
 		password: process.env.CLASH_PASSWORD!,
 		keyName: process.env.CLASH_KEY_NAME!
+	},
+	redis: {
+		host: process.env.REDIS_HOST,
+		port: Number(process.env.REDIS_PORT),
+		cacheDb: Number(process.env.REDIS_CACHE_DB),
+		taskDb: Number(process.env.REDIS_TASK_DB)
 	}
 };
 

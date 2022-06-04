@@ -1,18 +1,7 @@
 version: '3.9'
 
-x-logging: &logging
-  logging:
-    options:
-      max-file: '1'
-      max-size: '5m'
-
-x-restart-policy: &restart_policy
-  restart: unless-stopped
-
 services:
   postgres:
-    <<: *logging
-    <<: *restart_policy
     container_name: postgres
     build: ./postgresql
     environment:
@@ -20,21 +9,28 @@ services:
       - POSTGRES_PASSWORD=goblin
       - POSTGRES_DB=goblin
     ports:
-    - '7777:5432'
+    - '5454:5432'
+    restart: always
+    logging:
+      options:
+        max-size: '5m'
+        max-file: '1'
     volumes:
       - goblin:/var/lib/postgresql/data
 
   redis:
-    <<: *logging
-    <<: *restart_policy
-    image: 'redis:7.0.0-alpine'
+    command: 'redis-server --port 6363'
+    image: 'redis:alpine'
     container_name: redis
     ports:
-      - '127.0.0.1:6379:6379'
+      - '127.0.0.1:6363:6363'
+    restart: always
+    logging:
+      options:
+        max-size: '5m'
+        max-file: '1'
 
   bot:
-    <<: *logging
-    <<: *restart_policy
     image: ghcr.io/r-priyam/goblin:latest
     container_name: goblin
     build:
@@ -44,6 +40,11 @@ services:
     depends_on:
       - postgres
       - redis
+    restart: always
+    logging:
+      options:
+        max-size: '100m'
+        max-file: '3'
     tty: true
 
 volumes:
