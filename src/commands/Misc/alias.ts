@@ -47,7 +47,7 @@ export class AliasCommand extends GoblinCommand {
 									.setRequired(true)
 							)
 					),
-			{ idHints: ['983041653034074203'] }
+			{ idHints: ['983041653034074203', '983446195672342689'] }
 		);
 	}
 
