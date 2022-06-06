@@ -1512,7 +1512,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cross-spawn@npm:^7.0.2, cross-spawn@npm:^7.0.3":
+"cross-spawn@npm:^7.0.0, cross-spawn@npm:^7.0.2, cross-spawn@npm:^7.0.3":
   version: 7.0.3
   resolution: "cross-spawn@npm:7.0.3"
   dependencies:
@@ -1725,6 +1725,18 @@ __metadata:
   dependencies:
     iconv-lite: ^0.6.2
   checksum: bb98632f8ffa823996e508ce6a58ffcf5856330fde839ae42c9e1f436cc3b5cc651d4aeae72222916545428e54fd0f6aa8862fd8d25bdbcc4589f1e3f3715e7f
+  languageName: node
+  linkType: hard
+
+"env-cmd@npm:^10.1.0":
+  version: 10.1.0
+  resolution: "env-cmd@npm:10.1.0"
+  dependencies:
+    commander: ^4.0.0
+    cross-spawn: ^7.0.0
+  bin:
+    env-cmd: bin/env-cmd.js
+  checksum: efef55074250f14cfc0b80c98dd98f1f056a80e1f3c7db14097ceefdd2d56c766bbb83b54c22932112707f41b36ce2e923f8015d69e62a75c12d98640b972e75
   languageName: node
   linkType: hard
 
@@ -2703,6 +2715,7 @@ __metadata:
     discord-api-types: ^0.30.0
     discord.js: ^13.7.0
     dotenv: ^16.0.1
+    env-cmd: ^10.1.0
     eslint: ^8.16.0
     eslint-config-prettier: ^8.5.0
     eslint-plugin-import: ^2.26.0
@@ -2711,6 +2724,7 @@ __metadata:
     figlet: ^1.5.2
     fuse.js: ^6.6.2
     gradient-string: ^2.0.1
+    ley: ^0.7.1
     postgres: ^3.2.4
     prettier: ^2.6.2
     redis: ^4.1.0
@@ -3243,6 +3257,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"kleur@npm:^4.1.0":
+  version: 4.1.4
+  resolution: "kleur@npm:4.1.4"
+  checksum: 7f6db36e378045dec14acd3cbf0b1e59130c09e984ee8b8ce56dd2d2257cfff90389c1e8f8b19bd09dd5d241080566a814b4ccd99fdcef91f59ef93ec33c8a44
+  languageName: node
+  linkType: hard
+
 "levn@npm:^0.4.1":
   version: 0.4.1
   resolution: "levn@npm:0.4.1"
@@ -3257,6 +3278,20 @@ __metadata:
   version: 0.17.0
   resolution: "lexure@npm:0.17.0"
   checksum: 95797b0ada9452bcdfdd30997572ab1673de1b2583a5af2fa309aa3587ec3b95ba361880b333ed446a6b0f07764b6d8d2cf1d72083c61fa9f96c06181f194453
+  languageName: node
+  linkType: hard
+
+"ley@npm:^0.7.1":
+  version: 0.7.1
+  resolution: "ley@npm:0.7.1"
+  dependencies:
+    kleur: ^4.1.0
+    mk-dirs: ^3.0.0
+    sade: ^1.7.0
+    totalist: ^2.0.0
+  bin:
+    ley: bin.js
+  checksum: 88abd370fda26aca766446029bfc14008db03299bf9ef991c9bb634288b9fc798ca785eb8174f27976c684dd058ec9a65b01207adac4f62d2fa24143d5fb2c0f
   languageName: node
   linkType: hard
 
@@ -3598,6 +3633,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mk-dirs@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "mk-dirs@npm:3.0.0"
+  checksum: aba678d9c3c0616045cb2db730d935522d801f6bb32b69d50a586dfedad748252c52a7db45f76d4523d0eedddc4f31f4180958da2f935201d10d00ba9f9fca00
+  languageName: node
+  linkType: hard
+
 "mkdirp@npm:^1.0.3, mkdirp@npm:^1.0.4":
   version: 1.0.4
   resolution: "mkdirp@npm:1.0.4"
@@ -3611,6 +3653,13 @@ __metadata:
   version: 1.0.1
   resolution: "modify-values@npm:1.0.1"
   checksum: 8296610c608bc97b03c2cf889c6cdf4517e32fa2d836440096374c2209f6b7b3e256c209493a0b32584b9cb32d528e99d0dd19dcd9a14d2d915a312d391cc7e9
+  languageName: node
+  linkType: hard
+
+"mri@npm:^1.1.0":
+  version: 1.2.0
+  resolution: "mri@npm:1.2.0"
+  checksum: 83f515abbcff60150873e424894a2f65d68037e5a7fcde8a9e2b285ee9c13ac581b63cfc1e6826c4732de3aeb84902f7c1e16b7aff46cd3f897a0f757a894e85
   languageName: node
   linkType: hard
 
@@ -4379,6 +4428,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"sade@npm:^1.7.0":
+  version: 1.8.1
+  resolution: "sade@npm:1.8.1"
+  dependencies:
+    mri: ^1.1.0
+  checksum: 0756e5b04c51ccdc8221ebffd1548d0ce5a783a44a0fa9017a026659b97d632913e78f7dca59f2496aa996a0be0b0c322afd87ca72ccd909406f49dbffa0f45d
+  languageName: node
+  linkType: hard
+
 "safe-buffer@npm:~5.2.0":
   version: 5.2.1
   resolution: "safe-buffer@npm:5.2.1"
@@ -4783,6 +4841,13 @@ __metadata:
   dependencies:
     is-number: ^7.0.0
   checksum: f76fa01b3d5be85db6a2a143e24df9f60dd047d151062d0ba3df62953f2f697b16fe5dad9b0ac6191c7efc7b1d9dcaa4b768174b7b29da89d4428e64bc0a20ed
+  languageName: node
+  linkType: hard
+
+"totalist@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "totalist@npm:2.0.0"
+  checksum: 9cc5aa15c78374e50ea90a93fd0137dfec68c2139db6767f0707951681fa931343ae9a71ed257da80bc5deb994cf841f14a1512cb6708c4806617eb4513cd965
   languageName: node
   linkType: hard
 

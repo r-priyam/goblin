@@ -35,3 +35,17 @@ COMMENT ON COLUMN public.clans.user_id IS 'The user id of the user to whom playe
 COMMENT ON COLUMN public.clans.clan_name IS 'The name of the player';
 COMMENT ON COLUMN public.clans.clan_tag IS 'The tag of the player';
 COMMENT ON COLUMN public.clans.linked_at IS 'The date and time when the player was linked';
+
+CREATE TABLE public.aliases
+(
+    alias     VARCHAR(5) PRIMARY KEY,
+    clan_name VARCHAR(20) NOT NULL,
+    clan_tag  TEXT        NOT NULL
+);
+
+CREATE UNIQUE INDEX idx_clan_aliases ON aliases (clan_tag, alias);
+
+COMMENT ON COLUMN public.aliases.alias IS 'The alias of the clan';
+COMMENT ON COLUMN public.aliases.clan_name IS 'The clan name of the clan for alias';
+COMMENT ON COLUMN public.aliases.clan_tag IS 'The clan tag of the clan for alias';
+

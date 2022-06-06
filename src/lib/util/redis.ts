@@ -1,11 +1,6 @@
 import { container } from '@sapphire/framework';
 import { isNullish } from '@sapphire/utilities';
 
-interface ClanOrPlayer {
-	name: string;
-	tag: string;
-}
-
 class RedisUtil {
 	private readonly redis = container.redis;
 
@@ -48,17 +43,42 @@ class RedisUtil {
 			return this.set(`${initial}-${userId}`, JSON.stringify(cachedData));
 		}
 
-		if (isNullish(cachedData)) {
-			return;
-		}
+		if (isNullish(cachedData)) return;
 
 		const updated = cachedData.filter((data) => data.tag === tag);
-		if (updated.length === 0) {
-			return this.delete(`${initial}-${userId}`);
+
+		if (updated.length === 0) return this.delete(`${initial}-${userId}`);
+		return this.set(`${initial}-${userId}`, JSON.stringify(updated));
+	}
+
+	public async handleAliasOperations(method: 'CREATE' | 'DELETE', tag: string, alias: string, name?: string) {
+		const cachedAlias: ClanAlias[] = await this.get('clan-aliases');
+
+		if (method === 'CREATE') {
+			if (isNullish(cachedAlias)) {
+				return this.set(`clan-aliases`, JSON.stringify([{ name: name!, tag, alias }]));
+			}
+
+			cachedAlias.push({ name: name!, tag, alias });
+			return this.set('clan-aliases', JSON.stringify(cachedAlias));
 		}
 
-		return this.set(`${initial}-${userId}`, JSON.stringify(updated));
+		if (isNullish(cachedAlias)) return;
+
+		const updated = cachedAlias.filter((data) => data.tag === tag);
+
+		if (updated.length === 0) return this.delete('clan-aliases');
+		return this.set('clan-aliases', JSON.stringify(updated));
 	}
 }
 
 export const redis = new RedisUtil();
+
+interface ClanOrPlayer {
+	name: string;
+	tag: string;
+}
+
+export interface ClanAlias extends ClanOrPlayer {
+	alias: string;
+}
