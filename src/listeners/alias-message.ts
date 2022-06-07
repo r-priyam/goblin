@@ -17,7 +17,7 @@ export class AliasListener extends Listener<typeof Events.MessageCreate> {
 	public async run(message: Message) {
 		const cachedAlias: ClanAlias[] = await redis.get('clan-aliases');
 
-		const parsedMessage = message.content.split(' ', 1)[0].toLowerCase();
+		const parsedMessage = message.content.split(' ', 1)[0].toUpperCase();
 
 		if (!cachedAlias) return;
 		const possibleAlias = cachedAlias.find((aliases) => aliases.alias === parsedMessage);

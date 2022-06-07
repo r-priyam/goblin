@@ -53,11 +53,11 @@ export class AliasCommand extends GoblinCommand {
 	}
 
 	public override async chatInputRun(interaction: ChatInputCommand.Interaction<'cached'>) {
-		if (!interaction.member.roles.cache.has('349856938579984385') || !config.bot.owners.includes(interaction.user.id)) {
+		await interaction.deferReply({ ephemeral: true });
+
+		if (!interaction.member.roles.cache.has('349856938579984385') && !config.bot.owners.includes(interaction.user.id)) {
 			this.userError({ message: "You aren't allowed to use this command" });
 		}
-
-		await interaction.deferReply({ ephemeral: true });
 
 		const subCommand = interaction.options.getSubcommand(true) as 'create' | 'remove';
 		return subCommand === 'create' ? this.createAlias(interaction) : this.removeAlias(interaction);
@@ -78,7 +78,7 @@ export class AliasCommand extends GoblinCommand {
 
 		try {
 			await this.sql`INSERT INTO aliases (alias, clan_name, clan_tag)
-                           VALUES (${alias}, ${clan.name}, ${clan.tag})`;
+                           VALUES (${alias.toUpperCase()}, ${clan.name}, ${clan.tag})`;
 		} catch (error) {
 			if (error instanceof this.sql.PostgresError && error.code === '23505') {
 				throw new UserError({
@@ -88,7 +88,7 @@ export class AliasCommand extends GoblinCommand {
 			}
 		}
 
-		await redis.handleAliasOperations('CREATE', clan.tag, alias, clan.name);
+		await redis.handleAliasOperations('CREATE', clan.tag, alias.toUpperCase(), clan.name);
 		return interaction.editReply({
 			embeds: [
 				new MessageEmbed() //
