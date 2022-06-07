@@ -35,8 +35,8 @@ ${MiscEmotes.Members} ${clan.memberCount}
 ${bold('Required Trophies')}
 ${MiscEmotes.HomeTrophy} ${clan.requiredTrophies} ${MiscEmotes.BuilderTrophy} ${clan.requiredVersusTrophies}
 ${bold('War Stats')}
- Wins ${MiscEmotes.Sword} ${clan.warWins}
-Streak ${MiscEmotes.Shield} ${clan.warWinStreak}
+ ${MiscEmotes.Sword} ${clan.warWins} Wins
+${MiscEmotes.WarStreak} ${clan.warWinStreak} Streak
 
 ${bold('Description')}
 ${clan.description || 'No description'}`;

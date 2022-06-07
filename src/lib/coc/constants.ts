@@ -293,6 +293,7 @@ export const MiscEmotes: { [key: string]: string } = {
 	WarStars: '<:WarStars:978129022410166282>',
 	GoldStar: '<:GoldStar:978187920475291679>',
 	Sword: '<:Sword:978173762795110401>',
+	WarStreak: '<:WarStreak:983577598233829426>',
 	Shield: '<:Shield:978181796523020308>',
 	In: '<:In:978176368238026773>',
 	Out: '<:Out:978174817708683294>',
