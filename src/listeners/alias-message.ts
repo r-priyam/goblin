@@ -15,9 +15,10 @@ import { ClanAlias, redis } from '#utils/redis';
 })
 export class AliasListener extends Listener<typeof Events.MessageCreate> {
 	public async run(message: Message) {
-		const cachedAlias: ClanAlias[] = await redis.get('clan-aliases');
+		if (message.author.bot || message.content.length > 6) return;
 
-		const parsedMessage = message.content.split(' ', 1)[0].toUpperCase();
+		const cachedAlias: ClanAlias[] = await redis.get('clan-aliases');
+		const parsedMessage = message.content.toUpperCase().split(' ', 1)[0];
 
 		if (!cachedAlias) return;
 		const possibleAlias = cachedAlias.find((aliases) => aliases.alias === parsedMessage);
