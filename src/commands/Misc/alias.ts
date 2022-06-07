@@ -6,6 +6,7 @@ import { MessageEmbed } from 'discord.js';
 
 import { clanHelper } from '#lib/coc';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
+import config from '#root/config';
 import { Colors } from '#utils/constants';
 import { redis } from '#utils/redis';
 
@@ -52,7 +53,7 @@ export class AliasCommand extends GoblinCommand {
 	}
 
 	public override async chatInputRun(interaction: ChatInputCommand.Interaction<'cached'>) {
-		if (!interaction.member.roles.cache.has('349856938579984385')) {
+		if (!interaction.member.roles.cache.has('349856938579984385') || !config.bot.owners.includes(interaction.user.id)) {
 			this.userError({ message: "You aren't allowed to use this command" });
 		}
 
