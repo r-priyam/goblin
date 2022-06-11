@@ -6,11 +6,12 @@ All notable changes to this project will be documented in this file.\n
 """
 body = """
 {% if version %}\
+	# [{{ version | trim_start_matches(pat="v") }}]
 	{% if previous %}\
 		{% if previous.version %}\
-			# [{{ version | trim_start_matches(pat="v") }}](https://github.com/r-priyam/goblin/compare/{{ previous.version }}...{{ version }})\
-		{% else %}
-			# [{{ version | trim_start_matches(pat="v") }}](https://github.com/r-priyam/goblin/tree/{{ version }})\
+			(https://github.com/r-priyam/goblin/compare/{{ previous.version }}...{{ version }})\
+		{% else %}\
+			(https://github.com/r-priyam/goblin/tree/{{ version }})\
 		{% endif %}\
 	{% endif %} \
 	- ({{ timestamp | date(format="%Y-%m-%d") }})
