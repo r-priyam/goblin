@@ -5,7 +5,7 @@ export default defineConfig({
 	dts: false,
 	entry: ['src/**/*.ts', '!src/**/*.d.ts'],
 	format: ['esm'],
-	minify: false,
+	minify: true,
 	skipNodeModulesBundle: true,
 	sourcemap: true,
 	target: 'esnext',
