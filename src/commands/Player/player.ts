@@ -2,7 +2,7 @@ import { bold } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import type { ChatInputCommand } from '@sapphire/framework';
 import { Time } from '@sapphire/time-utilities';
-import { isNullishOrEmpty } from '@sapphire/utilities';
+import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
 import type { Achievement, Player } from 'clashofclans.js';
 import { MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
 
@@ -10,6 +10,7 @@ import { LabelEmotes, MiscEmotes, playerHelper, PlayerUnits, RawPosition } from 
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#utils/constants';
 import { collectorFiler } from '#utils/InteractionHelpers';
+import { ClanOrPlayer, redis } from '#utils/redis';
 import { humanizeNumber } from '#utils/utils';
 
 @ApplyOptions<ChatInputCommand.Options>({
@@ -35,8 +36,21 @@ export class PlayerCommand extends GoblinCommand {
 
 	public override async chatInputRun(interaction: ChatInputCommand.Interaction<'cached'>) {
 		const message = await interaction.deferReply({ fetchReply: true });
-		const player = await playerHelper.info(interaction.options.getString('tag', true));
+		let playerTag = interaction.options.getString('tag');
 
+		if (isNullish(playerTag)) {
+			const cachedPlayers = await redis.get<ClanOrPlayer[]>(`p-${interaction.user.id}`);
+			if (isNullish(cachedPlayers)) {
+				await interaction.editReply({
+					content: 'You have no player linked into your profile. Please link any player or provide the tag as 2nd argument!'
+				});
+				return;
+			}
+
+			playerTag = cachedPlayers[0].tag;
+		}
+
+		const player = await playerHelper.info(playerTag);
 		const infoEmbed = PlayerCommand.infoEmbed(player);
 		const unitsEmbed = PlayerCommand.unitsEmbed(player);
 		await interaction.editReply({ embeds: [infoEmbed], components: [PlayerCommand.components] });

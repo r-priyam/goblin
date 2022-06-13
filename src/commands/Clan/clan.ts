@@ -1,5 +1,6 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import type { ChatInputCommand } from '@sapphire/framework';
+import { isNullish } from '@sapphire/utilities';
 import type { Clan } from 'clashofclans.js';
 import { MessageEmbed } from 'discord.js';
 
@@ -7,6 +8,7 @@ import { embedBuilder } from '#lib/classes/embeds';
 import { BlueNumberEmotes, clanHelper, LabelEmotes, MiscEmotes, RawClanType, RawWarFrequency, TownHallEmotes, WarLeagueEmotes } from '#lib/coc';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors, Emotes } from '#utils/constants';
+import { ClanOrPlayer, redis } from '#utils/redis';
 
 @ApplyOptions<ChatInputCommand.Options>({
 	description: 'Get info about a clan'
@@ -31,8 +33,20 @@ export class ClanCommand extends GoblinCommand {
 
 	public override async chatInputRun(interaction: ChatInputCommand.Interaction<'cached'>) {
 		await interaction.deferReply();
+		let clanTag = interaction.options.getString('tag');
 
-		const clan = await clanHelper.info(interaction.options.getString('tag', true));
+		if (isNullish(clanTag)) {
+			const cachedClans = await redis.get<ClanOrPlayer[]>(`c-${interaction.user.id}`);
+			if (isNullish(cachedClans)) {
+				return interaction.editReply({
+					content: 'You have no clan linked into your profile. Please link any clan or provide the tag as 2nd argument!'
+				});
+			}
+
+			clanTag = cachedClans[0].tag;
+		}
+
+		const clan = await clanHelper.info(clanTag);
 
 		if (clan.memberCount === 0) {
 			return interaction.editReply({ embeds: [embedBuilder.error('Clan has 0 members, failed to collect the required data')] });

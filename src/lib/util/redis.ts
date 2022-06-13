@@ -74,7 +74,7 @@ class RedisUtil {
 
 export const redis = new RedisUtil();
 
-interface ClanOrPlayer {
+export interface ClanOrPlayer {
 	name: string;
 	tag: string;
 }
