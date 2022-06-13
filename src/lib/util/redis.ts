@@ -16,7 +16,7 @@ class RedisUtil {
 		return success;
 	}
 
-	public async get(key: string) {
+	public async get<k>(key: string): Promise<k | null> {
 		const data = await this.redis.get(key);
 
 		if (isNullish(data)) {
@@ -32,7 +32,7 @@ class RedisUtil {
 
 	public async handleClanOrPlayerCache(type: string, method: string, userId: string, tag: string, name?: string) {
 		const initial = type === 'CLAN' ? 'c' : 'p';
-		const cachedData: ClanOrPlayer[] = await this.get(`${initial}-${userId}`);
+		const cachedData = await this.get<ClanOrPlayer[]>(`${initial}-${userId}`);
 
 		if (method === 'UPDATE') {
 			if (isNullish(cachedData)) {
@@ -52,7 +52,7 @@ class RedisUtil {
 	}
 
 	public async handleAliasOperations(method: 'CREATE' | 'DELETE', tag: string, alias: string, name?: string) {
-		const cachedAlias: ClanAlias[] = await this.get('clan-aliases');
+		const cachedAlias = await this.get<ClanAlias[]>('clan-aliases');
 
 		if (method === 'CREATE') {
 			if (isNullish(cachedAlias)) {

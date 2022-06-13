@@ -17,7 +17,7 @@ export class AliasListener extends Listener<typeof Events.MessageCreate> {
 	public async run(message: Message) {
 		if (message.author.bot || message.content.length > 6) return;
 
-		const cachedAlias: ClanAlias[] = await redis.get('clan-aliases');
+		const cachedAlias = await redis.get<ClanAlias[]>('clan-aliases');
 		const parsedMessage = message.content.toUpperCase().split(' ', 1)[0];
 
 		if (!cachedAlias) return;

@@ -18,7 +18,7 @@ export class AutocompleteHandler extends InteractionHandler {
 	public override async parse(interaction: AutocompleteInteraction) {
 		// use array when there are more player specific commands
 		const shortType = interaction.commandName === 'player' ? 'p-' : 'c-';
-		const cachedData: { name: string; tag: string }[] = await redis.get(`${shortType}${interaction.user.id}`);
+		const cachedData = await redis.get<{ name: string; tag: string }[]>(`${shortType}${interaction.user.id}`);
 		const focused = interaction.options.getFocused(true);
 
 		if (isNullishOrEmpty(focused.value)) {
