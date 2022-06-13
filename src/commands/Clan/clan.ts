@@ -68,22 +68,11 @@ export class ClanCommand extends GoblinCommand {
 	}
 
 	private static infoEmbed(clan: Clan) {
+		console.log('Called');
 		let description = '';
-		let infoField = '';
-
 		description += `${MiscEmotes.HomeTrophy} **${clan.points}** ${MiscEmotes.BuilderTrophy} **${clan.versusPoints}** ${MiscEmotes.Members} **${clan.memberCount}**\n\n`;
 		description += clan.description ? `${clan.description}` : 'No description set';
 		clan.labels.length && (description += `\n\n${clan.labels.map((label) => [`${LabelEmotes[label.name]} ${label.name}`]).join('\n')}\n\n`);
-
-		infoField += `**Leader**\n${MiscEmotes['Leader']} ${clan.members.find((member) => member.role === 'leader')!.name}\n`;
-		infoField += clan.location
-			? `**Location**\n:${clan.location?.countryCode ? `flag_${clan.location?.countryCode?.toLowerCase()}` : 'globe_with_meridians'}: ${
-					clan.location.name
-			  }\n`
-			: '`Not set\n`';
-		infoField += `🚪 ${RawClanType[clan.type]} ${MiscEmotes.HomeTrophy} ${clan.requiredTrophies}+ ${
-			TownHallEmotes[clan.requiredTownHallLevel ?? 1]
-		} ${clan.requiredTownHallLevel}`;
 
 		return new MessageEmbed()
 			.setTitle(clan.name)
@@ -92,16 +81,28 @@ export class ClanCommand extends GoblinCommand {
 			.addFields(
 				{
 					name: '\u200B',
-					value: infoField,
+					value: `**Leader**
+${MiscEmotes['Leader']} ${clan.members.find((member) => member.role === 'leader')!.name}
+${
+	clan.location
+		? `**Location**\n:${clan.location?.countryCode ? `flag_${clan.location?.countryCode?.toLowerCase()}` : 'globe_with_meridians'}: ${
+				clan.location.name
+		  }`
+		: '`Not set`'
+}
+🚪 ${RawClanType[clan.type]} ${MiscEmotes.HomeTrophy} ${clan.requiredTrophies}+ ${TownHallEmotes[clan.requiredTownHallLevel ?? 1]} ${
+						clan.requiredTownHallLevel
+					}`,
 					inline: false
 				},
 				{
 					name: '\u200B',
-					value: `**War Stats**\n${MiscEmotes.Win} ${clan.warWins} Won ${MiscEmotes.Lose} ${clan.warLosses} Lost ${MiscEmotes.Draw} ${
-						clan.warTies
-					} Tied\n**Win Streak**\n${MiscEmotes.Streak} ${clan.warWinStreak}\n**War Frequency**\n${
-						RawWarFrequency[clan.warFrequency]
-					}\n**War League**\n${WarLeagueEmotes[clan.warLeague!.name]} ${clan.warLeague!.name}`,
+					value: `**War Stats**
+${MiscEmotes.Win} ${clan.warWins} Won ${MiscEmotes.Lose} ${clan.warLosses ?? 0} Lost ${MiscEmotes.Draw ?? 0} ${clan.warTies ?? 0} Tied
+**Win Streak**\n${MiscEmotes.Streak} ${clan.warWinStreak}\n**War Frequency**
+${RawWarFrequency[clan.warFrequency]}
+**War League**
+${WarLeagueEmotes[clan.warLeague!.name]} ${clan.warLeague!.name}`,
 					inline: false
 				},
 				{
