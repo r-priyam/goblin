@@ -1,3 +1,4 @@
+import { codeBlock } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import type { ChatInputCommand } from '@sapphire/framework';
 import { UserError } from '@sapphire/framework';
@@ -8,7 +9,7 @@ import { clanHelper } from '#lib/coc';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import config from '#root/config';
 import { Colors } from '#utils/constants';
-import { redis } from '#utils/redis';
+import { ClanAlias, redis } from '#utils/redis';
 
 @ApplyOptions<ChatInputCommand.Options>({
 	description: 'Commands related to aliases'
@@ -47,23 +48,27 @@ export class AliasCommand extends GoblinCommand {
 									.setDescription('Tag of the clan to create an alias for')
 									.setRequired(true)
 							)
-					),
+					)
+					.addSubcommand((command) => command.setName('list').setDescription('Lists all clan alias')),
 			{ idHints: ['983041653034074203', '983446195672342689'] }
 		);
 	}
 
 	public override async chatInputRun(interaction: ChatInputCommand.Interaction<'cached'>) {
 		await interaction.deferReply({ ephemeral: true });
+		const subCommand = interaction.options.getSubcommand(true) as 'create' | 'remove' | 'list';
 
 		if (!interaction.member.roles.cache.has('349856938579984385') && !config.bot.owners.includes(interaction.user.id)) {
+			if (subCommand === 'list') {
+				return this.list(interaction);
+			}
 			this.userError({ message: "You aren't allowed to use this command" });
 		}
 
-		const subCommand = interaction.options.getSubcommand(true) as 'create' | 'remove';
-		return subCommand === 'create' ? this.createAlias(interaction) : this.removeAlias(interaction);
+		return this[subCommand](interaction);
 	}
 
-	private async createAlias(interaction: ChatInputCommand.Interaction<'cached'>) {
+	private async create(interaction: ChatInputCommand.Interaction<'cached'>) {
 		const clanTag = interaction.options.getString('tag', true);
 		const alias = interaction.options.getString('alias', true);
 
@@ -92,13 +97,13 @@ export class AliasCommand extends GoblinCommand {
 		return interaction.editReply({
 			embeds: [
 				new MessageEmbed() //
-					.setDescription(`Successfully created alias **${alias}** for ${clan.name} (${clan.tag})`)
+					.setDescription(`Successfully created alias **${alias.toUpperCase()}** for ${clan.name} (${clan.tag})`)
 					.setColor(Colors.Green)
 			]
 		});
 	}
 
-	private async removeAlias(interaction: ChatInputCommand.Interaction<'cached'>) {
+	private async remove(interaction: ChatInputCommand.Interaction<'cached'>) {
 		const tag = Util.formatTag(interaction.options.getString('tag', true));
 
 		if (!Util.isValidTag(tag)) return interaction.editReply({ content: 'No clan found for the provided tag!' });
@@ -118,5 +123,16 @@ export class AliasCommand extends GoblinCommand {
 					.setColor(Colors.Green)
 			]
 		});
+	}
+
+	private async list(interaction: ChatInputCommand.Interaction<'cached'>) {
+		const aliases = await redis.get<ClanAlias[]>('clan-aliases');
+		let aliasList = 'Clan Name         Tag          Alias\n';
+
+		for (const { name, tag, alias } of aliases!) {
+			aliasList += `${name.padEnd(18, ' ')}${tag.padEnd(13, ' ')}${alias}\n`;
+		}
+
+		return interaction.editReply({ embeds: [new MessageEmbed().setDescription(codeBlock(aliasList))] });
 	}
 }

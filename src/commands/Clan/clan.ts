@@ -82,7 +82,6 @@ export class ClanCommand extends GoblinCommand {
 	}
 
 	private static infoEmbed(clan: Clan) {
-		console.log('Called');
 		let description = '';
 		description += `${MiscEmotes.HomeTrophy} **${clan.points}** ${MiscEmotes.BuilderTrophy} **${clan.versusPoints}** ${MiscEmotes.Members} **${clan.memberCount}**\n\n`;
 		description += clan.description ? `${clan.description}` : 'No description set';
