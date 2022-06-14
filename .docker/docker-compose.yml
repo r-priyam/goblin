@@ -29,6 +29,8 @@ services:
       options:
         max-size: '5m'
         max-file: '1'
+    volumes:
+      - ./redis-data:/data
 
   bot:
     image: ghcr.io/r-priyam/goblin:latest
@@ -49,3 +51,4 @@ services:
 
 volumes:
   goblin:
+  redis-data:
