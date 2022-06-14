@@ -55,7 +55,7 @@ export class AliasCommand extends GoblinCommand {
 	}
 
 	public override async chatInputRun(interaction: ChatInputCommand.Interaction<'cached'>) {
-		await interaction.deferReply({ ephemeral: true });
+		await interaction.deferReply();
 		const subCommand = interaction.options.getSubcommand(true) as 'create' | 'remove' | 'list';
 
 		if (!interaction.member.roles.cache.has('349856938579984385') && !config.bot.owners.includes(interaction.user.id)) {
