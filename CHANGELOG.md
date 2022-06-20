@@ -2,6 +2,42 @@
 
 All notable changes to this project will be documented in this file.
 
+# [1.3.0](https://github.com/r-priyam/goblin/compare/v1.2.0...v1.3.0) - (2022-06-20)
+
+## 🏠 Refactor
+
+- Support types in redis util ([473aa70](https://github.com/r-priyam/goblin/commit/473aa706ae5d3e76a1fe829b5086899637f74832))
+
+## 🐛 Bug Fixes
+
+- Cliff tag pattern ([77502b5](https://github.com/r-priyam/goblin/commit/77502b512a5b09697abde25bb36fdf67c7b96e11))
+- **deps:** Update sapphire dependencies (#20) ([e121c79](https://github.com/r-priyam/goblin/commit/e121c7962f09c0f9616af1b8921db9ff1e321dbf))
+- **commands:** Handle no tag arg ([05fded7](https://github.com/r-priyam/goblin/commit/05fded7eaf9a5dfec651e4efb6e6f19557441ddf))
+- **commands:** `null` show in clan info and reformat ([68384c4](https://github.com/r-priyam/goblin/commit/68384c40a838d67b129a3a839891aafdf8a60051))
+- **deps:** Update sapphire dependencies (#19) ([5036cf0](https://github.com/r-priyam/goblin/commit/5036cf053baaf6e40b64cff9f28b9db0cdee7ce9))
+- **deps:** Update sapphire dependencies ([343240c](https://github.com/r-priyam/goblin/commit/343240c4e48cc135fb8c0bfaff576705076b2996))
+
+## 🚀 Features
+
+- **commands:** Add `/userinfo` command ([2064ac6](https://github.com/r-priyam/goblin/commit/2064ac6fd355c345ac1d9e2890db9298a2c0bd95))
+- **commands:** Add `/wikipedia` command ([ab1ac36](https://github.com/r-priyam/goblin/commit/ab1ac367123ce61282156528a6f4ba845b9f15e4))
+- **commands:** Add `alias list` command ([66b23e7](https://github.com/r-priyam/goblin/commit/66b23e76d21c1a2ae22250284bbc6ca9566c8d8e))
+- **commands:** Add `alias` command, and it's listener ([a248737](https://github.com/r-priyam/goblin/commit/a24873700ed9cda16f82192e7b9c89048af6d2dc))
+
+# [1.2.0](https://github.com/r-priyam/goblin/compare/v1.1.0...v1.2.0) - (2022-06-04)
+
+## 🏠 Refactor
+
+- Make docker services dynamic ([7922428](https://github.com/r-priyam/goblin/commit/79224281f020946b72f6434043a0152e18c5b3da))
+
+## 🐛 Bug Fixes
+
+- Run member check task per minute ([daef5ab](https://github.com/r-priyam/goblin/commit/daef5ab84f1dc0747889eeb7e1802b57a1977263))
+
+## 🚀 Features
+
+- Add release workflow ([e98eae9](https://github.com/r-priyam/goblin/commit/e98eae9624e93d8f34ab8b8bc1cb3c8b45ae80c2))
+
 
 # [1.2.0](https://github.com/r-priyam/goblin/tree/v1.2.0) - (2022-06-04)
 
