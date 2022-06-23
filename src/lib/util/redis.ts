@@ -2,13 +2,11 @@ import { container } from '@sapphire/framework';
 import { isNullish } from '@sapphire/utilities';
 
 class RedisUtil {
-	private readonly redis = container.redis;
-
 	public async set(key: string, value: string, ttl = 0) {
 		let success = true;
 
 		try {
-			ttl === 0 ? await this.redis.set(key, value) : await this.redis.set(key, value, { EX: ttl });
+			ttl === 0 ? await container.redis.set(key, value) : await container.redis.set(key, value, { EX: ttl });
 		} catch {
 			success = false;
 		}
@@ -17,7 +15,7 @@ class RedisUtil {
 	}
 
 	public async get<k>(key: string): Promise<k | null> {
-		const data = await this.redis.get(key);
+		const data = await container.redis.get(key);
 
 		if (isNullish(data)) {
 			return null;
@@ -27,7 +25,7 @@ class RedisUtil {
 	}
 
 	public async delete(key: string) {
-		await this.redis.del(key);
+		await container.redis.del(key);
 	}
 
 	public async handleClanOrPlayerCache(type: string, method: string, userId: string, tag: string, name?: string) {
