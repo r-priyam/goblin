@@ -30,10 +30,7 @@ export class UserInfoCommand extends GoblinCommand {
 
 	public override async chatInputRun(interaction: ChatInputCommand.Interaction<'cached'>) {
 		await interaction.deferReply();
-
 		const member = interaction.options.getMember('user') || interaction.member;
-		const roles = member.roles.cache.sorted(sortRanks);
-		roles.delete(interaction.guildId);
 
 		const embed = new MessageEmbed()
 			.setColor(member.displayColor || Colors.White)
@@ -49,14 +46,26 @@ export class UserInfoCommand extends GoblinCommand {
 				`${time(member.user.createdAt!, TimestampStyles.LongDateTime)} ${time(member.user.createdAt!, TimestampStyles.RelativeTime)}`,
 				false
 			)
-			.addField('Roles', [...roles.values()].join(' '), false)
 			.setFooter({
 				text: `ID: ${member.id}`,
 				iconURL: this.container.client.user!.displayAvatarURL({ size: 128, format: 'png', dynamic: true })
 			})
 			.setTimestamp();
+		this.addRoles(interaction.guildId, member, embed);
 
 		return interaction.editReply({ embeds: [embed], components: [UserInfoCommand.avatarUrlButton(member)] });
+	}
+
+	private addRoles(guildId: string, member: GuildMember, embed: MessageEmbed) {
+		if (member.roles.cache.size <= 1) {
+			return;
+		}
+
+		const roles = member.roles.cache.sorted(sortRanks);
+		roles.delete(guildId);
+
+		const value = [...roles.values()].join(' ');
+		embed.addField('Roles', `${value.length > 1024 ? `${value.slice(1, 1020)}...` : value}`, false);
 	}
 
 	private static avatarUrlButton(member: GuildMember) {
