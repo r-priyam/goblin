@@ -6,14 +6,13 @@ import { inspect } from 'node:util';
 import { SqlHighlighter } from '@mikro-orm/sql-highlighter';
 import { ApplicationCommandRegistries, container, Logger, Piece, RegisterBehavior } from '@sapphire/framework';
 import { Time } from '@sapphire/time-utilities';
-import { Client } from 'clashofclans.js';
 import { blueBright, createColors, cyan, greenBright, redBright, yellow } from 'colorette';
 import postgres, { Sql } from 'postgres';
 import { createClient as redisClient, RedisClientType } from 'redis';
 
 import type { GoblinClient } from './extensions/GoblinClient';
 
-import { Cache } from '#lib/coc';
+import { Cache, GoblinClashClient } from '#lib/coc';
 import config from '#root/config';
 
 inspect.defaultOptions.depth = 1;
@@ -27,7 +26,7 @@ container.redis.on('error', (error) => container.logger.error(error));
 container.redis.on('reconnecting', () => container.logger.warn(`${yellow('[REDIS]')} Attempting reconnect`));
 
 // @ts-expect-error Clear is missing from custom cache
-container.coc = new Client({ restRequestTimeout: Time.Second * 30, cache: new Cache() });
+container.coc = new GoblinClashClient({ restRequestTimeout: Time.Second * 30, cache: new Cache() });
 
 const sqlHighlighter = new SqlHighlighter();
 
@@ -62,14 +61,14 @@ Object.defineProperties(Piece.prototype, {
 
 declare module '@sapphire/pieces' {
 	interface Container {
-		coc: Client;
+		coc: GoblinClashClient;
 		sql: Sql<any>;
 		redis: RedisClientType;
 	}
 	interface Piece {
 		client: GoblinClient;
 		logger: Logger;
-		coc: Client;
+		coc: GoblinClashClient;
 		sql: Sql<any>;
 		redis: RedisClientType;
 	}

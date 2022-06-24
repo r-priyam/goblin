@@ -17,7 +17,9 @@ const config = {
 	clash: {
 		email: process.env.CLASH_EMAIL!,
 		password: process.env.CLASH_PASSWORD!,
-		keyName: process.env.CLASH_KEY_NAME!
+		keyName: process.env.CLASH_KEY_NAME!,
+		linkUserName: process.env.CLASH_LINK_USER_NAME!,
+		linkPassword: process.env.CLASH_LINK_PASSWORD!
 	},
 	redis: {
 		host: process.env.REDIS_HOST,
