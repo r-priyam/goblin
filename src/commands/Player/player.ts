@@ -72,6 +72,34 @@ export class PlayerCommand extends GoblinCommand {
 		collector.on('end', async () => void (await interaction.editReply({ components: [] }).catch(() => null)));
 	}
 
+	public static unitsEmbed(player: Player, filterFields = ['']) {
+		const units = new PlayerUnits(player);
+		const fields = [
+			{ name: 'Elixir Troops', value: units.unit('ELIXIR') },
+			{ name: 'Dark Troops', value: units.unit('DARK') },
+			{ name: 'Spells', value: units.unit('SPELLS') },
+			{ name: 'Siege Machines', value: units.unit('SIEGE') },
+			{ name: 'Heroes Pets', value: units.unit('PETS') },
+			{ name: 'Builder Troops', value: units.unit('BUILDER') },
+			{ name: 'Heroes', value: units.unit('HEROES') },
+			{ name: 'Super Troops', value: units.unit('SUPER') }
+		];
+
+		const embed = new MessageEmbed() //
+			.setTitle(`Units for ${player.name}`)
+			.setColor(Colors.Indigo);
+
+		for (const field of fields) {
+			if (filterFields.includes(field.name) || isNullishOrEmpty(field.value)) {
+				continue;
+			}
+
+			embed.addField(field.name, field.value, false);
+		}
+
+		return embed;
+	}
+
 	private static get components() {
 		return new MessageActionRow() //
 			.addComponents([
@@ -113,40 +141,6 @@ export class PlayerCommand extends GoblinCommand {
 			.setThumbnail(townHallThumbnail)
 			.setFooter({ text: player.league.name, iconURL: player.league.icon.url })
 			.setColor(Colors.Indigo);
-	}
-
-	private static unitsEmbed(player: Player) {
-		const units = new PlayerUnits(player);
-		const fields = [
-			{ name: 'Elixir Troops', value: units.unit('ELIXIR') },
-			{ name: 'Dark Troops', value: units.unit('DARK') },
-			{
-				name: 'Spells',
-				value: units.unit('SPELLS')
-			},
-			{ name: 'Siege Machines', value: units.unit('SIEGE') },
-			{ name: 'Heroes Pets', value: units.unit('PETS') },
-			{
-				name: 'Elixir Troops',
-				value: units.unit('BUILDER')
-			},
-			{ name: 'Heroes', value: units.unit('HEROES') },
-			{ name: 'Super Troops', value: units.unit('SUPER') }
-		];
-
-		const embed = new MessageEmbed() //
-			.setTitle(`Units for ${player.name}`)
-			.setColor(Colors.Indigo);
-
-		for (const field of fields) {
-			if (isNullishOrEmpty(field.value)) {
-				continue;
-			}
-
-			embed.addField(field.name, field.value, false);
-		}
-
-		return embed;
 	}
 
 	private static getAchievementsValue(data: Achievement[]) {
