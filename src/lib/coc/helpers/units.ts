@@ -69,16 +69,14 @@ export class PlayerUnits {
 	}
 
 	protected formatValue(value: { emoji: string; level: string }[]) {
-		let lineBreak = 0;
 		let formattedValue = '';
 		if (value.length > 0) {
-			for (const data of value) {
-				lineBreak += 1;
-				formattedValue += `${data.emoji} ${data.level}`;
+			for (let [index, data] of value.entries()) {
+				index++;
+				formattedValue += `${data.emoji} ${data.level} `;
 
-				if (lineBreak === 4) {
+				if (index % 4 === 0) {
 					// check to keep only 4 items in row
-					lineBreak = 0;
 					formattedValue += '\n';
 				}
 			}
