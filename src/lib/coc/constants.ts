@@ -80,7 +80,7 @@ export const ErrorMessages: { [key: string]: string } = {
 export const RawPosition: { [key: string]: string } = {
 	leader: 'Leader',
 	coLeader: 'Co-Leader',
-	admin: 'Elder',
+	elder: 'Elder',
 	member: 'Member'
 };
 
