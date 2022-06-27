@@ -25,16 +25,18 @@ CREATE TABLE public.players
     user_id     TEXT        NOT NULL,
     player_name VARCHAR(20) NOT NULL,
     player_tag  TEXT        NOT NULL,
+    link_api    BOOLEAN                  DEFAULT FALSE,
     linked_at   TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE UNIQUE INDEX idx_user_players ON players (user_id, player_tag);
 
-COMMENT ON COLUMN public.clans.id IS 'The unique identifier for the linked player';
-COMMENT ON COLUMN public.clans.user_id IS 'The user id of the user to whom player is linked';
-COMMENT ON COLUMN public.clans.clan_name IS 'The name of the player';
-COMMENT ON COLUMN public.clans.clan_tag IS 'The tag of the player';
-COMMENT ON COLUMN public.clans.linked_at IS 'The date and time when the player was linked';
+COMMENT ON COLUMN public.players.id IS 'The unique identifier for the linked player';
+COMMENT ON COLUMN public.players.user_id IS 'The user id of the user to whom player is linked';
+COMMENT ON COLUMN public.players.player_name IS 'The name of the player';
+COMMENT ON COLUMN public.players.player_tag IS 'The tag of the player';
+COMMENT ON COLUMN public.players.link_api IS 'Whether the tag is linked from link api database';
+COMMENT ON COLUMN public.players.linked_at IS 'The date and time when the player was linked';
 
 CREATE TABLE public.aliases
 (

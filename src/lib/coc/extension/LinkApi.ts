@@ -1,3 +1,4 @@
+import { container } from '@sapphire/framework';
 import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
 import type { RequestOptions } from 'clashofclans.js';
 
@@ -23,6 +24,7 @@ export class LinkApi {
 			if (isNullishOrEmpty(data)) return null;
 
 			const tags = data.map((d) => d.playerTag);
+			container.tasks.create('syncPlayerLinks', { userId: tagOrId, tags }, { type: 'default', delay: 60_000 });
 			await redis.set(`links-${tagOrId}`, JSON.stringify(tags), 10 * 60);
 			return tags;
 		}

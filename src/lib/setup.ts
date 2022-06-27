@@ -5,6 +5,7 @@ import { inspect } from 'node:util';
 
 import { SqlHighlighter } from '@mikro-orm/sql-highlighter';
 import { ApplicationCommandRegistries, container, Logger, Piece, RegisterBehavior } from '@sapphire/framework';
+import type { ScheduledTaskHandler } from '@sapphire/plugin-scheduled-tasks';
 import { Time } from '@sapphire/time-utilities';
 import { blueBright, createColors, cyan, greenBright, redBright, yellow } from 'colorette';
 import postgres, { Sql } from 'postgres';
@@ -56,7 +57,8 @@ Object.defineProperties(Piece.prototype, {
 	logger: { get: () => container.logger },
 	sql: { get: () => container.sql },
 	redis: { get: () => container.redis },
-	coc: { get: () => container.coc }
+	coc: { get: () => container.coc },
+	tasks: { get: () => container.tasks }
 });
 
 declare module '@sapphire/pieces' {
@@ -71,5 +73,6 @@ declare module '@sapphire/pieces' {
 		coc: GoblinClashClient;
 		sql: Sql<any>;
 		redis: RedisClientType;
+		tasks: ScheduledTaskHandler;
 	}
 }
