@@ -11,7 +11,7 @@ CREATE TABLE public.clans
     linked_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE UNIQUE INDEX idx_user_clans ON clans (user_id, clan_tag);
+CREATE UNIQUE INDEX idx_user_clans ON public.clans (user_id, clan_tag);
 
 COMMENT ON COLUMN public.clans.id IS 'The unique identifier for the linked clan';
 COMMENT ON COLUMN public.clans.user_id IS 'The user id of the user to whom clan is linked';
@@ -29,7 +29,7 @@ CREATE TABLE public.players
     linked_at   TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE UNIQUE INDEX idx_user_players ON players (user_id, player_tag);
+CREATE UNIQUE INDEX idx_user_players ON public.players (user_id, player_tag);
 
 COMMENT ON COLUMN public.players.id IS 'The unique identifier for the linked player';
 COMMENT ON COLUMN public.players.user_id IS 'The user id of the user to whom player is linked';
@@ -45,9 +45,8 @@ CREATE TABLE public.aliases
     clan_tag  TEXT        NOT NULL
 );
 
-CREATE UNIQUE INDEX idx_clan_aliases ON aliases (clan_tag, alias);
+CREATE UNIQUE INDEX idx_clan_aliases ON public.aliases (clan_tag, alias);
 
 COMMENT ON COLUMN public.aliases.alias IS 'The alias of the clan';
 COMMENT ON COLUMN public.aliases.clan_name IS 'The clan name of the clan for alias';
 COMMENT ON COLUMN public.aliases.clan_tag IS 'The clan tag of the clan for alias';
-
