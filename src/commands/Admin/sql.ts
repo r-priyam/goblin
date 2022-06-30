@@ -37,8 +37,10 @@ export class SQLCommand extends GoblinCommand {
 		const query = interaction.options.getString('query', true);
 		const { success, result, executionTime } = await this.runSql(query);
 
-		if (!success) return interaction.editReply({ content: `${codeBlock('bash', String(result))}\nExecuted in: \`${executionTime}\`` });
-		if (isNullishOrEmpty(result)) return interaction.editReply({ content: `Returned ${inlineCodeBlock(result)} in ${executionTime}` });
+		if (!success)
+			return interaction.editReply({ content: `${codeBlock('bash', String(result))}\nExecuted in: \`${inlineCodeBlock(executionTime)}\`` });
+		if (isNullishOrEmpty(result))
+			return interaction.editReply({ content: `Returned ${inlineCodeBlock('[]')} in ${inlineCodeBlock(executionTime)}` });
 
 		const table = new TabularData();
 		table.setColumns(Object.keys(result[0]));
@@ -53,7 +55,7 @@ export class SQLCommand extends GoblinCommand {
 
 			await interaction.followUp(
 				render.length === 0
-					? `${codeBlock('ts', toSend)}\nReturned \`${result.length}\` rows. Executed in: \`${executionTime}\``
+					? `${codeBlock('ts', toSend)}\nReturned \`${result.length}\` rows. Executed in: \`${inlineCodeBlock(executionTime)}\``
 					: `${codeBlock('ts', toSend)}`
 			);
 		}
