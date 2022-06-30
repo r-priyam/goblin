@@ -59,12 +59,9 @@ export class ClanCommand extends GoblinCommand {
 
 	private async clanComposition(interaction: ChatInputCommand.Interaction<'cached'>, embed: MessageEmbed, clan: Clan) {
 		const composition: Record<number, number> = {};
-		const members = await clan.fetchMembers().then((data) => data.sort());
+		const members = await clan.fetchMembers();
 		for (const member of members) {
-			if (!composition.hasOwnProperty(member.townHallLevel)) {
-				composition[member.townHallLevel] = 0;
-			}
-
+			if (!composition.hasOwnProperty(member.townHallLevel)) composition[member.townHallLevel] = 0;
 			composition[member.townHallLevel]++;
 		}
 
