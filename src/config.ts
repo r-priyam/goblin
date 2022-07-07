@@ -13,6 +13,9 @@ const config = {
 		token: process.env.BOT_TOKEN,
 		owners: ['292332992251297794', '554882868091027456']
 	},
+	webhooks: {
+		guildLogs: process.env.GUILD_LOGS_WEBHOOKS!
+	},
 	github: process.env.GITHUB_TOKEN,
 	clash: {
 		email: process.env.CLASH_EMAIL!,
