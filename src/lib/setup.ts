@@ -8,7 +8,7 @@ import { ApplicationCommandRegistries, container, Logger, Piece, RegisterBehavio
 import type { ScheduledTaskHandler } from '@sapphire/plugin-scheduled-tasks';
 import { Time } from '@sapphire/time-utilities';
 import { blueBright, createColors, cyan, greenBright, redBright, yellow } from 'colorette';
-import postgres, { Sql } from 'postgres';
+import postgres, { Sql as SQL } from 'postgres';
 import { createClient as redisClient, RedisClientType } from 'redis';
 
 import type { GoblinClient } from './extensions/GoblinClient';
@@ -64,14 +64,14 @@ Object.defineProperties(Piece.prototype, {
 declare module '@sapphire/pieces' {
 	interface Container {
 		coc: GoblinClashClient;
-		sql: Sql<any>;
+		sql: SQL<any>;
 		redis: RedisClientType;
 	}
 	interface Piece {
 		client: GoblinClient;
 		logger: Logger;
 		coc: GoblinClashClient;
-		sql: Sql<any>;
+		sql: SQL<any>;
 		redis: RedisClientType;
 		tasks: ScheduledTaskHandler;
 	}
