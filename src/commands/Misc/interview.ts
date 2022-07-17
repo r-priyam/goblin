@@ -150,9 +150,9 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 			{
 				method: 'POST',
 				headers: {
-					Accept: 'application/vnd.github.v3+json',
+					'Accept': 'application/vnd.github.v3+json',
 					'User-Agent': 'Goblin Channel Close',
-					Authorization: `token ${config.github}`
+					'Authorization': `token ${config.github}`
 				},
 				body: JSON.stringify(body)
 			},

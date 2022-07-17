@@ -40,7 +40,7 @@ export class LinkApi {
 		const response = await fetch(`${this.#url}${path}`, {
 			method: options.method,
 			body: options.body,
-			headers: { Authorization: `Bearer ${this.#key}`, 'Content-Type': 'application/json' }
+			headers: { 'Authorization': `Bearer ${this.#key}`, 'Content-Type': 'application/json' }
 		}).catch(() => null);
 
 		const data = await response?.json().catch(() => null);

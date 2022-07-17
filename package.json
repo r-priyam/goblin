@@ -22,7 +22,6 @@
 		"typecheck": "tsc -b src",
 		"watch": "tsup --watch"
 	},
-	"prettier": "@sapphire/prettier-config",
 	"resolutions": {
 		"minimist": "^1.2.6"
 	},
