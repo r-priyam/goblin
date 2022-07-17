@@ -52,7 +52,7 @@
 		"postgres": "^3.2.4",
 		"redis": "^4.2.0",
 		"reflect-metadata": "^0.1.13",
-		"string-strip-html": "^10.1.0"
+		"string-strip-html": "^11.0.0"
 	},
 	"devDependencies": {
 		"@favware/cliff-jumper": "^1.8.5",
