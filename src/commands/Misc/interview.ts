@@ -59,7 +59,7 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 	}
 
 	public override async chatInputRun(interaction: ChatInputCommand.Interaction<'cached'>) {
-		if (!interaction.member.roles.cache.has('339858024640413698')) {
+		if (!interaction.member.roles.cache.hasAny('339858024640413698', '349856938579984385')) {
 			this.userError({ message: "You aren't allowed to use this command" });
 		}
 
