@@ -3,18 +3,17 @@ import { readFile } from 'node:fs/promises';
 import { ApplyOptions } from '@sapphire/decorators';
 import type { Store } from '@sapphire/framework';
 import { Events, Listener } from '@sapphire/framework';
+import { envParseString } from '@skyra/env-utilities';
 import { blue, gray, green, magenta, magentaBright, white, yellow } from 'colorette';
 import figlet from 'figlet';
 import gradient from 'gradient-string';
-
-import config from '#root/config';
 
 @ApplyOptions<Listener.Options>({
 	event: Events.ClientReady,
 	once: true
 })
 export class Ready extends Listener {
-	private readonly style = config.development ? yellow : blue;
+	private readonly style = envParseString('NODE_ENV') === 'development' ? yellow : blue;
 
 	public async run() {
 		await Ready.printBanner();
@@ -40,8 +39,8 @@ export class Ready extends Listener {
 	private static async printBanner() {
 		const success = green('+');
 
-		const llc = config.development ? magentaBright : white;
-		const blc = config.development ? magenta : blue;
+		const llc = envParseString('NODE_ENV') === 'development' ? magentaBright : white;
+		const blc = envParseString('NODE_ENV') === 'development' ? magenta : blue;
 
 		const line01 = llc('');
 		const line02 = llc('');
@@ -56,7 +55,7 @@ export class Ready extends Listener {
 ${gradient.atlas.multiline(figlet.textSync('Goblin'))}
 ${line01} ${pad}${blc(version)}
 ${line02} ${pad}[${success}] Gateway
-${line03}${config.development ? ` ${pad}${blc('<')}${llc('/')}${blc('>')} ${llc('DEVELOPMENT MODE')}` : ''}
+${line03}${envParseString('NODE_ENV') === 'development' ? ` ${pad}${blc('<')}${llc('/')}${blc('>')} ${llc('DEVELOPMENT MODE')}` : ''}
 		`.trim()
 		);
 	}

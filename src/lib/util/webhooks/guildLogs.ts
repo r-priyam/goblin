@@ -1,10 +1,9 @@
+import { envParseString } from '@skyra/env-utilities';
 import { WebhookClient } from 'discord.js';
-
-import config from '#root/config';
 
 let webhookInstance: WebhookClient = null!;
 
 export function useGuildLogsWebhook() {
-	webhookInstance ??= new WebhookClient({ url: config.webhooks.guildLogs });
+	webhookInstance ??= new WebhookClient({ url: envParseString('GUILD_LOGS_WEBHOOK') });
 	return webhookInstance;
 }

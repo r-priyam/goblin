@@ -2,11 +2,11 @@ import { userMention, channelMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { fetch, FetchResultTypes } from '@sapphire/fetch';
 import type { ChatInputCommand } from '@sapphire/framework';
+import { envParseString } from '@skyra/env-utilities';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
 import { MessageEmbed, TextChannel } from 'discord.js';
 
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
-import config from '#root/config';
 import { embedBuilder } from '#root/lib/classes/embeds';
 import { Colors } from '#utils/constants';
 
@@ -152,7 +152,7 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 				headers: {
 					'Accept': 'application/vnd.github.v3+json',
 					'User-Agent': 'Goblin Channel Close',
-					'Authorization': `token ${config.github}`
+					'Authorization': `token ${envParseString('GITHUB_TOKEN')}`
 				},
 				body: JSON.stringify(body)
 			},

@@ -1,12 +1,11 @@
 import '#lib/setup';
 
 import { GoblinClient } from '#lib/extensions/GoblinClient';
-import config from '#root/config';
 
 const client = new GoblinClient();
 
 try {
-	await client.login(config.bot.token);
+	await client.login();
 	client.logger.info('Successfully logged in.');
 } catch (error) {
 	client.logger.error(error);

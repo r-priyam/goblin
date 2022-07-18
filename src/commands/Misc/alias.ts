@@ -2,12 +2,12 @@ import { codeBlock } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import type { ChatInputCommand } from '@sapphire/framework';
 import { UserError } from '@sapphire/framework';
+import { envParseArray } from '@skyra/env-utilities';
 import { Util } from 'clashofclans.js';
 import { MessageEmbed } from 'discord.js';
 
 import { clanHelper } from '#lib/coc';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
-import config from '#root/config';
 import { Colors } from '#utils/constants';
 import { ClanAlias, redis } from '#utils/redis';
 
@@ -58,7 +58,7 @@ export class AliasCommand extends GoblinCommand {
 		await interaction.deferReply();
 		const subCommand = interaction.options.getSubcommand(true) as 'create' | 'remove' | 'list';
 
-		if (!interaction.member.roles.cache.has('349856938579984385') && !config.bot.owners.includes(interaction.user.id)) {
+		if (!interaction.member.roles.cache.has('349856938579984385') && !envParseArray('OWNERS').includes(interaction.user.id)) {
 			if (subCommand === 'list') {
 				return this.list(interaction);
 			}

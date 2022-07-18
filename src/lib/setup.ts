@@ -7,6 +7,7 @@ import { SqlHighlighter } from '@mikro-orm/sql-highlighter';
 import { ApplicationCommandRegistries, container, Logger, Piece, RegisterBehavior } from '@sapphire/framework';
 import type { ScheduledTaskHandler } from '@sapphire/plugin-scheduled-tasks';
 import { Time } from '@sapphire/time-utilities';
+import { envParseInteger, envParseString, setup } from '@skyra/env-utilities';
 import { blueBright, createColors, cyan, greenBright, redBright, yellow } from 'colorette';
 import postgres, { Sql as SQL } from 'postgres';
 import { createClient as redisClient, RedisClientType } from 'redis';
@@ -14,14 +15,16 @@ import { createClient as redisClient, RedisClientType } from 'redis';
 import type { GoblinClient } from './extensions/GoblinClient';
 
 import { Cache, GoblinClashClient } from '#lib/coc';
-import config from '#root/config';
+import { srcFolder } from '#utils/constants';
 
+process.env.NODE_ENV ??= 'development';
+
+setup(new URL('.env', srcFolder));
 inspect.defaultOptions.depth = 1;
 createColors({ useColor: true });
-
 ApplicationCommandRegistries.setDefaultBehaviorWhenNotIdentical(RegisterBehavior.Overwrite);
 
-container.redis = redisClient({ url: `redis://:@${config.redis.host}:${config.redis.port}` });
+container.redis = redisClient({ url: `redis://:@${envParseString('REDIS_HOST')}:${envParseInteger('REDIS_PORT')}` });
 container.redis.on('ready', () => container.logger.info(`${cyan('[REDIS]')} Successfully connected`));
 container.redis.on('error', (error) => container.logger.error(error));
 container.redis.on('reconnecting', () => container.logger.warn(`${yellow('[REDIS]')} Attempting reconnect`));
