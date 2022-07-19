@@ -2,7 +2,7 @@ import { ApplyOptions } from '@sapphire/decorators';
 import type { ChatInputCommand } from '@sapphire/framework';
 import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
 import { Clan, SUPER_TROOPS } from 'clashofclans.js';
-import { ActionRowBuilder, EmbedBuilder, MessageSelectMenu } from 'discord.js';
+import { ActionRowBuilder, EmbedBuilder, EmbedField, SelectMenuBuilder } from 'discord.js';
 
 import { clanHelper, SuperTroopEmotes } from '#lib/coc';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
@@ -53,7 +53,7 @@ export class SuperTroopsCommand extends GoblinCommand {
 	}
 
 	private menuOptions(clanTag: string) {
-		const superTroopsMenu = new MessageSelectMenu()
+		const superTroopsMenu = new SelectMenuBuilder()
 			.setPlaceholder('Select a troop')
 			.setCustomId(`SUPER_TROOP_MENU_${clanTag}`)
 			.addOptions(SUPER_TROOPS.map((troop) => ({ label: troop, emoji: SuperTroopEmotes[troop], value: troop })));
@@ -71,28 +71,33 @@ export class SuperTroopsCommand extends GoblinCommand {
 			}
 		}
 
-		const superTroopsEmbed = new EmbedBuilder() //
+		const SuperTroopsEmbed = new EmbedBuilder() //
 			.setColor(Colors.Indigo)
 			.setAuthor({ iconURL: clan.badge.url, name: clan.name })
 			.setTimestamp();
 
+		const TroopFields: EmbedField[] = [];
+
 		if (filterTroop) {
 			const data = superTroops[`${SuperTroopEmotes[filterTroop]} ${filterTroop}`];
 			if (isNullishOrEmpty(data)) {
-				superTroopsEmbed.description = `No one has boosted ${filterTroop} 🥲`;
-				return superTroopsEmbed;
+				SuperTroopsEmbed.setDescription(`No one has boosted ${filterTroop} 🥲`);
+				return SuperTroopsEmbed;
 			}
 
-			superTroopsEmbed.addField(filterTroop, data.join('\n'), false);
-			return superTroopsEmbed;
+			TroopFields.push({ name: filterTroop, value: data.join('\n'), inline: false });
+			SuperTroopsEmbed.addFields([{ name: filterTroop, value: data.join('\n'), inline: false }]);
+			return SuperTroopsEmbed;
 		}
 
 		for (const [troop, data] of Object.entries(superTroops)) {
 			if (isNullishOrEmpty(data)) continue;
-			superTroopsEmbed.addField(troop, data.join('\n'), false);
+			TroopFields.push({ name: troop, value: data.join('\n'), inline: false });
 		}
 
-		if (superTroopsEmbed.fields.length === 0) superTroopsEmbed.description = 'No one has boosted any super troop 🥲';
-		return superTroopsEmbed;
+		SuperTroopsEmbed.addFields(TroopFields);
+
+		if (SuperTroopsEmbed.data.fields?.length === 0) SuperTroopsEmbed.setDescription('No one has boosted any super troop 🥲');
+		return SuperTroopsEmbed;
 	}
 }

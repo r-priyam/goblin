@@ -44,7 +44,7 @@ export class WhoIsCommand extends GoblinCommand {
 
 		const firstPage = new EmbedBuilder()
 			.setAuthor({ name: `${member.user.username} (${member.id})` })
-			.setThumbnail(member.displayAvatarURL({ size: 96, format: 'png', dynamic: true }))
+			.setThumbnail(member.displayAvatarURL({ extension: 'png', size: 128, forceStatic: true }))
 			.setColor(Colors.Indigo)
 			.setTimestamp();
 		const pages = [];
@@ -65,11 +65,15 @@ export class WhoIsCommand extends GoblinCommand {
 			);
 
 			const units = new PlayerUnits(player);
-			firstPage.addField(
-				`<:dot:843249351291043851> ${TownHallEmotes[player.townHallLevel]} ${player.name} (${player.tag})`,
-				`${MiscEmotes.Clan} ${player.clan ? `${player.clan.name} (${RawPosition[player.role!]})` : 'Not in a clan'}\n${units.unit('HEROES')}`,
-				false
-			);
+			firstPage.addFields([
+				{
+					name: `<:dot:843249351291043851> ${TownHallEmotes[player.townHallLevel]} ${player.name} (${player.tag})`,
+					value: `${MiscEmotes.Clan} ${player.clan ? `${player.clan.name} (${RawPosition[player.role!]})` : 'Not in a clan'}\n${units.unit(
+						'HEROES'
+					)}`,
+					inline: false
+				}
+			]);
 
 			const infoEmbed = PlayerCommand.unitsEmbed(player, ['Builder Troops', 'Heroes'])
 				.setTitle(`${player.name} (${player.tag})`)

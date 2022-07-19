@@ -56,7 +56,7 @@ export class WithRole extends GoblinCommand {
 				)
 				.setFooter({
 					text: `Requested by ${interaction.member.displayName}`,
-					iconURL: interaction.member.displayAvatarURL({ size: 32, format: 'png', dynamic: true })
+					iconURL: interaction.member.displayAvatarURL({ size: 32, extension: 'png', forceStatic: true })
 				})
 				.setColor(Colors.BlueGrey);
 

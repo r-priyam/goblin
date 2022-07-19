@@ -1,6 +1,6 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { ScheduledTask } from '@sapphire/plugin-scheduled-tasks';
-import { Constants, TextChannel, inlineCode, userMention, EmbedBuilder } from 'discord.js';
+import { TextChannel, inlineCode, userMention, EmbedBuilder, Status } from 'discord.js';
 
 import { Colors } from '#utils/constants';
 
@@ -14,7 +14,7 @@ export class EygMemberCheck extends ScheduledTask {
 	private readonly checkRoleId = '318003116773474304';
 
 	public override async run() {
-		if (this.container.client.ws.status !== Constants.Status.READY) return;
+		if (this.container.client.ws.status !== Status.Ready) return;
 
 		const eygGuild = await this.client.guilds.fetch('289171810195603457');
 		// TODO: Write pending members check

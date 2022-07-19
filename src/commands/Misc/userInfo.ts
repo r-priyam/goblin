@@ -1,6 +1,6 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import type { ChatInputCommand } from '@sapphire/framework';
-import { GuildMember, ActionRowBuilder, ButtonBuilder, EmbedBuilder, Role, time, TimestampStyles } from 'discord.js';
+import { GuildMember, ActionRowBuilder, ButtonBuilder, EmbedBuilder, Role, time, TimestampStyles, ButtonStyle } from 'discord.js';
 
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#lib/util/constants';
@@ -33,21 +33,26 @@ export class UserInfoCommand extends GoblinCommand {
 
 		const embed = new EmbedBuilder()
 			.setColor(member.displayColor || Colors.White)
-			.setThumbnail(member.displayAvatarURL({ size: 256, format: 'png', dynamic: true }))
+			.setThumbnail(member.displayAvatarURL({ size: 256, extension: 'png', forceStatic: true }))
 			.setTitle(member.user.tag)
-			.addField(
-				'Joined',
-				`${time(member.joinedAt!, TimestampStyles.LongDateTime)} ${time(member.joinedAt!, TimestampStyles.RelativeTime)}`,
-				false
-			)
-			.addField(
-				'Created',
-				`${time(member.user.createdAt!, TimestampStyles.LongDateTime)} ${time(member.user.createdAt!, TimestampStyles.RelativeTime)}`,
-				false
-			)
+			.addFields([
+				{
+					name: 'Joined',
+					value: `${time(member.joinedAt!, TimestampStyles.LongDateTime)} ${time(member.joinedAt!, TimestampStyles.RelativeTime)}`,
+					inline: false
+				},
+				{
+					name: 'Created',
+					value: `${time(member.user.createdAt!, TimestampStyles.LongDateTime)} ${time(
+						member.user.createdAt!,
+						TimestampStyles.RelativeTime
+					)}`,
+					inline: false
+				}
+			])
 			.setFooter({
 				text: `ID: ${member.id}`,
-				iconURL: this.container.client.user!.displayAvatarURL({ size: 128, format: 'png', dynamic: true })
+				iconURL: this.container.client.user!.displayAvatarURL({ size: 128, extension: 'png', forceStatic: true })
 			})
 			.setTimestamp();
 		this.addRoles(interaction.guildId, member, embed);
@@ -64,15 +69,15 @@ export class UserInfoCommand extends GoblinCommand {
 		roles.delete(guildId);
 
 		const value = [...roles.values()].join(' ');
-		embed.addField('Roles', `${value.length > 1024 ? `${value.slice(1, 1020)}...` : value}`, false);
+		embed.addFields([{ name: 'Roles', value: `${value.length > 1024 ? `${value.slice(1, 1020)}...` : value}`, inline: false }]);
 	}
 
 	private static avatarUrlButton(member: GuildMember) {
 		return new ActionRowBuilder().addComponents([
 			new ButtonBuilder() //
 				.setLabel('🖼️ Avatar')
-				.setStyle('LINK')
-				.setURL(member.displayAvatarURL({ size: 512, format: 'png', dynamic: true }))
+				.setStyle(ButtonStyle.Link)
+				.setURL(member.displayAvatarURL({ size: 512, extension: 'png', forceStatic: true }))
 		]);
 	}
 }

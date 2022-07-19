@@ -14,6 +14,7 @@ export class UserListener extends Listener<typeof Events.ChatInputCommandError> 
 	}
 }
 
+// @ts-expect-error TODO: use webhook to report error...
 async function errorHandler(error: Error | UserError, interaction: CommandInteraction) {
 	if (error instanceof UserError) {
 		const isEmbed = Reflect.get(Object(error.context), 'embedMessage');

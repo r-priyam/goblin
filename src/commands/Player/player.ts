@@ -3,7 +3,7 @@ import type { ChatInputCommand } from '@sapphire/framework';
 import { Time } from '@sapphire/time-utilities';
 import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
 import type { Achievement, Player } from 'clashofclans.js';
-import { ActionRowBuilder, ButtonBuilder, EmbedBuilder, bold } from 'discord.js';
+import { ActionRowBuilder, ButtonBuilder, EmbedBuilder, bold, ButtonStyle, ComponentType } from 'discord.js';
 
 import { LabelEmotes, MiscEmotes, playerHelper, PlayerUnits, RawPosition } from '#lib/coc';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
@@ -55,7 +55,7 @@ export class PlayerCommand extends GoblinCommand {
 		await interaction.editReply({ embeds: [infoEmbed], components: [PlayerCommand.components] });
 
 		const collector = message.channel.createMessageComponentCollector({
-			componentType: 'BUTTON',
+			componentType: ComponentType.Button,
 			filter: (interaction) => collectorFiler(interaction, interaction.user.id, message.id),
 			time: Time.Minute * 2
 		});
@@ -93,7 +93,7 @@ export class PlayerCommand extends GoblinCommand {
 				continue;
 			}
 
-			embed.addField(field.name, field.value, false);
+			embed.addFields([{ name: field.name, value: field.value, inline: false }]);
 		}
 
 		return embed;
@@ -104,12 +104,12 @@ export class PlayerCommand extends GoblinCommand {
 			.addComponents([
 				new ButtonBuilder() //
 					.setCustomId(`PLAYER_INFO$_${Date.now()}`)
-					.setStyle('SECONDARY')
+					.setStyle(ButtonStyle.Secondary)
 					.setLabel('Info')
 					.setEmoji(MiscEmotes.Info),
 				new ButtonBuilder() //
 					.setCustomId(`PLAYER_UNITS_${Date.now()}`)
-					.setStyle('SECONDARY')
+					.setStyle(ButtonStyle.Secondary)
 					.setLabel('Units')
 					.setEmoji(LabelEmotes.Underdog)
 			]);
@@ -135,8 +135,10 @@ export class PlayerCommand extends GoblinCommand {
 			.setTitle(player.name)
 			.setURL(player.shareLink)
 			.setDescription(description)
-			.addField('\u200B', seasonStats, false)
-			.addField('\u200B', PlayerCommand.getAchievementsValue(player.achievements), false)
+			.setFields([
+				{ name: '\u200B', value: seasonStats, inline: false },
+				{ name: '\u200B', value: PlayerCommand.getAchievementsValue(player.achievements), inline: false }
+			])
 			.setThumbnail(townHallThumbnail)
 			.setFooter({ text: player.league.name, iconURL: player.league.icon.url })
 			.setColor(Colors.Indigo);

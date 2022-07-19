@@ -26,7 +26,7 @@ export class GuildCreateListener extends Listener<typeof Events.GuildCreate> {
 			.setTimestamp();
 
 		if (guild.icon) guildDeleteEmbed.setThumbnail(guild.iconURL()!);
-		if (guild.me) guildDeleteEmbed.setTimestamp(guild.me.joinedTimestamp);
+		if (guild.members.me) guildDeleteEmbed.setTimestamp(guild.members.me.joinedTimestamp);
 
 		await webhook.send({ embeds: [guildDeleteEmbed] });
 	}
