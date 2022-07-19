@@ -1,11 +1,11 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { ChatInputCommand, UserError } from '@sapphire/framework';
+import { EmbedBuilder } from 'discord.js';
 
 import { clanHelper, playerHelper } from '#lib/coc';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
-import { redis } from '#utils/redis';
-import { EmbedBuilder } from 'discord.js';
 import { Colors } from '#utils/constants';
+import { redis } from '#utils/redis';
 
 @ApplyOptions<ChatInputCommand.Options>({
 	description: 'Commands related to user profile'
