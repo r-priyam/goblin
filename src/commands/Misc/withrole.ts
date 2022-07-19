@@ -1,9 +1,8 @@
-import { roleMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import type { ChatInputCommand } from '@sapphire/framework';
 import { inlineCodeBlock } from '@sapphire/utilities';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder, roleMention } from 'discord.js';
 
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#root/lib/util/constants';
@@ -48,7 +47,7 @@ export class WithRole extends GoblinCommand {
 		if (members.length === 0) return interaction.editReply({ content: `No member has ${roleMention(role.id)}` });
 
 		while (members.length !== 0) {
-			const namesEmbed = new MessageEmbed()
+			const namesEmbed = new EmbedBuilder()
 				.setTitle(`Showing members for ${role.name}`)
 				.setDescription(
 					members

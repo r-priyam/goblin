@@ -1,10 +1,9 @@
-import { codeBlock } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import type { ChatInputCommand } from '@sapphire/framework';
 import { UserError } from '@sapphire/framework';
 import { envParseArray } from '@skyra/env-utilities';
 import { Util } from 'clashofclans.js';
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder, codeBlock } from 'discord.js';
 
 import { clanHelper } from '#lib/coc';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
@@ -96,7 +95,7 @@ export class AliasCommand extends GoblinCommand {
 		await redis.handleAliasOperations('CREATE', clan.tag, alias.toUpperCase(), clan.name);
 		return interaction.editReply({
 			embeds: [
-				new MessageEmbed() //
+				new EmbedBuilder() //
 					.setDescription(`Successfully created alias **${alias.toUpperCase()}** for ${clan.name} (${clan.tag})`)
 					.setColor(Colors.Green)
 			]
@@ -118,7 +117,7 @@ export class AliasCommand extends GoblinCommand {
 		await redis.handleAliasOperations('DELETE', tag, result.alias!);
 		return interaction.editReply({
 			embeds: [
-				new MessageEmbed() //
+				new EmbedBuilder() //
 					.setDescription(`Successfully deleted alias **${result.alias}** for ${result.clanName}`)
 					.setColor(Colors.Green)
 			]
@@ -133,6 +132,6 @@ export class AliasCommand extends GoblinCommand {
 			aliasList += `${name.padEnd(18, ' ')}${tag.padEnd(13, ' ')}${alias}\n`;
 		}
 
-		return interaction.editReply({ embeds: [new MessageEmbed().setDescription(codeBlock(aliasList))] });
+		return interaction.editReply({ embeds: [new EmbedBuilder().setDescription(codeBlock(aliasList))] });
 	}
 }

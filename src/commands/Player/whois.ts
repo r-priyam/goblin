@@ -1,10 +1,9 @@
-import { bold } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { PaginatedMessage } from '@sapphire/discord.js-utilities';
 import type { ChatInputCommand } from '@sapphire/framework';
 import { isNullish } from '@sapphire/utilities';
 import { Util } from 'clashofclans.js';
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder, bold } from 'discord.js';
 
 import { MiscEmotes, PlayerUnits, RawPosition, TownHallEmotes } from '#lib/coc';
 import { PlayerCommand } from '#root/commands/Player/player';
@@ -43,7 +42,7 @@ export class WhoIsCommand extends GoblinCommand {
 		const overall = { stars: 0, donations: 0, received: 0, attacks: 0, defenses: 0 };
 		const players = await Util.allSettled(data.splice(0, 5).map((tag) => this.coc.getPlayer(tag)));
 
-		const firstPage = new MessageEmbed()
+		const firstPage = new EmbedBuilder()
 			.setAuthor({ name: `${member.user.username} (${member.id})` })
 			.setThumbnail(member.displayAvatarURL({ size: 96, format: 'png', dynamic: true }))
 			.setColor(Colors.Indigo)
@@ -86,7 +85,7 @@ export class WhoIsCommand extends GoblinCommand {
 			pages.push(infoEmbed);
 		}
 
-		const paginator = new PaginatedMessage({ template: new MessageEmbed().setColor(Colors.Indigo) });
+		const paginator = new PaginatedMessage({ template: new EmbedBuilder().setColor(Colors.Indigo) });
 		paginator.addPageEmbed(firstPage);
 		pages.map((page) => paginator.addPageEmbed(page));
 		return paginator.run(interaction);

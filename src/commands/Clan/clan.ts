@@ -2,7 +2,7 @@ import { ApplyOptions } from '@sapphire/decorators';
 import type { ChatInputCommand } from '@sapphire/framework';
 import { isNullish } from '@sapphire/utilities';
 import type { Clan } from 'clashofclans.js';
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder } from 'discord.js';
 
 import { embedBuilder } from '#lib/classes/embeds';
 import { BlueNumberEmotes, clanHelper, LabelEmotes, MiscEmotes, RawClanType, RawWarFrequency, TownHallEmotes, WarLeagueEmotes } from '#lib/coc';
@@ -57,7 +57,7 @@ export class ClanCommand extends GoblinCommand {
 		return this.clanComposition(interaction, infoEmbed, clan);
 	}
 
-	private async clanComposition(interaction: ChatInputCommand.Interaction<'cached'>, embed: MessageEmbed, clan: Clan) {
+	private async clanComposition(interaction: ChatInputCommand.Interaction<'cached'>, embed: EmbedBuilder, clan: Clan) {
 		const composition: Record<number, number> = {};
 		const members = await clan.fetchMembers();
 		for (const member of members) {
@@ -84,7 +84,7 @@ export class ClanCommand extends GoblinCommand {
 		description += clan.description ? `${clan.description}` : 'No description set';
 		clan.labels.length && (description += `\n\n${clan.labels.map((label) => [`${LabelEmotes[label.name]} ${label.name}`]).join('\n')}\n\n`);
 
-		return new MessageEmbed()
+		return new EmbedBuilder()
 			.setTitle(clan.name)
 			.setURL(clan.shareLink)
 			.setDescription(description)

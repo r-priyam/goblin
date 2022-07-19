@@ -1,9 +1,8 @@
-import { bold } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { Events, Listener } from '@sapphire/framework';
 import type { Clan } from 'clashofclans.js';
 import type { Message } from 'discord.js';
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder, bold } from 'discord.js';
 
 import { MiscEmotes } from '#lib/coc';
 import { Colors } from '#utils/constants';
@@ -40,7 +39,7 @@ ${MiscEmotes.WarStreak} ${clan.warWinStreak} Streak
 
 ${bold('Description')}
 ${clan.description || 'No description'}`;
-		return new MessageEmbed()
+		return new EmbedBuilder()
 			.setTitle(`${clan.name} (${clan.tag})`)
 			.setURL(clan.shareLink)
 			.setDescription(info)

@@ -2,7 +2,7 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { PaginatedMessage } from '@sapphire/discord.js-utilities';
 import { fetch, FetchResultTypes } from '@sapphire/fetch';
 import type { ChatInputCommand } from '@sapphire/framework';
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder } from 'discord.js';
 import { stripHtml } from 'string-strip-html';
 
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
@@ -44,7 +44,7 @@ export class WikipediaCommand extends GoblinCommand {
 		if (data.query.searchinfo.totalhits === 0) return interaction.editReply({ content: 'No result found' });
 
 		const paginatedMessage = new PaginatedMessage({
-			template: new MessageEmbed() //
+			template: new EmbedBuilder() //
 				.setColor(Colors.Blue)
 				.setFooter({ text: ` Showing results for ${keyword}` })
 		});

@@ -1,10 +1,9 @@
-import { bold } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import type { ChatInputCommand } from '@sapphire/framework';
 import { Time } from '@sapphire/time-utilities';
 import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
 import type { Achievement, Player } from 'clashofclans.js';
-import { MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
+import { ActionRowBuilder, ButtonBuilder, EmbedBuilder, bold } from 'discord.js';
 
 import { LabelEmotes, MiscEmotes, playerHelper, PlayerUnits, RawPosition } from '#lib/coc';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
@@ -85,7 +84,7 @@ export class PlayerCommand extends GoblinCommand {
 			{ name: 'Super Troops', value: units.unit('SUPER') }
 		];
 
-		const embed = new MessageEmbed() //
+		const embed = new EmbedBuilder() //
 			.setTitle(`Units for ${player.name}`)
 			.setColor(Colors.Indigo);
 
@@ -101,14 +100,14 @@ export class PlayerCommand extends GoblinCommand {
 	}
 
 	private static get components() {
-		return new MessageActionRow() //
+		return new ActionRowBuilder() //
 			.addComponents([
-				new MessageButton() //
+				new ButtonBuilder() //
 					.setCustomId(`PLAYER_INFO$_${Date.now()}`)
 					.setStyle('SECONDARY')
 					.setLabel('Info')
 					.setEmoji(MiscEmotes.Info),
-				new MessageButton() //
+				new ButtonBuilder() //
 					.setCustomId(`PLAYER_UNITS_${Date.now()}`)
 					.setStyle('SECONDARY')
 					.setLabel('Units')
@@ -132,7 +131,7 @@ export class PlayerCommand extends GoblinCommand {
 			MiscEmotes.Sword
 		} ${player.attackWins}\n${bold('Defenses won')}\n${MiscEmotes.Shield} ${player.defenseWins}`;
 
-		return new MessageEmbed()
+		return new EmbedBuilder()
 			.setTitle(player.name)
 			.setURL(player.shareLink)
 			.setDescription(description)

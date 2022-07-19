@@ -1,10 +1,9 @@
-import { userMention, channelMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { fetch, FetchResultTypes } from '@sapphire/fetch';
 import type { ChatInputCommand } from '@sapphire/framework';
 import { envParseString } from '@skyra/env-utilities';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
-import { MessageEmbed, TextChannel } from 'discord.js';
+import { EmbedBuilder, TextChannel, userMention, channelMention } from 'discord.js';
 
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { embedBuilder } from '#root/lib/classes/embeds';
@@ -100,7 +99,7 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 
 		await channel.send({
 			content: userMention(member.id),
-			embeds: [new MessageEmbed().setColor(Colors.LightGreen).setDescription(this.#welcomeMessage)]
+			embeds: [new EmbedBuilder().setColor(Colors.LightGreen).setDescription(this.#welcomeMessage)]
 		});
 
 		return interaction.editReply({ embeds: [embedBuilder.success(`Successfully created ${channelMention(channel.id)}`)] });
@@ -132,7 +131,7 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 
 		const successData = {
 			embeds: [
-				new MessageEmbed()
+				new EmbedBuilder()
 					.setDescription(`Backup file for ${channel?.name} is saved at https://gist.github.com/robo-goblin/${gistId}`)
 					.setColor(Colors.Indigo)
 			]

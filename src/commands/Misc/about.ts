@@ -1,11 +1,10 @@
 import { readFile } from 'node:fs/promises';
 import { uptime, cpus, type CpuInfo } from 'node:os';
 
-import { hideLinkEmbed, hyperlink, time, TimestampStyles, userMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { type ChatInputCommand, version as sapphireVersion } from '@sapphire/framework';
 import { roundNumber } from '@sapphire/utilities';
-import { MessageEmbed, version } from 'discord.js';
+import { EmbedBuilder, version, hideLinkEmbed, hyperlink, time, TimestampStyles, userMention } from 'discord.js';
 
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#root/lib/util/constants';
@@ -70,7 +69,7 @@ export class AboutCommand extends GoblinCommand {
 			].join('\n')
 		};
 
-		return new MessageEmbed() //
+		return new EmbedBuilder() //
 			.setColor(Colors.Indigo)
 			.setDescription(this.#descriptionContent)
 			.setFields(

@@ -2,7 +2,7 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes } from '@sapphire/framework';
 import { Time } from '@sapphire/time-utilities';
 import type { ButtonInteraction } from 'discord.js';
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder } from 'discord.js';
 
 import { Colors } from '#utils/constants';
 
@@ -14,7 +14,7 @@ export class ButtonHandler extends InteractionHandler {
 		await interaction.update({ components: [] }).catch(() => null);
 
 		return interaction.followUp({
-			embeds: [new MessageEmbed().setDescription(result.message).setColor(Colors.DeepOrange)],
+			embeds: [new EmbedBuilder().setDescription(result.message).setColor(Colors.DeepOrange)],
 			ephemeral: true
 		});
 	}

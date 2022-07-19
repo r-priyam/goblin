@@ -1,22 +1,22 @@
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder } from 'discord.js';
 
 import { Colors } from '#utils/constants';
 
 class Embed {
 	public info(description: string) {
-		return new MessageEmbed({ title: 'Info', description, color: Colors.Blue });
+		return new EmbedBuilder({ title: 'Info', description, color: Colors.Blue });
 	}
 
 	public success(description: string) {
-		return new MessageEmbed({ title: 'Success', description, color: Colors.Green });
+		return new EmbedBuilder({ title: 'Success', description, color: Colors.Green });
 	}
 
 	public warning(description: string) {
-		return new MessageEmbed({ title: 'Warning', description, color: Colors.Yellow });
+		return new EmbedBuilder({ title: 'Warning', description, color: Colors.Yellow });
 	}
 
 	public error(description: string) {
-		return new MessageEmbed({ title: 'Error', description, color: Colors.Red });
+		return new EmbedBuilder({ title: 'Error', description, color: Colors.Red });
 	}
 }
 

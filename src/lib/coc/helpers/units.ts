@@ -1,6 +1,6 @@
-import { inlineCode } from '@discordjs/builders';
 import type { Player } from 'clashofclans.js';
 import { DARK_ELIXIR_TROOPS, ELIXIR_TROOPS } from 'clashofclans.js';
+import { inlineCode } from 'discord.js';
 
 import { BuilderBaseTroopEmotes, HeroEmotes, HeroPetEmotes, HomeBaseTroopEmotes, SiegeMachineEmotes, SpellEmotes, SuperTroopEmotes } from '#lib/coc';
 

@@ -1,7 +1,6 @@
-import { time, TimestampStyles } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import type { ChatInputCommand } from '@sapphire/framework';
-import { GuildMember, MessageActionRow, MessageButton, MessageEmbed, Role } from 'discord.js';
+import { GuildMember, ActionRowBuilder, ButtonBuilder, EmbedBuilder, Role, time, TimestampStyles } from 'discord.js';
 
 import { Colors } from '#lib/util/constants';
 import { GoblinCommand } from '#root/lib/extensions/GoblinCommand';
@@ -32,7 +31,7 @@ export class UserInfoCommand extends GoblinCommand {
 		await interaction.deferReply();
 		const member = interaction.options.getMember('user') || interaction.member;
 
-		const embed = new MessageEmbed()
+		const embed = new EmbedBuilder()
 			.setColor(member.displayColor || Colors.White)
 			.setThumbnail(member.displayAvatarURL({ size: 256, format: 'png', dynamic: true }))
 			.setTitle(member.user.tag)
@@ -56,7 +55,7 @@ export class UserInfoCommand extends GoblinCommand {
 		return interaction.editReply({ embeds: [embed], components: [UserInfoCommand.avatarUrlButton(member)] });
 	}
 
-	private addRoles(guildId: string, member: GuildMember, embed: MessageEmbed) {
+	private addRoles(guildId: string, member: GuildMember, embed: EmbedBuilder) {
 		if (member.roles.cache.size <= 1) {
 			return;
 		}
@@ -69,8 +68,8 @@ export class UserInfoCommand extends GoblinCommand {
 	}
 
 	private static avatarUrlButton(member: GuildMember) {
-		return new MessageActionRow().addComponents([
-			new MessageButton() //
+		return new ActionRowBuilder().addComponents([
+			new ButtonBuilder() //
 				.setLabel('🖼️ Avatar')
 				.setStyle('LINK')
 				.setURL(member.displayAvatarURL({ size: 512, format: 'png', dynamic: true }))

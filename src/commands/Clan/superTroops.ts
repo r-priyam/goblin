@@ -2,7 +2,7 @@ import { ApplyOptions } from '@sapphire/decorators';
 import type { ChatInputCommand } from '@sapphire/framework';
 import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
 import { Clan, SUPER_TROOPS } from 'clashofclans.js';
-import { MessageActionRow, MessageEmbed, MessageSelectMenu } from 'discord.js';
+import { ActionRowBuilder, EmbedBuilder, MessageSelectMenu } from 'discord.js';
 
 import { clanHelper, SuperTroopEmotes } from '#lib/coc';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
@@ -58,7 +58,7 @@ export class SuperTroopsCommand extends GoblinCommand {
 			.setCustomId(`SUPER_TROOP_MENU_${clanTag}`)
 			.addOptions(SUPER_TROOPS.map((troop) => ({ label: troop, emoji: SuperTroopEmotes[troop], value: troop })));
 
-		return new MessageActionRow().addComponents(superTroopsMenu);
+		return new ActionRowBuilder().addComponents(superTroopsMenu);
 	}
 
 	public static async getSuperTroops(clan: Clan, filterTroop?: string) {
@@ -71,7 +71,7 @@ export class SuperTroopsCommand extends GoblinCommand {
 			}
 		}
 
-		const superTroopsEmbed = new MessageEmbed() //
+		const superTroopsEmbed = new EmbedBuilder() //
 			.setColor(Colors.Indigo)
 			.setAuthor({ iconURL: clan.badge.url, name: clan.name })
 			.setTimestamp();
