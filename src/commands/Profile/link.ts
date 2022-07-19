@@ -79,7 +79,12 @@ export class SlashCommand extends GoblinCommand {
 
 		await redis.handleClanOrPlayerCache('PLAYER', 'UPDATE', interaction.member.id, player.tag, player.name);
 		return interaction.editReply({
-			embeds: [embedBuilder.success(`Linked **${player.name} (${player.tag})** to your discord account`)]
+			embeds: [
+				new EmbedBuilder()
+					.setTitle('Success')
+					.setDescription(`Linked **${player.name} (${player.tag})** to your discord account`)
+					.setColor(Colors.Green)
+			]
 		});
 	}
 }

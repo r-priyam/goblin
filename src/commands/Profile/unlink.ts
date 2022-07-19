@@ -83,7 +83,12 @@ export class SlashCommand extends GoblinCommand {
 
 		await redis.handleClanOrPlayerCache('PLAYER', 'REMOVE', interaction.member.id, tag);
 		return interaction.editReply({
-			embeds: [embedBuilder.success(`Removed **${result.playerName} (${tag})** from your discord account`)]
+			embeds: [
+				new EmbedBuilder()
+					.setTitle('Success')
+					.setDescription(`Removed **${result.playerName} (${tag})** from your discord account`)
+					.setColor(Colors.Green)
+			]
 		});
 	}
 }
