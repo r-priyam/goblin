@@ -2,8 +2,7 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { fetch, FetchResultTypes } from '@sapphire/fetch';
 import type { ChatInputCommand } from '@sapphire/framework';
 import { envParseString } from '@skyra/env-utilities';
-import { PermissionFlagsBits } from 'discord-api-types/v10';
-import { EmbedBuilder, TextChannel, userMention, channelMention } from 'discord.js';
+import { EmbedBuilder, TextChannel, userMention, channelMention, PermissionFlagsBits } from 'discord.js';
 
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { embedBuilder } from '#root/lib/classes/embeds';
