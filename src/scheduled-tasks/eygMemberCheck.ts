@@ -1,8 +1,8 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { ScheduledTask } from '@sapphire/plugin-scheduled-tasks';
-import { Constants, TextChannel, inlineCode, userMention } from 'discord.js';
+import { Constants, TextChannel, inlineCode, userMention, EmbedBuilder } from 'discord.js';
 
-import { embedBuilder } from '#root/lib/classes/embeds';
+import { Colors } from '#utils/constants';
 
 @ApplyOptions<ScheduledTask.Options>({
 	cron: '*/01 * * * *',
@@ -34,18 +34,24 @@ export class EygMemberCheck extends ScheduledTask {
 				await gatewayChannel.send({
 					content: userMention(member.id),
 					embeds: [
-						embedBuilder.warning(
-							'Hello 👋\nYou have been in `gateway` for 12 hours now. To avoid being removed automatically, speak to a recruiter within the next `12 Hours`!'
-						)
+						new EmbedBuilder()
+							.setTitle('Warning')
+							.setDescription(
+								'Hello 👋\nYou have been in `gateway` for 12 hours now. To avoid being removed automatically, speak to a recruiter within the next `12 Hours`!'
+							)
+							.setColor(Colors.Yellow)
 					]
 				});
 			} else if (minutes >= 60 * 24) {
 				await member.kick('Automatically kicked member for being in gateway for 24 hours');
 				await gatewayChannel.send({
 					embeds: [
-						embedBuilder.info(
-							`Automatically kicked ${inlineCode(member.displayName)} from the server as they've been in \`gateway for 24 hours+\``
-						)
+						new EmbedBuilder()
+							.setTitle('Info')
+							.setDescription(
+								`Automatically kicked ${inlineCode(member.displayName)} from the server as they've been in \`gateway for 24 hours+\``
+							)
+							.setColor(Colors.Green)
 					]
 				});
 			}

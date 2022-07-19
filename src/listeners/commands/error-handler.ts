@@ -1,8 +1,8 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { ChatInputCommandErrorPayload, Events, Listener, UserError } from '@sapphire/framework';
-import type { CommandInteraction } from 'discord.js';
+import { CommandInteraction, EmbedBuilder } from 'discord.js';
 
-import { embedBuilder } from '#lib/classes/embeds';
+import { Colors } from '#utils/constants';
 
 @ApplyOptions<Listener.Options>({
 	name: 'ChatInputCommandError',
@@ -28,7 +28,7 @@ async function errorHandler(error: Error | UserError, interaction: CommandIntera
 
 function messageOrEmbed(content: string, isEmbed = false) {
 	if (isEmbed) {
-		return { embeds: [embedBuilder.error(content)], allowedMentions: { parse: [] } };
+		return { embeds: [new EmbedBuilder().setDescription(content).setColor(Colors.Green)], allowedMentions: { parse: [] } };
 	}
 
 	return { content, allowedMentions: { parse: [] } };

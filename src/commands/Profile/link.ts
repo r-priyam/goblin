@@ -1,10 +1,11 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { ChatInputCommand, UserError } from '@sapphire/framework';
 
-import { embedBuilder } from '#lib/classes/embeds';
 import { clanHelper, playerHelper } from '#lib/coc';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { redis } from '#utils/redis';
+import { EmbedBuilder } from 'discord.js';
+import { Colors } from '#utils/constants';
 
 @ApplyOptions<ChatInputCommand.Options>({
 	description: 'Commands related to user profile'
@@ -57,7 +58,7 @@ export class SlashCommand extends GoblinCommand {
 
 		await redis.handleClanOrPlayerCache('CLAN', 'UPDATE', interaction.member.id, clan.tag, clan.name);
 		return interaction.editReply({
-			embeds: [embedBuilder.success(`Linked **${clan.name} (${clan.tag})** to your discord account`)]
+			embeds: [new EmbedBuilder().setDescription(`Linked **${clan.name} (${clan.tag})** to your discord account`).setColor(Colors.Green)]
 		});
 	}
 

@@ -4,7 +4,7 @@ import { inlineCodeBlock } from '@sapphire/utilities';
 import { EmbedBuilder, roleMention, PermissionFlagsBits } from 'discord.js';
 
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
-import { Colors } from '#root/lib/util/constants';
+import { Colors } from '#utils/constants';
 
 @ApplyOptions<ChatInputCommand.Options>({
 	description: 'Get list of members with specific role'

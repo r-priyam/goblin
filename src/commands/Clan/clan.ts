@@ -4,7 +4,6 @@ import { isNullish } from '@sapphire/utilities';
 import type { Clan } from 'clashofclans.js';
 import { EmbedBuilder } from 'discord.js';
 
-import { embedBuilder } from '#lib/classes/embeds';
 import { BlueNumberEmotes, clanHelper, LabelEmotes, MiscEmotes, RawClanType, RawWarFrequency, TownHallEmotes, WarLeagueEmotes } from '#lib/coc';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors, Emotes } from '#utils/constants';
@@ -49,7 +48,9 @@ export class ClanCommand extends GoblinCommand {
 		const clan = await clanHelper.info(clanTag);
 
 		if (clan.memberCount === 0) {
-			return interaction.editReply({ embeds: [embedBuilder.error('Clan has 0 members, failed to collect the required data')] });
+			return interaction.editReply({
+				embeds: [new EmbedBuilder().setDescription('Clan has 0 members, failed to collect the required data').setColor(Colors.Red)]
+			});
 		}
 		const infoEmbed = ClanCommand.infoEmbed(clan);
 
@@ -74,7 +75,7 @@ export class ClanCommand extends GoblinCommand {
 
 		// remove placeholder field for composition fetch
 		embed.spliceFields(2, 1);
-		embed.addField('\u200B', formattedComposition, false);
+		embed.addFields([{ name: '\u200B', value: formattedComposition, inline: false }]);
 		return interaction.editReply({ embeds: [embed] });
 	}
 

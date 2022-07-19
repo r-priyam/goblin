@@ -5,7 +5,6 @@ import { envParseString } from '@skyra/env-utilities';
 import { EmbedBuilder, TextChannel, userMention, channelMention, PermissionFlagsBits } from 'discord.js';
 
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
-import { embedBuilder } from '#root/lib/classes/embeds';
 import { Colors } from '#utils/constants';
 
 @ApplyOptions<ChatInputCommand.Options>({
@@ -101,7 +100,14 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 			embeds: [new EmbedBuilder().setColor(Colors.LightGreen).setDescription(this.#welcomeMessage)]
 		});
 
-		return interaction.editReply({ embeds: [embedBuilder.success(`Successfully created ${channelMention(channel.id)}`)] });
+		return interaction.editReply({
+			embeds: [
+				new EmbedBuilder()
+					.setTitle('Success')
+					.setDescription(`Successfully created ${channelMention(channel.id)}`)
+					.setColor(Colors.Green)
+			]
+		});
 	}
 
 	private async close(interaction: ChatInputCommand.Interaction<'cached'>) {

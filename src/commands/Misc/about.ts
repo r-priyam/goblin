@@ -7,7 +7,7 @@ import { roundNumber } from '@sapphire/utilities';
 import { EmbedBuilder, version, hideLinkEmbed, hyperlink, time, TimestampStyles, userMention } from 'discord.js';
 
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
-import { Colors } from '#root/lib/util/constants';
+import { Colors } from '#utils/constants';
 import { seconds } from '#utils/functions/time';
 
 @ApplyOptions<ChatInputCommand.Options>({

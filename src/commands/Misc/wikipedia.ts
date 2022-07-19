@@ -6,7 +6,7 @@ import { EmbedBuilder } from 'discord.js';
 import { stripHtml } from 'string-strip-html';
 
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
-import { Colors } from '#root/lib/util/constants';
+import { Colors } from '#utils/constants';
 
 @ApplyOptions<ChatInputCommand.Options>({
 	description: 'Search wikipedia for a keyword'

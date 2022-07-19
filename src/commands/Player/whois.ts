@@ -6,9 +6,9 @@ import { Util } from 'clashofclans.js';
 import { EmbedBuilder, bold } from 'discord.js';
 
 import { MiscEmotes, PlayerUnits, RawPosition, TownHallEmotes } from '#lib/coc';
+import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { PlayerCommand } from '#root/commands/Player/player';
-import { GoblinCommand } from '#root/lib/extensions/GoblinCommand';
-import { Colors } from '#root/lib/util/constants';
+import { Colors } from '#utils/constants';
 
 @ApplyOptions<ChatInputCommand.Options>({
 	description: 'Get information about an user'

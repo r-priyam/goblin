@@ -6,9 +6,8 @@ import type { ChatInputCommand } from '@sapphire/framework';
 import { Stopwatch } from '@sapphire/stopwatch';
 import { Type } from '@sapphire/type';
 import { isThenable } from '@sapphire/utilities';
-import { codeBlock } from 'discord.js';
+import { codeBlock, EmbedBuilder } from 'discord.js';
 
-import { embedBuilder } from '#lib/classes/embeds';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#utils/constants';
 
@@ -63,14 +62,15 @@ export class EvalCommand extends GoblinCommand {
 		const output = success ? codeBlock('js', result) : codeBlock('bash', result);
 
 		const embedLimitReached = output.length > 4096;
-		const embed = embedBuilder
-			.info(embedLimitReached ? 'Output was too long! The result has been sent as a file.' : output)
+		const embed = new EmbedBuilder()
+			.setDescription(embedLimitReached ? 'Output was too long! The result has been sent as a file.' : output)
 			.setColor(success ? Colors.Green : Colors.Red);
 
-		embed
-			.setTitle(success ? 'Eval Result ✨' : 'Eval Error 💀')
-			.addField('Type 📝', codeBlock('ts', type), true)
-			.addField('Elapsed ⏱', elapsed, true);
+		embed.setTitle(success ? 'Eval Result ✨' : 'Eval Error 💀');
+		embed.addFields([
+			{ name: 'Type 📝', value: codeBlock('ts', type), inline: true },
+			{ name: 'Elapsed ⏱', value: elapsed, inline: true }
+		]);
 
 		const files = embedLimitReached ? [{ attachment: Buffer.from(output), name: 'output.txt' }] : [];
 		await interaction.editReply({ embeds: [embed], files });

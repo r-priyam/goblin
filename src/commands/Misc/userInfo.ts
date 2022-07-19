@@ -2,8 +2,8 @@ import { ApplyOptions } from '@sapphire/decorators';
 import type { ChatInputCommand } from '@sapphire/framework';
 import { GuildMember, ActionRowBuilder, ButtonBuilder, EmbedBuilder, Role, time, TimestampStyles } from 'discord.js';
 
+import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#lib/util/constants';
-import { GoblinCommand } from '#root/lib/extensions/GoblinCommand';
 
 const sortRanks = (x: Role, y: Role) => Number(y.position > x.position) || Number(x.position === y.position) - 1;
 

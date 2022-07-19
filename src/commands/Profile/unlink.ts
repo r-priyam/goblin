@@ -1,9 +1,10 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import type { ChatInputCommand } from '@sapphire/framework';
 import { Util } from 'clashofclans.js';
+import { EmbedBuilder } from 'discord.js';
 
-import { embedBuilder } from '#lib/classes/embeds';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
+import { Colors } from '#utils/constants';
 import { redis } from '#utils/redis';
 
 @ApplyOptions<ChatInputCommand.Options>({
@@ -59,7 +60,7 @@ export class SlashCommand extends GoblinCommand {
 
 		await redis.handleClanOrPlayerCache('CLAN', 'REMOVE', interaction.member.id, tag);
 		return interaction.editReply({
-			embeds: [embedBuilder.success(`Removed **${result.clanName} (${tag})** from your discord account`)]
+			embeds: [new EmbedBuilder().setDescription(`Removed **${result.clanName} (${tag})** from your discord account`).setColor(Colors.Green)]
 		});
 	}
 
