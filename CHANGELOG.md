@@ -2,6 +2,74 @@
 
 All notable changes to this project will be documented in this file.
 
+# [1.4.0](https://github.com/r-priyam/goblin/compare/v1.3.0...v1.4.0) - (2022-07-20)
+
+## 🏠 Refactor
+
+- Cache everything possible and remove useless intents ([e045206](https://github.com/r-priyam/goblin/commit/e0452068831f35d4055209352b206d7b85fdaad0))
+- Remove `parseArmyLink` as it's now in official lib ([2fddb74](https://github.com/r-priyam/goblin/commit/2fddb74995d38d87a60cd146bd2b57b16119bc95))
+- Get redis from container directly ([9d696ee](https://github.com/r-priyam/goblin/commit/9d696eeb0a598cf802815ed37d3e6f85a84b826d))
+
+## 🐛 Bug Fixes
+
+- **deps:** Update dependency string-strip-html to v11 (#34) ([71a8f03](https://github.com/r-priyam/goblin/commit/71a8f03c011abf11cd28922e36ad1eda991f5558))
+- **deps:** Update sapphire dependencies (#30) ([7c69547](https://github.com/r-priyam/goblin/commit/7c6954701633ffc2cd7a68274ada13106fae1ad5))
+- **deps:** Update dependency string-strip-html to v10 (#28) ([8c157ee](https://github.com/r-priyam/goblin/commit/8c157ee1cf88c656f90d65edd009b1dec5aedb9d))
+- **deps:** Update sapphire dependencies ([4d9da28](https://github.com/r-priyam/goblin/commit/4d9da28de5b396c7758dd79e65bc6ff5aa133bb9))
+- Nullish value in result ([f612da3](https://github.com/r-priyam/goblin/commit/f612da3efa3208a2c5c6a5417760e4f0cfddcc76))
+- `Elder` raw position ([037a49a](https://github.com/r-priyam/goblin/commit/037a49a92b48610e07f7f902df0d8b0763bef28b))
+- Handle so many roles causing error ([6024491](https://github.com/r-priyam/goblin/commit/6024491d82b747e3e8a4123b76767e1311d010c0))
+
+## 🚀 Features
+
+- **commands:** Add `/hackban` command ([1417fc6](https://github.com/r-priyam/goblin/commit/1417fc6cb8dba86fb36f1611246fc217aa0cdd43))
+- **commands:** Use `perms v2` ([97e84ae](https://github.com/r-priyam/goblin/commit/97e84aee3cf7a2a7d19e9445d2a1ad1c7f9011b6))
+- **commands:** Add `/about` command ([c847df8](https://github.com/r-priyam/goblin/commit/c847df8ebbcc14161b8ead0dba01d4f70cf4cdfc))
+- **commands:** Add `/withrole` command ([f3de481](https://github.com/r-priyam/goblin/commit/f3de481b6a7fb9563a7b4fd54c9e325ddfc69bd9))
+- **events:** Add `guildCreate` and `guildDelete` event ([a858bbb](https://github.com/r-priyam/goblin/commit/a858bbbbd2eb2d9d87f09b271c1bf473fd8d9d87))
+- **commands:** Add `serverinvite` command ([f98b658](https://github.com/r-priyam/goblin/commit/f98b658f7bdde6a2d9388401234dca2a9871ce6b))
+- **commands:** Add `supertroops` command ([029d0d6](https://github.com/r-priyam/goblin/commit/029d0d6943fca50f1a27dc78e4b5077a451832de))
+- **commands:** Add `sql` command ([9f1894a](https://github.com/r-priyam/goblin/commit/9f1894aaa1767fb7c0af2b8cc23aa599a3612f01))
+- Sync shared db with private db ([1c01f21](https://github.com/r-priyam/goblin/commit/1c01f210c36fc9ff773d68a5990406308cb34ef8))
+- **commands:** Complete `whois` command ([48c9443](https://github.com/r-priyam/goblin/commit/48c944377dcae162b88bcdab027866a74a68f93f))
+- Integrate link api with custom clash client ([7d4ea56](https://github.com/r-priyam/goblin/commit/7d4ea56b0166c4ea452f71672017a72ab60ff4f3))
+
+# [1.3.0](https://github.com/r-priyam/goblin/compare/v1.2.0...v1.3.0) - (2022-06-20)
+
+## 🏠 Refactor
+
+- Support types in redis util ([473aa70](https://github.com/r-priyam/goblin/commit/473aa706ae5d3e76a1fe829b5086899637f74832))
+
+## 🐛 Bug Fixes
+
+- Cliff tag pattern ([77502b5](https://github.com/r-priyam/goblin/commit/77502b512a5b09697abde25bb36fdf67c7b96e11))
+- **deps:** Update sapphire dependencies (#20) ([e121c79](https://github.com/r-priyam/goblin/commit/e121c7962f09c0f9616af1b8921db9ff1e321dbf))
+- **commands:** Handle no tag arg ([05fded7](https://github.com/r-priyam/goblin/commit/05fded7eaf9a5dfec651e4efb6e6f19557441ddf))
+- **commands:** `null` show in clan info and reformat ([68384c4](https://github.com/r-priyam/goblin/commit/68384c40a838d67b129a3a839891aafdf8a60051))
+- **deps:** Update sapphire dependencies (#19) ([5036cf0](https://github.com/r-priyam/goblin/commit/5036cf053baaf6e40b64cff9f28b9db0cdee7ce9))
+- **deps:** Update sapphire dependencies ([343240c](https://github.com/r-priyam/goblin/commit/343240c4e48cc135fb8c0bfaff576705076b2996))
+
+## 🚀 Features
+
+- **commands:** Add `/userinfo` command ([2064ac6](https://github.com/r-priyam/goblin/commit/2064ac6fd355c345ac1d9e2890db9298a2c0bd95))
+- **commands:** Add `/wikipedia` command ([ab1ac36](https://github.com/r-priyam/goblin/commit/ab1ac367123ce61282156528a6f4ba845b9f15e4))
+- **commands:** Add `alias list` command ([66b23e7](https://github.com/r-priyam/goblin/commit/66b23e76d21c1a2ae22250284bbc6ca9566c8d8e))
+- **commands:** Add `alias` command, and it's listener ([a248737](https://github.com/r-priyam/goblin/commit/a24873700ed9cda16f82192e7b9c89048af6d2dc))
+
+# [1.2.0](https://github.com/r-priyam/goblin/compare/v1.1.0...v1.2.0) - (2022-06-04)
+
+## 🏠 Refactor
+
+- Make docker services dynamic ([7922428](https://github.com/r-priyam/goblin/commit/79224281f020946b72f6434043a0152e18c5b3da))
+
+## 🐛 Bug Fixes
+
+- Run member check task per minute ([daef5ab](https://github.com/r-priyam/goblin/commit/daef5ab84f1dc0747889eeb7e1802b57a1977263))
+
+## 🚀 Features
+
+- Add release workflow ([e98eae9](https://github.com/r-priyam/goblin/commit/e98eae9624e93d8f34ab8b8bc1cb3c8b45ae80c2))
+
 # [1.3.0](https://github.com/r-priyam/goblin/compare/v1.2.0...v1.3.0) - (2022-06-20)
 
 ## 🏠 Refactor
