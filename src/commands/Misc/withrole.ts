@@ -23,19 +23,14 @@ export class WithRole extends GoblinCommand {
 							.setName('role')
 							.setDescription('Role to get members for')
 							.setRequired(true)
-					),
+					)
+					.setDMPermission(false)
+					.setDefaultMemberPermissions(PermissionFlagsBits.BanMembers | PermissionFlagsBits.KickMembers),
 			{ idHints: ['997227514726461490', '997373722178617405'] }
 		);
 	}
 
 	public override async chatInputRun(interaction: ChatInputCommand.Interaction<'cached'>) {
-		if (
-			!interaction.memberPermissions.has(PermissionFlagsBits.BanMembers) ||
-			!interaction.memberPermissions.has(PermissionFlagsBits.KickMembers)
-		) {
-			return interaction.reply({ content: "You don't have enough permissions to run this command", ephemeral: true });
-		}
-
 		await interaction.deferReply();
 		const role = interaction.options.getRole('role', true);
 

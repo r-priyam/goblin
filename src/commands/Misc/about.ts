@@ -26,9 +26,16 @@ export class AboutCommand extends GoblinCommand {
 	].join('\n');
 
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
-		registry.registerChatInputCommand((builder) => builder.setName(this.name).setDescription(this.description), {
-			idHints: ['998801926315589672', '998831574449668126']
-		});
+		registry.registerChatInputCommand(
+			(builder) =>
+				builder //
+					.setName(this.name)
+					.setDescription(this.description)
+					.setDMPermission(false),
+			{
+				idHints: ['998801926315589672', '998831574449668126']
+			}
+		);
 	}
 
 	public override async chatInputRun(interaction: ChatInputCommand.Interaction<'cached'>) {

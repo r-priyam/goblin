@@ -25,7 +25,8 @@ export class SuperTroopsCommand extends GoblinCommand {
 							.setDescription('Tag of the clan')
 							.setRequired(false)
 							.setAutocomplete(true)
-					),
+					)
+					.setDMPermission(false),
 			{
 				idHints: ['991987141259309067', '992380615884296213']
 			}

@@ -26,7 +26,8 @@ export class WhoIsCommand extends GoblinCommand {
 							.setName('user')
 							.setDescription('The user to get information for')
 							.setRequired(false)
-					),
+					)
+					.setDMPermission(false),
 			{ idHints: ['974749593696874506', '980131954139734138'] }
 		);
 	}

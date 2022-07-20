@@ -23,7 +23,8 @@ export class UserInfoCommand extends GoblinCommand {
 							.setName('user')
 							.setDescription('The user to get information for')
 							.setRequired(false)
-					),
+					)
+					.setDMPermission(false),
 			{ idHints: ['987411522198335619', '987411679115624502'] }
 		);
 	}

@@ -29,7 +29,8 @@ export class PlayerCommand extends GoblinCommand {
 							.setDescription('Tag of the player')
 							.setRequired(false)
 							.setAutocomplete(true)
-					),
+					)
+					.setDMPermission(false),
 			{ idHints: ['977007152600350761', '980131956241092648'] }
 		);
 	}

@@ -16,6 +16,7 @@ export class SlashCommand extends GoblinCommand {
 				builder
 					.setName(this.name)
 					.setDescription(this.description)
+					.setDMPermission(false)
 					.addSubcommand((command) =>
 						command
 							.setName('clan')

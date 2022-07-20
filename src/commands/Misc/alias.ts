@@ -21,6 +21,7 @@ export class AliasCommand extends GoblinCommand {
 				builder
 					.setName('alias')
 					.setDescription(this.description)
+					.setDMPermission(false)
 					.addSubcommand((command) =>
 						command
 							.setName('create')

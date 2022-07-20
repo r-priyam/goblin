@@ -23,7 +23,8 @@ export class WikipediaCommand extends GoblinCommand {
 							.setName('keyword')
 							.setDescription('The keyword to search')
 							.setRequired(true)
-					),
+					)
+					.setDMPermission(false),
 			{ idHints: ['987351901655945326', '987409434462519337'] }
 		);
 	}

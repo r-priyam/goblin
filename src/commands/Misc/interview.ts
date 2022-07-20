@@ -32,6 +32,7 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 				builder
 					.setName(this.name)
 					.setDescription(this.description)
+					.setDMPermission(false)
 					.addSubcommand((command) =>
 						command
 							.setName('start')

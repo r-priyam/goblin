@@ -26,7 +26,8 @@ export class ClanCommand extends GoblinCommand {
 							.setDescription('Tag of the clan')
 							.setRequired(false)
 							.setAutocomplete(true)
-					),
+					)
+					.setDMPermission(false),
 			{ idHints: ['975586954982867024', '980132035089809429'] }
 		);
 	}

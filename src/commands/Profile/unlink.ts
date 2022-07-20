@@ -28,7 +28,8 @@ export class SlashCommand extends GoblinCommand {
 							.setName('tag')
 							.setDescription('The tag to unlink')
 							.setRequired(true)
-					),
+					)
+					.setDMPermission(false),
 			{ idHints: ['975442552134197248', '980131949911883847'] }
 		);
 	}
