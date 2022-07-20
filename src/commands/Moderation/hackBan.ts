@@ -1,5 +1,6 @@
 import { userMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
+import { SnowflakeRegex } from '@sapphire/discord.js-utilities';
 import type { ChatInputCommand } from '@sapphire/framework';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
 import { DiscordAPIError, MessageEmbed, User } from 'discord.js';
@@ -27,6 +28,10 @@ export class HackBan extends GoblinCommand {
 	public override async chatInputRun(interaction: ChatInputCommand.Interaction<'cached'>) {
 		await interaction.deferReply();
 		const userId = interaction.options.getString('id', true);
+
+		if (!SnowflakeRegex.test(userId)) {
+			return interaction.editReply({ content: 'Not a valid user id' });
+		}
 
 		let user: User;
 
