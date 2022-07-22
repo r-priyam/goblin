@@ -375,8 +375,8 @@ __metadata:
   linkType: hard
 
 "@sapphire/framework@npm:next":
-  version: 3.0.0-next.72b48bb.0
-  resolution: "@sapphire/framework@npm:3.0.0-next.72b48bb.0"
+  version: 3.0.0-next.9a74f02.0
+  resolution: "@sapphire/framework@npm:3.0.0-next.9a74f02.0"
   dependencies:
     "@discordjs/builders": ^0.15.0
     "@sapphire/discord-utilities": ^2.11.4
@@ -388,7 +388,7 @@ __metadata:
     "@sapphire/utilities": ^3.7.0
     lexure: ^0.17.0
     tslib: ^2.4.0
-  checksum: 79def21245a3cae9e2611e8cb5af4b5407d0fa969ff73981e0021cfa9940dcc5420f5cba729b82a96e6afc984b8ccafb46cdd231a87b9af5a55a0a69dab83b20
+  checksum: 7d70ef541d079bff2013a3dd322f1fa8beb6140b9726f5654ba7ab62d09a86b1f9ae31595dfe34b2c9c50d99afa3f300a89e278f198643aaf5a02fc6abe0ab25
   languageName: node
   linkType: hard
 
