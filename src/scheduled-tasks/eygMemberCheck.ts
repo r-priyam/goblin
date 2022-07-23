@@ -5,12 +5,7 @@ import { Constants, TextChannel } from 'discord.js';
 
 import { embedBuilder } from '#root/lib/classes/embeds';
 
-@ApplyOptions<ScheduledTask.Options>({
-	cron: '*/01 * * * *',
-	bullJobOptions: {
-		removeOnComplete: true
-	}
-})
+@ApplyOptions<ScheduledTask.Options>({ cron: '*/01 * * * *' })
 export class EygMemberCheck extends ScheduledTask {
 	private readonly checkRoleId = '318003116773474304';
 
