@@ -115,14 +115,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@favware/cliff-jumper@npm:^1.8.5":
-  version: 1.8.5
-  resolution: "@favware/cliff-jumper@npm:1.8.5"
+"@favware/cliff-jumper@npm:^1.8.6":
+  version: 1.8.6
+  resolution: "@favware/cliff-jumper@npm:1.8.6"
   dependencies:
-    "@sapphire/result": ^2.0.0
-    "@sapphire/utilities": ^3.6.2
+    "@sapphire/result": ^2.1.1
+    "@sapphire/utilities": ^3.8.0
     colorette: ^2.0.19
-    commander: ^9.3.0
+    commander: ^9.4.0
     conventional-changelog-angular: ^5.0.13
     conventional-recommended-bump: ^6.1.0
     js-yaml: ^4.1.0
@@ -131,7 +131,7 @@ __metadata:
   bin:
     cj: ./dist/cli.js
     cliff-jumper: ./dist/cli.js
-  checksum: afdf247292089b79a17aa9d5b05f6d4077739e044aa0ef8125caa7030064bbb648c6f36b294546d66122ab2a8371af93d9fddfa768721ef40231b5e03b27f5ce
+  checksum: 0c4f55d3177f395d09709faa26845aa5b7fb4250e278e5b9a84994ed49f6b1cf14f57f306db596b68af8016594d725bdb6cb091f4f0372fa2fce0fd8e0e93b59
   languageName: node
   linkType: hard
 
@@ -455,10 +455,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sapphire/result@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "@sapphire/result@npm:2.0.0"
-  checksum: 24ec5637e128c551332e40b0fbab06ef156a09630a7f812ac183717cadecec021d883894055b4ac3d5ede7ce0a2fff0f2b43f08fafb5d9c6f8f20b813bdd71d6
+"@sapphire/result@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "@sapphire/result@npm:2.1.1"
+  checksum: e1c77ba6fcdb63b17152e06a1b30ca8e9a8da00c343019cf1181aeb6d14cc3d7546c2535c9f3f592252c3578889081dcdbad0649bd33d6279b93a79710a7f8e1
   languageName: node
   linkType: hard
 
@@ -531,6 +531,13 @@ __metadata:
   version: 3.7.0
   resolution: "@sapphire/utilities@npm:3.7.0"
   checksum: 3b574586242f015859e913123a5311774ad2d6cb79241c2a3d447a585282bdb04cddcd8e086f757a8ae5d2c49f4a25b4f848d63cebe605c7641364b51c3cfa11
+  languageName: node
+  linkType: hard
+
+"@sapphire/utilities@npm:^3.8.0":
+  version: 3.8.0
+  resolution: "@sapphire/utilities@npm:3.8.0"
+  checksum: 5b7520bcce6abf743bdf393783bed7b003e2fe6e6473a8325c00ee1df8c7eb6325ec0a307435345627b609146ca0555e5169545af41c7b3a71dcf6f7b87339f3
   languageName: node
   linkType: hard
 
@@ -1148,9 +1155,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bullmq@npm:^1.86.7":
-  version: 1.86.7
-  resolution: "bullmq@npm:1.86.7"
+"bullmq@npm:^1.86.10":
+  version: 1.86.10
+  resolution: "bullmq@npm:1.86.10"
   dependencies:
     cron-parser: ^4.2.1
     get-port: ^5.1.1
@@ -1161,7 +1168,7 @@ __metadata:
     semver: ^7.3.7
     tslib: ^1.14.1
     uuid: ^8.3.2
-  checksum: a6f793d2f5c258a8d55c56da327240e1691120374982c9f04fa2ff69ea42e4626d85643a623ddce2fdbbc6d8d8dbde1ae5143ad3a873e4ddffa9824ec04589e7
+  checksum: 55651c86481d442c56c886b0b4acda27ef454d67f2087bbdd23cc0db622d5f99f3a46de6dbd2da48959f35d7fb2c643fc3d5e544c7c7575c26c3bd9321e43bdc
   languageName: node
   linkType: hard
 
@@ -1394,10 +1401,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:^9.3.0":
-  version: 9.3.0
-  resolution: "commander@npm:9.3.0"
-  checksum: d421ce66fee25792a1470c69aa8d1b86434bf873a96483aa92c8267f81a6f20c6f7c426f5e82f88ac50a8ec4855d3f2787aebcdef8aa559e1080a2337a95a217
+"commander@npm:^9.4.0":
+  version: 9.4.0
+  resolution: "commander@npm:9.4.0"
+  checksum: a322de584a6ccd1ea83c24f6a660e52d16ffbe2613fcfbb8d2cc68bc9dec637492456d754fe8bb5b039ad843ed8e04fb0b107e581a75f62cde9e1a0ab1546e09
   languageName: node
   linkType: hard
 
@@ -1658,9 +1665,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"discord.js@npm:^13.9.1":
-  version: 13.9.1
-  resolution: "discord.js@npm:13.9.1"
+"discord.js@npm:^13.9.2":
+  version: 13.9.2
+  resolution: "discord.js@npm:13.9.2"
   dependencies:
     "@discordjs/builders": ^0.16.0
     "@discordjs/collection": ^0.7.0
@@ -1671,7 +1678,7 @@ __metadata:
     form-data: ^4.0.0
     node-fetch: ^2.6.7
     ws: ^8.8.1
-  checksum: 8c2b5d15d5981b05b55049ae667ec37c870105c6eae784f11e9755affca5299693cffc06b77cf8b2b5ee3c62cecb429179361aedc2e8422bc2c8cf63308b8100
+  checksum: e49228e2d786262ef06e611ba0d0edd3b1a773e04ce19f1536dbb5590eecc26a3667280ac8fe6801df55ae7964d01043c7060034fc306176fbbee97efce9efd6
   languageName: node
   linkType: hard
 
@@ -2748,7 +2755,7 @@ __metadata:
   resolution: "goblin@workspace:."
   dependencies:
     "@discordjs/builders": ^1.0.0
-    "@favware/cliff-jumper": ^1.8.5
+    "@favware/cliff-jumper": ^1.8.6
     "@mikro-orm/sql-highlighter": ^1.0.1
     "@sapphire/decorators": ^4.3.8
     "@sapphire/discord.js-utilities": ^4.11.3
@@ -2770,11 +2777,11 @@ __metadata:
     "@types/node": ^18.0.4
     "@typescript-eslint/eslint-plugin": ^5.31.0
     "@typescript-eslint/parser": ^5.31.0
-    bullmq: ^1.86.7
+    bullmq: ^1.86.10
     clashofclans.js: 2.8.0
     colorette: ^2.0.19
     discord-api-types: ^0.33.5
-    discord.js: ^13.9.1
+    discord.js: ^13.9.2
     eslint: ^8.20.0
     eslint-config-prettier: ^8.5.0
     eslint-plugin-import: ^2.26.0
@@ -2787,8 +2794,8 @@ __metadata:
     prettier: ^2.7.1
     redis: ^4.2.0
     reflect-metadata: ^0.1.13
-    string-strip-html: ^11.0.0
-    tsup: ^6.2.0
+    string-strip-html: ^11.0.1
+    tsup: ^6.2.1
     typescript: ^4.7.4
   languageName: unknown
   linkType: soft
@@ -4266,13 +4273,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ranges-apply@npm:^6.1.4":
-  version: 6.1.4
-  resolution: "ranges-apply@npm:6.1.4"
+"ranges-apply@npm:^6.1.5":
+  version: 6.1.5
+  resolution: "ranges-apply@npm:6.1.5"
   dependencies:
     ranges-merge: ^8.1.4
     tiny-invariant: ^1.2.0
-  checksum: 980390d94c3f41d5f7baa639716653ffe682bc0dd3fa10978dbd2059daef69d2b8fad69bf8d82007b3b901533c0be0e6014a33bee65fbcdb714ea9faf1a504bd
+  checksum: abd083a70641ee9e9c8fad2798dffd1f0cbeebce58de4f5c59a0ee0480d92d8b302ca47c78ecefb36fa72f41e2d3189240f27b5c2a72d30f07e9de47c0366d2b
   languageName: node
   linkType: hard
 
@@ -4728,18 +4735,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"string-strip-html@npm:^11.0.0":
-  version: 11.0.0
-  resolution: "string-strip-html@npm:11.0.0"
+"string-strip-html@npm:^11.0.1":
+  version: 11.0.1
+  resolution: "string-strip-html@npm:11.0.1"
   dependencies:
     html-entities: ^2.3.3
     lodash.isplainobject: ^4.0.6
     lodash.trim: ^4.5.1
     lodash.without: ^4.4.0
-    ranges-apply: ^6.1.4
+    ranges-apply: ^6.1.5
     ranges-push: ^6.1.4
     string-left-right: ^5.0.14
-  checksum: bf56af8f85b14801d0b0f5c973302810ca1cc544650bd049432360160c4cad93d09df37b1924afd87eb6af398244c506d6e9c7a2c19abe61c2e20f6733b282c6
+  checksum: df02aee32614725df85e6157ad7d27fd2b177e452c5ee35aa815e5659a29e8227c72d8f15f65483f9195d56ca8e8e36c8e01f12e2f9df9a1ff9c944cfae22594
   languageName: node
   linkType: hard
 
@@ -5040,9 +5047,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tsup@npm:^6.2.0":
-  version: 6.2.0
-  resolution: "tsup@npm:6.2.0"
+"tsup@npm:^6.2.1":
+  version: 6.2.1
+  resolution: "tsup@npm:6.2.1"
   dependencies:
     bundle-require: ^3.0.2
     cac: ^6.7.12
@@ -5072,7 +5079,7 @@ __metadata:
   bin:
     tsup: dist/cli-default.js
     tsup-node: dist/cli-node.js
-  checksum: 2733bb2f568f7e8cb450bdfcf55a90cb1344639663dd559bb27eb1b5e0cc8ba0e1cad7b5fc5503029fa75e8ccd255a8da1265be145d5472e2c03bf6a906255ef
+  checksum: 349ed42d98d4905dac14d21855cc881347383af4aecda9240178a17e2579ec51efe0ffd9dbef584819940e5215ee486bf997414729a4ff2cd3a07dfe0dca66c6
   languageName: node
   linkType: hard
 
