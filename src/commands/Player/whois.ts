@@ -68,7 +68,7 @@ export class WhoIsCommand extends GoblinCommand {
 
 			const units = new PlayerUnits(player);
 			firstPage.addField(
-				`<:dot:843249351291043851> ${TownHallEmotes[player.townHallLevel]} ${player.name} (${player.tag})`,
+				`<:dot:958824443445116960> ${TownHallEmotes[player.townHallLevel]} ${player.name} (${player.tag})`,
 				`${MiscEmotes.Clan} ${player.clan ? `${player.clan.name} (${RawPosition[player.role!]})` : 'Not in a clan'}\n${units.unit('HEROES')}`,
 				false
 			);
