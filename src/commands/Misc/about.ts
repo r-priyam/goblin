@@ -3,18 +3,17 @@ import { uptime, cpus, type CpuInfo } from 'node:os';
 
 import { hideLinkEmbed, hyperlink, time, TimestampStyles, userMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
-import { type ChatInputCommand, version as sapphireVersion } from '@sapphire/framework';
+import { Command, type ChatInputCommand, version as sapphireVersion } from '@sapphire/framework';
 import { roundNumber } from '@sapphire/utilities';
 import { MessageEmbed, version } from 'discord.js';
 
-import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#root/lib/util/constants';
 import { seconds } from '#utils/functions/time';
 
 @ApplyOptions<ChatInputCommand.Options>({
 	description: 'Something about myself'
 })
-export class AboutCommand extends GoblinCommand {
+export class AboutCommand extends Command {
 	readonly #descriptionContent = [
 		`I am a cute goblin created by ${userMention('292332992251297794')} to steal resources from around.`,
 		'If you have any suggestion/feedback for me then please send a DM to my creator 💙',

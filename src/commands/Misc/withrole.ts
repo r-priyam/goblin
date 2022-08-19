@@ -1,17 +1,16 @@
 import { roleMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
-import type { ChatInputCommand } from '@sapphire/framework';
+import { Command, ChatInputCommand } from '@sapphire/framework';
 import { inlineCodeBlock } from '@sapphire/utilities';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
 import { MessageEmbed } from 'discord.js';
 
-import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#root/lib/util/constants';
 
 @ApplyOptions<ChatInputCommand.Options>({
 	description: 'Get list of members with specific role'
 })
-export class WithRole extends GoblinCommand {
+export class WithRole extends Command {
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
 		registry.registerChatInputCommand(
 			(builder) =>

@@ -2,18 +2,17 @@ import { inspect } from 'node:util';
 
 import { codeBlock } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
-import type { ChatInputCommand } from '@sapphire/framework';
+import { Command, ChatInputCommand } from '@sapphire/framework';
 import { Stopwatch } from '@sapphire/stopwatch';
 import { inlineCodeBlock, isNullishOrEmpty } from '@sapphire/utilities';
 
 import { TabularData } from '#lib/classes/table';
-import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 
 @ApplyOptions<ChatInputCommand.Options>({
 	description: '[Owner Only] Executes SQL query',
 	preconditions: ['OwnerOnly']
 })
-export class SQLCommand extends GoblinCommand {
+export class SQLCommand extends Command {
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
 		registry.registerChatInputCommand(
 			(builder) =>

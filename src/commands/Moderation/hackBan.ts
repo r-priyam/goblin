@@ -1,17 +1,16 @@
 import { userMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { SnowflakeRegex } from '@sapphire/discord.js-utilities';
-import type { ChatInputCommand } from '@sapphire/framework';
+import { Command, ChatInputCommand } from '@sapphire/framework';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
 import { DiscordAPIError, MessageEmbed, User } from 'discord.js';
 
-import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#utils/constants';
 
 @ApplyOptions<ChatInputCommand.Options>({
 	description: 'Bans the user from server by id, not matter if they are in server or not'
 })
-export class HackBan extends GoblinCommand {
+export class HackBan extends Command {
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
 		registry.registerChatInputCommand(
 			(builder) =>

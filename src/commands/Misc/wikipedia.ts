@@ -1,17 +1,16 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { PaginatedMessage } from '@sapphire/discord.js-utilities';
 import { fetch, FetchResultTypes } from '@sapphire/fetch';
-import type { ChatInputCommand } from '@sapphire/framework';
+import { Command, ChatInputCommand } from '@sapphire/framework';
 import { MessageEmbed } from 'discord.js';
 import { stripHtml } from 'string-strip-html';
 
-import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#root/lib/util/constants';
 
 @ApplyOptions<ChatInputCommand.Options>({
 	description: 'Search wikipedia for a keyword'
 })
-export class WikipediaCommand extends GoblinCommand {
+export class WikipediaCommand extends Command {
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
 		registry.registerChatInputCommand(
 			(builder) =>

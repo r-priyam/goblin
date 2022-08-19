@@ -1,17 +1,16 @@
 import { time, TimestampStyles } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
-import type { ChatInputCommand } from '@sapphire/framework';
+import { Command, ChatInputCommand } from '@sapphire/framework';
 import { GuildMember, MessageActionRow, MessageButton, MessageEmbed, Role } from 'discord.js';
 
 import { Colors } from '#lib/util/constants';
-import { GoblinCommand } from '#root/lib/extensions/GoblinCommand';
 
 const sortRanks = (x: Role, y: Role) => Number(y.position > x.position) || Number(x.position === y.position) - 1;
 
 @ApplyOptions<ChatInputCommand.Options>({
 	description: 'Get discord related information for user'
 })
-export class UserInfoCommand extends GoblinCommand {
+export class UserInfoCommand extends Command {
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
 		registry.registerChatInputCommand(
 			(builder) =>

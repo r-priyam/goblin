@@ -1,15 +1,14 @@
 import { ApplyOptions } from '@sapphire/decorators';
-import type { ChatInputCommand } from '@sapphire/framework';
+import { Command, ChatInputCommand } from '@sapphire/framework';
 import { Util } from 'clashofclans.js';
 
 import { embedBuilder } from '#lib/classes/embeds';
-import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { redis } from '#utils/redis';
 
 @ApplyOptions<ChatInputCommand.Options>({
 	description: 'Unlink a clan or a player from your discord account'
 })
-export class SlashCommand extends GoblinCommand {
+export class SlashCommand extends Command {
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
 		registry.registerChatInputCommand(
 			(builder) =>

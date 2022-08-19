@@ -1,19 +1,18 @@
 import { userMention, channelMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { fetch, FetchResultTypes } from '@sapphire/fetch';
-import type { ChatInputCommand } from '@sapphire/framework';
+import { Command, ChatInputCommand, UserError } from '@sapphire/framework';
 import { envParseString } from '@skyra/env-utilities';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
 import { MessageEmbed, TextChannel } from 'discord.js';
 
-import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { embedBuilder } from '#root/lib/classes/embeds';
 import { Colors } from '#utils/constants';
 
 @ApplyOptions<ChatInputCommand.Options>({
 	description: 'Commands related to interview channel'
 })
-export class InterviewCommand extends GoblinCommand {
+export class InterviewCommand extends Command {
 	#welcomeMessage = `Thank you for your interest in joining EYG!
 Please answer the questions below and post a screenshot of your base.
 Our clans have 8 hours to review your answers & ask further questions. After this, you will be offered a place. If now is not a good time to start please tell us.
@@ -61,7 +60,7 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 
 	public override async chatInputRun(interaction: ChatInputCommand.Interaction<'cached'>) {
 		if (!interaction.member.roles.cache.hasAny('339858024640413698', '349856938579984385')) {
-			this.userError({ message: "You aren't allowed to use this command" });
+			throw new UserError({ identifier: 'user-not-allowed', message: "You aren't allowed to use this command" });
 		}
 
 		await interaction.deferReply();
@@ -166,6 +165,9 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 			const data: { id: string } = await response.json();
 			return data.id;
 		}
-		throw this.userError({ message: 'Something went wrong while taking the backup of interview channel, please try again!' });
+		throw new UserError({
+			identifier: 'http-error',
+			message: 'Something went wrong while taking the backup of interview channel, please try again!'
+		});
 	}
 }

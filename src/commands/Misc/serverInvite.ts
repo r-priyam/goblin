@@ -1,12 +1,10 @@
 import { ApplyOptions } from '@sapphire/decorators';
-import type { ChatInputCommand } from '@sapphire/framework';
-
-import { GoblinCommand } from '#lib/extensions/GoblinCommand';
+import { Command, ChatInputCommand } from '@sapphire/framework';
 
 @ApplyOptions<ChatInputCommand.Options>({
 	description: 'Returns the EYG server invite link'
 })
-export class ServerInvite extends GoblinCommand {
+export class ServerInvite extends Command {
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
 		registry.registerChatInputCommand(
 			(builder) =>

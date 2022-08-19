@@ -1,18 +1,17 @@
 import { ApplyOptions } from '@sapphire/decorators';
-import type { ChatInputCommand } from '@sapphire/framework';
+import { Command, ChatInputCommand } from '@sapphire/framework';
 import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
 import { Clan, SUPER_TROOPS } from 'clashofclans.js';
 import { MessageActionRow, MessageEmbed, MessageSelectMenu } from 'discord.js';
 
 import { clanHelper, SuperTroopEmotes } from '#lib/coc';
-import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#utils/constants';
 import { ClanOrPlayer, redis } from '#utils/redis';
 
 @ApplyOptions<ChatInputCommand.Options>({
 	description: 'Lists clan members active super troops'
 })
-export class SuperTroopsCommand extends GoblinCommand {
+export class SuperTroopsCommand extends Command {
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
 		registry.registerChatInputCommand(
 			(builder) =>

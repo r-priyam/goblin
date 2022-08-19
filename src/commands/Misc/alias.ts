@@ -1,20 +1,18 @@
 import { codeBlock } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
-import type { ChatInputCommand } from '@sapphire/framework';
-import { UserError } from '@sapphire/framework';
+import { ChatInputCommand, Command, UserError } from '@sapphire/framework';
 import { envParseArray } from '@skyra/env-utilities';
 import { Util } from 'clashofclans.js';
 import { MessageEmbed } from 'discord.js';
 
 import { clanHelper } from '#lib/coc';
-import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#utils/constants';
 import { ClanAlias, redis } from '#utils/redis';
 
 @ApplyOptions<ChatInputCommand.Options>({
 	description: 'Commands related to aliases'
 })
-export class AliasCommand extends GoblinCommand {
+export class AliasCommand extends Command {
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
 		registry.registerChatInputCommand(
 			(builder) =>
@@ -60,10 +58,9 @@ export class AliasCommand extends GoblinCommand {
 		const subCommand = interaction.options.getSubcommand(true) as 'create' | 'remove' | 'list';
 
 		if (!interaction.member.roles.cache.has('349856938579984385') && !envParseArray('OWNERS').includes(interaction.user.id)) {
-			if (subCommand === 'list') {
-				return this.list(interaction);
-			}
-			this.userError({ message: "You aren't allowed to use this command" });
+			if (subCommand === 'list') return this.list(interaction);
+
+			throw new UserError({ identifier: 'user-not-allowed', message: "You aren't allowed to use this command" });
 		}
 
 		return this[subCommand](interaction);

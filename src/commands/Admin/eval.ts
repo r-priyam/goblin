@@ -3,20 +3,19 @@ import { inspect } from 'node:util';
 
 import { codeBlock } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
-import type { ChatInputCommand } from '@sapphire/framework';
+import { Command, ChatInputCommand } from '@sapphire/framework';
 import { Stopwatch } from '@sapphire/stopwatch';
 import { Type } from '@sapphire/type';
 import { isThenable } from '@sapphire/utilities';
 
 import { embedBuilder } from '#lib/classes/embeds';
-import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#utils/constants';
 
 @ApplyOptions<ChatInputCommand.Options>({
 	description: '[Owner Only] Evaluate any JavaScript code',
 	preconditions: ['OwnerOnly']
 })
-export class EvalCommand extends GoblinCommand {
+export class EvalCommand extends Command {
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
 		registry.registerChatInputCommand(
 			(builder) =>

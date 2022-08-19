@@ -1,20 +1,19 @@
 import { bold } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { PaginatedMessage } from '@sapphire/discord.js-utilities';
-import type { ChatInputCommand } from '@sapphire/framework';
+import { Command, ChatInputCommand } from '@sapphire/framework';
 import { isNullish } from '@sapphire/utilities';
 import { Util } from 'clashofclans.js';
 import { MessageEmbed } from 'discord.js';
 
 import { MiscEmotes, PlayerUnits, RawPosition, TownHallEmotes } from '#lib/coc';
 import { PlayerCommand } from '#root/commands/Player/player';
-import { GoblinCommand } from '#root/lib/extensions/GoblinCommand';
 import { Colors } from '#root/lib/util/constants';
 
 @ApplyOptions<ChatInputCommand.Options>({
 	description: 'Get information about an user'
 })
-export class WhoIsCommand extends GoblinCommand {
+export class WhoIsCommand extends Command {
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
 		registry.registerChatInputCommand(
 			(builder) =>

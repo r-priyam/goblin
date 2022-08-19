@@ -1,13 +1,12 @@
 import { bold } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
-import type { ChatInputCommand } from '@sapphire/framework';
+import { Command, ChatInputCommand } from '@sapphire/framework';
 import { Time } from '@sapphire/time-utilities';
 import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
 import type { Achievement, Player } from 'clashofclans.js';
 import { MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
 
 import { LabelEmotes, MiscEmotes, playerHelper, PlayerUnits, RawPosition } from '#lib/coc';
-import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#utils/constants';
 import { collectorFiler } from '#utils/InteractionHelpers';
 import { ClanOrPlayer, redis } from '#utils/redis';
@@ -16,7 +15,7 @@ import { humanizeNumber } from '#utils/utils';
 @ApplyOptions<ChatInputCommand.Options>({
 	description: 'Get info about a player'
 })
-export class PlayerCommand extends GoblinCommand {
+export class PlayerCommand extends Command {
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
 		registry.registerChatInputCommand(
 			(builder) =>

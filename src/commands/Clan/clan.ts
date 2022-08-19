@@ -1,19 +1,18 @@
 import { ApplyOptions } from '@sapphire/decorators';
-import type { ChatInputCommand } from '@sapphire/framework';
+import { Command, ChatInputCommand } from '@sapphire/framework';
 import { isNullish } from '@sapphire/utilities';
 import type { Clan } from 'clashofclans.js';
 import { MessageEmbed } from 'discord.js';
 
 import { embedBuilder } from '#lib/classes/embeds';
 import { BlueNumberEmotes, clanHelper, LabelEmotes, MiscEmotes, RawClanType, RawWarFrequency, TownHallEmotes, WarLeagueEmotes } from '#lib/coc';
-import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors, Emotes } from '#utils/constants';
 import { ClanOrPlayer, redis } from '#utils/redis';
 
 @ApplyOptions<ChatInputCommand.Options>({
 	description: 'Get info about a clan'
 })
-export class ClanCommand extends GoblinCommand {
+export class ClanCommand extends Command {
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
 		registry.registerChatInputCommand(
 			(builder) =>
