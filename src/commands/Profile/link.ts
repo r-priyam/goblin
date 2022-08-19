@@ -1,14 +1,25 @@
 import { ApplyOptions } from '@sapphire/decorators';
-import { Command, ChatInputCommand, UserError } from '@sapphire/framework';
+import { ChatInputCommand, UserError } from '@sapphire/framework';
+import { Subcommand } from '@sapphire/plugin-subcommands';
 
 import { embedBuilder } from '#lib/classes/embeds';
 import { clanHelper, playerHelper } from '#lib/coc';
 import { redis } from '#utils/redis';
 
-@ApplyOptions<ChatInputCommand.Options>({
+@ApplyOptions<Subcommand.Options>({
+	subcommands: [
+		{
+			name: 'clan',
+			chatInputRun: 'clanLink'
+		},
+		{
+			name: 'player',
+			chatInputRun: 'playerLink'
+		}
+	],
 	description: 'Commands related to user profile'
 })
-export class SlashCommand extends Command {
+export class LinkCommand extends Subcommand {
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
 		registry.registerChatInputCommand(
 			(builder) =>
@@ -33,14 +44,9 @@ export class SlashCommand extends Command {
 		);
 	}
 
-	public override async chatInputRun(interaction: ChatInputCommand.Interaction<'cached'>) {
+	public async clanLink(interaction: ChatInputCommand.Interaction<'cached'>) {
 		await interaction.deferReply({ ephemeral: true });
 
-		const subCommand = interaction.options.getSubcommand(true) as 'clan' | 'player';
-		return this[subCommand](interaction);
-	}
-
-	private async clan(interaction: ChatInputCommand.Interaction<'cached'>) {
 		const clan = await clanHelper.info(interaction.options.getString('tag', true));
 
 		try {
@@ -61,7 +67,9 @@ export class SlashCommand extends Command {
 		});
 	}
 
-	private async player(interaction: ChatInputCommand.Interaction<'cached'>) {
+	public async playerLink(interaction: ChatInputCommand.Interaction<'cached'>) {
+		await interaction.deferReply({ ephemeral: true });
+
 		const player = await playerHelper.verifyPlayer(interaction.options.getString('tag', true), interaction.options.getString('token', true));
 
 		try {

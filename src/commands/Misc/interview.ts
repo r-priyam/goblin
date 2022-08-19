@@ -1,18 +1,29 @@
 import { userMention, channelMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { fetch, FetchResultTypes } from '@sapphire/fetch';
-import { Command, ChatInputCommand, UserError } from '@sapphire/framework';
+import { ChatInputCommand, UserError } from '@sapphire/framework';
+import { Subcommand } from '@sapphire/plugin-subcommands';
 import { envParseString } from '@skyra/env-utilities';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
-import { MessageEmbed, TextChannel } from 'discord.js';
+import { GuildMember, MessageEmbed, TextChannel } from 'discord.js';
 
 import { embedBuilder } from '#root/lib/classes/embeds';
 import { Colors } from '#utils/constants';
 
-@ApplyOptions<ChatInputCommand.Options>({
+@ApplyOptions<Subcommand.Options>({
+	subcommands: [
+		{
+			name: 'start',
+			chatInputRun: 'startInterview'
+		},
+		{
+			name: 'close',
+			chatInputRun: 'closeInterview'
+		}
+	],
 	description: 'Commands related to interview channel'
 })
-export class InterviewCommand extends Command {
+export class InterviewCommand extends Subcommand {
 	#welcomeMessage = `Thank you for your interest in joining EYG!
 Please answer the questions below and post a screenshot of your base.
 Our clans have 8 hours to review your answers & ask further questions. After this, you will be offered a place. If now is not a good time to start please tell us.
@@ -58,17 +69,10 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 		);
 	}
 
-	public override async chatInputRun(interaction: ChatInputCommand.Interaction<'cached'>) {
-		if (!interaction.member.roles.cache.hasAny('339858024640413698', '349856938579984385')) {
-			throw new UserError({ identifier: 'user-not-allowed', message: "You aren't allowed to use this command" });
-		}
-
+	public async startInterview(interaction: ChatInputCommand.Interaction<'cached'>) {
 		await interaction.deferReply();
-		const subCommand = interaction.options.getSubcommand(true) as 'start' | 'close';
-		return this[subCommand](interaction);
-	}
+		this.canPerformInterviewOperations(interaction.member);
 
-	private async start(interaction: ChatInputCommand.Interaction<'cached'>) {
 		const member = interaction.options.getMember('user', true);
 		const allowedPermissions = [
 			PermissionFlagsBits.SendMessages,
@@ -106,7 +110,10 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 		return interaction.editReply({ embeds: [embedBuilder.success(`Successfully created ${channelMention(channel.id)}`)] });
 	}
 
-	private async close(interaction: ChatInputCommand.Interaction<'cached'>) {
+	public async closeInterview(interaction: ChatInputCommand.Interaction<'cached'>) {
+		await interaction.deferReply();
+		this.canPerformInterviewOperations(interaction.member);
+
 		const reason = interaction.options.getString('reason', true);
 		const { channel, member } = interaction;
 
@@ -139,6 +146,12 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 		};
 		await channel?.delete(`Interview channel deleted by ${member.displayName}, reason - ${reason}`);
 		return reportingChannel.send(successData);
+	}
+
+	private canPerformInterviewOperations(member: GuildMember) {
+		if (!member.roles.cache.hasAny('339858024640413698', '349856938579984385')) {
+			throw new UserError({ identifier: 'user-not-allowed', message: "You aren't allowed to use this command" });
+		}
 	}
 
 	private async createInterviewGist(fileName: string, content: string) {
