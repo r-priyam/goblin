@@ -365,15 +365,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sapphire/fetch@npm:^2.4.1":
-  version: 2.4.1
-  resolution: "@sapphire/fetch@npm:2.4.1"
-  dependencies:
-    cross-fetch: ^3.1.5
-  checksum: f8ab0baa59dfcb931729a46957073e4e26377b6b5e3bdbbed921ae793c0848a240545ed157efd5db13342d68eed84dc73c6fe83038a5e62af9daa3715326c4a9
-  languageName: node
-  linkType: hard
-
 "@sapphire/framework@npm:next":
   version: 3.0.0-next.7dd13af.0
   resolution: "@sapphire/framework@npm:3.0.0-next.7dd13af.0"
@@ -1385,15 +1376,6 @@ __metadata:
   dependencies:
     luxon: ^3.0.1
   checksum: cef63dee396732a8247c2c55d99512db7ad39797459f4bfd534ce5c18efdbf88b16ae8265c3b2abc40cdfadf8930bb1be6778e6ae664ae70e4ed7f206487d0cd
-  languageName: node
-  linkType: hard
-
-"cross-fetch@npm:^3.1.5":
-  version: 3.1.5
-  resolution: "cross-fetch@npm:3.1.5"
-  dependencies:
-    node-fetch: 2.6.7
-  checksum: f6b8c6ee3ef993ace6277fd789c71b6acf1b504fd5f5c7128df4ef2f125a429e29cd62dc8c127523f04a5f2fa4771ed80e3f3d9695617f441425045f505cf3bb
   languageName: node
   linkType: hard
 
@@ -2582,7 +2564,6 @@ __metadata:
     "@sapphire/decorators": ^4.3.8
     "@sapphire/discord.js-utilities": ^4.12.0
     "@sapphire/eslint-config": ^4.3.7
-    "@sapphire/fetch": ^2.4.1
     "@sapphire/framework": next
     "@sapphire/plugin-logger": next
     "@sapphire/plugin-scheduled-tasks": next
@@ -2613,6 +2594,7 @@ __metadata:
     figlet: ^1.5.2
     fuse.js: ^6.6.2
     gradient-string: ^2.0.1
+    markdown-table: ^3.0.2
     postgres: ^3.2.4
     prettier: ^2.7.1
     redis: ^4.2.0
@@ -3354,6 +3336,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"markdown-table@npm:^3.0.2":
+  version: 3.0.2
+  resolution: "markdown-table@npm:3.0.2"
+  checksum: 7bd9eb54e7ac15165f79730ac6357b8194294552f727bcb34e29f3f1b72823c1220cb61153ebf0962c8faac4d25e49c62e8e9471cd6352a67cdca99928ecade1
+  languageName: node
+  linkType: hard
+
 "meow@npm:^8.0.0":
   version: 8.1.2
   resolution: "meow@npm:8.1.2"
@@ -3647,7 +3636,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-fetch@npm:2.6.7, node-fetch@npm:^2.6.7":
+"node-fetch@npm:^2.6.7":
   version: 2.6.7
   resolution: "node-fetch@npm:2.6.7"
   dependencies:
