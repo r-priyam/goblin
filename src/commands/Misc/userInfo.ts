@@ -1,6 +1,6 @@
 import { time, TimestampStyles } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
-import { Command, ChatInputCommand } from '@sapphire/framework';
+import { ChatInputCommand, Command } from '@sapphire/framework';
 import { GuildMember, MessageActionRow, MessageButton, MessageEmbed, Role } from 'discord.js';
 
 import { Colors } from '#lib/util/constants';

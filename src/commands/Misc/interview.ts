@@ -1,4 +1,4 @@
-import { userMention, channelMention } from '@discordjs/builders';
+import { channelMention, userMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { ChatInputCommand, UserError } from '@sapphire/framework';
 import { Subcommand } from '@sapphire/plugin-subcommands';

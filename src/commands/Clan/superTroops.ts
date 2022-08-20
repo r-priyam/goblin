@@ -1,5 +1,5 @@
 import { ApplyOptions } from '@sapphire/decorators';
-import { Command, ChatInputCommand } from '@sapphire/framework';
+import { ChatInputCommand, Command } from '@sapphire/framework';
 import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
 import { Clan, SUPER_TROOPS } from 'clashofclans.js';
 import { MessageActionRow, MessageEmbed, MessageSelectMenu } from 'discord.js';

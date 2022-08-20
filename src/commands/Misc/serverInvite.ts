@@ -1,5 +1,5 @@
 import { ApplyOptions } from '@sapphire/decorators';
-import { Command, ChatInputCommand } from '@sapphire/framework';
+import { ChatInputCommand, Command } from '@sapphire/framework';
 
 @ApplyOptions<ChatInputCommand.Options>({
 	description: 'Returns the EYG server invite link'

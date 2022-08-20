@@ -1,6 +1,6 @@
 import { bold } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
-import { Command, ChatInputCommand } from '@sapphire/framework';
+import { ChatInputCommand, Command } from '@sapphire/framework';
 import { Time } from '@sapphire/time-utilities';
 import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
 import type { Achievement, Player } from 'clashofclans.js';

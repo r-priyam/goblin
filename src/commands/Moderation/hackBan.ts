@@ -1,7 +1,7 @@
 import { userMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { SnowflakeRegex } from '@sapphire/discord.js-utilities';
-import { Command, ChatInputCommand } from '@sapphire/framework';
+import { ChatInputCommand, Command } from '@sapphire/framework';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
 import { DiscordAPIError, MessageEmbed, User } from 'discord.js';
 

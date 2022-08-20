@@ -1,7 +1,7 @@
 import { bold } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { PaginatedMessage } from '@sapphire/discord.js-utilities';
-import { Command, ChatInputCommand } from '@sapphire/framework';
+import { ChatInputCommand, Command } from '@sapphire/framework';
 import { isNullish } from '@sapphire/utilities';
 import { Util } from 'clashofclans.js';
 import { MessageEmbed } from 'discord.js';

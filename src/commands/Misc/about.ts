@@ -1,9 +1,9 @@
 import { readFile } from 'node:fs/promises';
-import { uptime, cpus, type CpuInfo } from 'node:os';
+import { cpus, uptime, type CpuInfo } from 'node:os';
 
 import { hideLinkEmbed, hyperlink, time, TimestampStyles, userMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
-import { Command, type ChatInputCommand, version as sapphireVersion } from '@sapphire/framework';
+import { Command, version as sapphireVersion, type ChatInputCommand } from '@sapphire/framework';
 import { roundNumber } from '@sapphire/utilities';
 import { MessageEmbed, version } from 'discord.js';
 

@@ -1,5 +1,5 @@
-import 'reflect-metadata';
 import '@sapphire/plugin-logger/register';
+import 'reflect-metadata';
 
 import { inspect } from 'node:util';
 

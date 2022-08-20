@@ -1,6 +1,6 @@
 import { roleMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
-import { Command, ChatInputCommand } from '@sapphire/framework';
+import { ChatInputCommand, Command } from '@sapphire/framework';
 import { inlineCodeBlock } from '@sapphire/utilities';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
 import { MessageEmbed } from 'discord.js';
