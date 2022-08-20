@@ -45,19 +45,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@discordjs/builders@npm:^1.0.0":
-  version: 1.1.0
-  resolution: "@discordjs/builders@npm:1.1.0"
-  dependencies:
-    "@sapphire/shapeshift": ^3.5.1
-    discord-api-types: ^0.36.3
-    fast-deep-equal: ^3.1.3
-    ts-mixer: ^6.0.1
-    tslib: ^2.4.0
-  checksum: 95a30b151447bfb625f3f325dc06476a58a050930b07cd0e9d6f66f62cee49e3d68cea137b436bf64559d47add7900574b732ba15e707cdda68a320020988c49
-  languageName: node
-  linkType: hard
-
 "@discordjs/collection@npm:^0.7.0":
   version: 0.7.0
   resolution: "@discordjs/collection@npm:0.7.0"
@@ -531,7 +518,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sapphire/utilities@npm:^3.7.0, @sapphire/utilities@npm:^3.8.0, @sapphire/utilities@npm:^3.9.0":
+"@sapphire/utilities@npm:^3.7.0, @sapphire/utilities@npm:^3.8.0, @sapphire/utilities@npm:^3.9.0, @sapphire/utilities@npm:^3.9.1":
   version: 3.9.1
   resolution: "@sapphire/utilities@npm:3.9.1"
   checksum: 6fbb1175b734c44d4e8f92af34948dba5b14379c3d3b961e86fa0db60b1060628e068d030700fb08629a65b3dfdeaa32ea68ac2913c4b75192f7e47abe1bd82e
@@ -610,10 +597,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^18.0.4":
+"@types/node@npm:*":
   version: 18.7.6
   resolution: "@types/node@npm:18.7.6"
   checksum: 5122988c325eda8d1f5cbe4494916036aae1758f9d5bb2d8139a800b8bad1540fbb167cd3c759da9a5cb4600cd3507609ac7969747113c1549a3e4320a17b1a9
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^18.7.8":
+  version: 18.7.8
+  resolution: "@types/node@npm:18.7.8"
+  checksum: e0125efefa896083c05f549d93166109959ffdd68cb626aad0d660c0ce9de888fe405b4763b4a3c3e0968560409c272413e0ad07204522543c688e162a617ecb
   languageName: node
   linkType: hard
 
@@ -647,7 +641,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/eslint-plugin@npm:^5.28.0, @typescript-eslint/eslint-plugin@npm:^5.33.0":
+"@typescript-eslint/eslint-plugin@npm:^5.28.0, @typescript-eslint/eslint-plugin@npm:^5.33.1":
   version: 5.33.1
   resolution: "@typescript-eslint/eslint-plugin@npm:5.33.1"
   dependencies:
@@ -670,7 +664,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:^5.28.0, @typescript-eslint/parser@npm:^5.33.0":
+"@typescript-eslint/parser@npm:^5.28.0, @typescript-eslint/parser@npm:^5.33.1":
   version: 5.33.1
   resolution: "@typescript-eslint/parser@npm:5.33.1"
   dependencies:
@@ -1035,7 +1029,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bullmq@npm:^1.87.2":
+"bullmq@npm:^1.89.1":
   version: 1.89.1
   resolution: "bullmq@npm:1.89.1"
   dependencies:
@@ -1536,7 +1530,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"discord-api-types@npm:^0.36.2, discord-api-types@npm:^0.36.3":
+"discord-api-types@npm:^0.36.2":
   version: 0.36.3
   resolution: "discord-api-types@npm:0.36.3"
   checksum: 3089c0fb37425dc5df03c76d82988d43fcc272699b06a02fc830d0a3bef550009aaebdf6d646529e8a7ccea76ae3f43b099d736ea5ef37a0be143142ab49871d
@@ -2582,7 +2576,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "goblin@workspace:."
   dependencies:
-    "@discordjs/builders": ^1.0.0
+    "@discordjs/builders": ^0.16.0
     "@favware/cliff-jumper": ^1.8.6
     "@mikro-orm/sql-highlighter": ^1.0.1
     "@sapphire/decorators": ^4.3.8
@@ -2598,15 +2592,15 @@ __metadata:
     "@sapphire/time-utilities": ^1.7.5
     "@sapphire/ts-config": ^3.3.4
     "@sapphire/type": ^2.2.4
-    "@sapphire/utilities": ^3.9.0
+    "@sapphire/utilities": ^3.9.1
     "@skyra/env-utilities": ^1.0.2
     "@types/figlet": ^1.5.4
     "@types/gradient-string": ^1.1.2
     "@types/ioredis": ^4.28.10
-    "@types/node": ^18.0.4
-    "@typescript-eslint/eslint-plugin": ^5.33.0
-    "@typescript-eslint/parser": ^5.33.0
-    bullmq: ^1.87.2
+    "@types/node": ^18.7.8
+    "@typescript-eslint/eslint-plugin": ^5.33.1
+    "@typescript-eslint/parser": ^5.33.1
+    bullmq: ^1.89.1
     clashofclans.js: 2.8.0
     colorette: ^2.0.19
     discord-api-types: ^0.33.5
@@ -2623,7 +2617,7 @@ __metadata:
     prettier: ^2.7.1
     redis: ^4.2.0
     reflect-metadata: ^0.1.13
-    string-strip-html: ^11.2.0
+    string-strip-html: ^11.3.0
     tsup: ^6.2.2
     typescript: ^4.7.4
   languageName: unknown
@@ -4535,7 +4529,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"string-strip-html@npm:^11.2.0":
+"string-strip-html@npm:^11.3.0":
   version: 11.3.0
   resolution: "string-strip-html@npm:11.3.0"
   dependencies:
