@@ -25,6 +25,9 @@
 		"unicorn/filename-case": "off",
 		"unicorn/explicit-length-check": "off",
 		"unicorn/no-null": "off",
-		"unicorn/new-for-builtins": "off"
+		"unicorn/new-for-builtins": "off",
+		"@typescript-eslint/consistent-type-imports": "off",
+		"@typescript-eslint/no-unnecessary-condition": "off",
+		"@typescript-eslint/no-unnecessary-type-assertion": "off"
 	}
 }

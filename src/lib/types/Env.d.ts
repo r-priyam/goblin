@@ -1,4 +1,4 @@
-import type { ArrayString, BooleanString, IntegerString } from '@skyra/env-utilities';
+import { ArrayString, BooleanString, IntegerString } from '@skyra/env-utilities';
 
 declare module '@skyra/env-utilities' {
 	interface Env {

@@ -5,14 +5,14 @@ import { inspect } from 'node:util';
 
 import { SqlHighlighter } from '@mikro-orm/sql-highlighter';
 import { container, Logger, Piece } from '@sapphire/framework';
-import type { ScheduledTaskHandler } from '@sapphire/plugin-scheduled-tasks';
+import { ScheduledTaskHandler } from '@sapphire/plugin-scheduled-tasks';
 import { Time } from '@sapphire/time-utilities';
 import { envParseInteger, envParseString, setup } from '@skyra/env-utilities';
 import { blueBright, createColors, cyan, greenBright, redBright, yellow } from 'colorette';
 import postgres, { Sql as SQL } from 'postgres';
 import { createClient as redisClient, RedisClientType } from 'redis';
 
-import type { GoblinClient } from './extensions/GoblinClient';
+import { GoblinClient } from './extensions/GoblinClient';
 
 import { Cache, GoblinClashClient } from '#lib/coc';
 import { srcFolder } from '#utils/constants';

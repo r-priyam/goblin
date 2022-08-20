@@ -1,9 +1,8 @@
 import { bold } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { Events, Listener } from '@sapphire/framework';
-import type { Clan } from 'clashofclans.js';
-import type { Message } from 'discord.js';
-import { MessageEmbed } from 'discord.js';
+import { Clan } from 'clashofclans.js';
+import { Message, MessageEmbed } from 'discord.js';
 
 import { MiscEmotes } from '#lib/coc';
 import { Colors } from '#utils/constants';
