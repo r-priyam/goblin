@@ -1,7 +1,7 @@
 import { URL } from 'node:url';
 
-export const rootFolder = new URL('../../../', import.meta.url);
-export const srcFolder = new URL('src/', rootFolder);
+export const RootDir = new URL('../../../', import.meta.url);
+export const SrcDir = new URL('src/', RootDir);
 
 export const enum Colors {
 	White = 0xe7e7e8,

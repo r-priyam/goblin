@@ -14,11 +14,11 @@ import { createClient as redisClient, RedisClientType } from 'redis';
 
 import { Cache, GoblinClashClient } from '#lib/coc';
 import { GoblinClient } from '#lib/extensions/GoblinClient';
-import { srcFolder } from '#utils/constants';
+import { SrcDir } from '#utils/constants';
 
 process.env.NODE_ENV ??= 'development';
 
-setup(new URL('.env', srcFolder));
+setup(new URL('.env', SrcDir));
 inspect.defaultOptions.depth = 1;
 createColors({ useColor: true });
 
