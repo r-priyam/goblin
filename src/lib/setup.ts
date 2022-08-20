@@ -12,9 +12,8 @@ import { blueBright, createColors, cyan, greenBright, redBright, yellow } from '
 import postgres, { Sql as SQL } from 'postgres';
 import { createClient as redisClient, RedisClientType } from 'redis';
 
-import { GoblinClient } from './extensions/GoblinClient';
-
 import { Cache, GoblinClashClient } from '#lib/coc';
+import { GoblinClient } from '#lib/extensions/GoblinClient';
 import { srcFolder } from '#utils/constants';
 
 process.env.NODE_ENV ??= 'development';
