@@ -4,7 +4,7 @@
 	"editor.useTabStops": true,
 	"editor.insertSpaces": false,
 	"editor.detectIndentation": false,
-	"editor.rulers": [140],
+	"editor.rulers": [150],
 	"files.eol": "\n",
 	"typescript.tsdk": "node_modules\\typescript\\lib",
 	"search.exclude": {
