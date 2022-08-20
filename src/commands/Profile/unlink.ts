@@ -1,8 +1,9 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { Command, ChatInputCommand } from '@sapphire/framework';
 import { Util } from 'clashofclans.js';
+import { MessageEmbed } from 'discord.js';
 
-import { embedBuilder } from '#lib/classes/embeds';
+import { Colors } from '#utils/constants';
 import { redis } from '#utils/redis';
 
 @ApplyOptions<ChatInputCommand.Options>({
@@ -59,7 +60,12 @@ export class SlashCommand extends Command {
 
 		await redis.handleClanOrPlayerCache('CLAN', 'REMOVE', interaction.member.id, tag);
 		return interaction.editReply({
-			embeds: [embedBuilder.success(`Removed **${result.clanName} (${tag})** from your discord account`)]
+			embeds: [
+				new MessageEmbed()
+					.setTitle('Success')
+					.setDescription(`Removed **${result.clanName} (${tag})** from your discord account`)
+					.setColor(Colors.Green)
+			]
 		});
 	}
 
@@ -82,7 +88,12 @@ export class SlashCommand extends Command {
 
 		await redis.handleClanOrPlayerCache('PLAYER', 'REMOVE', interaction.member.id, tag);
 		return interaction.editReply({
-			embeds: [embedBuilder.success(`Removed **${result.playerName} (${tag})** from your discord account`)]
+			embeds: [
+				new MessageEmbed()
+					.setTitle('Success')
+					.setDescription(`Removed **${result.playerName} (${tag})** from your discord account`)
+					.setColor(Colors.Green)
+			]
 		});
 	}
 }

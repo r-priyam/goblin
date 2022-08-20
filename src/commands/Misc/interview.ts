@@ -7,7 +7,6 @@ import { envParseString } from '@skyra/env-utilities';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
 import { GuildMember, MessageEmbed, TextChannel } from 'discord.js';
 
-import { embedBuilder } from '#root/lib/classes/embeds';
 import { Colors } from '#utils/constants';
 
 @ApplyOptions<Subcommand.Options>({
@@ -107,7 +106,14 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 			embeds: [new MessageEmbed().setColor(Colors.LightGreen).setDescription(this.#welcomeMessage)]
 		});
 
-		return interaction.editReply({ embeds: [embedBuilder.success(`Successfully created ${channelMention(channel.id)}`)] });
+		return interaction.editReply({
+			embeds: [
+				new MessageEmbed()
+					.setTitle('Success')
+					.setDescription(`Successfully created ${channelMention(channel.id)}`)
+					.setColor(Colors.Green)
+			]
+		});
 	}
 
 	public async closeInterview(interaction: ChatInputCommand.Interaction<'cached'>) {

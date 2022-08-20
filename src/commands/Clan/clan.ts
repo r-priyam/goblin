@@ -4,7 +4,6 @@ import { isNullish } from '@sapphire/utilities';
 import type { Clan } from 'clashofclans.js';
 import { MessageEmbed } from 'discord.js';
 
-import { embedBuilder } from '#lib/classes/embeds';
 import { BlueNumberEmotes, clanHelper, LabelEmotes, MiscEmotes, RawClanType, RawWarFrequency, TownHallEmotes, WarLeagueEmotes } from '#lib/coc';
 import { Colors, Emotes } from '#utils/constants';
 import { ClanOrPlayer, redis } from '#utils/redis';
@@ -49,7 +48,14 @@ export class ClanCommand extends Command {
 		const clan = await clanHelper.info(clanTag);
 
 		if (clan.memberCount === 0) {
-			return interaction.editReply({ embeds: [embedBuilder.error('Clan has 0 members, failed to collect the required data')] });
+			return interaction.editReply({
+				embeds: [
+					new MessageEmbed()
+						.setTitle('Error')
+						.setDescription('Clan has 0 members, failed to collect the required data')
+						.setColor(Colors.Red)
+				]
+			});
 		}
 		const infoEmbed = ClanCommand.infoEmbed(clan);
 

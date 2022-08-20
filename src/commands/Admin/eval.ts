@@ -7,8 +7,8 @@ import { Command, ChatInputCommand } from '@sapphire/framework';
 import { Stopwatch } from '@sapphire/stopwatch';
 import { Type } from '@sapphire/type';
 import { isThenable } from '@sapphire/utilities';
+import { MessageEmbed } from 'discord.js';
 
-import { embedBuilder } from '#lib/classes/embeds';
 import { Colors } from '#utils/constants';
 
 @ApplyOptions<ChatInputCommand.Options>({
@@ -62,8 +62,9 @@ export class EvalCommand extends Command {
 		const output = success ? codeBlock('js', result) : codeBlock('bash', result);
 
 		const embedLimitReached = output.length > 4096;
-		const embed = embedBuilder
-			.info(embedLimitReached ? 'Output was too long! The result has been sent as a file.' : output)
+		const embed = new MessageEmbed()
+			.setTitle('Info')
+			.setDescription(embedLimitReached ? 'Output was too long! The result has been sent as a file.' : output)
 			.setColor(success ? Colors.Green : Colors.Red);
 
 		embed

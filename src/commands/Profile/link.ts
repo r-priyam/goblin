@@ -1,9 +1,10 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { ChatInputCommand, UserError } from '@sapphire/framework';
 import { Subcommand } from '@sapphire/plugin-subcommands';
+import { MessageEmbed } from 'discord.js';
 
-import { embedBuilder } from '#lib/classes/embeds';
 import { clanHelper, playerHelper } from '#lib/coc';
+import { Colors } from '#utils/constants';
 import { redis } from '#utils/redis';
 
 @ApplyOptions<Subcommand.Options>({
@@ -63,7 +64,12 @@ export class LinkCommand extends Subcommand {
 
 		await redis.handleClanOrPlayerCache('CLAN', 'UPDATE', interaction.member.id, clan.tag, clan.name);
 		return interaction.editReply({
-			embeds: [embedBuilder.success(`Linked **${clan.name} (${clan.tag})** to your discord account`)]
+			embeds: [
+				new MessageEmbed()
+					.setTitle('Success')
+					.setDescription(`Linked **${clan.name} (${clan.tag})** to your discord account`)
+					.setColor(Colors.Green)
+			]
 		});
 	}
 
@@ -86,7 +92,12 @@ export class LinkCommand extends Subcommand {
 
 		await redis.handleClanOrPlayerCache('PLAYER', 'UPDATE', interaction.member.id, player.tag, player.name);
 		return interaction.editReply({
-			embeds: [embedBuilder.success(`Linked **${player.name} (${player.tag})** to your discord account`)]
+			embeds: [
+				new MessageEmbed()
+					.setTitle('Success')
+					.setDescription(`Linked **${player.name} (${player.tag})** to your discord account`)
+					.setColor(Colors.Green)
+			]
 		});
 	}
 }
