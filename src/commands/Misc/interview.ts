@@ -1,6 +1,5 @@
 import { userMention, channelMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
-import { fetch, FetchResultTypes } from '@sapphire/fetch';
 import { ChatInputCommand, UserError } from '@sapphire/framework';
 import { Subcommand } from '@sapphire/plugin-subcommands';
 import { envParseString } from '@skyra/env-utilities';
@@ -164,19 +163,15 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 		const body = { public: false, files: {} };
 		Object.assign(body.files, { [`${fileName}.txt`]: { content } });
 
-		const response = await fetch(
-			'https://api.github.com/gists',
-			{
-				method: 'POST',
-				headers: {
-					'Accept': 'application/vnd.github.v3+json',
-					'User-Agent': 'Goblin Channel Close',
-					'Authorization': `token ${envParseString('GITHUB_TOKEN')}`
-				},
-				body: JSON.stringify(body)
+		const response = await fetch('https://api.github.com/gists', {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/vnd.github.v3+json',
+				'User-Agent': 'Goblin Channel Close',
+				'Authorization': `token ${envParseString('GITHUB_TOKEN')}`
 			},
-			FetchResultTypes.Result
-		);
+			body: JSON.stringify(body)
+		});
 
 		// TODO: Create task here to handle the rate limit. I doubt it
 		// will occur here but if in case it does...

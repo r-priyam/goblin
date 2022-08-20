@@ -1,6 +1,5 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { PaginatedMessage } from '@sapphire/discord.js-utilities';
-import { fetch, FetchResultTypes } from '@sapphire/fetch';
 import { Command, ChatInputCommand } from '@sapphire/framework';
 import { MessageEmbed } from 'discord.js';
 import { stripHtml } from 'string-strip-html';
@@ -33,8 +32,7 @@ export class WikipediaCommand extends Command {
 		const keyword = interaction.options.getString('keyword', true);
 
 		const response = await fetch(
-			`https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info&format=json&origin=*&srlimit=20&srsearch=${keyword}`,
-			FetchResultTypes.Result
+			`https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info&format=json&origin=*&srlimit=20&srsearch=${keyword}`
 		).catch(() => null);
 
 		const data: WikipediaData = await response?.json().catch(() => null);
