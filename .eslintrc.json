@@ -22,10 +22,12 @@
 		"unicorn/prefer-top-level-await": "error",
 		"unicorn/prevent-abbreviations": "off",
 		"unicorn/no-nested-ternary": "off",
+		"unicorn/number-literal-case": "off",
 		"unicorn/filename-case": "off",
 		"unicorn/explicit-length-check": "off",
 		"unicorn/no-null": "off",
 		"unicorn/new-for-builtins": "off",
+		"unicorn/numeric-separators-style": "off",
 		"@typescript-eslint/consistent-type-imports": "off",
 		"@typescript-eslint/no-unnecessary-condition": "off",
 		"@typescript-eslint/no-unnecessary-type-assertion": "off"
