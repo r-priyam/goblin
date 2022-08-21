@@ -4,7 +4,7 @@ import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
 import { Clan, SUPER_TROOPS } from 'clashofclans.js';
 import { MessageActionRow, MessageEmbed, MessageSelectMenu } from 'discord.js';
 
-import { clanHelper, SuperTroopEmotes } from '#lib/coc';
+import { ClanHelper, SuperTroopEmotes } from '#lib/coc';
 import { Colors } from '#utils/constants';
 import { ClanOrPlayer, redis } from '#utils/redis';
 
@@ -47,7 +47,7 @@ export class SuperTroopsCommand extends Command {
 			clanTag = cachedClans[0].tag;
 		}
 
-		const clan = await clanHelper.info(clanTag);
+		const clan = await ClanHelper.info(clanTag);
 		const embed = await SuperTroopsCommand.getSuperTroops(clan);
 		return interaction.editReply({ embeds: [embed], components: [this.menuOptions(clan.tag)] });
 	}

@@ -4,7 +4,7 @@ import { isNullish } from '@sapphire/utilities';
 import { Clan } from 'clashofclans.js';
 import { MessageEmbed } from 'discord.js';
 
-import { BlueNumberEmotes, clanHelper, LabelEmotes, MiscEmotes, RawClanType, RawWarFrequency, TownHallEmotes, WarLeagueEmotes } from '#lib/coc';
+import { BlueNumberEmotes, ClanHelper, LabelEmotes, MiscEmotes, RawClanType, RawWarFrequency, TownHallEmotes, WarLeagueEmotes } from '#lib/coc';
 import { Colors, Emotes } from '#utils/constants';
 import { ClanOrPlayer, redis } from '#utils/redis';
 
@@ -45,7 +45,7 @@ export class ClanCommand extends Command {
 			clanTag = cachedClans[0].tag;
 		}
 
-		const clan = await clanHelper.info(clanTag);
+		const clan = await ClanHelper.info(clanTag);
 
 		if (clan.memberCount === 0) {
 			return interaction.editReply({

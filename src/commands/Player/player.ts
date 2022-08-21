@@ -6,7 +6,7 @@ import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
 import { Achievement, Player } from 'clashofclans.js';
 import { MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
 
-import { LabelEmotes, MiscEmotes, playerHelper, PlayerUnits, RawPosition } from '#lib/coc';
+import { LabelEmotes, MiscEmotes, PlayerHelper, PlayerUnits, RawPosition } from '#lib/coc';
 import { Colors } from '#utils/constants';
 import { collectorFiler } from '#utils/InteractionHelpers';
 import { ClanOrPlayer, redis } from '#utils/redis';
@@ -50,7 +50,7 @@ export class PlayerCommand extends Command {
 			playerTag = cachedPlayers[0].tag;
 		}
 
-		const player = await playerHelper.info(playerTag);
+		const player = await PlayerHelper.info(playerTag);
 		const infoEmbed = PlayerCommand.infoEmbed(player);
 		const unitsEmbed = PlayerCommand.unitsEmbed(player);
 		await interaction.editReply({ embeds: [infoEmbed], components: [PlayerCommand.components] });

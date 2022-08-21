@@ -3,7 +3,7 @@ import { HTTPError, Player, Util } from 'clashofclans.js';
 
 import { ErrorMessages } from '#lib/coc';
 
-class PlayerHelper {
+class CocPlayerHelper {
 	private readonly identifier = 'player-helper';
 
 	public async info(tag: string): Promise<Player> {
@@ -42,4 +42,4 @@ class PlayerHelper {
 	}
 }
 
-export const playerHelper = new PlayerHelper();
+export const PlayerHelper = new CocPlayerHelper();

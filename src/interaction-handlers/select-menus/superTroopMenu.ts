@@ -2,7 +2,7 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes } from '@sapphire/framework';
 import { SelectMenuInteraction } from 'discord.js';
 
-import { clanHelper } from '#lib/coc';
+import { ClanHelper } from '#lib/coc';
 import { SuperTroopsCommand } from '#root/commands/Clan/superTroops';
 
 @ApplyOptions<InteractionHandler.Options>({
@@ -20,7 +20,7 @@ export class SuperTroopMenu extends InteractionHandler {
 
 		const superTroop = interaction.values[0];
 
-		const clan = await clanHelper.info(interaction.customId.split('_').pop()!);
+		const clan = await ClanHelper.info(interaction.customId.split('_').pop()!);
 		const data = await SuperTroopsCommand.getSuperTroops(clan, superTroop);
 		return this.some({ data });
 	}

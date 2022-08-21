@@ -6,7 +6,7 @@ import { envParseArray } from '@skyra/env-utilities';
 import { Util } from 'clashofclans.js';
 import { GuildMember, MessageEmbed } from 'discord.js';
 
-import { clanHelper } from '#lib/coc';
+import { ClanHelper } from '#lib/coc';
 import { Colors } from '#utils/constants';
 import { ClanAlias, redis } from '#utils/redis';
 
@@ -82,7 +82,7 @@ export class AliasCommand extends Subcommand {
 			});
 		}
 
-		const clan = await clanHelper.info(clanTag);
+		const clan = await ClanHelper.info(clanTag);
 
 		try {
 			await this.sql`INSERT INTO aliases (alias, clan_name, clan_tag)
