@@ -16,13 +16,12 @@ export class UserListener extends Listener<typeof Events.ChatInputCommandError> 
 
 async function errorHandler(error: Error | UserError, interaction: CommandInteraction) {
 	if (error instanceof UserError) {
-		const isEmbed = Reflect.get(Object(error.context), 'embedMessage');
+		const { context, message } = error;
+		const isEmbed = Reflect.get(Object(context), 'embedMessage');
 
-		if (interaction.replied || interaction.deferred) {
-			return interaction.editReply(messageOrEmbed(error.message, isEmbed));
-		}
+		if (interaction.replied || interaction.deferred) return interaction.editReply(messageOrEmbed(message, isEmbed));
 
-		return interaction.reply({ ...messageOrEmbed(error.message, isEmbed), ephemeral: true });
+		return interaction.reply({ ...messageOrEmbed(message, isEmbed), ephemeral: true });
 	}
 }
 
