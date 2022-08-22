@@ -1,10 +1,8 @@
-/* github.com/favware/dragonite/blob/main/src/lib/util/functions/errorHelpers.ts */
-
 import { userMention } from '@discordjs/builders';
 import { UserError } from '@sapphire/framework';
 import { codeBlock } from '@sapphire/utilities';
 import { RESTJSONErrorCodes } from 'discord-api-types/v9';
-import { DiscordAPIError, HTTPError, Interaction, MessageEmbed } from 'discord.js';
+import { CommandInteraction, DiscordAPIError, HTTPError, Interaction, MessageEmbed } from 'discord.js';
 
 import { Colors, Emotes } from '#utils/constants';
 
@@ -40,7 +38,16 @@ export function getErrorLine(error: Error): string {
 export async function handleUserError(interaction: Interaction, error: UserError) {
 	if (Reflect.get(Object(error.context), 'silent')) return;
 
+	if (interaction.isCommand()) return sendCommandErrorToUser(interaction, errorEmbedUser(error.message ?? UnidentifiedErrorMessage));
 	return sendErrorToUser(interaction, errorEmbedUser(error.message ?? UnidentifiedErrorMessage));
+}
+
+export async function sendCommandErrorToUser(interaction: CommandInteraction, embed: MessageEmbed) {
+	if (interaction.replied || interaction.deferred) {
+		return interaction.editReply({ embeds: [embed] });
+	}
+
+	return interaction.reply({ embeds: [embed], ephemeral: true });
 }
 
 export async function sendErrorToUser(interaction: Interaction, embed: MessageEmbed) {
