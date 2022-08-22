@@ -4,7 +4,7 @@ import { blue, blueBright, red, yellow } from 'colorette';
 import { DiscordAPIError, HTTPError } from 'discord.js';
 
 @ApplyOptions<Listener.Options>({
-	name: 'BotError',
+	name: 'ClientError',
 	event: Events.Error
 })
 export class BotListener extends Listener<typeof Events.Error> {
