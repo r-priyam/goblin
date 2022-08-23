@@ -58,7 +58,7 @@ CREATE TABLE public.clan_embeds
     clan_tag          TEXT        NOT NULL,
     leader_discord_id TEXT        NOT NULL,
     requirements      TEXT        NOT NULL,
-	color             VARCHAR(10) NOT NULL,
+    color             VARCHAR(10) NOT NULL,
     message_id        TEXT        NOT NULL,
     channel_id        TEXT        NOT NULL,
     started_at        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
