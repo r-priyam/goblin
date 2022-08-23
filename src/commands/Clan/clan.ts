@@ -4,7 +4,7 @@ import { isNullish } from '@sapphire/utilities';
 import { Clan } from 'clashofclans.js';
 import { MessageEmbed } from 'discord.js';
 
-import { BlueNumberEmotes, ClanHelper, LabelEmotes, MiscEmotes, RawClanType, RawWarFrequency, TownHallEmotes, WarLeagueEmotes } from '#lib/coc';
+import { ClanHelper, LabelEmotes, MiscEmotes, RawClanType, RawWarFrequency, TownHallEmotes, WarLeagueEmotes } from '#lib/coc';
 import { Colors, Emotes } from '#utils/constants';
 import { ClanOrPlayer, redis } from '#utils/redis';
 
@@ -60,27 +60,14 @@ export class ClanCommand extends Command {
 		const infoEmbed = ClanCommand.infoEmbed(clan);
 
 		await interaction.editReply({ embeds: [infoEmbed] });
-		return this.clanComposition(interaction, infoEmbed, clan);
+		return this.injectClanComposition(interaction, infoEmbed, clan);
 	}
 
-	private async clanComposition(interaction: ChatInputCommand.Interaction<'cached'>, embed: MessageEmbed, clan: Clan) {
-		const composition: Record<number, number> = {};
-		const members = await clan.fetchMembers();
-		for (const member of members) {
-			if (!composition.hasOwnProperty(member.townHallLevel)) composition[member.townHallLevel] = 0;
-			composition[member.townHallLevel]++;
-		}
-
-		const sortedCompo = Object.entries(composition).sort((one, two) => Number(two[0]) - Number(one[0]));
-
-		let formattedComposition = '**Clan Composition**\n';
-		for (const count of sortedCompo) {
-			formattedComposition += `${TownHallEmotes[count[0]]} ${BlueNumberEmotes[count[1]]}\n`;
-		}
-
+	private async injectClanComposition(interaction: ChatInputCommand.Interaction<'cached'>, embed: MessageEmbed, clan: Clan) {
+		const composition = await ClanHelper.getClanComposition(clan, true);
 		// remove placeholder field for composition fetch
 		embed.spliceFields(2, 1);
-		embed.addField('\u200B', formattedComposition, false);
+		embed.addField('\u200B', composition as string, false);
 		return interaction.editReply({ embeds: [embed] });
 	}
 
