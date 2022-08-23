@@ -31,3 +31,13 @@ export const enum Emotes {
 	Success = '<:success:959344194785271809>',
 	Error = '<:error:959359264533643274>'
 }
+
+export const enum ModalCustomIds {
+	StartClanEmbed = 'start-clan-embed-modal'
+}
+
+export const enum ModalInputCustomIds {
+	StartClanEmbedLeaderInput = 'start-clan-embed-leader-input',
+	StartClanEmbedColorInput = 'start-clan-embed-color-input',
+	StartClanEmbedTownHallRequirementsInput = 'start-clan-embed-town-hall-requirements-input'
+}
