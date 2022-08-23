@@ -88,6 +88,7 @@ ${WarLeagueEmotes[clan.warLeague!.name]} ${clan.warLeague!.name}`,
 				},
 				{
 					name: '\u200B',
+					// TODO: Send loading message here instead of delaying the output
 					value: composition as string,
 					inline: false
 				},
