@@ -60,11 +60,12 @@ CREATE TABLE public.clan_embeds
     requirements      TEXT        NOT NULL,
     color             VARCHAR(10) NOT NULL,
     message_id        TEXT        NOT NULL,
+	guild_id          TEXT        NOT NULL,
     channel_id        TEXT        NOT NULL,
     started_at        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE UNIQUE INDEX idx_clan_embed ON public.clan_embeds (clan_tag);
+CREATE UNIQUE INDEX idx_clan_embed ON public.clan_embeds (guild_id, clan_tag);
 
 COMMENT ON COLUMN public.clan_embeds.id IS 'The unique identifier for each clan embed';
 COMMENT ON COLUMN public.clan_embeds.clan_name IS 'The clan name of the clan for embed';
@@ -73,5 +74,6 @@ COMMENT ON COLUMN public.clan_embeds.leader_discord_id IS 'The leader discord id
 COMMENT ON COLUMN public.clan_embeds.requirements IS 'The clan requirements';
 COMMENT ON COLUMN public.clan_embeds.color IS 'The embed custom color';
 COMMENT ON COLUMN public.clan_embeds.message_id IS 'The embed message id to update';
+COMMENT ON COLUMN public.clan_embeds.guild_id IS 'The guild id in which the embed is running';
 COMMENT ON COLUMN public.clan_embeds.channel_id IS 'The channel id in which the embed is running';
 COMMENT ON COLUMN public.clan_embeds.started_at IS 'Timestamp when the embed was started at';
