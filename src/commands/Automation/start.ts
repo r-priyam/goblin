@@ -1,13 +1,15 @@
+import { userMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { ChatInputCommand, Command, UserError } from '@sapphire/framework';
+import { envParseArray, envParseString } from '@skyra/env-utilities';
 import { Util } from 'clashofclans.js';
+import { PermissionFlagsBits } from 'discord-api-types/v10';
 import { MessageActionRow, Modal, ModalActionRowComponent, TextInputComponent } from 'discord.js';
 
 import { ModalCustomIds, ModalInputCustomIds } from '#utils/constants';
 
 @ApplyOptions<ChatInputCommand.Options>({
-	description: 'Starts the selected automation in the channel',
-	preconditions: ['OwnerOnly']
+	description: 'Starts the selected automation in the channel'
 })
 export class StartCommand extends Command {
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
@@ -29,12 +31,22 @@ export class StartCommand extends Command {
 							.setDescription('Tag of the clan to start automation for')
 							.setRequired(true)
 					)
-					.setDMPermission(false),
+					.setDMPermission(false)
+					.setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
 			{ idHints: [''] }
 		);
 	}
 
 	public override async chatInputRun(interaction: ChatInputCommand.Interaction<'cached'>) {
+		if (interaction.guildId === envParseString('EYG_GUILD_ID') && !envParseArray('OWNERS').includes(interaction.member.id)) {
+			throw new UserError({
+				identifier: 'user-not-allowed',
+				message: `You are not authorized to run this command. Please contact ${userMention(
+					'292332992251297794'
+				)} to get anything done that you need`
+			});
+		}
+
 		const startType = interaction.options.getString('type', true) as 'clanEmbed';
 		return this[startType](interaction);
 	}
