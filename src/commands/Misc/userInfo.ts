@@ -1,8 +1,8 @@
+import { time, TimestampStyles } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
-import type { ChatInputCommand } from '@sapphire/framework';
-import { GuildMember, ActionRowBuilder, ButtonBuilder, EmbedBuilder, Role, time, TimestampStyles, ButtonStyle } from 'discord.js';
+import { ChatInputCommand, Command } from '@sapphire/framework';
+import { GuildMember, MessageActionRow, MessageButton, MessageEmbed, Role } from 'discord.js';
 
-import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#lib/util/constants';
 
 const sortRanks = (x: Role, y: Role) => Number(y.position > x.position) || Number(x.position === y.position) - 1;
@@ -10,7 +10,7 @@ const sortRanks = (x: Role, y: Role) => Number(y.position > x.position) || Numbe
 @ApplyOptions<ChatInputCommand.Options>({
 	description: 'Get discord related information for user'
 })
-export class UserInfoCommand extends GoblinCommand {
+export class UserInfoCommand extends Command {
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
 		registry.registerChatInputCommand(
 			(builder) =>
@@ -22,7 +22,8 @@ export class UserInfoCommand extends GoblinCommand {
 							.setName('user')
 							.setDescription('The user to get information for')
 							.setRequired(false)
-					),
+					)
+					.setDMPermission(false),
 			{ idHints: ['987411522198335619', '987411679115624502'] }
 		);
 	}
@@ -31,28 +32,23 @@ export class UserInfoCommand extends GoblinCommand {
 		await interaction.deferReply();
 		const member = interaction.options.getMember('user') || interaction.member;
 
-		const embed = new EmbedBuilder()
+		const embed = new MessageEmbed()
 			.setColor(member.displayColor || Colors.White)
-			.setThumbnail(member.displayAvatarURL({ size: 256, extension: 'png', forceStatic: true }))
+			.setThumbnail(member.displayAvatarURL({ size: 256, format: 'png', dynamic: true }))
 			.setTitle(member.user.tag)
-			.addFields([
-				{
-					name: 'Joined',
-					value: `${time(member.joinedAt!, TimestampStyles.LongDateTime)} ${time(member.joinedAt!, TimestampStyles.RelativeTime)}`,
-					inline: false
-				},
-				{
-					name: 'Created',
-					value: `${time(member.user.createdAt!, TimestampStyles.LongDateTime)} ${time(
-						member.user.createdAt!,
-						TimestampStyles.RelativeTime
-					)}`,
-					inline: false
-				}
-			])
+			.addField(
+				'Joined',
+				`${time(member.joinedAt!, TimestampStyles.LongDateTime)} ${time(member.joinedAt!, TimestampStyles.RelativeTime)}`,
+				false
+			)
+			.addField(
+				'Created',
+				`${time(member.user.createdAt!, TimestampStyles.LongDateTime)} ${time(member.user.createdAt!, TimestampStyles.RelativeTime)}`,
+				false
+			)
 			.setFooter({
 				text: `ID: ${member.id}`,
-				iconURL: this.container.client.user!.displayAvatarURL({ size: 128, extension: 'png', forceStatic: true })
+				iconURL: this.container.client.user!.displayAvatarURL({ size: 128, format: 'png', dynamic: true })
 			})
 			.setTimestamp();
 		this.addRoles(interaction.guildId, member, embed);
@@ -60,7 +56,7 @@ export class UserInfoCommand extends GoblinCommand {
 		return interaction.editReply({ embeds: [embed], components: [UserInfoCommand.avatarUrlButton(member)] });
 	}
 
-	private addRoles(guildId: string, member: GuildMember, embed: EmbedBuilder) {
+	private addRoles(guildId: string, member: GuildMember, embed: MessageEmbed) {
 		if (member.roles.cache.size <= 1) {
 			return;
 		}
@@ -69,15 +65,15 @@ export class UserInfoCommand extends GoblinCommand {
 		roles.delete(guildId);
 
 		const value = [...roles.values()].join(' ');
-		embed.addFields([{ name: 'Roles', value: `${value.length > 1024 ? `${value.slice(1, 1020)}...` : value}`, inline: false }]);
+		embed.addField('Roles', `${value.length > 1024 ? `${value.slice(1, 1020)}...` : value}`, false);
 	}
 
 	private static avatarUrlButton(member: GuildMember) {
-		return new ActionRowBuilder().addComponents([
-			new ButtonBuilder() //
+		return new MessageActionRow().addComponents([
+			new MessageButton() //
 				.setLabel('🖼️ Avatar')
-				.setStyle(ButtonStyle.Link)
-				.setURL(member.displayAvatarURL({ size: 512, extension: 'png', forceStatic: true }))
+				.setStyle('LINK')
+				.setURL(member.displayAvatarURL({ size: 512, format: 'png', dynamic: true }))
 		]);
 	}
 }

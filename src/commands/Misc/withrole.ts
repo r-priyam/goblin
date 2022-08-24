@@ -1,15 +1,14 @@
 import { ApplyOptions } from '@sapphire/decorators';
-import type { ChatInputCommand } from '@sapphire/framework';
+import { ChatInputCommand, Command } from '@sapphire/framework';
 import { inlineCodeBlock } from '@sapphire/utilities';
 import { EmbedBuilder, roleMention, PermissionFlagsBits } from 'discord.js';
 
-import { GoblinCommand } from '#lib/extensions/GoblinCommand';
-import { Colors } from '#utils/constants';
+import { Colors } from '#root/lib/util/constants';
 
 @ApplyOptions<ChatInputCommand.Options>({
 	description: 'Get list of members with specific role'
 })
-export class WithRole extends GoblinCommand {
+export class WithRole extends Command {
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
 		registry.registerChatInputCommand(
 			(builder) =>
@@ -21,19 +20,14 @@ export class WithRole extends GoblinCommand {
 							.setName('role')
 							.setDescription('Role to get members for')
 							.setRequired(true)
-					),
+					)
+					.setDMPermission(false)
+					.setDefaultMemberPermissions(PermissionFlagsBits.BanMembers | PermissionFlagsBits.KickMembers),
 			{ idHints: ['997227514726461490', '997373722178617405'] }
 		);
 	}
 
 	public override async chatInputRun(interaction: ChatInputCommand.Interaction<'cached'>) {
-		if (
-			!interaction.memberPermissions.has(PermissionFlagsBits.BanMembers) ||
-			!interaction.memberPermissions.has(PermissionFlagsBits.KickMembers)
-		) {
-			return interaction.reply({ content: "You don't have enough permissions to run this command", ephemeral: true });
-		}
-
 		await interaction.deferReply();
 		const role = interaction.options.getRole('role', true);
 

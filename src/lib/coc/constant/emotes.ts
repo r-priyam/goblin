@@ -1,128 +1,27 @@
-export const Troops: { [key: number]: string } = {
-	// elixir troops
-	0: 'Barbarian',
-	1: 'Archer',
-	2: 'Goblin',
-	3: 'Giant',
-	4: 'Wall Breaker',
-	5: 'Balloon',
-	6: 'Wizard',
-	7: 'Healer',
-	8: 'Dragon',
-	9: 'P.E.K.K.A',
-	23: 'Baby Dragon',
-	24: 'Miner',
-	53: 'Yeti',
-	59: 'Electro Dragon',
-	65: 'Dragon Rider',
-
-	// dark troops
-	10: 'Minion',
-	11: 'Hog Rider',
-	12: 'Valkyrie',
-	13: 'Golem',
-	15: 'Witch',
-	17: 'Lava Hound',
-	22: 'Bowler',
-	58: 'Ice Golem',
-	82: 'Headhunter',
-
-	// super troops
-	26: 'Super Barbarian',
-	27: 'Super Archer',
-	28: 'Super Wall Breaker',
-	29: 'Super Giant',
-	55: 'Sneaky Goblin',
-	57: 'Rocket Balloon',
-	63: 'Inferno Dragon',
-	64: 'Super Valkyrie',
-	66: 'Super Witch',
-	76: 'Ice Hound',
-	80: 'Super Bowler',
-	81: 'Super Dragon',
-	83: 'Super Wizard',
-	84: 'Super Minion',
-
-	// special troops
-	47: 'Royal Ghost',
-
-	// siege machines
-	51: 'Wall Wrecker',
-	52: 'Battle Blimp',
-	62: 'Stone Slammer',
-	75: 'Siege Barracks',
-	87: 'Log Launcher',
-	91: 'Flame Flinger'
-};
-
-export const Spells: { [key: number]: string } = {
-	0: 'Lightning Spell',
-	1: 'Healing Spell',
-	2: 'Rage Spell',
-	3: 'Jump Spell',
-	5: 'Freeze Spell',
-	9: 'Poison Spell',
-	10: 'Earthquake Spell',
-	11: 'Haste Spell',
-	16: 'Clone Spell',
-	17: 'Skeleton Spell',
-	28: 'Bat Spell',
-	35: 'Invisibility Spell'
-};
-
-export const ErrorMessages: { [key: string]: string } = {
-	500: 'Something went wrong when requesting from the API.',
-	504: 'Request to API was timed out, Please try again!',
-	503: 'Game API is under maintenance, try again after it ends.',
-	429: 'Request was throttled, because amount of requests was above the threshold defined for the used API token.'
-};
-
-export const RawPosition: { [key: string]: string } = {
-	leader: 'Leader',
-	coLeader: 'Co-Leader',
-	elder: 'Elder',
-	member: 'Member'
-};
-
-export const RawWarFrequency: { [key: string]: string } = {
-	always: 'Always',
-	moreThanOncePerWeek: 'More than once per week',
-	oncePerWeek: 'Once per week',
-	lessThanOncePerWeek: 'Less than once per week',
-	never: 'Never',
-	unknown: 'Not set'
-};
-
-export const RawClanType: { [key: string]: string } = {
-	open: 'Open',
-	inviteOnly: 'Invite Only',
-	closed: 'Closed'
-};
-
 export const LeagueEmotes: { [key: number]: string } = {
-	29_000_000: '<:Unranked:601618883853680653>',
-	29_000_001: '<:BronzeLeagueIII:601611929311510528>',
-	29_000_002: '<:BronzeLeagueII:601611942850986014>',
-	29_000_003: '<:BronzeLeagueI:601611950228635648>',
-	29_000_004: '<:SilverLeagueIII:601611958067920906>',
-	29_000_005: '<:SilverLeagueII:601611965550428160>',
-	29_000_006: '<:SilverLeagueI:601611974849331222>',
-	29_000_007: '<:GoldLeagueIII:601611988992262144>',
-	29_000_008: '<:GoldLeagueII:601611996290613249>',
-	29_000_009: '<:GoldLeagueI:601612010492526592>',
-	29_000_010: '<:CrystalLeagueIII:601612021472952330>',
-	29_000_011: '<:CrystalLeagueII:601612033976434698>',
-	29_000_012: '<:CrystalLeagueI:601612045359775746>',
-	29_000_013: '<:MasterLeagueIII:601612064913621002>',
-	29_000_014: '<:MasterLeagueII:601612075474616399>',
-	29_000_015: '<:MasterLeagueI:601612085327036436>',
-	29_000_016: '<:ChampionLeagueIII:601612099226959892>',
-	29_000_017: '<:ChampionLeagueII:601612113345249290>',
-	29_000_018: '<:ChampionLeagueI:601612124447440912>',
-	29_000_019: '<:TitanLeagueIII:601612137491726374>',
-	29_000_020: '<:TitanLeagueII:601612148325744640>',
-	29_000_021: '<:TitanLeagueI:601612159327141888>',
-	29_000_022: '<:LegendLeague:601612163169255436>'
+	29000000: '<:Unranked:601618883853680653>',
+	29000001: '<:BronzeLeagueIII:601611929311510528>',
+	29000002: '<:BronzeLeagueII:601611942850986014>',
+	29000003: '<:BronzeLeagueI:601611950228635648>',
+	29000004: '<:SilverLeagueIII:601611958067920906>',
+	29000005: '<:SilverLeagueII:601611965550428160>',
+	29000006: '<:SilverLeagueI:601611974849331222>',
+	29000007: '<:GoldLeagueIII:601611988992262144>',
+	29000008: '<:GoldLeagueII:601611996290613249>',
+	29000009: '<:GoldLeagueI:601612010492526592>',
+	29000010: '<:CrystalLeagueIII:601612021472952330>',
+	29000011: '<:CrystalLeagueII:601612033976434698>',
+	29000012: '<:CrystalLeagueI:601612045359775746>',
+	29000013: '<:MasterLeagueIII:601612064913621002>',
+	29000014: '<:MasterLeagueII:601612075474616399>',
+	29000015: '<:MasterLeagueI:601612085327036436>',
+	29000016: '<:ChampionLeagueIII:601612099226959892>',
+	29000017: '<:ChampionLeagueII:601612113345249290>',
+	29000018: '<:ChampionLeagueI:601612124447440912>',
+	29000019: '<:TitanLeagueIII:601612137491726374>',
+	29000020: '<:TitanLeagueII:601612148325744640>',
+	29000021: '<:TitanLeagueI:601612159327141888>',
+	29000022: '<:LegendLeague:601612163169255436>'
 };
 
 export const WarLeagueEmotes: { [key: string]: string } = {

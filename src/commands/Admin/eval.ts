@@ -1,21 +1,21 @@
 import { Buffer } from 'node:buffer';
 import { inspect } from 'node:util';
 
+import { codeBlock } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
-import type { ChatInputCommand } from '@sapphire/framework';
+import { ChatInputCommand, Command } from '@sapphire/framework';
 import { Stopwatch } from '@sapphire/stopwatch';
 import { Type } from '@sapphire/type';
 import { isThenable } from '@sapphire/utilities';
-import { codeBlock, EmbedBuilder } from 'discord.js';
+import { MessageEmbed } from 'discord.js';
 
-import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#utils/constants';
 
 @ApplyOptions<ChatInputCommand.Options>({
 	description: '[Owner Only] Evaluate any JavaScript code',
 	preconditions: ['OwnerOnly']
 })
-export class EvalCommand extends GoblinCommand {
+export class EvalCommand extends Command {
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
 		registry.registerChatInputCommand(
 			(builder) =>
@@ -62,7 +62,8 @@ export class EvalCommand extends GoblinCommand {
 		const output = success ? codeBlock('js', result) : codeBlock('bash', result);
 
 		const embedLimitReached = output.length > 4096;
-		const embed = new EmbedBuilder()
+		const embed = new MessageEmbed()
+			.setTitle('Info')
 			.setDescription(embedLimitReached ? 'Output was too long! The result has been sent as a file.' : output)
 			.setColor(success ? Colors.Green : Colors.Red);
 

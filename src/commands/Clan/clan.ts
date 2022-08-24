@@ -1,18 +1,17 @@
 import { ApplyOptions } from '@sapphire/decorators';
-import type { ChatInputCommand } from '@sapphire/framework';
+import { ChatInputCommand, Command } from '@sapphire/framework';
 import { isNullish } from '@sapphire/utilities';
-import type { Clan } from 'clashofclans.js';
+import { Clan } from 'clashofclans.js';
 import { EmbedBuilder } from 'discord.js';
 
-import { BlueNumberEmotes, clanHelper, LabelEmotes, MiscEmotes, RawClanType, RawWarFrequency, TownHallEmotes, WarLeagueEmotes } from '#lib/coc';
-import { GoblinCommand } from '#lib/extensions/GoblinCommand';
+import { BlueNumberEmotes, ClanHelper, LabelEmotes, MiscEmotes, RawClanType, RawWarFrequency, TownHallEmotes, WarLeagueEmotes } from '#lib/coc';
 import { Colors, Emotes } from '#utils/constants';
 import { ClanOrPlayer, redis } from '#utils/redis';
 
 @ApplyOptions<ChatInputCommand.Options>({
 	description: 'Get info about a clan'
 })
-export class ClanCommand extends GoblinCommand {
+export class ClanCommand extends Command {
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
 		registry.registerChatInputCommand(
 			(builder) =>
@@ -25,7 +24,8 @@ export class ClanCommand extends GoblinCommand {
 							.setDescription('Tag of the clan')
 							.setRequired(false)
 							.setAutocomplete(true)
-					),
+					)
+					.setDMPermission(false),
 			{ idHints: ['975586954982867024', '980132035089809429'] }
 		);
 	}
@@ -45,11 +45,16 @@ export class ClanCommand extends GoblinCommand {
 			clanTag = cachedClans[0].tag;
 		}
 
-		const clan = await clanHelper.info(clanTag);
+		const clan = await ClanHelper.info(clanTag);
 
 		if (clan.memberCount === 0) {
 			return interaction.editReply({
-				embeds: [new EmbedBuilder().setDescription('Clan has 0 members, failed to collect the required data').setColor(Colors.Red)]
+				embeds: [
+					new EmbedBuilder()
+						.setTitle('Error')
+						.setDescription('Clan has 0 members, failed to collect the required data')
+						.setColor(Colors.Red)
+				]
 			});
 		}
 		const infoEmbed = ClanCommand.infoEmbed(clan);
@@ -75,7 +80,7 @@ export class ClanCommand extends GoblinCommand {
 
 		// remove placeholder field for composition fetch
 		embed.spliceFields(2, 1);
-		embed.addFields([{ name: '\u200B', value: formattedComposition, inline: false }]);
+		embed.addField('\u200B', formattedComposition, false);
 		return interaction.editReply({ embeds: [embed] });
 	}
 

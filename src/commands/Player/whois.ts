@@ -1,19 +1,18 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { PaginatedMessage } from '@sapphire/discord.js-utilities';
-import type { ChatInputCommand } from '@sapphire/framework';
+import { ChatInputCommand, Command } from '@sapphire/framework';
 import { isNullish } from '@sapphire/utilities';
 import { Util } from 'clashofclans.js';
 import { EmbedBuilder, bold } from 'discord.js';
 
 import { MiscEmotes, PlayerUnits, RawPosition, TownHallEmotes } from '#lib/coc';
-import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { PlayerCommand } from '#root/commands/Player/player';
 import { Colors } from '#utils/constants';
 
 @ApplyOptions<ChatInputCommand.Options>({
 	description: 'Get information about an user'
 })
-export class WhoIsCommand extends GoblinCommand {
+export class WhoIsCommand extends Command {
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
 		registry.registerChatInputCommand(
 			(builder) =>
@@ -25,7 +24,8 @@ export class WhoIsCommand extends GoblinCommand {
 							.setName('user')
 							.setDescription('The user to get information for')
 							.setRequired(false)
-					),
+					)
+					.setDMPermission(false),
 			{ idHints: ['974749593696874506', '980131954139734138'] }
 		);
 	}
@@ -67,7 +67,7 @@ export class WhoIsCommand extends GoblinCommand {
 			const units = new PlayerUnits(player);
 			firstPage.addFields([
 				{
-					name: `<:dot:843249351291043851> ${TownHallEmotes[player.townHallLevel]} ${player.name} (${player.tag})`,
+					name: `<:dot:958824443445116960> ${TownHallEmotes[player.townHallLevel]} ${player.name} (${player.tag})`,
 					value: `${MiscEmotes.Clan} ${player.clan ? `${player.clan.name} (${RawPosition[player.role!]})` : 'Not in a clan'}\n${units.unit(
 						'HEROES'
 					)}`,

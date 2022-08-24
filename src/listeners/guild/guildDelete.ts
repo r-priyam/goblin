@@ -9,7 +9,7 @@ import { useGuildLogsWebhook } from '#utils/webhooks/guildLogs';
 	name: 'GuildLeave',
 	event: Events.GuildDelete
 })
-export class GuildDeleteListener extends Listener<typeof Events.GuildDelete> {
+export class BotListener extends Listener<typeof Events.GuildDelete> {
 	public override async run(guild: Guild) {
 		const webhook = useGuildLogsWebhook();
 

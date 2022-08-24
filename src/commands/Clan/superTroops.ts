@@ -1,18 +1,17 @@
 import { ApplyOptions } from '@sapphire/decorators';
-import type { ChatInputCommand } from '@sapphire/framework';
+import { ChatInputCommand, Command } from '@sapphire/framework';
 import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
 import { Clan, SUPER_TROOPS } from 'clashofclans.js';
 import { ActionRowBuilder, EmbedBuilder, EmbedField, SelectMenuBuilder } from 'discord.js';
 
-import { clanHelper, SuperTroopEmotes } from '#lib/coc';
-import { GoblinCommand } from '#lib/extensions/GoblinCommand';
+import { ClanHelper, SuperTroopEmotes } from '#lib/coc';
 import { Colors } from '#utils/constants';
 import { ClanOrPlayer, redis } from '#utils/redis';
 
 @ApplyOptions<ChatInputCommand.Options>({
 	description: 'Lists clan members active super troops'
 })
-export class SuperTroopsCommand extends GoblinCommand {
+export class SuperTroopsCommand extends Command {
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
 		registry.registerChatInputCommand(
 			(builder) =>
@@ -25,7 +24,8 @@ export class SuperTroopsCommand extends GoblinCommand {
 							.setDescription('Tag of the clan')
 							.setRequired(false)
 							.setAutocomplete(true)
-					),
+					)
+					.setDMPermission(false),
 			{
 				idHints: ['991987141259309067', '992380615884296213']
 			}
@@ -47,7 +47,7 @@ export class SuperTroopsCommand extends GoblinCommand {
 			clanTag = cachedClans[0].tag;
 		}
 
-		const clan = await clanHelper.info(clanTag);
+		const clan = await ClanHelper.info(clanTag);
 		const embed = await SuperTroopsCommand.getSuperTroops(clan);
 		return interaction.editReply({ embeds: [embed], components: [this.menuOptions(clan.tag)] });
 	}

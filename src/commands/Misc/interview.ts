@@ -1,16 +1,27 @@
+import { channelMention, userMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
-import { fetch, FetchResultTypes } from '@sapphire/fetch';
-import type { ChatInputCommand } from '@sapphire/framework';
+import { ChatInputCommand, UserError } from '@sapphire/framework';
+import { Subcommand } from '@sapphire/plugin-subcommands';
 import { envParseString } from '@skyra/env-utilities';
-import { EmbedBuilder, TextChannel, userMention, channelMention, PermissionFlagsBits } from 'discord.js';
+import { PermissionFlagsBits } from 'discord-api-types/v10';
+import { GuildMember, EmbedBuilder, TextChannel } from 'discord.js';
 
-import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#utils/constants';
 
-@ApplyOptions<ChatInputCommand.Options>({
+@ApplyOptions<Subcommand.Options>({
+	subcommands: [
+		{
+			name: 'start',
+			chatInputRun: 'startInterview'
+		},
+		{
+			name: 'close',
+			chatInputRun: 'closeInterview'
+		}
+	],
 	description: 'Commands related to interview channel'
 })
-export class InterviewCommand extends GoblinCommand {
+export class InterviewCommand extends Subcommand {
 	#welcomeMessage = `Thank you for your interest in joining EYG!
 Please answer the questions below and post a screenshot of your base.
 Our clans have 8 hours to review your answers & ask further questions. After this, you will be offered a place. If now is not a good time to start please tell us.
@@ -29,6 +40,7 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 				builder
 					.setName(this.name)
 					.setDescription(this.description)
+					.setDMPermission(false)
 					.addSubcommand((command) =>
 						command
 							.setName('start')
@@ -55,17 +67,10 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 		);
 	}
 
-	public override async chatInputRun(interaction: ChatInputCommand.Interaction<'cached'>) {
-		if (!interaction.member.roles.cache.hasAny('339858024640413698', '349856938579984385')) {
-			this.userError({ message: "You aren't allowed to use this command" });
-		}
-
+	public async startInterview(interaction: ChatInputCommand.Interaction<'cached'>) {
 		await interaction.deferReply();
-		const subCommand = interaction.options.getSubcommand(true) as 'start' | 'close';
-		return this[subCommand](interaction);
-	}
+		this.canPerformInterviewOperations(interaction.member);
 
-	private async start(interaction: ChatInputCommand.Interaction<'cached'>) {
 		const member = interaction.options.getMember('user', true);
 		const allowedPermissions = [
 			PermissionFlagsBits.SendMessages,
@@ -97,12 +102,12 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 
 		await channel.send({
 			content: userMention(member.id),
-			embeds: [new EmbedBuilder().setColor(Colors.LightGreen).setDescription(this.#welcomeMessage)]
+			embeds: [ newEmbedBuilder().setColor(Colors.LightGreen).setDescription(this.#welcomeMessage)]
 		});
 
 		return interaction.editReply({
 			embeds: [
-				new EmbedBuilder()
+				 newEmbedBuilder()
 					.setTitle('Success')
 					.setDescription(`Successfully created ${channelMention(channel.id)}`)
 					.setColor(Colors.Green)
@@ -110,7 +115,10 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 		});
 	}
 
-	private async close(interaction: ChatInputCommand.Interaction<'cached'>) {
+	public async closeInterview(interaction: ChatInputCommand.Interaction<'cached'>) {
+		await interaction.deferReply();
+		this.canPerformInterviewOperations(interaction.member);
+
 		const reason = interaction.options.getString('reason', true);
 		const { channel, member } = interaction;
 
@@ -136,7 +144,7 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 
 		const successData = {
 			embeds: [
-				new EmbedBuilder()
+				 newEmbedBuilder()
 					.setDescription(`Backup file for ${channel?.name} is saved at https://gist.github.com/robo-goblin/${gistId}`)
 					.setColor(Colors.Indigo)
 			]
@@ -145,23 +153,25 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 		return reportingChannel.send(successData);
 	}
 
+	private canPerformInterviewOperations(member: GuildMember) {
+		if (!member.roles.cache.hasAny('339858024640413698', '349856938579984385')) {
+			throw new UserError({ identifier: 'user-not-allowed', message: "You aren't allowed to use this command" });
+		}
+	}
+
 	private async createInterviewGist(fileName: string, content: string) {
 		const body = { public: false, files: {} };
 		Object.assign(body.files, { [`${fileName}.txt`]: { content } });
 
-		const response = await fetch(
-			'https://api.github.com/gists',
-			{
-				method: 'POST',
-				headers: {
-					'Accept': 'application/vnd.github.v3+json',
-					'User-Agent': 'Goblin Channel Close',
-					'Authorization': `token ${envParseString('GITHUB_TOKEN')}`
-				},
-				body: JSON.stringify(body)
+		const response = await fetch('https://api.github.com/gists', {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/vnd.github.v3+json',
+				'User-Agent': 'Goblin Channel Close',
+				'Authorization': `token ${envParseString('GITHUB_TOKEN')}`
 			},
-			FetchResultTypes.Result
-		);
+			body: JSON.stringify(body)
+		});
 
 		// TODO: Create task here to handle the rate limit. I doubt it
 		// will occur here but if in case it does...
@@ -169,6 +179,9 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 			const data: { id: string } = await response.json();
 			return data.id;
 		}
-		throw this.userError({ message: 'Something went wrong while taking the backup of interview channel, please try again!' });
+		throw new UserError({
+			identifier: 'http-error',
+			message: 'Something went wrong while taking the backup of interview channel, please try again!'
+		});
 	}
 }

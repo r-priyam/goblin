@@ -1,7 +1,7 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { Precondition } from '@sapphire/framework';
 import { envParseArray } from '@skyra/env-utilities';
-import type { CommandInteraction } from 'discord.js';
+import { CommandInteraction } from 'discord.js';
 
 @ApplyOptions<Precondition.Options>({
 	name: 'OwnerOnly'

@@ -1,4 +1,4 @@
-import type { ArrayString, BooleanString, IntegerString } from '@skyra/env-utilities';
+import { ArrayString, BooleanString, IntegerString } from '@skyra/env-utilities';
 
 declare module '@skyra/env-utilities' {
 	interface Env {
@@ -10,6 +10,7 @@ declare module '@skyra/env-utilities' {
 		DISCORD_TOKEN: string;
 		GITHUB_TOKEN: string;
 
+		ERROR_LOGS_WEBHOOK: string;
 		GUILD_LOGS_WEBHOOK: string;
 
 		CLASH_EMAIL: string;

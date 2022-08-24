@@ -1,8 +1,7 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { Events, Listener } from '@sapphire/framework';
-import type { Clan } from 'clashofclans.js';
-import type { Message } from 'discord.js';
-import { EmbedBuilder, bold } from 'discord.js';
+import { Clan } from 'clashofclans.js';
+import { Message, EmbedBuilder, bold } from 'discord.js';
 
 import { MiscEmotes } from '#lib/coc';
 import { Colors } from '#utils/constants';
@@ -12,7 +11,7 @@ import { ClanAlias, redis } from '#utils/redis';
 	name: 'AliasMessageCreate',
 	event: Events.MessageCreate
 })
-export class AliasListener extends Listener<typeof Events.MessageCreate> {
+export class BotListener extends Listener<typeof Events.MessageCreate> {
 	public async run(message: Message) {
 		if (message.author.bot || message.content.length > 6) return;
 
@@ -25,7 +24,7 @@ export class AliasListener extends Listener<typeof Events.MessageCreate> {
 		if (!possibleAlias) return;
 
 		const clan = await this.coc.getClan(possibleAlias.tag);
-		return message.channel.send({ embeds: [AliasListener.aliasClanInfo(clan)] });
+		return message.channel.send({ embeds: [BotListener.aliasClanInfo(clan)] });
 	}
 
 	private static aliasClanInfo(clan: Clan) {

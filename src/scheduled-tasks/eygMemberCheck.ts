@@ -1,15 +1,11 @@
+import { bold, inlineCode, userMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { ScheduledTask } from '@sapphire/plugin-scheduled-tasks';
-import { TextChannel, inlineCode, userMention, EmbedBuilder, Status } from 'discord.js';
+import { Constants, MessageEmbed, TextChannel, Status } from 'discord.js';
 
 import { Colors } from '#utils/constants';
 
-@ApplyOptions<ScheduledTask.Options>({
-	cron: '*/01 * * * *',
-	bullJobOptions: {
-		removeOnComplete: true
-	}
-})
+@ApplyOptions<ScheduledTask.Options>({ cron: '*/01 * * * *' })
 export class EygMemberCheck extends ScheduledTask {
 	private readonly checkRoleId = '318003116773474304';
 
@@ -34,24 +30,30 @@ export class EygMemberCheck extends ScheduledTask {
 				await gatewayChannel.send({
 					content: userMention(member.id),
 					embeds: [
-						new EmbedBuilder()
+						new MessageEmbed()
 							.setTitle('Warning')
 							.setDescription(
-								'Hello 👋\nYou have been in `gateway` for 12 hours now. To avoid being removed automatically, speak to a recruiter within the next `12 Hours`!'
+								`Hello 👋\nYou have been in ${inlineCode(
+									'gateway'
+								)} for 12 hours now. To avoid being removed automatically, speak to a recruiter within the next ${inlineCode(
+									'12 hours'
+								)}. ${bold('Failure to do so will result in the removal from server.')}`
 							)
 							.setColor(Colors.Yellow)
 					]
 				});
 			} else if (minutes >= 60 * 24) {
-				await member.kick('Automatically kicked member for being in gateway for 24 hours');
+				await member.kick('Automatically kicked member for being in gateway for more than 24 hours');
 				await gatewayChannel.send({
 					embeds: [
-						new EmbedBuilder()
+						new MessageEmbed()
 							.setTitle('Info')
 							.setDescription(
-								`Automatically kicked ${inlineCode(member.displayName)} from the server as they've been in \`gateway for 24 hours+\``
+								`Automatically kicked ${inlineCode(member.displayName)} from the server as they've been in ${inlineCode(
+									'gateway for more than 24 hours'
+								)}`
 							)
-							.setColor(Colors.Green)
+							.setColor(Colors.Blue)
 					]
 				});
 			}

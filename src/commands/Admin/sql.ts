@@ -1,19 +1,17 @@
 import { inspect } from 'node:util';
 
+import { codeBlock } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
-import type { ChatInputCommand } from '@sapphire/framework';
+import { ChatInputCommand, Command } from '@sapphire/framework';
 import { Stopwatch } from '@sapphire/stopwatch';
 import { inlineCodeBlock, isNullishOrEmpty } from '@sapphire/utilities';
-import { codeBlock } from 'discord.js';
-
-import { TabularData } from '#lib/classes/table';
-import { GoblinCommand } from '#lib/extensions/GoblinCommand';
+import { markdownTable } from 'markdown-table';
 
 @ApplyOptions<ChatInputCommand.Options>({
 	description: '[Owner Only] Executes SQL query',
 	preconditions: ['OwnerOnly']
 })
-export class SQLCommand extends GoblinCommand {
+export class SQLCommand extends Command {
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
 		registry.registerChatInputCommand(
 			(builder) =>
@@ -42,19 +40,21 @@ export class SQLCommand extends GoblinCommand {
 		if (isNullishOrEmpty(result))
 			return interaction.editReply({ content: `Returned ${inlineCodeBlock('[]')} in ${inlineCodeBlock(executionTime)}` });
 
-		const table = new TabularData();
-		table.setColumns(Object.keys(result[0]));
+		const columns = Object.keys(result[0]);
+		// @ts-expect-error result will be array of objects always
+		const rows: string[][] = result.map((row) => Object.values(row));
 
-		// @ts-expect-error result will be in array only
-		table.addRows(result.map((r) => Object.values(r)));
-		const render = table.renderTable().split('\n');
-		await interaction.deleteReply();
+		const toSend = markdownTable([columns, ...rows.splice(0, 12)]);
+		await interaction.editReply(
+			rows.length === 0
+				? `${codeBlock('ts', toSend)}\nReturned \`${result.length}\` rows. Executed in: \`${inlineCodeBlock(executionTime)}\``
+				: `${codeBlock('ts', toSend)}`
+		);
 
-		while (render.length > 0) {
-			const toSend = render.splice(0, 12).join('\n');
-
+		while (rows.length > 0) {
+			const toSend = markdownTable([columns, ...rows.splice(0, 12)]);
 			await interaction.followUp(
-				render.length === 0
+				rows.length === 0
 					? `${codeBlock('ts', toSend)}\nReturned \`${result.length}\` rows. Executed in: \`${inlineCodeBlock(executionTime)}\``
 					: `${codeBlock('ts', toSend)}`
 			);

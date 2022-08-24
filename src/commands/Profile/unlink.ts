@@ -1,16 +1,15 @@
 import { ApplyOptions } from '@sapphire/decorators';
-import type { ChatInputCommand } from '@sapphire/framework';
+import { ChatInputCommand, Command } from '@sapphire/framework';
 import { Util } from 'clashofclans.js';
 import { EmbedBuilder } from 'discord.js';
 
-import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#utils/constants';
 import { redis } from '#utils/redis';
 
 @ApplyOptions<ChatInputCommand.Options>({
 	description: 'Unlink a clan or a player from your discord account'
 })
-export class SlashCommand extends GoblinCommand {
+export class SlashCommand extends Command {
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
 		registry.registerChatInputCommand(
 			(builder) =>
@@ -29,7 +28,8 @@ export class SlashCommand extends GoblinCommand {
 							.setName('tag')
 							.setDescription('The tag to unlink')
 							.setRequired(true)
-					),
+					)
+					.setDMPermission(false),
 			{ idHints: ['975442552134197248', '980131949911883847'] }
 		);
 	}
@@ -60,7 +60,12 @@ export class SlashCommand extends GoblinCommand {
 
 		await redis.handleClanOrPlayerCache('CLAN', 'REMOVE', interaction.member.id, tag);
 		return interaction.editReply({
-			embeds: [new EmbedBuilder().setDescription(`Removed **${result.clanName} (${tag})** from your discord account`).setColor(Colors.Green)]
+			embeds: [
+				new EmbedBuilder()
+					.setTitle('Success')
+					.setDescription(`Removed **${result.clanName} (${tag})** from your discord account`)
+					.setColor(Colors.Green)
+			]
 		});
 	}
 

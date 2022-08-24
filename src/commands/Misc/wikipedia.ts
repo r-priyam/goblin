@@ -1,17 +1,15 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { PaginatedMessage } from '@sapphire/discord.js-utilities';
-import { fetch, FetchResultTypes } from '@sapphire/fetch';
-import type { ChatInputCommand } from '@sapphire/framework';
+import { ChatInputCommand, Command } from '@sapphire/framework';
 import { EmbedBuilder } from 'discord.js';
 import { stripHtml } from 'string-strip-html';
 
-import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#utils/constants';
 
 @ApplyOptions<ChatInputCommand.Options>({
 	description: 'Search wikipedia for a keyword'
 })
-export class WikipediaCommand extends GoblinCommand {
+export class WikipediaCommand extends Command {
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
 		registry.registerChatInputCommand(
 			(builder) =>
@@ -23,7 +21,8 @@ export class WikipediaCommand extends GoblinCommand {
 							.setName('keyword')
 							.setDescription('The keyword to search')
 							.setRequired(true)
-					),
+					)
+					.setDMPermission(false),
 			{ idHints: ['987351901655945326', '987409434462519337'] }
 		);
 	}
@@ -33,8 +32,7 @@ export class WikipediaCommand extends GoblinCommand {
 		const keyword = interaction.options.getString('keyword', true);
 
 		const response = await fetch(
-			`https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info&format=json&origin=*&srlimit=20&srsearch=${keyword}`,
-			FetchResultTypes.Result
+			`https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info&format=json&origin=*&srlimit=20&srsearch=${keyword}`
 		).catch(() => null);
 
 		const data: WikipediaData = await response?.json().catch(() => null);

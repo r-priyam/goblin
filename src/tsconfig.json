@@ -6,9 +6,10 @@
 		"baseUrl": ".",
 		"noEmit": true,
 		"paths": {
-			"#root/*": ["*"],
-			"#lib/*": ["lib/*"],
 			"#utils/*": ["lib/util/*"],
+			"#lib/coc": ["lib/coc/index.ts"],
+			"#lib/*": ["lib/*"],
+			"#root/*": ["*"]
 		}
 	},
 	"include": ["."]

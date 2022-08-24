@@ -1,8 +1,7 @@
 import { readFile } from 'node:fs/promises';
 
 import { ApplyOptions } from '@sapphire/decorators';
-import type { Store } from '@sapphire/framework';
-import { Events, Listener } from '@sapphire/framework';
+import { Events, Listener, Store } from '@sapphire/framework';
 import { envParseString } from '@skyra/env-utilities';
 import { blue, gray, green, magenta, magentaBright, white, yellow } from 'colorette';
 import figlet from 'figlet';

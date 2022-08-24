@@ -1,19 +1,18 @@
 import { readFile } from 'node:fs/promises';
-import { uptime, cpus, type CpuInfo } from 'node:os';
+import { cpus, uptime, type CpuInfo } from 'node:os';
 
 import { ApplyOptions } from '@sapphire/decorators';
-import { type ChatInputCommand, version as sapphireVersion } from '@sapphire/framework';
+import { Command, version as sapphireVersion, type ChatInputCommand } from '@sapphire/framework';
 import { roundNumber } from '@sapphire/utilities';
 import { EmbedBuilder, version, hideLinkEmbed, hyperlink, time, TimestampStyles, userMention } from 'discord.js';
 
-import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#utils/constants';
 import { seconds } from '#utils/functions/time';
 
 @ApplyOptions<ChatInputCommand.Options>({
 	description: 'Something about myself'
 })
-export class AboutCommand extends GoblinCommand {
+export class AboutCommand extends Command {
 	readonly #descriptionContent = [
 		`I am a cute goblin created by ${userMention('292332992251297794')} to steal resources from around.`,
 		'If you have any suggestion/feedback for me then please send a DM to my creator 💙',
@@ -25,9 +24,16 @@ export class AboutCommand extends GoblinCommand {
 	].join('\n');
 
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
-		registry.registerChatInputCommand((builder) => builder.setName(this.name).setDescription(this.description), {
-			idHints: ['998801926315589672', '998831574449668126']
-		});
+		registry.registerChatInputCommand(
+			(builder) =>
+				builder //
+					.setName(this.name)
+					.setDescription(this.description)
+					.setDMPermission(false),
+			{
+				idHints: ['998801926315589672', '998831574449668126']
+			}
+		);
 	}
 
 	public override async chatInputRun(interaction: ChatInputCommand.Interaction<'cached'>) {

@@ -1,22 +1,33 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { ChatInputCommand, UserError } from '@sapphire/framework';
-import { EmbedBuilder } from 'discord.js';
+import { Subcommand } from '@sapphire/plugin-subcommands';
+import { MessageEmbed } from 'discord.js';
 
-import { clanHelper, playerHelper } from '#lib/coc';
-import { GoblinCommand } from '#lib/extensions/GoblinCommand';
+import { ClanHelper, PlayerHelper } from '#lib/coc';
 import { Colors } from '#utils/constants';
 import { redis } from '#utils/redis';
 
-@ApplyOptions<ChatInputCommand.Options>({
+@ApplyOptions<Subcommand.Options>({
+	subcommands: [
+		{
+			name: 'clan',
+			chatInputRun: 'clanLink'
+		},
+		{
+			name: 'player',
+			chatInputRun: 'playerLink'
+		}
+	],
 	description: 'Commands related to user profile'
 })
-export class SlashCommand extends GoblinCommand {
+export class LinkCommand extends Subcommand {
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
 		registry.registerChatInputCommand(
 			(builder) =>
 				builder
 					.setName(this.name)
 					.setDescription(this.description)
+					.setDMPermission(false)
 					.addSubcommand((command) =>
 						command
 							.setName('clan')
@@ -34,15 +45,10 @@ export class SlashCommand extends GoblinCommand {
 		);
 	}
 
-	public override async chatInputRun(interaction: ChatInputCommand.Interaction<'cached'>) {
+	public async clanLink(interaction: ChatInputCommand.Interaction<'cached'>) {
 		await interaction.deferReply({ ephemeral: true });
 
-		const subCommand = interaction.options.getSubcommand(true) as 'clan' | 'player';
-		return this[subCommand](interaction);
-	}
-
-	private async clan(interaction: ChatInputCommand.Interaction<'cached'>) {
-		const clan = await clanHelper.info(interaction.options.getString('tag', true));
+		const clan = await ClanHelper.info(interaction.options.getString('tag', true));
 
 		try {
 			await this.sql`INSERT INTO clans (user_id, clan_name, clan_tag)
@@ -58,12 +64,19 @@ export class SlashCommand extends GoblinCommand {
 
 		await redis.handleClanOrPlayerCache('CLAN', 'UPDATE', interaction.member.id, clan.tag, clan.name);
 		return interaction.editReply({
-			embeds: [new EmbedBuilder().setDescription(`Linked **${clan.name} (${clan.tag})** to your discord account`).setColor(Colors.Green)]
+			embeds: [
+				new MessageEmbed()
+					.setTitle('Success')
+					.setDescription(`Linked **${clan.name} (${clan.tag})** to your discord account`)
+					.setColor(Colors.Green)
+			]
 		});
 	}
 
-	private async player(interaction: ChatInputCommand.Interaction<'cached'>) {
-		const player = await playerHelper.verifyPlayer(interaction.options.getString('tag', true), interaction.options.getString('token', true));
+	public async playerLink(interaction: ChatInputCommand.Interaction<'cached'>) {
+		await interaction.deferReply({ ephemeral: true });
+
+		const player = await PlayerHelper.verifyPlayer(interaction.options.getString('tag', true), interaction.options.getString('token', true));
 
 		try {
 			await this.sql`INSERT INTO players (user_id, player_name, player_tag)
@@ -80,7 +93,7 @@ export class SlashCommand extends GoblinCommand {
 		await redis.handleClanOrPlayerCache('PLAYER', 'UPDATE', interaction.member.id, player.tag, player.name);
 		return interaction.editReply({
 			embeds: [
-				new EmbedBuilder()
+				new MessageEmbed()
 					.setTitle('Success')
 					.setDescription(`Linked **${player.name} (${player.tag})** to your discord account`)
 					.setColor(Colors.Green)
