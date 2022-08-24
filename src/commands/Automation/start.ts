@@ -69,15 +69,6 @@ export class StartCommand extends Command {
 						.setMinLength(6)
 						.setMaxLength(7)
 						.setRequired(true)
-				),
-				new MessageActionRow<ModalActionRowComponent>().addComponents(
-					new TextInputComponent() //
-						.setCustomId(ModalInputCustomIds.StartClanEmbedTownHallRequirementsInput)
-						.setLabel('Replace 0 with required number of TownHalls')
-						.setStyle('PARAGRAPH')
-						.setValue('14: 0\n13: 0\n12: 0\n11: 0\n10: 0\n9: 0')
-						.setMaxLength(100)
-						.setRequired(true)
 				)
 			);
 
