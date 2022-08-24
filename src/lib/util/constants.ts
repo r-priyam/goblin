@@ -38,6 +38,9 @@ export const enum ModalCustomIds {
 
 export const enum ModalInputCustomIds {
 	StartClanEmbedLeaderInput = 'start-clan-embed-leader-input',
-	StartClanEmbedColorInput = 'start-clan-embed-color-input',
-	StartClanEmbedTownHallRequirementsInput = 'start-clan-embed-town-hall-requirements-input'
+	StartClanEmbedColorInput = 'start-clan-embed-color-input'
+}
+
+export const enum ButtonCustomIds {
+	AddClanRequirement = 'add-clan-requirement-button'
 }
