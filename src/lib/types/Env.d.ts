@@ -30,5 +30,7 @@ declare module '@skyra/env-utilities' {
 		REDIS_PORT: IntegerString;
 		REDIS_CACHE_DB: IntegerString;
 		REDIS_TASK_DB: IntegerString;
+
+		EYG_GUILD_ID: string;
 	}
 }
