@@ -9,7 +9,8 @@ import { MessageActionRow, Modal, ModalActionRowComponent, TextInputComponent } 
 import { ModalCustomIds, ModalInputCustomIds } from '#utils/constants';
 
 @ApplyOptions<ChatInputCommand.Options>({
-	description: 'Starts the selected automation in the channel'
+	description: 'Starts the selected automation in the channel',
+	preconditions: ['StartRequiredPermissions']
 })
 export class StartCommand extends Command {
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
