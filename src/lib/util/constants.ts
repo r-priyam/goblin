@@ -33,14 +33,22 @@ export const enum Emotes {
 }
 
 export const enum ModalCustomIds {
-	StartClanEmbed = 'start-clan-embed-modal'
+	StartClanEmbed = 'start-clan-embed-modal',
+	AddClanEmbedRequirements = 'add-clan-embed-requirements',
+	UpdateClanEmbedRequirements = 'update-clan-embed-requirements'
 }
 
 export const enum ModalInputCustomIds {
 	StartClanEmbedLeaderInput = 'start-clan-embed-leader-input',
-	StartClanEmbedColorInput = 'start-clan-embed-color-input'
+	StartClanEmbedColorInput = 'start-clan-embed-color-input',
+	FourteenRequirements = 'fourteen-requirements-input',
+	ThirteenRequirements = 'thirteen-requirements-input',
+	TwelveRequirements = 'twelve-requirements-input',
+	ElevenRequirements = 'eleven-requirements-input',
+	TenRequirements = 'ten-requirements-input'
 }
 
 export const enum ButtonCustomIds {
-	AddClanRequirement = 'add-clan-requirement-button'
+	AddClanRequirement = 'add-clan-requirement-button',
+	UpdateClanRequirement = 'update-clan-requirement-button'
 }
