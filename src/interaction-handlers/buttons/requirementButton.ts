@@ -21,7 +21,7 @@ export class ButtonHandler extends InteractionHandler {
 		}
 
 		const clanTag = interaction.customId.split('-').pop()!;
-		const updateRequirements = interaction.customId === ButtonCustomIds.UpdateClanRequirement;
+		const updateRequirements = interaction.customId.startsWith(ButtonCustomIds.UpdateClanRequirement);
 		const [currentRequirements] = await this.sql<[{ requirements: Record<string, number> }]>`SELECT requirements
                                                                                                  FROM clan_embeds`;
 
