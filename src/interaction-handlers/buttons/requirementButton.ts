@@ -13,25 +13,19 @@ export class ButtonHandler extends InteractionHandler {
 	}
 
 	public override async parse(interaction: ButtonInteraction) {
-		if (
-			!interaction.customId.startsWith(ButtonCustomIds.AddClanRequirement) &&
-			!interaction.customId.startsWith(ButtonCustomIds.UpdateClanRequirement)
-		) {
-			return this.none();
-		}
+		if (!interaction.customId.startsWith(ButtonCustomIds.ClanEmbedRequirement)) return this.none();
 
 		const clanTag = interaction.customId.split('-').pop()!;
-		const updateRequirements = interaction.customId.startsWith(ButtonCustomIds.UpdateClanRequirement);
 		const [currentRequirements] = await this.sql<[{ requirements: Record<string, number> }]>`SELECT requirements
                                                                                                  FROM clan_embeds`;
 
-		return this.some({ modal: this.requirementsModel(clanTag, updateRequirements, currentRequirements.requirements) });
+		return this.some({ modal: this.requirementsModel(clanTag, currentRequirements.requirements) });
 	}
 
-	private requirementsModel(clanTag: string, updateRequirements: boolean, requirements: Record<string, number>) {
+	private requirementsModel(clanTag: string, requirements: Record<string, number>) {
 		return new Modal()
-			.setTitle(`${updateRequirements ? 'Update' : 'Add'} Clan Requirements Form`)
-			.setCustomId(`${updateRequirements ? ModalCustomIds.UpdateClanEmbedRequirements : ModalCustomIds.AddClanEmbedRequirements}-${clanTag}`)
+			.setTitle(`Edit Clan Requirements Form`)
+			.setCustomId(`${ModalCustomIds.ClanEmbedRequirements}-${clanTag}`)
 			.addComponents(
 				new MessageActionRow<ModalActionRowComponent>().addComponents(
 					this.requirementsModelInput(14, ModalInputCustomIds.FourteenRequirements, String(requirements['14']))

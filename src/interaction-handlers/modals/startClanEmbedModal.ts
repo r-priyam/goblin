@@ -77,8 +77,8 @@ export class StartClanEmbedModal extends InteractionHandler {
 			components: [
 				new MessageActionRow().addComponents(
 					new MessageButton() //
-						.setCustomId(`${ButtonCustomIds.AddClanRequirement}-${clan.tag}`)
-						.setLabel('Add Clan Requirements')
+						.setCustomId(`${ButtonCustomIds.ClanEmbedRequirement}-${clan.tag}`)
+						.setLabel('Edit Clan Requirements')
 						.setStyle('PRIMARY')
 				)
 			]

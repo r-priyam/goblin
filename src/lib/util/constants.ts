@@ -34,8 +34,7 @@ export const enum Emotes {
 
 export const enum ModalCustomIds {
 	StartClanEmbed = 'start-clan-embed-modal',
-	AddClanEmbedRequirements = 'add-clan-embed-requirements',
-	UpdateClanEmbedRequirements = 'update-clan-embed-requirements'
+	ClanEmbedRequirements = 'clan-embed-requirements'
 }
 
 export const enum ModalInputCustomIds {
@@ -49,6 +48,5 @@ export const enum ModalInputCustomIds {
 }
 
 export const enum ButtonCustomIds {
-	AddClanRequirement = 'add-clan-requirement-button',
-	UpdateClanRequirement = 'update-clan-requirement-button'
+	ClanEmbedRequirement = 'add-clan-requirement-button'
 }
