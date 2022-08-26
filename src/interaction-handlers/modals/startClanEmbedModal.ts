@@ -37,15 +37,19 @@ export class StartClanEmbedModal extends InteractionHandler {
 		}
 
 		const leaderId = interaction.fields.getTextInputValue(ModalInputCustomIds.StartClanEmbedLeaderInput);
-		// TODO: add check to verify it's a hex color code
 		const embedColor = interaction.fields.getTextInputValue(ModalInputCustomIds.StartClanEmbedColorInput);
 
 		if (!SnowflakeRegex.test(leaderId)) {
-			return this.some({
-				embed: new MessageEmbed()
-					.setTitle('Error')
-					.setDescription('Leader discord ID appears to be wrong, please double check it')
-					.setColor(Colors.Red)
+			throw new UserError({
+				identifier: 'clan-embed-wrong-input',
+				message: 'Leader discord id appears to be wrong, please double check it'
+			});
+		}
+
+		if (!/^#?[\da-f]{6}$/i.test(embedColor)) {
+			throw new UserError({
+				identifier: 'clan-embed-wrong-input',
+				message: 'Clan embed color appears to be wrong, please double check it'
 			});
 		}
 
