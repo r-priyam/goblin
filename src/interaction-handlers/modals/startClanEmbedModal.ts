@@ -54,13 +54,7 @@ export class StartClanEmbedModal extends InteractionHandler {
 		}
 
 		const clan = await ClanHelper.info(clanTag);
-		await this.handleClanEmbedBoardGeneration(
-			interaction,
-			clan,
-			leaderId,
-			embedColor,
-			'Please click on the button in this message to set requirements'
-		);
+		await this.handleClanEmbedBoardGeneration(interaction, clan, leaderId, embedColor);
 
 		return this.some({
 			embed: new MessageEmbed()
@@ -70,16 +64,16 @@ export class StartClanEmbedModal extends InteractionHandler {
 		});
 	}
 
-	private async handleClanEmbedBoardGeneration(
-		interaction: ModalSubmitInteraction,
-		clan: Clan,
-		leaderId: string,
-		color: string,
-		requirements: string
-	) {
+	private async handleClanEmbedBoardGeneration(interaction: ModalSubmitInteraction, clan: Clan, leaderId: string, color: string) {
 		// TODO: Error handling of any any kind? and use Result?
 		const automationMessage = await interaction.channel!.send({
-			embeds: [await ClanHelper.generateAutomationClanEmbed(clan, { leaderId, requirements, color })],
+			embeds: [
+				await ClanHelper.generateAutomationClanEmbed(clan, {
+					leaderId,
+					requirements: 'Please click on the button in this message to set requirements',
+					color
+				})
+			],
 			components: [
 				new MessageActionRow().addComponents(
 					new MessageButton() //
@@ -90,9 +84,9 @@ export class StartClanEmbedModal extends InteractionHandler {
 			]
 		});
 
-		await this.sql`INSERT INTO clan_embeds(clan_name, clan_tag, leader_discord_id, requirements, color, message_id,
+		await this.sql`INSERT INTO clan_embeds(clan_name, clan_tag, leader_discord_id, color, message_id,
                                                guild_id, channel_id)
-                       VALUES (${clan.name}, ${clan.tag}, ${leaderId}, ${requirements}, ${color},
+                       VALUES (${clan.name}, ${clan.tag}, ${leaderId}, ${color},
                                ${automationMessage.id}, ${automationMessage.guildId}, ${automationMessage.channelId})`;
 	}
 }

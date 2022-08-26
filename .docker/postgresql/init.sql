@@ -57,10 +57,16 @@ CREATE TABLE public.clan_embeds
     clan_name         VARCHAR(20) NOT NULL,
     clan_tag          TEXT        NOT NULL,
     leader_discord_id TEXT        NOT NULL,
-    requirements      TEXT        NOT NULL,
-    color             VARCHAR(10) NOT NULL,
+    requirements      JSONB                    DEFAULT '{
+      "14": 0,
+      "13": 0,
+      "12": 0,
+      "11": 0,
+      "10": 0
+    }'::JSONB,
+    color             VARCHAR(7)  NOT NULL,
     message_id        TEXT        NOT NULL,
-	guild_id          TEXT        NOT NULL,
+    guild_id          TEXT        NOT NULL,
     channel_id        TEXT        NOT NULL,
     started_at        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
