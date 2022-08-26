@@ -36,8 +36,8 @@ export class StartClanEmbedModal extends InteractionHandler {
 			});
 		}
 
-		const leaderId = interaction.fields.getTextInputValue(ModalInputCustomIds.StartClanEmbedLeaderInput);
-		const embedColor = interaction.fields.getTextInputValue(ModalInputCustomIds.StartClanEmbedColorInput);
+		const leaderId = interaction.fields.getTextInputValue(ModalInputCustomIds.StartClanEmbedLeader);
+		const embedColor = interaction.fields.getTextInputValue(ModalInputCustomIds.StartClanEmbedColor);
 
 		if (!SnowflakeRegex.test(leaderId)) {
 			throw new UserError({

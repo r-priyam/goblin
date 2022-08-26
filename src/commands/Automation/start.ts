@@ -67,7 +67,7 @@ export class StartCommand extends Command {
 			.addComponents(
 				new MessageActionRow<ModalActionRowComponent>().addComponents(
 					new TextInputComponent() //
-						.setCustomId(ModalInputCustomIds.StartClanEmbedLeaderInput)
+						.setCustomId(ModalInputCustomIds.StartClanEmbedLeader)
 						.setLabel("What's the clan leader discord id?")
 						.setStyle('SHORT')
 						.setMinLength(16)
@@ -76,7 +76,7 @@ export class StartCommand extends Command {
 				),
 				new MessageActionRow<ModalActionRowComponent>().addComponents(
 					new TextInputComponent() //
-						.setCustomId(ModalInputCustomIds.StartClanEmbedColorInput)
+						.setCustomId(ModalInputCustomIds.StartClanEmbedColor)
 						.setLabel('Enter the embed color. For example: #FF5733')
 						.setStyle('SHORT')
 						.setMinLength(6)
