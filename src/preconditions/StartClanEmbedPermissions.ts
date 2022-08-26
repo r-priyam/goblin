@@ -21,7 +21,7 @@ export class UserPrecondition extends Precondition {
 	public override async chatInputRun(interaction: CommandInteraction) {
 		const missingPerms = interaction.appPermissions?.missing(this.#requiredPermissions);
 
-		return missingPerms ? this.error({ message: this.formatMissingPerms(missingPerms) }) : this.ok();
+		return missingPerms?.length ? this.error({ message: this.formatMissingPerms(missingPerms) }) : this.ok();
 	}
 
 	private formatMissingPerms(perms: string[]) {
