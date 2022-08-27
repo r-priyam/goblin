@@ -55,7 +55,7 @@ export class StartCommand extends Command {
 
 		const embedModal = new Modal()
 			.setTitle('Clan Embed Start Form')
-			.setCustomId(`${ModalCustomIds.StartClanEmbed}-${clanTag}`)
+			.setCustomId(`${ModalCustomIds.StartClanEmbed}-${Util.formatTag(clanTag)}`)
 			.addComponents(
 				new MessageActionRow<ModalActionRowComponent>().addComponents(
 					new TextInputComponent() //
