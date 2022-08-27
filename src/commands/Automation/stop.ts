@@ -2,6 +2,7 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { ChatInputCommand, Command, UserError } from '@sapphire/framework';
 import { Util } from 'clashofclans.js';
 import { bold } from 'colorette';
+import { PermissionFlagsBits } from 'discord-api-types/v9';
 import { MessageEmbed } from 'discord.js';
 
 import { Colors } from '#utils/constants';
@@ -30,7 +31,8 @@ export class StopCommand extends Command {
 							.setDescription('Tag of the clan to stop automation for')
 							.setRequired(true)
 					)
-					.setDMPermission(false),
+					.setDMPermission(false)
+					.setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
 			{ idHints: [''] }
 		);
 	}
