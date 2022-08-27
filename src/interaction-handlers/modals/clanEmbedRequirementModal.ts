@@ -1,5 +1,5 @@
 import { ApplyOptions } from '@sapphire/decorators';
-import { InteractionHandler, InteractionHandlerTypes } from '@sapphire/framework';
+import { InteractionHandler, InteractionHandlerTypes, Result, UserError } from '@sapphire/framework';
 import { MessageEmbed, ModalSubmitInteraction } from 'discord.js';
 
 import { Colors, ModalCustomIds, ModalInputCustomIds } from '#utils/constants';
@@ -35,7 +35,20 @@ export class StartClanEmbedModal extends InteractionHandler {
 	}
 
 	private async handleClanRequirementUpdate(guildId: string, clanTag: string, requirements: Record<string, number>) {
-		await this.sql`UPDATE clan_embed SET requirements = ${requirements} WHERE clan_tag = ${clanTag} AND guild_id = ${guildId}`;
+		const result = await Result.fromAsync(
+			() => this.sql`UPDATE clan_embeds
+                           SET requirements = ${requirements}
+                           WHERE clan_tag = ${clanTag}
+                             AND guild_id = ${guildId}`
+		);
+
+		result.unwrapOrElse((error) => {
+			this.logger.error(error);
+			throw new UserError({
+				identifier: 'clan-embed-modal-requirements-edit',
+				message: 'Something went wrong, please try again'
+			});
+		});
 	}
 
 	private validateRequirement(value: string) {
