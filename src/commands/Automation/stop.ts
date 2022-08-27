@@ -34,7 +34,7 @@ export class StopCommand extends Command {
 					)
 					.setDMPermission(false)
 					.setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
-			{ idHints: [''] }
+			{ idHints: ['1010535535468630166', '1013039773142745139'] }
 		);
 	}
 

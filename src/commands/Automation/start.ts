@@ -33,7 +33,7 @@ export class StartCommand extends Command {
 					)
 					.setDMPermission(false)
 					.setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
-			{ idHints: [''] }
+			{ idHints: ['1010855609043787796', '1013039770429034547'] }
 		);
 	}
 
