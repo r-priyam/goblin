@@ -79,7 +79,7 @@ export class StartClanEmbedModal extends InteractionHandler {
 					new MessageButton() //
 						.setCustomId(`${ButtonCustomIds.ClanEmbedRequirement}-${clan.tag}`)
 						.setLabel('Edit Clan Requirements')
-						.setStyle('PRIMARY')
+						.setStyle('SECONDARY')
 				)
 			]
 		});
