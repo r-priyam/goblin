@@ -3,6 +3,7 @@ import 'reflect-metadata';
 
 import { inspect } from 'node:util';
 
+import { REST } from '@discordjs/rest';
 import { SqlHighlighter } from '@mikro-orm/sql-highlighter';
 import { container, Logger, Piece } from '@sapphire/framework';
 import { ScheduledTaskHandler } from '@sapphire/plugin-scheduled-tasks';
@@ -29,6 +30,8 @@ container.redis.on('reconnecting', () => container.logger.warn(`${yellow('[REDIS
 
 // @ts-expect-error Clear is missing from custom cache
 container.coc = new GoblinClashClient({ restRequestTimeout: Time.Second * 30, cache: new Cache() });
+// TODO: remove in djs v14, it's exposed
+container.discordRest = new REST({ version: '10' }).setToken(envParseString('DISCORD_TOKEN'));
 
 const sqlHighlighter = new SqlHighlighter();
 
@@ -59,7 +62,8 @@ Object.defineProperties(Piece.prototype, {
 	sql: { get: () => container.sql },
 	redis: { get: () => container.redis },
 	coc: { get: () => container.coc },
-	tasks: { get: () => container.tasks }
+	tasks: { get: () => container.tasks },
+	discordRest: { get: () => container.discordRest }
 });
 
 declare module '@sapphire/pieces' {
@@ -67,6 +71,7 @@ declare module '@sapphire/pieces' {
 		coc: GoblinClashClient;
 		sql: SQL<any>;
 		redis: RedisClientType;
+		discordRest: REST;
 	}
 	interface Piece {
 		client: GoblinClient;
@@ -75,5 +80,6 @@ declare module '@sapphire/pieces' {
 		sql: SQL<any>;
 		redis: RedisClientType;
 		tasks: ScheduledTaskHandler;
+		discordRest: REST;
 	}
 }

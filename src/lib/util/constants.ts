@@ -31,3 +31,22 @@ export const enum Emotes {
 	Success = '<:success:959344194785271809>',
 	Error = '<:error:959359264533643274>'
 }
+
+export const enum ModalCustomIds {
+	StartClanEmbed = 'start-clan-embed-modal',
+	ClanEmbedRequirements = 'clan-embed-requirements'
+}
+
+export const enum ModalInputCustomIds {
+	StartClanEmbedLeader = 'start-clan-embed-leader-input',
+	StartClanEmbedColor = 'start-clan-embed-color-input',
+	FourteenRequirements = 'fourteen-requirements-input',
+	ThirteenRequirements = 'thirteen-requirements-input',
+	TwelveRequirements = 'twelve-requirements-input',
+	ElevenRequirements = 'eleven-requirements-input',
+	TenRequirements = 'ten-requirements-input'
+}
+
+export const enum ButtonCustomIds {
+	ClanEmbedRequirement = 'add-clan-requirement-button'
+}

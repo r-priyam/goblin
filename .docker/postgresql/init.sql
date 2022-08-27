@@ -50,3 +50,36 @@ CREATE UNIQUE INDEX idx_clan_aliases ON public.aliases (clan_tag, alias);
 COMMENT ON COLUMN public.aliases.alias IS 'The alias of the clan';
 COMMENT ON COLUMN public.aliases.clan_name IS 'The clan name of the clan for alias';
 COMMENT ON COLUMN public.aliases.clan_tag IS 'The clan tag of the clan for alias';
+
+CREATE TABLE public.clan_embeds
+(
+    id                SERIAL PRIMARY KEY,
+    clan_name         VARCHAR(20) NOT NULL,
+    clan_tag          TEXT        NOT NULL,
+    leader_discord_id TEXT        NOT NULL,
+    requirements      JSONB                    DEFAULT '{
+      "14": 0,
+      "13": 0,
+      "12": 0,
+      "11": 0,
+      "10": 0
+    }'::JSONB,
+    color             VARCHAR(7)  NOT NULL,
+    message_id        TEXT        NOT NULL,
+    guild_id          TEXT        NOT NULL,
+    channel_id        TEXT        NOT NULL,
+    started_at        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE UNIQUE INDEX idx_clan_embed ON public.clan_embeds (guild_id, clan_tag);
+
+COMMENT ON COLUMN public.clan_embeds.id IS 'The unique identifier for each clan embed';
+COMMENT ON COLUMN public.clan_embeds.clan_name IS 'The clan name of the clan for embed';
+COMMENT ON COLUMN public.clan_embeds.clan_tag IS 'The clan tag of the clan for the embed';
+COMMENT ON COLUMN public.clan_embeds.leader_discord_id IS 'The leader discord id to whom the clan belongs to';
+COMMENT ON COLUMN public.clan_embeds.requirements IS 'The clan requirements';
+COMMENT ON COLUMN public.clan_embeds.color IS 'The embed custom color';
+COMMENT ON COLUMN public.clan_embeds.message_id IS 'The embed message id to update';
+COMMENT ON COLUMN public.clan_embeds.guild_id IS 'The guild id in which the embed is running';
+COMMENT ON COLUMN public.clan_embeds.channel_id IS 'The channel id in which the embed is running';
+COMMENT ON COLUMN public.clan_embeds.started_at IS 'Timestamp when the embed was started at';
