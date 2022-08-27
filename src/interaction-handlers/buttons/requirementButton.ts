@@ -12,47 +12,42 @@ export class ButtonHandler extends InteractionHandler {
 		return interaction.showModal(result.modal);
 	}
 
-	public override async parse(interaction: ButtonInteraction) {
+	public override parse(interaction: ButtonInteraction) {
 		if (!interaction.customId.startsWith(ButtonCustomIds.ClanEmbedRequirement)) return this.none();
 
 		const clanTag = interaction.customId.split('-').pop()!;
-		const [currentRequirements] = await this.sql<[{ requirements: Record<string, number> }]>`SELECT requirements
-                                                                                                 FROM clan_embeds`;
-
-		return this.some({ modal: this.requirementsModel(clanTag, currentRequirements.requirements) });
+		return this.some({ modal: this.requirementsModel(clanTag) });
 	}
 
-	private requirementsModel(clanTag: string, requirements: Record<string, number>) {
+	private requirementsModel(clanTag: string) {
 		return new Modal()
 			.setTitle(`Edit Clan Requirements Form`)
 			.setCustomId(`${ModalCustomIds.ClanEmbedRequirements}-${clanTag}`)
 			.addComponents(
 				new MessageActionRow<ModalActionRowComponent>().addComponents(
-					this.requirementsModelInput(14, ModalInputCustomIds.FourteenRequirements, String(requirements['14']))
+					this.requirementsModelInput(14, ModalInputCustomIds.FourteenRequirements)
 				),
 				new MessageActionRow<ModalActionRowComponent>().addComponents(
-					this.requirementsModelInput(13, ModalInputCustomIds.ThirteenRequirements, String(requirements['13']))
+					this.requirementsModelInput(13, ModalInputCustomIds.ThirteenRequirements)
 				),
 				new MessageActionRow<ModalActionRowComponent>().addComponents(
-					this.requirementsModelInput(12, ModalInputCustomIds.TwelveRequirements, String(requirements['12']))
+					this.requirementsModelInput(12, ModalInputCustomIds.TwelveRequirements)
 				),
 				new MessageActionRow<ModalActionRowComponent>().addComponents(
-					this.requirementsModelInput(11, ModalInputCustomIds.ElevenRequirements, String(requirements['11']))
+					this.requirementsModelInput(11, ModalInputCustomIds.ElevenRequirements)
 				),
-				new MessageActionRow<ModalActionRowComponent>().addComponents(
-					this.requirementsModelInput(10, ModalInputCustomIds.TenRequirements, String(requirements['10']))
-				)
+				new MessageActionRow<ModalActionRowComponent>().addComponents(this.requirementsModelInput(10, ModalInputCustomIds.TenRequirements))
 			);
 	}
 
-	private requirementsModelInput(townHallLevel: number, customId: string, value: string) {
+	private requirementsModelInput(townHallLevel: number, customId: string) {
 		return new TextInputComponent()
 			.setCustomId(customId)
 			.setLabel(`How many ${townHallLevel} you need?`)
 			.setStyle('SHORT')
 			.setMinLength(1)
 			.setMaxLength(2)
-			.setValue(value)
+			.setValue('0')
 			.setRequired(true);
 	}
 }
