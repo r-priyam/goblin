@@ -58,7 +58,7 @@ export class SyncClanEmbedTask extends ScheduledTask {
 		for (const [key, value] of Object.entries(requirements)) {
 			if (value === 0) continue;
 			// TODO: change with other color number emote
-			else result += `${TownHallEmotes[key]}: ${BlueNumberEmotes[value]} `;
+			result += `${TownHallEmotes[key]}: ${BlueNumberEmotes[value]} `;
 		}
 
 		return result.length > 0 ? result.trimEnd() : 'Please click on the button in this message to set requirements';
