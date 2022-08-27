@@ -1,14 +1,16 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes } from '@sapphire/framework';
-import { ButtonInteraction, MessageActionRow, Modal, ModalActionRowComponent, TextInputComponent } from 'discord.js';
+import { ButtonInteraction, GuildMember, MessageActionRow, Modal, ModalActionRowComponent, TextInputComponent } from 'discord.js';
 
 import { ButtonCustomIds, ModalCustomIds, ModalInputCustomIds } from '#utils/constants';
+import { automationMemberCheck } from '#utils/functions/automationMemberCheck';
 
 @ApplyOptions<InteractionHandler.Options>({
 	interactionHandlerType: InteractionHandlerTypes.Button
 })
 export class ButtonHandler extends InteractionHandler {
 	public override async run(interaction: ButtonInteraction, result: InteractionHandler.ParseResult<this>) {
+		automationMemberCheck(interaction.guildId!, interaction.member as GuildMember, true);
 		return interaction.showModal(result.modal);
 	}
 

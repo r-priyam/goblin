@@ -6,6 +6,7 @@ import { PermissionFlagsBits } from 'discord-api-types/v9';
 import { MessageEmbed } from 'discord.js';
 
 import { Colors } from '#utils/constants';
+import { automationMemberCheck } from '#utils/functions/automationMemberCheck';
 
 @ApplyOptions<ChatInputCommand.Options>({
 	description: 'Stops the selected automation in the channel',
@@ -38,6 +39,8 @@ export class StopCommand extends Command {
 	}
 
 	public override async chatInputRun(interaction: ChatInputCommand.Interaction<'cached'>) {
+		automationMemberCheck(interaction.guildId, interaction.member);
+
 		const stopType = interaction.options.getString('type', true) as 'clanEmbed';
 		return this[stopType](interaction);
 	}
