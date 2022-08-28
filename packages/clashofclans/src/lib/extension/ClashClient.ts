@@ -8,6 +8,7 @@ import { ClanHelper } from '../helpers/clan.js';
 import { PlayerHelper } from '../helpers/player.js';
 import { GoblinPlayer } from '../structure/Player.js';
 import { GoblinClientOptions } from '../types/lib';
+import { Cache } from '../util/cache.js';
 
 export class GoblinClashClient extends Client {
 	public linkApi: LinkApi;
