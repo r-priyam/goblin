@@ -6,7 +6,7 @@ import { isNullish } from '@sapphire/utilities';
 import { Util } from 'clashofclans.js';
 import { MessageEmbed } from 'discord.js';
 
-import { MiscEmotes, PlayerUnits, RawPosition, TownHallEmotes } from '#lib/coc';
+import { MiscEmotes, RawPosition, TownHallEmotes } from '#lib/coc';
 import { PlayerCommand } from '#root/commands/Player/player';
 import { Colors } from '#root/lib/util/constants';
 
@@ -65,22 +65,20 @@ export class WhoIsCommand extends Command {
 				} Defenses: ${overall.defenses}`
 			);
 
-			const units = new PlayerUnits(player);
+			const { units, townHallLevel, name, tag, clan, role, expLevel, trophies, warStars, shareLink, townHallWeaponLevel } = player;
 			firstPage.addField(
-				`<:dot:958824443445116960> ${TownHallEmotes[player.townHallLevel]} ${player.name} (${player.tag})`,
-				`${MiscEmotes.Clan} ${player.clan ? `${player.clan.name} (${RawPosition[player.role!]})` : 'Not in a clan'}\n${units.unit('HEROES')}`,
+				`<:dot:958824443445116960> ${TownHallEmotes[townHallLevel]} ${name} (${tag})`,
+				`${MiscEmotes.Clan} ${clan ? `${clan.name} (${RawPosition[role!]})` : 'Not in a clan'}\n${units.unit('HEROES')}`,
 				false
 			);
 
 			const infoEmbed = PlayerCommand.unitsEmbed(player, ['Builder Troops', 'Heroes'])
-				.setTitle(`${player.name} (${player.tag})`)
-				.setURL(player.shareLink)
-				.setDescription(
-					`${MiscEmotes.Exp} ${player.expLevel} ${MiscEmotes.HomeTrophy} ${player.trophies} ${MiscEmotes.WarStars} ${player.warStars}`
-				)
+				.setTitle(`${name} (${tag})`)
+				.setURL(shareLink)
+				.setDescription(`${MiscEmotes.Exp} ${expLevel} ${MiscEmotes.HomeTrophy} ${trophies} ${MiscEmotes.WarStars} ${warStars}`)
 				.setThumbnail(
 					`https://clash-assets.vercel.app/townhalls/${
-						player.townHallWeaponLevel ? `${player.townHallLevel}.${player.townHallWeaponLevel}` : `${player.townHallLevel}`
+						townHallWeaponLevel ? `${townHallLevel}.${townHallWeaponLevel}` : `${townHallLevel}`
 					}.png`
 				);
 			pages.push(infoEmbed);

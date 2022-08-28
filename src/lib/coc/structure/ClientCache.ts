@@ -1,7 +1,7 @@
 import { container } from '@sapphire/framework';
 import { isNullish } from '@sapphire/utilities';
 
-export class Cache {
+export class ClientCache {
 	public async set(key: string, value: string, ttl = 0) {
 		await container.redis.set(key, JSON.stringify(value), { PX: ttl });
 		return true;

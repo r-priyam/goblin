@@ -3,7 +3,6 @@ import { ChatInputCommand, UserError } from '@sapphire/framework';
 import { Subcommand } from '@sapphire/plugin-subcommands';
 import { MessageEmbed } from 'discord.js';
 
-import { ClanHelper, PlayerHelper } from '#lib/coc';
 import { Colors } from '#utils/constants';
 import { redis } from '#utils/redis';
 
@@ -48,7 +47,7 @@ export class LinkCommand extends Subcommand {
 	public async clanLink(interaction: ChatInputCommand.Interaction<'cached'>) {
 		await interaction.deferReply({ ephemeral: true });
 
-		const clan = await ClanHelper.info(interaction.options.getString('tag', true));
+		const clan = await this.coc.clanHelper.info(interaction.options.getString('tag', true));
 
 		try {
 			await this.sql`INSERT INTO clans (user_id, clan_name, clan_tag)
@@ -76,7 +75,10 @@ export class LinkCommand extends Subcommand {
 	public async playerLink(interaction: ChatInputCommand.Interaction<'cached'>) {
 		await interaction.deferReply({ ephemeral: true });
 
-		const player = await PlayerHelper.verifyPlayer(interaction.options.getString('tag', true), interaction.options.getString('token', true));
+		const player = await this.coc.playerHelper.verifyPlayer(
+			interaction.options.getString('tag', true),
+			interaction.options.getString('token', true)
+		);
 
 		try {
 			await this.sql`INSERT INTO players (user_id, player_name, player_tag)

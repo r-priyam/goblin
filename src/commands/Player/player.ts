@@ -6,7 +6,7 @@ import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
 import { Achievement, Player } from 'clashofclans.js';
 import { MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
 
-import { LabelEmotes, MiscEmotes, PlayerHelper, PlayerUnits, RawPosition } from '#lib/coc';
+import { GoblinPlayer, LabelEmotes, MiscEmotes, RawPosition } from '#lib/coc';
 import { Colors } from '#utils/constants';
 import { collectorFiler } from '#utils/InteractionHelpers';
 import { ClanOrPlayer, redis } from '#utils/redis';
@@ -50,7 +50,7 @@ export class PlayerCommand extends Command {
 			playerTag = cachedPlayers[0].tag;
 		}
 
-		const player = await PlayerHelper.info(playerTag);
+		const player = await this.coc.playerHelper.info(playerTag);
 		const infoEmbed = PlayerCommand.infoEmbed(player);
 		const unitsEmbed = PlayerCommand.unitsEmbed(player);
 		await interaction.editReply({ embeds: [infoEmbed], components: [PlayerCommand.components] });
@@ -72,8 +72,8 @@ export class PlayerCommand extends Command {
 		collector.on('end', async () => void (await interaction.editReply({ components: [] }).catch(() => null)));
 	}
 
-	public static unitsEmbed(player: Player, filterFields = ['']) {
-		const units = new PlayerUnits(player);
+	public static unitsEmbed(player: GoblinPlayer, filterFields = ['']) {
+		const { units } = player;
 		const fields = [
 			{ name: 'Elixir Troops', value: units.unit('ELIXIR') },
 			{ name: 'Dark Troops', value: units.unit('DARK') },

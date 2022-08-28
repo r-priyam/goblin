@@ -3,7 +3,7 @@ import { DARK_ELIXIR_TROOPS, ELIXIR_TROOPS, Player } from 'clashofclans.js';
 
 import { BuilderBaseTroopEmotes, HeroEmotes, HeroPetEmotes, HomeBaseTroopEmotes, SiegeMachineEmotes, SpellEmotes, SuperTroopEmotes } from '#lib/coc';
 
-export class PlayerUnits {
+export class UnitsHelper {
 	private player: Player;
 
 	public constructor(player: Player) {

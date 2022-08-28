@@ -1,12 +1,12 @@
 import { container, Result, UserError } from '@sapphire/framework';
-import { HTTPError, Player, Util } from 'clashofclans.js';
+import { HTTPError, Util } from 'clashofclans.js';
 
-import { ErrorMessages } from '#lib/coc';
+import { ErrorMessages, GoblinPlayer } from '#lib/coc';
 
-class CocPlayerHelper {
+export class PlayerHelper {
 	private readonly identifier = 'player-helper';
 
-	public async info(tag: string): Promise<Player> {
+	public async info(tag: string): Promise<GoblinPlayer> {
 		if (!Util.isValidTag(Util.formatTag(tag))) {
 			throw new UserError({ identifier: this.identifier, message: 'No player found for the requested tag!' });
 		}
@@ -41,5 +41,3 @@ class CocPlayerHelper {
 		return this.info(tag);
 	}
 }
-
-export const PlayerHelper = new CocPlayerHelper();

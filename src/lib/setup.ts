@@ -6,13 +6,12 @@ import { inspect } from 'node:util';
 import { REST } from '@discordjs/rest';
 import { container, Logger, Piece } from '@sapphire/framework';
 import { ScheduledTaskHandler } from '@sapphire/plugin-scheduled-tasks';
-import { Time } from '@sapphire/time-utilities';
 import { envParseInteger, envParseString, setup } from '@skyra/env-utilities';
 import { createColors, cyan, yellow } from 'colorette';
 import postgres, { Sql as SQL } from 'postgres';
 import { createClient as redisClient, RedisClientType } from 'redis';
 
-import { Cache, GoblinClashClient } from '#lib/coc';
+import { GoblinClashClient } from '#lib/coc';
 import { GoblinClient } from '#lib/extensions/GoblinClient';
 import { SrcDir } from '#utils/constants';
 
@@ -26,9 +25,8 @@ container.redis = redisClient({ url: `redis://:@${envParseString('REDIS_HOST')}:
 container.redis.on('ready', () => container.logger.info(`${cyan('[REDIS]')} Successfully connected`));
 container.redis.on('error', (error) => container.logger.error(error));
 container.redis.on('reconnecting', () => container.logger.warn(`${yellow('[REDIS]')} Attempting reconnect`));
-console.log(envParseString('CLASH_LINK_PASSWORD'));
-// @ts-expect-error Clear is missing from custom cache
-container.coc = new GoblinClashClient({ restRequestTimeout: Time.Second * 30, cache: new Cache() });
+
+container.coc = new GoblinClashClient();
 // TODO: remove in djs v14, it's exposed
 container.discordRest = new REST({ version: '10' }).setToken(envParseString('DISCORD_TOKEN'));
 

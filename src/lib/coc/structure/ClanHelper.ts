@@ -5,7 +5,7 @@ import { MessageEmbed } from 'discord.js';
 
 import { BlueNumberEmotes, ErrorMessages, LabelEmotes, MiscEmotes, RawWarFrequency, TownHallEmotes, WarLeagueEmotes } from '#lib/coc';
 
-class CocClanHelper {
+export class ClanHelper {
 	public async info(tag: string) {
 		if (!Util.isValidTag(Util.formatTag(tag))) {
 			throw new UserError({
@@ -108,5 +108,3 @@ ${WarLeagueEmotes[clan.warLeague!.name]} ${clan.warLeague!.name}`,
 			.setFooter({ text: 'Last Synced' });
 	}
 }
-
-export const ClanHelper = new CocClanHelper();
