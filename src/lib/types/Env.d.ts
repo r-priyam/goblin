@@ -31,6 +31,13 @@ declare module '@skyra/env-utilities' {
 		REDIS_CACHE_DB: IntegerString;
 		REDIS_TASK_DB: IntegerString;
 
-		EYG_GUILD_ID: string;
+		EYG_GUILD: string;
+		EYG_FRESH_SPAWN_ROLE: string;
+		EYG_GATEWAY_CHANNEL: string;
+		EYG_INTERVIEW_CHANNEL_PARENT: string;
+		EYG_RECRUIT_ROLE_ID: string;
+		EYG_RECRUITER_ROLE: string;
+		EYG_ADMINISTRATOR_ROLE: string;
+		EYG_REPORTING_CHANNEL: string;
 	}
 }

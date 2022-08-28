@@ -27,7 +27,7 @@ container.redis = redisClient({ url: `redis://:@${envParseString('REDIS_HOST')}:
 container.redis.on('ready', () => container.logger.info(`${cyan('[REDIS]')} Successfully connected`));
 container.redis.on('error', (error) => container.logger.error(error));
 container.redis.on('reconnecting', () => container.logger.warn(`${yellow('[REDIS]')} Attempting reconnect`));
-
+console.log(envParseString('CLASH_LINK_PASSWORD'));
 // @ts-expect-error Clear is missing from custom cache
 container.coc = new GoblinClashClient({ restRequestTimeout: Time.Second * 30, cache: new Cache() });
 // TODO: remove in djs v14, it's exposed

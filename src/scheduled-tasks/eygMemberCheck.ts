@@ -1,30 +1,29 @@
 import { bold, inlineCode, userMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { ScheduledTask } from '@sapphire/plugin-scheduled-tasks';
+import { envParseString } from '@skyra/env-utilities';
 import { Constants, MessageEmbed, TextChannel } from 'discord.js';
 
 import { Colors } from '#utils/constants';
 
 @ApplyOptions<ScheduledTask.Options>({ cron: '*/01 * * * *' })
 export class EygMemberCheck extends ScheduledTask {
-	private readonly checkRoleId = '318003116773474304';
-
 	public override async run() {
 		if (this.container.client.ws.status !== Constants.Status.READY) return;
 
-		const eygGuild = await this.client.guilds.fetch('289171810195603457');
+		const eygGuild = await this.client.guilds.fetch(envParseString('EYG_GUILD'));
 		// TODO: Write pending members check
 		// const pendingMembers = await eygGuild.members.fetch().then((data) => [...data.values()].filter((member) => member.pending));
 
 		const checkRoleMembers = await eygGuild.members
 			.fetch()
-			.then((member) => [...member.values()].filter((member) => member.roles.cache.has(this.checkRoleId)));
+			.then((member) => [...member.values()].filter((member) => member.roles.cache.has(envParseString('EYG_FRESH_SPAWN_ROLE'))));
 
 		if (!checkRoleMembers) return;
 
 		for (const member of checkRoleMembers) {
 			const minutes = this.getMinutes(member.joinedAt!);
-			const gatewayChannel = (await this.client.channels.fetch('318003864211030017')) as TextChannel;
+			const gatewayChannel = (await this.client.channels.fetch(envParseString('EYG_GATEWAY_CHANNEL'))) as TextChannel;
 
 			if (minutes === 60 * 12) {
 				await gatewayChannel.send({

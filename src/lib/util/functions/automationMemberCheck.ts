@@ -6,7 +6,7 @@ import { PermissionFlagsBits } from 'discord-api-types/v9';
 import { GuildMember } from 'discord.js';
 
 export function automationMemberCheck(guildId: string, member: GuildMember, checkManageGuild = false) {
-	if (guildId === envParseString('EYG_GUILD_ID') && !envParseArray('OWNERS').includes(member.id)) {
+	if (guildId === envParseString('EYG_GUILD') && !envParseArray('OWNERS').includes(member.id)) {
 		throw new UserError({
 			identifier: 'user-not-allowed',
 			message: `You are not authorized to run this command. Please contact ${userMention(

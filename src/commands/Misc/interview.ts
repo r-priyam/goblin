@@ -85,20 +85,17 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 		const channel = await interaction.guild.channels.create(`${member.displayName}-interview`, {
 			reason: `Automated interview channel creation by ${interaction.member.displayName}`,
 			type: 'GUILD_TEXT',
-			parent: '720371261993386035',
+			parent: envParseString('EYG_INTERVIEW_CHANNEL_PARENT'),
 			permissionOverwrites: [
 				{ id: interaction.guild.id, deny: [PermissionFlagsBits.ViewChannel] },
-				{
-					id: '339858024640413698',
-					allow: [...allowedPermissions, PermissionFlagsBits.ManageRoles]
-				},
+				{ id: envParseString('EYG_RECRUITER_ROLE'), allow: [...allowedPermissions, PermissionFlagsBits.ManageRoles] },
 				{ id: member.id, allow: allowedPermissions }
 			]
 		});
 
 		// remove fresh-spawn role and add recruiter role
-		await member.roles.remove('318003116773474304');
-		await member.roles.add('728426658377367664');
+		await member.roles.remove(envParseString('EYG_FRESH_SPAWN_ROLE'));
+		await member.roles.add(envParseString('EYG_RECRUIT_ROLE_ID'));
 
 		await channel.send({
 			content: userMention(member.id),
@@ -140,7 +137,7 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 			return interaction.editReply({ content: 'Something went wrong, please try again!' });
 		}
 
-		const reportingChannel = (await this.client.channels.fetch('720381914539753553')) as TextChannel;
+		const reportingChannel = (await this.client.channels.fetch(envParseString('EYG_REPORTING_CHANNEL'))) as TextChannel;
 
 		const successData = {
 			embeds: [
@@ -154,7 +151,7 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 	}
 
 	private canPerformInterviewOperations(member: GuildMember) {
-		if (!member.roles.cache.hasAny('339858024640413698', '349856938579984385')) {
+		if (!member.roles.cache.hasAny(envParseString('EYG_RECRUIT_ROLE_ID'), envParseString('EYG_ADMINISTRATOR_ROLE'))) {
 			throw new UserError({ identifier: 'user-not-allowed', message: "You aren't allowed to use this command" });
 		}
 	}
