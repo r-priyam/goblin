@@ -1,13 +1,14 @@
 import { Result, UserError } from '@sapphire/framework';
-import { HTTPError, Player, Util } from 'clashofclans.js';
+import { HTTPError, Util } from 'clashofclans.js';
 
 import { BaseHelper } from '../base/BaseHelper';
 import { ErrorMessages } from '../constant/constants';
+import { GoblinPlayer } from '../structure/Player';
 
 export class PlayerHelper extends BaseHelper {
 	private readonly identifier = 'player-helper';
 
-	public async info(tag: string): Promise<Player> {
+	public async info(tag: string): Promise<GoblinPlayer> {
 		if (!Util.isValidTag(Util.formatTag(tag))) {
 			throw new UserError({ identifier: this.identifier, message: 'No player found for the requested tag!' });
 		}

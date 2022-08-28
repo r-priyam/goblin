@@ -1,11 +1,9 @@
+import { BlueNumberEmotes, HTTPError as COCHttpError, TownHallEmotes } from '@goblin/clashofclans';
 import { ApplyOptions } from '@sapphire/decorators';
 import { Result } from '@sapphire/framework';
 import { ScheduledTask } from '@sapphire/plugin-scheduled-tasks';
-import { HTTPError as COCHttpError } from 'clashofclans.js';
 import { RESTJSONErrorCodes, Routes } from 'discord-api-types/v10';
 import { Constants, HTTPError } from 'discord.js';
-
-import { BlueNumberEmotes, ClanHelper, TownHallEmotes } from '#lib/coc';
 
 @ApplyOptions<ScheduledTask.Options>({
 	cron: '* */2 * * *'
@@ -29,7 +27,7 @@ export class SyncClanEmbedTask extends ScheduledTask {
 		const clan = await this.getClan(data.clanTag, data.channelId);
 		if (!clan) return;
 
-		const embed = await ClanHelper.generateAutomationClanEmbed(clan, {
+		const embed = await this.coc.clanHelper.generateAutomationClanEmbed(clan, {
 			leaderId: data.leaderDiscordId,
 			requirements: this.parseRequirements(data.requirements),
 			color: data.color

@@ -1,11 +1,10 @@
 import { inlineCode } from '@discordjs/builders';
+import { Clan } from '@goblin/clashofclans';
 import { ApplyOptions } from '@sapphire/decorators';
 import { SnowflakeRegex } from '@sapphire/discord.js-utilities';
 import { InteractionHandler, InteractionHandlerTypes, UserError } from '@sapphire/framework';
-import { Clan } from 'clashofclans.js';
 import { MessageActionRow, MessageButton, MessageEmbed, ModalSubmitInteraction } from 'discord.js';
 
-import { ClanHelper } from '#lib/coc';
 import { ButtonCustomIds, Colors, ModalCustomIds, ModalInputCustomIds } from '#utils/constants';
 
 @ApplyOptions<InteractionHandler.Options>({
@@ -53,7 +52,7 @@ export class StartClanEmbedModal extends InteractionHandler {
 			});
 		}
 
-		const clan = await ClanHelper.info(clanTag);
+		const clan = await this.coc.clanHelper.info(clanTag);
 		await this.handleClanEmbedBoardGeneration(interaction, clan, leaderId, embedColor);
 
 		return this.some({
@@ -68,7 +67,7 @@ export class StartClanEmbedModal extends InteractionHandler {
 		// TODO: Error handling of any any kind? and use Result?
 		const automationMessage = await interaction.channel!.send({
 			embeds: [
-				await ClanHelper.generateAutomationClanEmbed(clan, {
+				await this.coc.clanHelper.generateAutomationClanEmbed(clan, {
 					leaderId,
 					requirements: 'Please click on the button in this message to set requirements',
 					color

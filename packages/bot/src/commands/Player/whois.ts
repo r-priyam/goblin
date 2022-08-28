@@ -1,12 +1,11 @@
 import { bold } from '@discordjs/builders';
+import { MiscEmotes, RawPosition, TownHallEmotes, Util } from '@goblin/clashofclans';
 import { ApplyOptions } from '@sapphire/decorators';
 import { PaginatedMessage } from '@sapphire/discord.js-utilities';
 import { ChatInputCommand, Command } from '@sapphire/framework';
 import { isNullish } from '@sapphire/utilities';
-import { Util } from 'clashofclans.js';
 import { MessageEmbed } from 'discord.js';
 
-import { MiscEmotes, PlayerUnits, RawPosition, TownHallEmotes } from '#lib/coc';
 import { PlayerCommand } from '#root/commands/Player/player';
 import { Colors } from '#root/lib/util/constants';
 
@@ -65,10 +64,11 @@ export class WhoIsCommand extends Command {
 				} Defenses: ${overall.defenses}`
 			);
 
-			const units = new PlayerUnits(player);
 			firstPage.addField(
 				`<:dot:958824443445116960> ${TownHallEmotes[player.townHallLevel]} ${player.name} (${player.tag})`,
-				`${MiscEmotes.Clan} ${player.clan ? `${player.clan.name} (${RawPosition[player.role!]})` : 'Not in a clan'}\n${units.unit('HEROES')}`,
+				`${MiscEmotes.Clan} ${player.clan ? `${player.clan.name} (${RawPosition[player.role!]})` : 'Not in a clan'}\n${player.units.unit(
+					'HEROES'
+				)}`,
 				false
 			);
 

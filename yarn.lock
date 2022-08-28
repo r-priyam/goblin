@@ -130,6 +130,7 @@ __metadata:
   dependencies:
     "@discordjs/builders": ^0.16.0
     "@discordjs/rest": ^1.1.0
+    "@goblin/clashofclans": "workspace:^"
     "@mikro-orm/sql-highlighter": ^1.0.1
     "@sapphire/decorators": ^5.0.0
     "@sapphire/discord.js-utilities": ^5.0.0
@@ -142,8 +143,9 @@ __metadata:
     "@sapphire/type": ^2.2.4
     "@sapphire/utilities": ^3.9.2
     "@skyra/env-utilities": ^1.0.2
+    "@types/figlet": ^1.5.5
+    "@types/gradient-string": ^1.1.2
     bullmq: ^1.89.2
-    clashofclans.js: 2.8.0
     colorette: ^2.0.19
     discord-api-types: ^0.33.5
     discord.js: ^13.10.3
@@ -155,10 +157,12 @@ __metadata:
     redis: ^4.3.0
     reflect-metadata: ^0.1.13
     string-strip-html: ^11.3.0
+    tsup: ^6.2.2
+    typescript: ^4.7.4
   languageName: unknown
   linkType: soft
 
-"@goblin/clashofclans@workspace:packages/clashofclans":
+"@goblin/clashofclans@workspace:^, @goblin/clashofclans@workspace:packages/clashofclans":
   version: 0.0.0-use.local
   resolution: "@goblin/clashofclans@workspace:packages/clashofclans"
   dependencies:
@@ -785,6 +789,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/figlet@npm:^1.5.5":
+  version: 1.5.5
+  resolution: "@types/figlet@npm:1.5.5"
+  checksum: d81483539cb478cdcffa4ba9cd550b8b56925425cdf868cf362023f5f272250133d0cad35e7273fa9df7f40ee088f28febb7805e2928c04f5e0c138d16b0a93d
+  languageName: node
+  linkType: hard
+
+"@types/gradient-string@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "@types/gradient-string@npm:1.1.2"
+  dependencies:
+    "@types/tinycolor2": "*"
+  checksum: 8bc665bcf277b4da9d30eb1dc5d83990678145700df991a24441948cb86b8e9c453cb701a370d3363dddafdd365748ef3190140601c82916ea70ee577de98dc3
+  languageName: node
+  linkType: hard
+
 "@types/json-schema@npm:^7.0.9":
   version: 7.0.11
   resolution: "@types/json-schema@npm:7.0.11"
@@ -830,7 +850,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/tinycolor2@npm:^1.4.0":
+"@types/tinycolor2@npm:*, @types/tinycolor2@npm:^1.4.0":
   version: 1.4.3
   resolution: "@types/tinycolor2@npm:1.4.3"
   checksum: 61984b2825d4ee902016ef24777787bb2fb9e4999ccd4f7e5a709442c00cf90ba4afa510b9c78f18dcc83c03305d597d5fe3825a6aad38354f95c68af70ebc1b
@@ -1333,7 +1353,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clashofclans.js@npm:2.8.0, clashofclans.js@npm:^2.8.0":
+"clashofclans.js@npm:^2.8.0":
   version: 2.8.0
   resolution: "clashofclans.js@npm:2.8.0"
   dependencies:

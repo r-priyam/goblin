@@ -1,6 +1,6 @@
+import { Util } from '@goblin/clashofclans';
 import { ApplyOptions } from '@sapphire/decorators';
 import { ChatInputCommand, Command } from '@sapphire/framework';
-import { Util } from 'clashofclans.js';
 import { MessageEmbed } from 'discord.js';
 
 import { Colors } from '#utils/constants';

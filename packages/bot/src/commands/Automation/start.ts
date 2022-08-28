@@ -1,6 +1,6 @@
+import { Util } from '@goblin/clashofclans';
 import { ApplyOptions } from '@sapphire/decorators';
 import { ChatInputCommand, Command, UserError } from '@sapphire/framework';
-import { Util } from 'clashofclans.js';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
 import { MessageActionRow, Modal, ModalActionRowComponent, TextInputComponent } from 'discord.js';
 

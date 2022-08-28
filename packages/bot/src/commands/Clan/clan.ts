@@ -1,10 +1,9 @@
+import { Clan, LabelEmotes, MiscEmotes, RawClanType, RawWarFrequency, TownHallEmotes, WarLeagueEmotes } from '@goblin/clashofclans';
 import { ApplyOptions } from '@sapphire/decorators';
 import { ChatInputCommand, Command } from '@sapphire/framework';
 import { isNullish } from '@sapphire/utilities';
-import { Clan } from 'clashofclans.js';
 import { MessageEmbed } from 'discord.js';
 
-import { ClanHelper, LabelEmotes, MiscEmotes, RawClanType, RawWarFrequency, TownHallEmotes, WarLeagueEmotes } from '#lib/coc';
 import { Colors, Emotes } from '#utils/constants';
 import { ClanOrPlayer, redis } from '#utils/redis';
 
@@ -45,7 +44,7 @@ export class ClanCommand extends Command {
 			clanTag = cachedClans[0].tag;
 		}
 
-		const clan = await ClanHelper.info(clanTag);
+		const clan = await this.coc.clanHelper.info(clanTag);
 
 		if (clan.memberCount === 0) {
 			return interaction.editReply({
@@ -64,7 +63,7 @@ export class ClanCommand extends Command {
 	}
 
 	private async injectClanComposition(interaction: ChatInputCommand.Interaction<'cached'>, embed: MessageEmbed, clan: Clan) {
-		const composition = await ClanHelper.getClanComposition(clan, true);
+		const composition = await this.coc.clanHelper.getClanComposition(clan, true);
 		// remove placeholder field for composition fetch
 		embed.spliceFields(2, 1);
 		embed.addField('\u200B', composition as string, false);

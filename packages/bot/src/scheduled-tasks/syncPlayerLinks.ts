@@ -1,5 +1,5 @@
+import { Util } from '@goblin/clashofclans';
 import { ScheduledTask } from '@sapphire/plugin-scheduled-tasks';
-import { Util } from 'clashofclans.js';
 
 export class SyncPlayerLinkTask extends ScheduledTask {
 	public async run({ userId, tags }: { userId: string; tags: string[] }) {

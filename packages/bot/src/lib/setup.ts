@@ -1,9 +1,11 @@
 import '@sapphire/plugin-logger/register';
 import 'reflect-metadata';
 
+import { fileURLToPath } from 'node:url';
 import { inspect } from 'node:util';
 
 import { REST } from '@discordjs/rest';
+import { GoblinClashClient } from '@goblin/clashofclans';
 import { SqlHighlighter } from '@mikro-orm/sql-highlighter';
 import { container, Logger, Piece } from '@sapphire/framework';
 import { ScheduledTaskHandler } from '@sapphire/plugin-scheduled-tasks';
@@ -13,7 +15,6 @@ import { blueBright, createColors, cyan, greenBright, redBright, yellow } from '
 import postgres, { Sql as SQL } from 'postgres';
 import { createClient as redisClient, RedisClientType } from 'redis';
 
-import { Cache, GoblinClashClient } from '#lib/coc';
 import { GoblinClient } from '#lib/extensions/GoblinClient';
 import { SrcDir } from '#utils/constants';
 
@@ -22,14 +23,21 @@ process.env.NODE_ENV ??= 'development';
 setup(new URL('.env', SrcDir));
 inspect.defaultOptions.depth = 1;
 createColors({ useColor: true });
+container.stores.registerPath(fileURLToPath(new URL('..', import.meta.url)));
 
 container.redis = redisClient({ url: `redis://:@${envParseString('REDIS_HOST')}:${envParseInteger('REDIS_PORT')}` });
 container.redis.on('ready', () => container.logger.info(`${cyan('[REDIS]')} Successfully connected`));
 container.redis.on('error', (error) => container.logger.error(error));
 container.redis.on('reconnecting', () => container.logger.warn(`${yellow('[REDIS]')} Attempting reconnect`));
 
-// @ts-expect-error Clear is missing from custom cache
-container.coc = new GoblinClashClient({ restRequestTimeout: Time.Second * 30, cache: new Cache() });
+container.coc = new GoblinClashClient({
+	linkApiUserName: envParseString('CLASH_LINK_USER_NAME'),
+	linkApiPassword: envParseString('CLASH_LINK_PASSWORD'),
+	redisClient: container.redis,
+	taskClient: container.tasks,
+	restRequestTimeout: Time.Second * 30
+});
+
 // TODO: remove in djs v14, it's exposed
 container.discordRest = new REST({ version: '10' }).setToken(envParseString('DISCORD_TOKEN'));
 

@@ -1,5 +1,5 @@
 {
-	"extends": "../tsconfig.base.json",
+	"extends": "../../../tsconfig.base.json",
 	"compilerOptions": {
 		"outDir": "../dist",
 		"rootDir": ".",
@@ -7,7 +7,6 @@
 		"noEmit": true,
 		"paths": {
 			"#utils/*": ["lib/util/*"],
-			"#lib/coc": ["lib/coc/index.ts"],
 			"#lib/*": ["lib/*"],
 			"#root/*": ["*"]
 		}

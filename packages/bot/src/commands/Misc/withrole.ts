@@ -5,7 +5,7 @@ import { inlineCodeBlock } from '@sapphire/utilities';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
 import { MessageEmbed } from 'discord.js';
 
-import { Colors } from '#root/lib/util/constants';
+import { Colors } from '#utils/constants';
 
 @ApplyOptions<ChatInputCommand.Options>({
 	description: 'Get list of members with specific role'
