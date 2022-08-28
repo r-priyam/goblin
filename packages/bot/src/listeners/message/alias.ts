@@ -2,7 +2,6 @@ import { bold } from '@discordjs/builders';
 import { Clan, MiscEmotes } from '@goblin/clashofclans';
 import { ApplyOptions } from '@sapphire/decorators';
 import { Events, Listener, Result } from '@sapphire/framework';
-import { Clan } from 'clashofclans.js';
 import { Message, MessageEmbed } from 'discord.js';
 
 import { Colors } from '#utils/constants';
@@ -27,7 +26,7 @@ export class BotListener extends Listener<typeof Events.MessageCreate> {
 		await message.channel.sendTyping();
 		const clan = await this.coc.getClan(possibleAlias.tag);
 		await message.channel.send({ embeds: [BotListener.aliasClanInfo(clan)] });
-		await Result.fromAsync(() => message.delete());
+		return Result.fromAsync(() => message.delete());
 	}
 
 	private static aliasClanInfo(clan: Clan) {
