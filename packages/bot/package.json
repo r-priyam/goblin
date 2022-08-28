@@ -1,0 +1,51 @@
+{
+	"name": "@goblin/bot",
+	"version": "1.4.0",
+	"description": "",
+	"keywords": [],
+	"author": "r-priyam <roy_priyam@outlook.com>",
+	"type": "module",
+	"scripts": {
+		"build": "tsup",
+		"dev": "tsup --watch --onSuccess \"yarn start\"",
+		"format": "prettier --write --loglevel=warn \"src/**/*.ts\"",
+		"lint": "eslint src --ext ts --fix",
+		"release": "cliff-jumper",
+		"release:test": "cliff-jumper --dry-run",
+		"start": "node --enable-source-maps dist/goblin.js",
+		"typecheck": "tsc -b src",
+		"watch": "tsup --watch"
+	},
+	"dependencies": {
+		"@discordjs/builders": "^0.16.0",
+		"@discordjs/rest": "^1.1.0",
+		"@mikro-orm/sql-highlighter": "^1.0.1",
+		"@sapphire/decorators": "^5.0.0",
+		"@sapphire/discord.js-utilities": "^5.0.0",
+		"@sapphire/framework": "3.0.0",
+		"@sapphire/plugin-logger": "3.0.0",
+		"@sapphire/plugin-scheduled-tasks": "4.0.0",
+		"@sapphire/plugin-subcommands": "3.1.1",
+		"@sapphire/stopwatch": "^1.4.1",
+		"@sapphire/time-utilities": "^1.7.6",
+		"@sapphire/type": "^2.2.4",
+		"@sapphire/utilities": "^3.9.2",
+		"@skyra/env-utilities": "^1.0.2",
+		"bullmq": "^1.89.2",
+		"clashofclans.js": "2.8.0",
+		"colorette": "^2.0.19",
+		"discord-api-types": "^0.33.5",
+		"discord.js": "^13.10.3",
+		"figlet": "^1.5.2",
+		"fuse.js": "^6.6.2",
+		"gradient-string": "^2.0.1",
+		"markdown-table": "^3.0.2",
+		"postgres": "^3.2.4",
+		"redis": "^4.3.0",
+		"reflect-metadata": "^0.1.13",
+		"string-strip-html": "^11.3.0"
+	},
+	"engines": {
+		"node": ">=18.0.0"
+	}
+}

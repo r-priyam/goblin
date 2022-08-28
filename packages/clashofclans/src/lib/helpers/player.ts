@@ -1,9 +1,10 @@
 import { container, Result, UserError } from '@sapphire/framework';
 import { HTTPError, Player, Util } from 'clashofclans.js';
 
-import { ErrorMessages } from '#lib/coc';
+import { BaseHelper } from '../base/BaseHelper';
+import { ErrorMessages } from '../constant/constants';
 
-class CocPlayerHelper {
+class PlayerHelper extends BaseHelper {
 	private readonly identifier = 'player-helper';
 
 	public async info(tag: string): Promise<Player> {
@@ -11,7 +12,7 @@ class CocPlayerHelper {
 			throw new UserError({ identifier: this.identifier, message: 'No player found for the requested tag!' });
 		}
 
-		const player = await Result.fromAsync(() => container.coc.getPlayer(tag));
+		const player = await Result.fromAsync(() => this.client.getPlayer(tag));
 		return player.unwrapOrElse((error) => {
 			if (error instanceof HTTPError) {
 				throw new UserError({
@@ -41,5 +42,3 @@ class CocPlayerHelper {
 		return this.info(tag);
 	}
 }
-
-export const PlayerHelper = new CocPlayerHelper();

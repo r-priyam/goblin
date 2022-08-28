@@ -1,11 +1,13 @@
 import { userMention } from '@discordjs/builders';
-import { container, Result, UserError } from '@sapphire/framework';
+import { Result, UserError } from '@sapphire/framework';
 import { Clan, HTTPError, Util } from 'clashofclans.js';
 import { MessageEmbed } from 'discord.js';
 
-import { BlueNumberEmotes, ErrorMessages, LabelEmotes, MiscEmotes, RawWarFrequency, TownHallEmotes, WarLeagueEmotes } from '#lib/coc';
+import { BaseHelper } from '../base/BaseHelper';
+import { ErrorMessages, RawWarFrequency } from '../constant/constants';
+import { BlueNumberEmotes, LabelEmotes, MiscEmotes, TownHallEmotes, WarLeagueEmotes } from '../constant/emotes';
 
-class CocClanHelper {
+export class ClanHelper extends BaseHelper {
 	public async info(tag: string) {
 		if (!Util.isValidTag(Util.formatTag(tag))) {
 			throw new UserError({
@@ -14,7 +16,7 @@ class CocClanHelper {
 			});
 		}
 
-		const clan = await Result.fromAsync(() => container.coc.getClan(tag));
+		const clan = await Result.fromAsync(() => this.client.getClan(tag));
 		return clan.unwrapOrElse((error) => {
 			if (error instanceof HTTPError) {
 				throw new UserError({
@@ -108,5 +110,3 @@ ${WarLeagueEmotes[clan.warLeague!.name]} ${clan.warLeague!.name}`,
 			.setFooter({ text: 'Last Synced' });
 	}
 }
-
-export const ClanHelper = new CocClanHelper();

@@ -1,0 +1,34 @@
+{
+	"name": "@goblin/clashofclans",
+	"version": "1.4.0",
+	"description": "",
+	"keywords": [],
+	"author": "r-priyam <roy_priyam@outlook.com>",
+	"type": "module",
+	"imports": {
+		"#lib/*": "./dist/lib/*.js"
+	},
+	"exports": {
+		"import": "./dist/index.js",
+		"types": "./dist/index.d.ts"
+	},
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"scripts": {
+		"build": "tsup",
+		"format": "prettier --write --loglevel=warn \"src/**/*.ts\"",
+		"lint": "eslint src --ext ts --fix",
+		"typecheck": "tsc -b src"
+	},
+	"dependencies": {
+		"clashofclans.js": "^2.8.0",
+		"fuse.js": "^6.6.2"
+	},
+	"devDependencies": {
+		"tsup": "^6.2.2",
+		"typescript": "^4.7.4"
+	},
+	"engines": {
+		"node": ">=18.0.0"
+	}
+}
