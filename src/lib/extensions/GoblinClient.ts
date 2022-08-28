@@ -3,6 +3,8 @@ import { ScheduledTaskRedisStrategy } from '@sapphire/plugin-scheduled-tasks/reg
 import { envParseBoolean, envParseInteger, envParseString } from '@skyra/env-utilities';
 import { GatewayIntentBits } from 'discord-api-types/v10';
 
+import { logSuccess } from '#utils/functions/logging';
+
 export class GoblinClient extends SapphireClient {
 	public constructor() {
 		super({
@@ -40,7 +42,7 @@ export class GoblinClient extends SapphireClient {
 			keyCount: envParseInteger('CLASH_KEY_COUNT'),
 			keyName: envParseString('CLASH_KEY_NAME')
 		});
-		this.logger.info('Successfully logged into clash api.');
+		this.logger.info(logSuccess('COC', 'Logged In!'));
 
 		return super.login();
 	}

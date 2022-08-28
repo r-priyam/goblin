@@ -6,6 +6,7 @@ import { RESTJSONErrorCodes, Routes } from 'discord-api-types/v10';
 import { Constants, HTTPError } from 'discord.js';
 
 import { BlueNumberEmotes, TownHallEmotes } from '#lib/coc';
+import { logInfo } from '#utils/functions/logging';
 
 @ApplyOptions<ScheduledTask.Options>({
 	cron: '0 */2 * * *'
@@ -45,7 +46,7 @@ export class SyncClanEmbedTask extends ScheduledTask {
 			const error = e as HTTPError;
 			if ([RESTJSONErrorCodes.MissingAccess, RESTJSONErrorCodes.MissingPermissions, RESTJSONErrorCodes.UnknownMessage].includes(error.code)) {
 				await this.stopClanEmbed(data.clanTag, data.channelId);
-				this.logger.info(`Stopping clan embed for ${data.clanTag} with reason ${error.message}`);
+				this.logger.info(logInfo('CLAN EMBED', `Stopping clan embed for ${data.clanTag} with reason ${error.message}`));
 				return;
 			}
 
