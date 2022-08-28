@@ -15,6 +15,10 @@ export class Ready extends Listener {
 	private readonly style = envParseString('NODE_ENV') === 'development' ? yellow : blue;
 
 	public async run() {
+		// arguments store aren't needed for slash commands
+		const argumentsStore = this.container.stores.get('arguments');
+		await argumentsStore.unloadAll();
+
 		await Ready.printBanner();
 		this.printStoreDebugInformation();
 	}
