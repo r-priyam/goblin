@@ -5,8 +5,11 @@
 	"keywords": [],
 	"author": "r-priyam <roy_priyam@outlook.com>",
 	"type": "module",
+	"main": "./dist/goblin.js",
 	"imports": {
-		"#lib/*": "./dist/lib/*.js"
+		"#root/*": "./dist/*.js",
+		"#lib/*": "./dist/lib/*.js",
+		"#utils/*": "./dist/lib/util/*.js"
 	},
 	"scripts": {
 		"build": "tsup",
