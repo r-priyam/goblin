@@ -176,15 +176,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mikro-orm/sql-highlighter@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "@mikro-orm/sql-highlighter@npm:1.0.1"
-  dependencies:
-    ansi-colors: ^4.1.1
-  checksum: a5bb30ed9e46014213bb039e8eb4eeb023a4d96f16a9738e60ff073ab93fb6a5bded1fb4cdab8275f8f8912f6194ac572009fb66f6e65b70e4da60448cbb35fe
-  languageName: node
-  linkType: hard
-
 "@msgpackr-extract/msgpackr-extract-darwin-arm64@npm:2.1.2":
   version: 2.1.2
   resolution: "@msgpackr-extract/msgpackr-extract-darwin-arm64@npm:2.1.2"
@@ -1162,13 +1153,6 @@ __metadata:
     json-schema-traverse: ^0.4.1
     uri-js: ^4.2.2
   checksum: 874972efe5c4202ab0a68379481fbd3d1b5d0a7bd6d3cc21d40d3536ebff3352a2a1fabb632d4fd2cc7fe4cbdcd5ed6782084c9bbf7f32a1536d18f9da5007d4
-  languageName: node
-  linkType: hard
-
-"ansi-colors@npm:^4.1.1":
-  version: 4.1.3
-  resolution: "ansi-colors@npm:4.1.3"
-  checksum: a9c2ec842038a1fabc7db9ece7d3177e2fe1c5dc6f0c51ecfbf5f39911427b89c00b5dc6b8bd95f82a26e9b16aaae2e83d45f060e98070ce4d1333038edceb0e
   languageName: node
   linkType: hard
 
@@ -2916,7 +2900,6 @@ __metadata:
     "@discordjs/builders": ^0.16.0
     "@discordjs/rest": ^1.1.0
     "@favware/cliff-jumper": ^1.8.7
-    "@mikro-orm/sql-highlighter": ^1.0.1
     "@sapphire/decorators": ^5.0.0
     "@sapphire/discord.js-utilities": ^5.0.0
     "@sapphire/eslint-config": ^4.3.8

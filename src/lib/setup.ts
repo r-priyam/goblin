@@ -4,12 +4,11 @@ import 'reflect-metadata';
 import { inspect } from 'node:util';
 
 import { REST } from '@discordjs/rest';
-import { SqlHighlighter } from '@mikro-orm/sql-highlighter';
 import { container, Logger, Piece } from '@sapphire/framework';
 import { ScheduledTaskHandler } from '@sapphire/plugin-scheduled-tasks';
 import { Time } from '@sapphire/time-utilities';
 import { envParseInteger, envParseString, setup } from '@skyra/env-utilities';
-import { blueBright, createColors, cyan, greenBright, redBright, yellow } from 'colorette';
+import { createColors, cyan, yellow } from 'colorette';
 import postgres, { Sql as SQL } from 'postgres';
 import { createClient as redisClient, RedisClientType } from 'redis';
 
@@ -33,16 +32,7 @@ container.coc = new GoblinClashClient({ restRequestTimeout: Time.Second * 30, ca
 // TODO: remove in djs v14, it's exposed
 container.discordRest = new REST({ version: '10' }).setToken(envParseString('DISCORD_TOKEN'));
 
-const sqlHighlighter = new SqlHighlighter();
-
 container.sql = postgres({
-	debug(connection, query, parameters, types) {
-		container.logger.debug(
-			`${blueBright('Connections:')} ${yellow(connection)} » ${greenBright('Query:')} ${sqlHighlighter.highlight(query)} » ${redBright(
-				'Params:'
-			)} ${yellow(String(parameters || 'NULL'))} » ${cyan('Types:')} ${yellow(String(types || 'NULL'))}`
-		);
-	},
 	transform: {
 		column: { to: postgres.fromCamel, from: postgres.toCamel }
 	},

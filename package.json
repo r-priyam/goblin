@@ -28,7 +28,6 @@
 	"dependencies": {
 		"@discordjs/builders": "^0.16.0",
 		"@discordjs/rest": "^1.1.0",
-		"@mikro-orm/sql-highlighter": "^1.0.1",
 		"@sapphire/decorators": "^5.0.0",
 		"@sapphire/discord.js-utilities": "^5.0.0",
 		"@sapphire/framework": "3.0.0",
