@@ -24,6 +24,7 @@ export class BotListener extends Listener<typeof Events.MessageCreate> {
 
 		if (!possibleAlias) return;
 
+		await message.channel.sendTyping();
 		const clan = await this.coc.getClan(possibleAlias.tag);
 		return message.channel.send({ embeds: [BotListener.aliasClanInfo(clan)] });
 	}
