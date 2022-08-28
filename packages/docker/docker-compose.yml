@@ -36,9 +36,9 @@ services:
     image: ghcr.io/r-priyam/goblin:latest
     container_name: goblin
     build:
-      context: ../
+      context: ../../
     env_file:
-      - ../src/.env
+      - ../bot/src/.env
     depends_on:
       - postgres
       - redis
