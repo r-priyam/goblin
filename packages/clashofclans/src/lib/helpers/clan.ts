@@ -16,7 +16,7 @@ export class ClanHelper extends BaseHelper {
 			});
 		}
 
-		const clan = await Result.fromAsync(() => this.client.getClan(tag));
+		const clan = await Result.fromAsync(() => this.core.getClan(tag));
 		return clan.unwrapOrElse((error) => {
 			if (error instanceof HTTPError) {
 				throw new UserError({

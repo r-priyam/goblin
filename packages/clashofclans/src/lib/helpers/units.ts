@@ -1,7 +1,15 @@
 import { inlineCode } from '@discordjs/builders';
 import { DARK_ELIXIR_TROOPS, ELIXIR_TROOPS, Player } from 'clashofclans.js';
 
-import { BuilderBaseTroopEmotes, HeroEmotes, HeroPetEmotes, HomeBaseTroopEmotes, SiegeMachineEmotes, SpellEmotes, SuperTroopEmotes } from '#lib/coc';
+import {
+	BuilderBaseTroopEmotes,
+	HeroEmotes,
+	HeroPetEmotes,
+	HomeBaseTroopEmotes,
+	SiegeMachineEmotes,
+	SpellEmotes,
+	SuperTroopEmotes
+} from '../constant/emotes';
 
 export class PlayerUnits {
 	private player: Player;

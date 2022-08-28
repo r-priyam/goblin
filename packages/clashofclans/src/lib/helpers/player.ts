@@ -1,10 +1,10 @@
-import { container, Result, UserError } from '@sapphire/framework';
+import { Result, UserError } from '@sapphire/framework';
 import { HTTPError, Player, Util } from 'clashofclans.js';
 
 import { BaseHelper } from '../base/BaseHelper';
 import { ErrorMessages } from '../constant/constants';
 
-class PlayerHelper extends BaseHelper {
+export class PlayerHelper extends BaseHelper {
 	private readonly identifier = 'player-helper';
 
 	public async info(tag: string): Promise<Player> {
@@ -12,7 +12,7 @@ class PlayerHelper extends BaseHelper {
 			throw new UserError({ identifier: this.identifier, message: 'No player found for the requested tag!' });
 		}
 
-		const player = await Result.fromAsync(() => this.client.getPlayer(tag));
+		const player = await Result.fromAsync(() => this.core.getPlayer(tag));
 		return player.unwrapOrElse((error) => {
 			if (error instanceof HTTPError) {
 				throw new UserError({
@@ -26,7 +26,7 @@ class PlayerHelper extends BaseHelper {
 	}
 
 	public async verifyPlayer(tag: string, token: string) {
-		const status = await Result.fromAsync(() => container.coc.verifyPlayerToken(tag, token));
+		const status = await Result.fromAsync(() => this.core.verifyPlayerToken(tag, token));
 		status.unwrapOrElse((error) => {
 			if (error instanceof HTTPError) {
 				throw new UserError({
