@@ -1,7 +1,7 @@
 import { APIPlayer, Player } from 'clashofclans.js';
 
-import { GoblinClashClient } from '../extension/ClashClient';
-import { PlayerUnits } from '../helpers/units';
+import { GoblinClashClient } from '../extension/ClashClient.js';
+import { PlayerUnits } from '../helpers/units.js';
 
 export class GoblinPlayer extends Player {
 	/** Helper class to return player units in category and in beautiful discord formatting */

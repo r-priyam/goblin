@@ -1,4 +1,4 @@
-import { GoblinClashClient } from '../extension/ClashClient';
+import { GoblinClashClient } from '../extension/ClashClient.js';
 
 export abstract class BaseHelper {
 	public readonly core: GoblinClashClient;

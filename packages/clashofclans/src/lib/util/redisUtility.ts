@@ -1,7 +1,7 @@
 import { RedisClientType } from '@redis/client';
 import { isNullish } from '@sapphire/utilities';
 
-import { ClanAlias, ClanOrPlayer } from '../types/cache';
+import { ClanAlias, ClanOrPlayer } from '../types/cache.js';
 
 // TODO: transfer in separate utility package
 export class GoblinRedisUtility {

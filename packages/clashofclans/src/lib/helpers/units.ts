@@ -9,7 +9,7 @@ import {
 	SiegeMachineEmotes,
 	SpellEmotes,
 	SuperTroopEmotes
-} from '../constant/emotes';
+} from '../constant/emotes.js';
 
 export class PlayerUnits {
 	private player: Player;

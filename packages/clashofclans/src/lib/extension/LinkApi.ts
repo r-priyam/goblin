@@ -3,7 +3,7 @@ import { ScheduledTaskHandler } from '@sapphire/plugin-scheduled-tasks';
 import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
 import { RequestOptions } from 'clashofclans.js';
 
-import { GoblinRedisUtility } from '../util/redisUtility';
+import { GoblinRedisUtility } from '../util/redisUtility.js';
 
 export class LinkApi {
 	private username: string;

@@ -2,11 +2,11 @@ import { type RedisClientType } from '@redis/client';
 import { type ScheduledTaskHandler } from '@sapphire/plugin-scheduled-tasks';
 import { Client, OverrideOptions, RESTManager } from 'clashofclans.js';
 
-import { LinkApi } from './LinkApi';
+import { LinkApi } from './LinkApi.js';
 
-import { ClanHelper } from '../helpers/clan';
-import { PlayerHelper } from '../helpers/player';
-import { GoblinPlayer } from '../structure/Player';
+import { ClanHelper } from '../helpers/clan.js';
+import { PlayerHelper } from '../helpers/player.js';
+import { GoblinPlayer } from '../structure/Player.js';
 import { GoblinClientOptions } from '../types/lib';
 
 export class GoblinClashClient extends Client {

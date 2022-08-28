@@ -1,9 +1,9 @@
 import { Result, UserError } from '@sapphire/framework';
 import { HTTPError, Util } from 'clashofclans.js';
 
-import { BaseHelper } from '../base/BaseHelper';
-import { ErrorMessages } from '../constant/constants';
-import { GoblinPlayer } from '../structure/Player';
+import { BaseHelper } from '../base/BaseHelper.js';
+import { ErrorMessages } from '../constant/constants.js';
+import { GoblinPlayer } from '../structure/Player.js';
 
 export class PlayerHelper extends BaseHelper {
 	private readonly identifier = 'player-helper';

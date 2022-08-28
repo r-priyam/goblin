@@ -3,9 +3,9 @@ import { Result, UserError } from '@sapphire/framework';
 import { Clan, HTTPError, Util } from 'clashofclans.js';
 import { MessageEmbed } from 'discord.js';
 
-import { BaseHelper } from '../base/BaseHelper';
-import { ErrorMessages, RawWarFrequency } from '../constant/constants';
-import { BlueNumberEmotes, LabelEmotes, MiscEmotes, TownHallEmotes, WarLeagueEmotes } from '../constant/emotes';
+import { BaseHelper } from '../base/BaseHelper.js';
+import { ErrorMessages, RawWarFrequency } from '../constant/constants.js';
+import { BlueNumberEmotes, LabelEmotes, MiscEmotes, TownHallEmotes, WarLeagueEmotes } from '../constant/emotes.js';
 
 export class ClanHelper extends BaseHelper {
 	public async info(tag: string) {
