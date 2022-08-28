@@ -8,7 +8,7 @@ import { Constants, HTTPError } from 'discord.js';
 import { BlueNumberEmotes, ClanHelper, TownHallEmotes } from '#lib/coc';
 
 @ApplyOptions<ScheduledTask.Options>({
-	cron: '* */2 * * *'
+	cron: '0 */2 * * *'
 })
 export class SyncClanEmbedTask extends ScheduledTask {
 	public override async run() {
