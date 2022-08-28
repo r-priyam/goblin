@@ -21,6 +21,7 @@
 		"typecheck": "tsc -b src"
 	},
 	"dependencies": {
+		"@discordjs/builders": "^1.2.0",
 		"clashofclans.js": "^2.8.0",
 		"fuse.js": "^6.6.2"
 	},
