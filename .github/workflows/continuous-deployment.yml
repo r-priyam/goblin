@@ -24,4 +24,4 @@ jobs:
           cd .docker
           docker-compose stop bot
           docker-compose pull bot
-          docker-compose up -d
+          docker-compose up bot
