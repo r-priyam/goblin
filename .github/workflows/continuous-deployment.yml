@@ -1,0 +1,28 @@
+name: Continuous Deployment
+on:
+  workflow_run:
+    workflows:
+      - Continuous Delivery
+    types:
+      - completed
+
+jobs:
+  deploy:
+    name: Deploy bot image
+    runs-on: ubuntu-latest
+    if: "contains(needs.pre_ci.outputs.commit_message, '[deploy]')"
+    steps:
+    - name: Log In
+      uses: appleboy/ssh-action@dce9d565de8d876c11d93fa4fe677c0285a66d78
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USER }}
+        password: ${{ secrets.VPS_PASSWORD }}
+        script_stop: true
+        script: |
+          cd goblin
+          git pull
+          cd .docker
+          docker-compose stop bot
+          docker-compose pull bot
+          docker-compose up -d
