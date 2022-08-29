@@ -20,5 +20,4 @@ jobs:
         script_stop: true
         script: |
           cd goblin
-          git pull
-          yarn sync-docker
+          npm run sync-docker
