@@ -1,7 +1,6 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes } from '@sapphire/framework';
 import { ButtonInteraction, GuildMember, MessageActionRow, Modal, ModalActionRowComponent, TextInputComponent } from 'discord.js';
-
 import { ButtonCustomIds, ModalCustomIds, ModalInputCustomIds } from '#utils/constants';
 import { automationMemberCheck } from '#utils/functions/automationMemberCheck';
 

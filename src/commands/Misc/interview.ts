@@ -5,7 +5,6 @@ import { Subcommand } from '@sapphire/plugin-subcommands';
 import { envParseString } from '@skyra/env-utilities';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
 import { GuildMember, MessageEmbed, TextChannel } from 'discord.js';
-
 import { Colors } from '#utils/constants';
 
 @ApplyOptions<Subcommand.Options>({

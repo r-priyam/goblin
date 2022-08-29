@@ -4,7 +4,6 @@ import { SnowflakeRegex } from '@sapphire/discord.js-utilities';
 import { ChatInputCommand, Command } from '@sapphire/framework';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
 import { DiscordAPIError, MessageEmbed, User } from 'discord.js';
-
 import { Colors } from '#utils/constants';
 
 @ApplyOptions<ChatInputCommand.Options>({

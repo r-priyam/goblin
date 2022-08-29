@@ -4,7 +4,6 @@ import { ScheduledTask } from '@sapphire/plugin-scheduled-tasks';
 import { HTTPError as COCHttpError } from 'clashofclans.js';
 import { RESTJSONErrorCodes, Routes } from 'discord-api-types/v10';
 import { Constants, HTTPError } from 'discord.js';
-
 import { BlueNumberEmotes, TownHallEmotes } from '#lib/coc';
 import { logInfo } from '#utils/functions/logging';
 

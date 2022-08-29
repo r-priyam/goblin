@@ -3,7 +3,6 @@ import { PaginatedMessage } from '@sapphire/discord.js-utilities';
 import { ChatInputCommand, Command } from '@sapphire/framework';
 import { MessageEmbed } from 'discord.js';
 import { stripHtml } from 'string-strip-html';
-
 import { Colors } from '#root/lib/util/constants';
 
 @ApplyOptions<ChatInputCommand.Options>({

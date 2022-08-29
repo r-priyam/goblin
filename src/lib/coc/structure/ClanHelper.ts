@@ -2,7 +2,6 @@ import { userMention } from '@discordjs/builders';
 import { container, Result, UserError } from '@sapphire/framework';
 import { Clan, HTTPError, Util } from 'clashofclans.js';
 import { MessageEmbed } from 'discord.js';
-
 import { BlueNumberEmotes, ErrorMessages, LabelEmotes, MiscEmotes, RawWarFrequency, TownHallEmotes, WarLeagueEmotes } from '#lib/coc';
 
 export class ClanHelper {

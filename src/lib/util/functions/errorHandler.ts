@@ -1,6 +1,5 @@
 import { container, Events, InteractionHandlerError, InteractionHandlerParseError, UserError } from '@sapphire/framework';
 import { CommandInteraction, DiscordAPIError, HTTPError } from 'discord.js';
-
 import { errorEmbedUser, getWarnError, handleUserError, IgnoredCodes, sendCommandErrorToUser, sendErrorToUser } from '#utils/functions/errorHelper';
 
 export function commandErrorHandler(error: Error, interaction: CommandInteraction) {

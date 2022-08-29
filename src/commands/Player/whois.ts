@@ -5,7 +5,6 @@ import { ChatInputCommand, Command } from '@sapphire/framework';
 import { isNullish } from '@sapphire/utilities';
 import { Util } from 'clashofclans.js';
 import { MessageEmbed } from 'discord.js';
-
 import { MiscEmotes, RawPosition, TownHallEmotes } from '#lib/coc';
 import { PlayerCommand } from '#root/commands/Player/player';
 import { Colors } from '#root/lib/util/constants';

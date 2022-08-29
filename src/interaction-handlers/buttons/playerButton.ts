@@ -2,7 +2,6 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes } from '@sapphire/framework';
 import { Time } from '@sapphire/time-utilities';
 import { ButtonInteraction, MessageEmbed } from 'discord.js';
-
 import { Colors } from '#utils/constants';
 
 @ApplyOptions<InteractionHandler.Options>({

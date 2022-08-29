@@ -1,5 +1,4 @@
 import { APIPlayer, Player } from 'clashofclans.js';
-
 import { GoblinClashClient } from '#lib/coc';
 import { UnitsHelper } from '#lib/coc/structure/UnitsHelper';
 

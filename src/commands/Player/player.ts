@@ -5,7 +5,6 @@ import { Time } from '@sapphire/time-utilities';
 import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
 import { Achievement, Player } from 'clashofclans.js';
 import { MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
-
 import { GoblinPlayer, LabelEmotes, MiscEmotes, RawPosition } from '#lib/coc';
 import { Colors } from '#utils/constants';
 import { collectorFiler } from '#utils/InteractionHelpers';

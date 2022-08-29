@@ -1,6 +1,5 @@
 import { Buffer } from 'node:buffer';
 import { inspect } from 'node:util';
-
 import { codeBlock } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { ChatInputCommand, Command } from '@sapphire/framework';
@@ -8,7 +7,6 @@ import { Stopwatch } from '@sapphire/stopwatch';
 import { Type } from '@sapphire/type';
 import { isThenable } from '@sapphire/utilities';
 import { MessageEmbed } from 'discord.js';
-
 import { Colors } from '#utils/constants';
 
 @ApplyOptions<ChatInputCommand.Options>({

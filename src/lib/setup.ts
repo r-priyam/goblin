@@ -1,8 +1,6 @@
 import '@sapphire/plugin-logger/register';
 import 'reflect-metadata';
-
 import { inspect } from 'node:util';
-
 import { REST } from '@discordjs/rest';
 import { container, Logger, Piece } from '@sapphire/framework';
 import { ScheduledTaskHandler } from '@sapphire/plugin-scheduled-tasks';
@@ -10,7 +8,6 @@ import { envParseInteger, envParseString, setup } from '@skyra/env-utilities';
 import { createColors } from 'colorette';
 import postgres, { Sql as SQL } from 'postgres';
 import { createClient as redisClient, RedisClientType } from 'redis';
-
 import { GoblinClashClient } from '#lib/coc';
 import { GoblinClient } from '#lib/extensions/GoblinClient';
 import { SrcDir } from '#utils/constants';

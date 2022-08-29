@@ -1,5 +1,4 @@
 import { readFile } from 'node:fs/promises';
-
 import { ApplyOptions } from '@sapphire/decorators';
 import { Events, Listener, Store } from '@sapphire/framework';
 import { envParseString } from '@skyra/env-utilities';

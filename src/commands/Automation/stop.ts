@@ -4,7 +4,6 @@ import { Util } from 'clashofclans.js';
 import { bold } from 'colorette';
 import { PermissionFlagsBits } from 'discord-api-types/v9';
 import { MessageEmbed } from 'discord.js';
-
 import { Colors } from '#utils/constants';
 import { automationMemberCheck } from '#utils/functions/automationMemberCheck';
 

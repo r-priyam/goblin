@@ -1,5 +1,4 @@
 import { inspect } from 'node:util';
-
 import { codeBlock } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { ChatInputCommand, Command } from '@sapphire/framework';

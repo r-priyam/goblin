@@ -1,7 +1,3 @@
-/*
-	https://github.com/favware/dragonite/blob/main/src/lib/util/functions/time.ts
-*/
-
 import { Time } from '@sapphire/time-utilities';
 import { roundNumber } from '@sapphire/utilities';
 

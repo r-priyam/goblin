@@ -3,7 +3,6 @@ import { ChatInputCommand, Command } from '@sapphire/framework';
 import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
 import { Clan, SUPER_TROOPS } from 'clashofclans.js';
 import { MessageActionRow, MessageEmbed, MessageSelectMenu } from 'discord.js';
-
 import { SuperTroopEmotes } from '#lib/coc';
 import { Colors } from '#utils/constants';
 import { ClanOrPlayer, redis } from '#utils/redis';

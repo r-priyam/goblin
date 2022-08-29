@@ -1,6 +1,5 @@
 import { container, Result, UserError } from '@sapphire/framework';
 import { HTTPError, Util } from 'clashofclans.js';
-
 import { ErrorMessages, GoblinPlayer } from '#lib/coc';
 
 export class PlayerHelper {

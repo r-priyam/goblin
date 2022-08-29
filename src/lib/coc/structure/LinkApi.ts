@@ -1,7 +1,6 @@
 import { container } from '@sapphire/framework';
 import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
 import { RequestOptions } from 'clashofclans.js';
-
 import { redis } from '#utils/redis';
 
 export class LinkApi {

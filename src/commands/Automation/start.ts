@@ -3,7 +3,6 @@ import { ChatInputCommand, Command, UserError } from '@sapphire/framework';
 import { Util } from 'clashofclans.js';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
 import { MessageActionRow, Modal, ModalActionRowComponent, TextInputComponent } from 'discord.js';
-
 import { ModalCustomIds, ModalInputCustomIds } from '#utils/constants';
 import { automationMemberCheck } from '#utils/functions/automationMemberCheck';
 

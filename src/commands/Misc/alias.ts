@@ -5,7 +5,6 @@ import { Subcommand } from '@sapphire/plugin-subcommands';
 import { envParseArray } from '@skyra/env-utilities';
 import { Util } from 'clashofclans.js';
 import { GuildMember, MessageEmbed } from 'discord.js';
-
 import { Colors } from '#utils/constants';
 import { ClanAlias, redis } from '#utils/redis';
 

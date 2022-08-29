@@ -3,7 +3,6 @@ import { ChatInputCommand, Command } from '@sapphire/framework';
 import { isNullish } from '@sapphire/utilities';
 import { Clan } from 'clashofclans.js';
 import { MessageEmbed } from 'discord.js';
-
 import { LabelEmotes, MiscEmotes, RawClanType, RawWarFrequency, TownHallEmotes, WarLeagueEmotes } from '#lib/coc';
 import { Colors, Emotes } from '#utils/constants';
 import { ClanOrPlayer, redis } from '#utils/redis';

@@ -1,7 +1,6 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes, Result, UserError } from '@sapphire/framework';
 import { MessageEmbed, ModalSubmitInteraction } from 'discord.js';
-
 import { Colors, ModalCustomIds, ModalInputCustomIds } from '#utils/constants';
 
 @ApplyOptions<InteractionHandler.Options>({

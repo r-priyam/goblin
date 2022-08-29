@@ -1,7 +1,5 @@
 import '#lib/setup';
-
 import { exit } from 'node:process';
-
 import { GoblinClient } from '#lib/extensions/GoblinClient';
 import { logSuccess } from '#utils/functions/logging';
 

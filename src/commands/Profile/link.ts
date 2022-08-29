@@ -2,7 +2,6 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { ChatInputCommand, UserError } from '@sapphire/framework';
 import { Subcommand } from '@sapphire/plugin-subcommands';
 import { MessageEmbed } from 'discord.js';
-
 import { Colors } from '#utils/constants';
 import { redis } from '#utils/redis';
 

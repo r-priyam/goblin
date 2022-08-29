@@ -3,7 +3,6 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { Events, Listener, Result } from '@sapphire/framework';
 import { Clan } from 'clashofclans.js';
 import { Message, MessageEmbed } from 'discord.js';
-
 import { MiscEmotes } from '#lib/coc';
 import { Colors } from '#utils/constants';
 import { ClanAlias, redis } from '#utils/redis';
