@@ -20,7 +20,7 @@ function executeCommand(operation, action) {
 	return result.unwrap();
 }
 executeCommand('Git pull', () => execSync('git pull'));
-executeCommand('Stop bot service', () => execSync('docker compose -f .docker/docker-compose.yml stop bot'));
+executeCommand('Stop bot service', () => execSync('docker-compose -f .docker/docker-compose.yml stop bot'));
 executeCommand('Pull bot latest image', () => execSync('docker-compose -f .docker/docker-compose.yml pull bot'));
 executeCommand('Start bot', () => execSync('docker-compose up -f .docker/docker-compose.yml -d bot'));
 exit(0);
