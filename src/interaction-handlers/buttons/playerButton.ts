@@ -25,7 +25,8 @@ export class ButtonHandler extends InteractionHandler {
 		const expiryTime = interaction.customId.replace(/\D/g, '');
 		if (Date.now() - Number(expiryTime) >= Time.Minute * 2) {
 			return this.some({
-				message: 'Uh oh! It appears that button has expired, please run `/player` command again if you wish to get the result'
+				message:
+					'Uh oh! It appears that button has expired, please run `/player` command again if you wish to get the result'
 			});
 		}
 

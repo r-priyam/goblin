@@ -87,7 +87,10 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 			parent: envParseString('EYG_INTERVIEW_CHANNEL_PARENT'),
 			permissionOverwrites: [
 				{ id: interaction.guild.id, deny: [PermissionFlagsBits.ViewChannel] },
-				{ id: envParseString('EYG_RECRUITER_ROLE'), allow: [...allowedPermissions, PermissionFlagsBits.ManageRoles] },
+				{
+					id: envParseString('EYG_RECRUITER_ROLE'),
+					allow: [...allowedPermissions, PermissionFlagsBits.ManageRoles]
+				},
 				{ id: member.id, allow: allowedPermissions }
 			]
 		});
@@ -122,10 +125,13 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 		await channel?.messages.fetch({ limit: 100 }, { force: true }).then((data) => {
 			for (const message of [...data.values()].sort((a, b) => a.createdTimestamp - b.createdTimestamp)) {
 				if (message.embeds.length) {
-					messages.push(`${message.createdAt} » ${message.author.username} » ${message.embeds[0].description}`);
+					messages.push(
+						`${message.createdAt} » ${message.author.username} » ${message.embeds[0].description}`
+					);
 				}
 
-				if (message.content.length) messages.push(`${message.createdAt} » ${message.author.username} » ${message.content}`);
+				if (message.content.length)
+					messages.push(`${message.createdAt} » ${message.author.username} » ${message.content}`);
 			}
 		});
 
@@ -136,12 +142,16 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 			return interaction.editReply({ content: 'Something went wrong, please try again!' });
 		}
 
-		const reportingChannel = (await this.client.channels.fetch(envParseString('EYG_REPORTING_CHANNEL'))) as TextChannel;
+		const reportingChannel = (await this.client.channels.fetch(
+			envParseString('EYG_REPORTING_CHANNEL')
+		)) as TextChannel;
 
 		const successData = {
 			embeds: [
 				new MessageEmbed()
-					.setDescription(`Backup file for ${channel?.name} is saved at https://gist.github.com/robo-goblin/${gistId}`)
+					.setDescription(
+						`Backup file for ${channel?.name} is saved at https://gist.github.com/robo-goblin/${gistId}`
+					)
 					.setColor(Colors.Indigo)
 			]
 		};
@@ -150,7 +160,9 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 	}
 
 	private canPerformInterviewOperations(member: GuildMember) {
-		if (!member.roles.cache.hasAny(envParseString('EYG_RECRUIT_ROLE_ID'), envParseString('EYG_ADMINISTRATOR_ROLE'))) {
+		if (
+			!member.roles.cache.hasAny(envParseString('EYG_RECRUIT_ROLE_ID'), envParseString('EYG_ADMINISTRATOR_ROLE'))
+		) {
 			throw new UserError({ identifier: 'user-not-allowed', message: "You aren't allowed to use this command" });
 		}
 	}

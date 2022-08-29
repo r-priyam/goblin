@@ -37,7 +37,8 @@ export class ClanCommand extends Command {
 			const cachedClans = await redis.get<ClanOrPlayer[]>(`c-${interaction.user.id}`);
 			if (isNullish(cachedClans)) {
 				return interaction.editReply({
-					content: 'You have no clan linked into your profile. Please link any clan or provide the tag as 2nd argument!'
+					content:
+						'You have no clan linked into your profile. Please link any clan or provide the tag as 2nd argument!'
 				});
 			}
 
@@ -62,7 +63,11 @@ export class ClanCommand extends Command {
 		return this.injectClanComposition(interaction, infoEmbed, clan);
 	}
 
-	private async injectClanComposition(interaction: ChatInputCommand.Interaction<'cached'>, embed: MessageEmbed, clan: Clan) {
+	private async injectClanComposition(
+		interaction: ChatInputCommand.Interaction<'cached'>,
+		embed: MessageEmbed,
+		clan: Clan
+	) {
 		const composition = await this.coc.clanHelper.getClanComposition(clan, true);
 		// remove placeholder field for composition fetch
 		embed.spliceFields(2, 1);
@@ -74,7 +79,10 @@ export class ClanCommand extends Command {
 		let description = '';
 		description += `${MiscEmotes.HomeTrophy} **${clan.points}** ${MiscEmotes.BuilderTrophy} **${clan.versusPoints}** ${MiscEmotes.Members} **${clan.memberCount}**\n\n`;
 		description += clan.description ? `${clan.description}` : 'No description set';
-		clan.labels.length && (description += `\n\n${clan.labels.map((label) => [`${LabelEmotes[label.name]} ${label.name}`]).join('\n')}\n\n`);
+		clan.labels.length &&
+			(description += `\n\n${clan.labels
+				.map((label) => [`${LabelEmotes[label.name]} ${label.name}`])
+				.join('\n')}\n\n`);
 
 		return new MessageEmbed()
 			.setTitle(clan.name)
@@ -87,20 +95,24 @@ export class ClanCommand extends Command {
 ${MiscEmotes['Leader']} ${clan.members.find((member) => member.role === 'leader')!.name}
 ${
 	clan.location
-		? `**Location**\n:${clan.location?.countryCode ? `flag_${clan.location?.countryCode?.toLowerCase()}` : 'globe_with_meridians'}: ${
-				clan.location.name
-		  }`
+		? `**Location**\n:${
+				clan.location?.countryCode
+					? `flag_${clan.location?.countryCode?.toLowerCase()}`
+					: 'globe_with_meridians'
+		  }: ${clan.location.name}`
 		: '`Not set`'
 }
-🚪 ${RawClanType[clan.type]} ${MiscEmotes.HomeTrophy} ${clan.requiredTrophies}+ ${TownHallEmotes[clan.requiredTownHallLevel ?? 1]} ${
-						clan.requiredTownHallLevel
-					}`,
+🚪 ${RawClanType[clan.type]} ${MiscEmotes.HomeTrophy} ${clan.requiredTrophies}+ ${
+						TownHallEmotes[clan.requiredTownHallLevel ?? 1]
+					} ${clan.requiredTownHallLevel}`,
 					inline: false
 				},
 				{
 					name: '\u200B',
 					value: `**War Stats**
-${MiscEmotes.Win} ${clan.warWins} Won ${MiscEmotes.Lose} ${clan.warLosses ?? 0} Lost ${MiscEmotes.Draw ?? 0} ${clan.warTies ?? 0} Tied
+${MiscEmotes.Win} ${clan.warWins} Won ${MiscEmotes.Lose} ${clan.warLosses ?? 0} Lost ${MiscEmotes.Draw ?? 0} ${
+						clan.warTies ?? 0
+					} Tied
 **Win Streak**\n${MiscEmotes.Streak} ${clan.warWinStreak}\n**War Frequency**
 ${RawWarFrequency[clan.warFrequency]}
 **War League**

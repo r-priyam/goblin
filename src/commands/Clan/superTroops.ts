@@ -39,7 +39,8 @@ export class SuperTroopsCommand extends Command {
 			const cachedClans = await redis.get<ClanOrPlayer[]>(`c-${interaction.user.id}`);
 			if (isNullish(cachedClans)) {
 				return interaction.editReply({
-					content: 'You have no clan linked into your profile. Please link any clan or provide the tag as 2nd argument!'
+					content:
+						'You have no clan linked into your profile. Please link any clan or provide the tag as 2nd argument!'
 				});
 			}
 
@@ -62,7 +63,9 @@ export class SuperTroopsCommand extends Command {
 
 	public static async getSuperTroops(clan: Clan, filterTroop?: string) {
 		const members = await clan.fetchMembers();
-		const superTroops = Object.fromEntries(SUPER_TROOPS.map((troop) => [`${SuperTroopEmotes[troop]} ${troop}`, [] as string[]]));
+		const superTroops = Object.fromEntries(
+			SUPER_TROOPS.map((troop) => [`${SuperTroopEmotes[troop]} ${troop}`, [] as string[]])
+		);
 
 		for (const member of members) {
 			for (const troop of member.superTroops) {
@@ -91,7 +94,8 @@ export class SuperTroopsCommand extends Command {
 			superTroopsEmbed.addField(troop, data.join('\n'), false);
 		}
 
-		if (superTroopsEmbed.fields.length === 0) superTroopsEmbed.description = 'No one has boosted any super troop 🥲';
+		if (superTroopsEmbed.fields.length === 0)
+			superTroopsEmbed.description = 'No one has boosted any super troop 🥲';
 		return superTroopsEmbed;
 	}
 }

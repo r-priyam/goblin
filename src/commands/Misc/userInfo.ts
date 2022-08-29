@@ -37,12 +37,18 @@ export class UserInfoCommand extends Command {
 			.setTitle(member.user.tag)
 			.addField(
 				'Joined',
-				`${time(member.joinedAt!, TimestampStyles.LongDateTime)} ${time(member.joinedAt!, TimestampStyles.RelativeTime)}`,
+				`${time(member.joinedAt!, TimestampStyles.LongDateTime)} ${time(
+					member.joinedAt!,
+					TimestampStyles.RelativeTime
+				)}`,
 				false
 			)
 			.addField(
 				'Created',
-				`${time(member.user.createdAt!, TimestampStyles.LongDateTime)} ${time(member.user.createdAt!, TimestampStyles.RelativeTime)}`,
+				`${time(member.user.createdAt!, TimestampStyles.LongDateTime)} ${time(
+					member.user.createdAt!,
+					TimestampStyles.RelativeTime
+				)}`,
 				false
 			)
 			.setFooter({

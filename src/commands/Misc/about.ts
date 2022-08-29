@@ -16,10 +16,13 @@ export class AboutCommand extends Command {
 		`I am a cute goblin created by ${userMention('292332992251297794')} to steal resources from around.`,
 		'If you have any suggestion/feedback for me then please send a DM to my creator 💙',
 		"I am a private bot but if you want me then again feel free to contact my creator, she's kind enough to get you the invite link of mine. Do I do something? I don't think so but yeah your choice",
-		`This bot uses the ${hyperlink('Sapphire Framework', hideLinkEmbed('https://sapphirejs.dev'))} build on top of ${hyperlink(
-			'discord.js',
-			hideLinkEmbed('https://discord.js.org')
-		)} and uses ${hyperlink('clashofclans.js', hideLinkEmbed('https://clashofclans.js.org/'))} to communicate with the clash api.`
+		`This bot uses the ${hyperlink(
+			'Sapphire Framework',
+			hideLinkEmbed('https://sapphirejs.dev')
+		)} build on top of ${hyperlink('discord.js', hideLinkEmbed('https://discord.js.org'))} and uses ${hyperlink(
+			'clashofclans.js',
+			hideLinkEmbed('https://clashofclans.js.org/')
+		)} to communicate with the clash api.`
 	].join('\n');
 
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {

@@ -62,7 +62,12 @@ export class StartClanEmbedModal extends InteractionHandler {
 		});
 	}
 
-	private async handleClanEmbedBoardGeneration(interaction: ModalSubmitInteraction, clan: Clan, leaderId: string, color: string) {
+	private async handleClanEmbedBoardGeneration(
+		interaction: ModalSubmitInteraction,
+		clan: Clan,
+		leaderId: string,
+		color: string
+	) {
 		// TODO: Error handling of any any kind? and use Result?
 		const automationMessage = await interaction.channel!.send({
 			embeds: [

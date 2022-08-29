@@ -35,9 +35,13 @@ export class SQLCommand extends Command {
 		const { success, result, executionTime } = await this.runSql(query);
 
 		if (!success)
-			return interaction.editReply({ content: `${codeBlock('bash', String(result))}\nExecuted in: \`${inlineCodeBlock(executionTime)}\`` });
+			return interaction.editReply({
+				content: `${codeBlock('bash', String(result))}\nExecuted in: \`${inlineCodeBlock(executionTime)}\``
+			});
 		if (isNullishOrEmpty(result))
-			return interaction.editReply({ content: `Returned ${inlineCodeBlock('[]')} in ${inlineCodeBlock(executionTime)}` });
+			return interaction.editReply({
+				content: `Returned ${inlineCodeBlock('[]')} in ${inlineCodeBlock(executionTime)}`
+			});
 
 		const columns = Object.keys(result[0]);
 		// @ts-expect-error result will be array of objects always
@@ -46,7 +50,9 @@ export class SQLCommand extends Command {
 		const toSend = markdownTable([columns, ...rows.splice(0, 12)]);
 		await interaction.editReply(
 			rows.length === 0
-				? `${codeBlock('ts', toSend)}\nReturned \`${result.length}\` rows. Executed in: \`${inlineCodeBlock(executionTime)}\``
+				? `${codeBlock('ts', toSend)}\nReturned \`${result.length}\` rows. Executed in: \`${inlineCodeBlock(
+						executionTime
+				  )}\``
 				: `${codeBlock('ts', toSend)}`
 		);
 
@@ -54,7 +60,9 @@ export class SQLCommand extends Command {
 			const toSend = markdownTable([columns, ...rows.splice(0, 12)]);
 			await interaction.followUp(
 				rows.length === 0
-					? `${codeBlock('ts', toSend)}\nReturned \`${result.length}\` rows. Executed in: \`${inlineCodeBlock(executionTime)}\``
+					? `${codeBlock('ts', toSend)}\nReturned \`${result.length}\` rows. Executed in: \`${inlineCodeBlock(
+							executionTime
+					  )}\``
 					: `${codeBlock('ts', toSend)}`
 			);
 		}

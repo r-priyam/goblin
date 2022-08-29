@@ -55,10 +55,14 @@ export class WithRole extends Command {
 				})
 				.setColor(Colors.BlueGrey);
 
-			count === 0 ? await interaction.editReply({ embeds: [namesEmbed] }) : await interaction.followUp({ embeds: [namesEmbed] });
+			count === 0
+				? await interaction.editReply({ embeds: [namesEmbed] })
+				: await interaction.followUp({ embeds: [namesEmbed] });
 			count++;
 		}
 
-		return interaction.followUp({ content: `Check done! Total members for ${roleMention(role.id)}: ${inlineCodeBlock(String(totalMembers))}` });
+		return interaction.followUp({
+			content: `Check done! Total members for ${roleMention(role.id)}: ${inlineCodeBlock(String(totalMembers))}`
+		});
 	}
 }

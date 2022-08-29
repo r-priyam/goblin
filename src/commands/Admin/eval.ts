@@ -29,7 +29,9 @@ export class EvalCommand extends Command {
 					.addBooleanOption((option) =>
 						option
 							.setName('async')
-							.setDescription('Whether to allow use of async/await. If set, the result will have to be returned')
+							.setDescription(
+								'Whether to allow use of async/await. If set, the result will have to be returned'
+							)
 							.setRequired(false)
 					)
 					.addBooleanOption((option) =>

@@ -37,7 +37,8 @@ export function getErrorLine(error: Error): string {
 export async function handleUserError(interaction: Interaction, error: UserError) {
 	if (Reflect.get(Object(error.context), 'silent')) return;
 
-	if (interaction.isCommand()) return sendCommandErrorToUser(interaction, errorEmbedUser(error.message ?? UnidentifiedErrorMessage));
+	if (interaction.isCommand())
+		return sendCommandErrorToUser(interaction, errorEmbedUser(error.message ?? UnidentifiedErrorMessage));
 	return sendErrorToUser(interaction, errorEmbedUser(error.message ?? UnidentifiedErrorMessage));
 }
 

@@ -98,7 +98,9 @@ export class AliasCommand extends Subcommand {
 		return interaction.editReply({
 			embeds: [
 				new MessageEmbed() //
-					.setDescription(`Successfully created alias **${alias.toUpperCase()}** for ${clan.name} (${clan.tag})`)
+					.setDescription(
+						`Successfully created alias **${alias.toUpperCase()}** for ${clan.name} (${clan.tag})`
+					)
 					.setColor(Colors.Green)
 			]
 		});

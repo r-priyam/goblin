@@ -43,9 +43,17 @@ export class SyncClanEmbedTask extends ScheduledTask {
 
 		result.unwrapOrElse(async (e) => {
 			const error = e as HTTPError;
-			if ([RESTJSONErrorCodes.MissingAccess, RESTJSONErrorCodes.MissingPermissions, RESTJSONErrorCodes.UnknownMessage].includes(error.code)) {
+			if (
+				[
+					RESTJSONErrorCodes.MissingAccess,
+					RESTJSONErrorCodes.MissingPermissions,
+					RESTJSONErrorCodes.UnknownMessage
+				].includes(error.code)
+			) {
 				await this.stopClanEmbed(data.clanTag, data.channelId);
-				this.logger.info(logInfo('CLAN EMBED', `Stopping clan embed for ${data.clanTag} with reason ${error.message}`));
+				this.logger.info(
+					logInfo('CLAN EMBED', `Stopping clan embed for ${data.clanTag} with reason ${error.message}`)
+				);
 				return;
 			}
 

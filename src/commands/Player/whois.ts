@@ -57,24 +57,40 @@ export class WhoIsCommand extends Command {
 			overall.defenses += player.defenseWins;
 
 			firstPage.setDescription(
-				`${bold('Overall Stats')}\n${MiscEmotes.WarStars} War Stars: ${overall.stars}\n${MiscEmotes.Out} Troops Donated: ${
-					overall.donations
-				}\n${MiscEmotes.In} Troops Received: ${overall.received}\n${MiscEmotes.Sword} Attacks: ${overall.attacks}\n${
-					MiscEmotes.Shield
-				} Defenses: ${overall.defenses}`
+				`${bold('Overall Stats')}\n${MiscEmotes.WarStars} War Stars: ${overall.stars}\n${
+					MiscEmotes.Out
+				} Troops Donated: ${overall.donations}\n${MiscEmotes.In} Troops Received: ${overall.received}\n${
+					MiscEmotes.Sword
+				} Attacks: ${overall.attacks}\n${MiscEmotes.Shield} Defenses: ${overall.defenses}`
 			);
 
-			const { units, townHallLevel, name, tag, clan, role, expLevel, trophies, warStars, shareLink, townHallWeaponLevel } = player;
+			const {
+				units,
+				townHallLevel,
+				name,
+				tag,
+				clan,
+				role,
+				expLevel,
+				trophies,
+				warStars,
+				shareLink,
+				townHallWeaponLevel
+			} = player;
 			firstPage.addField(
 				`<:dot:958824443445116960> ${TownHallEmotes[townHallLevel]} ${name} (${tag})`,
-				`${MiscEmotes.Clan} ${clan ? `${clan.name} (${RawPosition[role!]})` : 'Not in a clan'}\n${units.unit('HEROES')}`,
+				`${MiscEmotes.Clan} ${clan ? `${clan.name} (${RawPosition[role!]})` : 'Not in a clan'}\n${units.unit(
+					'HEROES'
+				)}`,
 				false
 			);
 
 			const infoEmbed = PlayerCommand.unitsEmbed(player, ['Builder Troops', 'Heroes'])
 				.setTitle(`${name} (${tag})`)
 				.setURL(shareLink)
-				.setDescription(`${MiscEmotes.Exp} ${expLevel} ${MiscEmotes.HomeTrophy} ${trophies} ${MiscEmotes.WarStars} ${warStars}`)
+				.setDescription(
+					`${MiscEmotes.Exp} ${expLevel} ${MiscEmotes.HomeTrophy} ${trophies} ${MiscEmotes.WarStars} ${warStars}`
+				)
 				.setThumbnail(
 					`https://clash-assets.vercel.app/townhalls/${
 						townHallWeaponLevel ? `${townHallLevel}.${townHallWeaponLevel}` : `${townHallLevel}`

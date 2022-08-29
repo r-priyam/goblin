@@ -57,7 +57,11 @@ export class Ready extends Listener {
 ${gradient.atlas.multiline(figlet.textSync('Goblin'))}
 ${line01} ${pad}${blc(version)}
 ${line02} ${pad}[${success}] Gateway
-${line03}${envParseString('NODE_ENV') === 'development' ? ` ${pad}${blc('<')}${llc('/')}${blc('>')} ${llc('DEVELOPMENT MODE')}` : ''}
+${line03}${
+				envParseString('NODE_ENV') === 'development'
+					? ` ${pad}${blc('<')}${llc('/')}${blc('>')} ${llc('DEVELOPMENT MODE')}`
+					: ''
+			}
 		`.trim()
 		);
 	}

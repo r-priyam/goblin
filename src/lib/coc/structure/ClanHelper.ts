@@ -2,7 +2,15 @@ import { userMention } from '@discordjs/builders';
 import { container, Result, UserError } from '@sapphire/framework';
 import { Clan, HTTPError, Util } from 'clashofclans.js';
 import { MessageEmbed } from 'discord.js';
-import { BlueNumberEmotes, ErrorMessages, LabelEmotes, MiscEmotes, RawWarFrequency, TownHallEmotes, WarLeagueEmotes } from '#lib/coc';
+import {
+	BlueNumberEmotes,
+	ErrorMessages,
+	LabelEmotes,
+	MiscEmotes,
+	RawWarFrequency,
+	TownHallEmotes,
+	WarLeagueEmotes
+} from '#lib/coc';
 
 export class ClanHelper {
 	public async info(tag: string) {
@@ -59,9 +67,9 @@ export class ClanHelper {
 			.setTitle(clan.name)
 			.setURL(clan.shareLink)
 			.setDescription(
-				`${MiscEmotes.HomeTrophy} **${clan.points}** ${MiscEmotes.BuilderTrophy} **${clan.versusPoints}** ${MiscEmotes.Members} **${
-					clan.memberCount
-				}**\n\n${clan.description ? `${clan.description}` : 'No description set'}`
+				`${MiscEmotes.HomeTrophy} **${clan.points}** ${MiscEmotes.BuilderTrophy} **${clan.versusPoints}** ${
+					MiscEmotes.Members
+				} **${clan.memberCount}**\n\n${clan.description ? `${clan.description}` : 'No description set'}`
 			)
 			.addFields(
 				{
@@ -78,7 +86,9 @@ ${MiscEmotes['Leader']} ${userMention(leaderId)} ${clan.members.find((member) =>
 				{
 					name: '\u200B',
 					value: `**War Stats**
-${MiscEmotes.Win} ${clan.warWins} Won ${MiscEmotes.Lose} ${clan.warLosses ?? 0} Lost ${MiscEmotes.Draw ?? 0} ${clan.warTies ?? 0} Tied
+${MiscEmotes.Win} ${clan.warWins} Won ${MiscEmotes.Lose} ${clan.warLosses ?? 0} Lost ${MiscEmotes.Draw ?? 0} ${
+						clan.warTies ?? 0
+					} Tied
 **Win Streak**\n${MiscEmotes.Streak} ${clan.warWinStreak}\n**War Frequency**
 ${RawWarFrequency[clan.warFrequency]}
 **War League**

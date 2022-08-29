@@ -15,7 +15,8 @@ export class PlayerHelper {
 			if (error instanceof HTTPError) {
 				throw new UserError({
 					identifier: this.identifier,
-					message: error.status === 404 ? 'No player found for the requested tag!' : ErrorMessages[error.status]
+					message:
+						error.status === 404 ? 'No player found for the requested tag!' : ErrorMessages[error.status]
 				});
 			}
 
@@ -29,7 +30,8 @@ export class PlayerHelper {
 			if (error instanceof HTTPError) {
 				throw new UserError({
 					identifier: this.identifier,
-					message: error.status === 404 ? 'No player found for the requested tag!' : ErrorMessages[error.status]
+					message:
+						error.status === 404 ? 'No player found for the requested tag!' : ErrorMessages[error.status]
 				});
 			}
 

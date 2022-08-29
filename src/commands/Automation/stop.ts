@@ -59,13 +59,18 @@ export class StopCommand extends Command {
                                                                    AND guild_id = ${interaction.guildId}
                                                                  RETURNING clan_name`;
 
-		if (!result) return interaction.editReply({ content: `Can't find any Clan Embed running for ${bold(clanTag)} in this server` });
+		if (!result)
+			return interaction.editReply({
+				content: `Can't find any Clan Embed running for ${bold(clanTag)} in this server`
+			});
 
 		return interaction.editReply({
 			embeds: [
 				new MessageEmbed()
 					.setTitle('Success')
-					.setDescription(`Successfully stopped ${bold(result.clanName!)}(${bold(clanTag)}) Clan Embed in this server`)
+					.setDescription(
+						`Successfully stopped ${bold(result.clanName!)}(${bold(clanTag)}) Clan Embed in this server`
+					)
 					.setColor(Colors.Green)
 			]
 		});

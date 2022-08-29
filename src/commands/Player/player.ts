@@ -41,7 +41,8 @@ export class PlayerCommand extends Command {
 			const cachedPlayers = await redis.get<ClanOrPlayer[]>(`p-${interaction.user.id}`);
 			if (isNullish(cachedPlayers)) {
 				await interaction.editReply({
-					content: 'You have no player linked into your profile. Please link any player or provide the tag as 2nd argument!'
+					content:
+						'You have no player linked into your profile. Please link any player or provide the tag as 2nd argument!'
 				});
 				return;
 			}
@@ -117,19 +118,26 @@ export class PlayerCommand extends Command {
 
 	private static infoEmbed(player: Player) {
 		const townHallThumbnail = `https://clash-assets.vercel.app/townhalls/${
-			player.townHallWeaponLevel ? `${player.townHallLevel}.${player.townHallWeaponLevel}` : `${player.townHallLevel}`
+			player.townHallWeaponLevel
+				? `${player.townHallLevel}.${player.townHallWeaponLevel}`
+				: `${player.townHallLevel}`
 		}.png`;
 
 		let description = '';
 
 		description += `${MiscEmotes.Exp} ${player.expLevel} ${MiscEmotes.HomeTrophy} ${player.trophies} ${MiscEmotes.WarStars} ${player.warStars}`;
-		if (player.clan) description += `\n\n${MiscEmotes.Clan} [${player.clan.name}](${player.clan.shareLink}) (${RawPosition[player.role!]})`;
+		if (player.clan)
+			description += `\n\n${MiscEmotes.Clan} [${player.clan.name}](${player.clan.shareLink}) (${
+				RawPosition[player.role!]
+			})`;
 
-		const seasonStats = `${bold('Season Stats')}\n${bold('Troops donated')}\n${MiscEmotes.TroopDonations} ${player.donations} ${
-			MiscEmotes.In
-		}\n${bold('Troops received')}\n${MiscEmotes.TroopDonations} ${player.received} ${MiscEmotes.Out}\n${bold('Attacks won')}\n${
-			MiscEmotes.Sword
-		} ${player.attackWins}\n${bold('Defenses won')}\n${MiscEmotes.Shield} ${player.defenseWins}`;
+		const seasonStats = `${bold('Season Stats')}\n${bold('Troops donated')}\n${MiscEmotes.TroopDonations} ${
+			player.donations
+		} ${MiscEmotes.In}\n${bold('Troops received')}\n${MiscEmotes.TroopDonations} ${player.received} ${
+			MiscEmotes.Out
+		}\n${bold('Attacks won')}\n${MiscEmotes.Sword} ${player.attackWins}\n${bold('Defenses won')}\n${
+			MiscEmotes.Shield
+		} ${player.defenseWins}`;
 
 		return new MessageEmbed()
 			.setTitle(player.name)
@@ -148,9 +156,11 @@ export class PlayerCommand extends Command {
 		const achievements = [
 			{
 				name: bold('Total Loots'),
-				value: `${MiscEmotes.Gold} ${humanizeNumber(getAchievement('Gold Grab'))} ${MiscEmotes.Elixir} ${humanizeNumber(
-					getAchievement('Elixir Escapade')
-				)} ${MiscEmotes.Dark} ${humanizeNumber(getAchievement('Heroic Heist'))}`
+				value: `${MiscEmotes.Gold} ${humanizeNumber(getAchievement('Gold Grab'))} ${
+					MiscEmotes.Elixir
+				} ${humanizeNumber(getAchievement('Elixir Escapade'))} ${MiscEmotes.Dark} ${humanizeNumber(
+					getAchievement('Heroic Heist')
+				)}`
 			},
 			{ name: bold('Troops Donated'), value: `${MiscEmotes.TroopDonations} ${getAchievement('Friend in Need')}` },
 			{
@@ -172,7 +182,10 @@ export class PlayerCommand extends Command {
 				name: bold('Capital Gold Looted'),
 				value: `${MiscEmotes.ClanGold} ${getAchievement('Aggressive Capitalism')}`
 			},
-			{ name: bold('Capital Gold Contributed'), value: `${MiscEmotes.ClanGold} ${getAchievement('Most Valuable Clanmate')}` }
+			{
+				name: bold('Capital Gold Contributed'),
+				value: `${MiscEmotes.ClanGold} ${getAchievement('Most Valuable Clanmate')}`
+			}
 		];
 
 		let value = `${bold('Achievement Stats')}\n`;

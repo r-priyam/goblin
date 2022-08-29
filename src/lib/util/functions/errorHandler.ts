@@ -1,6 +1,19 @@
-import { container, Events, InteractionHandlerError, InteractionHandlerParseError, UserError } from '@sapphire/framework';
+import {
+	container,
+	Events,
+	InteractionHandlerError,
+	InteractionHandlerParseError,
+	UserError
+} from '@sapphire/framework';
 import { CommandInteraction, DiscordAPIError, HTTPError } from 'discord.js';
-import { errorEmbedUser, getWarnError, handleUserError, IgnoredCodes, sendCommandErrorToUser, sendErrorToUser } from '#utils/functions/errorHelper';
+import {
+	errorEmbedUser,
+	getWarnError,
+	handleUserError,
+	IgnoredCodes,
+	sendCommandErrorToUser,
+	sendErrorToUser
+} from '#utils/functions/errorHelper';
 
 export function commandErrorHandler(error: Error, interaction: CommandInteraction) {
 	if (typeof error === 'string') return sendCommandErrorToUser(interaction, errorEmbedUser(error));
@@ -10,7 +23,10 @@ export function commandErrorHandler(error: Error, interaction: CommandInteractio
 
 	if (error.name === 'AbortError' || error.message === 'Internal Server Error') {
 		logger.warn(`${getWarnError(interaction)} (${interaction.user.id}) | ${error.constructor.name}`);
-		return sendErrorToUser(interaction, errorEmbedUser('I had a small network error when messaging Discord. Please run this command again!'));
+		return sendErrorToUser(
+			interaction,
+			errorEmbedUser('I had a small network error when messaging Discord. Please run this command again!')
+		);
 	}
 
 	if (error instanceof DiscordAPIError || error instanceof HTTPError) {
@@ -26,7 +42,10 @@ export function commandErrorHandler(error: Error, interaction: CommandInteractio
 	return sendErrorToUser(interaction, errorEmbedUser('Something went wrong'));
 }
 
-export function interactionErrorHandler(error: Error, { interaction }: InteractionHandlerError | InteractionHandlerParseError) {
+export function interactionErrorHandler(
+	error: Error,
+	{ interaction }: InteractionHandlerError | InteractionHandlerParseError
+) {
 	if (typeof error === 'string') return sendErrorToUser(interaction, errorEmbedUser(error));
 	if (error instanceof UserError) return handleUserError(interaction, error);
 
@@ -34,7 +53,10 @@ export function interactionErrorHandler(error: Error, { interaction }: Interacti
 
 	if (error.name === 'AbortError' || error.message === 'Internal Server Error') {
 		logger.warn(`${getWarnError(interaction)} (${interaction.user.id}) | ${error.constructor.name}`);
-		return sendErrorToUser(interaction, errorEmbedUser('I had a small network error when messaging Discord. Please run this command again!'));
+		return sendErrorToUser(
+			interaction,
+			errorEmbedUser('I had a small network error when messaging Discord. Please run this command again!')
+		);
 	}
 
 	if (error instanceof DiscordAPIError || error instanceof HTTPError) {

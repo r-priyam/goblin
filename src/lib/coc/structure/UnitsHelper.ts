@@ -1,6 +1,14 @@
 import { inlineCode } from '@discordjs/builders';
 import { DARK_ELIXIR_TROOPS, ELIXIR_TROOPS, Player } from 'clashofclans.js';
-import { BuilderBaseTroopEmotes, HeroEmotes, HeroPetEmotes, HomeBaseTroopEmotes, SiegeMachineEmotes, SpellEmotes, SuperTroopEmotes } from '#lib/coc';
+import {
+	BuilderBaseTroopEmotes,
+	HeroEmotes,
+	HeroPetEmotes,
+	HomeBaseTroopEmotes,
+	SiegeMachineEmotes,
+	SpellEmotes,
+	SuperTroopEmotes
+} from '#lib/coc';
 
 export class UnitsHelper {
 	private player: Player;
@@ -16,7 +24,10 @@ export class UnitsHelper {
 			case 'ELIXIR':
 				for (const troop of this.player.homeTroops) {
 					if (ELIXIR_TROOPS.includes(troop.name)) {
-						data.push({ emoji: HomeBaseTroopEmotes[troop.name], level: this.formatInlineBlock(troop.level, troop.hallMaxLevel) });
+						data.push({
+							emoji: HomeBaseTroopEmotes[troop.name],
+							level: this.formatInlineBlock(troop.level, troop.hallMaxLevel)
+						});
 					}
 				}
 				return this.formatValue(data);
@@ -24,43 +35,64 @@ export class UnitsHelper {
 			case 'DARK':
 				for (const troop of this.player.homeTroops) {
 					if (DARK_ELIXIR_TROOPS.includes(troop.name)) {
-						data.push({ emoji: HomeBaseTroopEmotes[troop.name], level: this.formatInlineBlock(troop.level, troop.hallMaxLevel) });
+						data.push({
+							emoji: HomeBaseTroopEmotes[troop.name],
+							level: this.formatInlineBlock(troop.level, troop.hallMaxLevel)
+						});
 					}
 				}
 				return this.formatValue(data);
 
 			case 'SPELLS':
 				for (const spell of this.player.spells) {
-					data.push({ emoji: SpellEmotes[spell.name], level: this.formatInlineBlock(spell.level, spell.hallMaxLevel) });
+					data.push({
+						emoji: SpellEmotes[spell.name],
+						level: this.formatInlineBlock(spell.level, spell.hallMaxLevel)
+					});
 				}
 				return this.formatValue(data);
 
 			case 'SIEGE':
 				for (const siege of this.player.siegeMachines) {
-					data.push({ emoji: SiegeMachineEmotes[siege.name], level: this.formatInlineBlock(siege.level, siege.hallMaxLevel) });
+					data.push({
+						emoji: SiegeMachineEmotes[siege.name],
+						level: this.formatInlineBlock(siege.level, siege.hallMaxLevel)
+					});
 				}
 				return this.formatValue(data);
 
 			case 'HEROES':
 				for (const hero of this.player.heroes) {
-					data.push({ emoji: HeroEmotes[hero.name], level: this.formatInlineBlock(hero.level, hero.hallMaxLevel) });
+					data.push({
+						emoji: HeroEmotes[hero.name],
+						level: this.formatInlineBlock(hero.level, hero.hallMaxLevel)
+					});
 				}
 				return this.formatValue(data);
 
 			case 'PETS':
 				for (const pet of this.player.heroPets) {
-					data.push({ emoji: HeroPetEmotes[pet.name], level: this.formatInlineBlock(pet.level, pet.hallMaxLevel) });
+					data.push({
+						emoji: HeroPetEmotes[pet.name],
+						level: this.formatInlineBlock(pet.level, pet.hallMaxLevel)
+					});
 				}
 				return this.formatValue(data);
 
 			case 'BUILDER':
 				for (const troop of this.player.builderTroops) {
-					data.push({ emoji: BuilderBaseTroopEmotes[troop.name], level: this.formatInlineBlock(troop.level, troop.hallMaxLevel) });
+					data.push({
+						emoji: BuilderBaseTroopEmotes[troop.name],
+						level: this.formatInlineBlock(troop.level, troop.hallMaxLevel)
+					});
 				}
 				return this.formatValue(data);
 			case 'SUPER':
 				for (const troop of this.player.superTroops) {
-					data.push({ emoji: SuperTroopEmotes[troop.name], level: this.formatInlineBlock(troop.level, troop.hallMaxLevel) });
+					data.push({
+						emoji: SuperTroopEmotes[troop.name],
+						level: this.formatInlineBlock(troop.level, troop.hallMaxLevel)
+					});
 				}
 				return this.formatValue(data);
 		}

@@ -30,14 +30,20 @@ export class LinkCommand extends Subcommand {
 						command
 							.setName('clan')
 							.setDescription('Link a clan to your discord account')
-							.addStringOption((option) => option.setName('tag').setDescription('Tag of the clan').setRequired(true))
+							.addStringOption((option) =>
+								option.setName('tag').setDescription('Tag of the clan').setRequired(true)
+							)
 					)
 					.addSubcommand((command) =>
 						command
 							.setName('player')
 							.setDescription('Link a player to your discord account')
-							.addStringOption((option) => option.setName('tag').setDescription('Tag of the player').setRequired(true))
-							.addStringOption((option) => option.setName('token').setDescription('API token of the player').setRequired(true))
+							.addStringOption((option) =>
+								option.setName('tag').setDescription('Tag of the player').setRequired(true)
+							)
+							.addStringOption((option) =>
+								option.setName('token').setDescription('API token of the player').setRequired(true)
+							)
 					),
 			{ idHints: ['975266632299606106', '980131947475009556'] }
 		);

@@ -18,10 +18,18 @@ export class StartClanEmbedModal extends InteractionHandler {
 
 		const clanTag = interaction.customId.split('-').pop()!;
 		const requirements = {
-			'14': this.validateRequirement(interaction.fields.getTextInputValue(ModalInputCustomIds.FourteenRequirements)),
-			'13': this.validateRequirement(interaction.fields.getTextInputValue(ModalInputCustomIds.ThirteenRequirements)),
-			'12': this.validateRequirement(interaction.fields.getTextInputValue(ModalInputCustomIds.TwelveRequirements)),
-			'11': this.validateRequirement(interaction.fields.getTextInputValue(ModalInputCustomIds.ElevenRequirements)),
+			'14': this.validateRequirement(
+				interaction.fields.getTextInputValue(ModalInputCustomIds.FourteenRequirements)
+			),
+			'13': this.validateRequirement(
+				interaction.fields.getTextInputValue(ModalInputCustomIds.ThirteenRequirements)
+			),
+			'12': this.validateRequirement(
+				interaction.fields.getTextInputValue(ModalInputCustomIds.TwelveRequirements)
+			),
+			'11': this.validateRequirement(
+				interaction.fields.getTextInputValue(ModalInputCustomIds.ElevenRequirements)
+			),
 			'10': this.validateRequirement(interaction.fields.getTextInputValue(ModalInputCustomIds.TenRequirements))
 		};
 

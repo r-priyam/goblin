@@ -14,7 +14,9 @@ export function handleNoFuzzyMatch(tag: string) {
 	const formattedTag = Util.formatTag(String(tag));
 	const validateTag = Util.isValidTag(formattedTag);
 
-	return validateTag ? [{ name: formattedTag, value: formattedTag }] : [{ name: `❌ ${formattedTag || tag} isn't a valid tag ❌`, value: tag }];
+	return validateTag
+		? [{ name: formattedTag, value: formattedTag }]
+		: [{ name: `❌ ${formattedTag || tag} isn't a valid tag ❌`, value: tag }];
 }
 
 export function getFuzzyTagSuggestions(rawTag: string, matches: Fuse.FuseResult<{ name: string; tag: string }>[]) {

@@ -19,7 +19,9 @@ export class LinkApi {
 		const cachedData = await redis.get<string[]>(`links-${tagOrId}`);
 
 		if (isNullish(cachedData)) {
-			const data = await this.request<{ playerTag: string; discordId: string }[]>(`/links/${tagOrId}`, { method: 'GET' });
+			const data = await this.request<{ playerTag: string; discordId: string }[]>(`/links/${tagOrId}`, {
+				method: 'GET'
+			});
 			if (isNullishOrEmpty(data)) return null;
 
 			const tags = data.map((d) => d.playerTag);

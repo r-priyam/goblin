@@ -1,6 +1,13 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes } from '@sapphire/framework';
-import { ButtonInteraction, GuildMember, MessageActionRow, Modal, ModalActionRowComponent, TextInputComponent } from 'discord.js';
+import {
+	ButtonInteraction,
+	GuildMember,
+	MessageActionRow,
+	Modal,
+	ModalActionRowComponent,
+	TextInputComponent
+} from 'discord.js';
 import { ButtonCustomIds, ModalCustomIds, ModalInputCustomIds } from '#utils/constants';
 import { automationMemberCheck } from '#utils/functions/automationMemberCheck';
 
@@ -37,7 +44,9 @@ export class ButtonHandler extends InteractionHandler {
 				new MessageActionRow<ModalActionRowComponent>().addComponents(
 					this.requirementsModelInput(11, ModalInputCustomIds.ElevenRequirements)
 				),
-				new MessageActionRow<ModalActionRowComponent>().addComponents(this.requirementsModelInput(10, ModalInputCustomIds.TenRequirements))
+				new MessageActionRow<ModalActionRowComponent>().addComponents(
+					this.requirementsModelInput(10, ModalInputCustomIds.TenRequirements)
+				)
 			);
 	}
 
