@@ -20,7 +20,7 @@ export class ButtonHandler extends InteractionHandler {
 		automationMemberCheck(
 			interaction.guildId!,
 			interaction.member as GuildMember,
-			interaction.guildId === envParseString('EYG_GUILD')
+			interaction.guildId !== envParseString('EYG_GUILD')
 		);
 		return interaction.showModal(result.modal);
 	}

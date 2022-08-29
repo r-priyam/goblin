@@ -28,8 +28,8 @@ export const enum Colors {
 
 export const enum Emotes {
 	Typing = '<a:typing:597589448607399949>',
-	Success = '<:success:959344194785271809>',
-	Error = '<:error:959359264533643274>'
+	Success = '<:Success:1013836120397709432>',
+	Error = '<:Error:1013836216174657576>'
 }
 
 export const enum ModalCustomIds {
