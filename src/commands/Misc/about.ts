@@ -13,7 +13,7 @@ import { seconds } from '#utils/functions/time';
 })
 export class AboutCommand extends Command {
 	readonly #descriptionContent = [
-		`I am a cute goblin created by ${userMention('292332992251297794')} to steal resources from around.`,
+		`Check I am a cute goblin created by ${userMention('292332992251297794')} to steal resources from around.`,
 		'If you have any suggestion/feedback for me then please send a DM to my creator 💙',
 		"I am a private bot but if you want me then again feel free to contact my creator, she's kind enough to get you the invite link of mine. Do I do something? I don't think so but yeah your choice",
 		`This bot uses the ${hyperlink(
