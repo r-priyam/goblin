@@ -10,7 +10,6 @@ jobs:
   deploy:
     name: Deploy bot image
     runs-on: ubuntu-latest
-    if: "contains(github.event.head_commit.message, '[deploy]')"
     steps:
     - name: Log In
       uses: appleboy/ssh-action@dce9d565de8d876c11d93fa4fe677c0285a66d78
