@@ -20,7 +20,7 @@ export function automationMemberCheck(guildId: string, member: GuildMember, chec
 		if (!checkPermission) {
 			throw new UserError({
 				identifier: 'user-not-allowed',
-				message: `You are not missing ${bold(inlineCode('Manage Server'))} permission to perform this action`
+				message: `You are missing ${inlineCode(bold('Manage Server'))} permission to perform this action`
 			});
 		}
 	}
