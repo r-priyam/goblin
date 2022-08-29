@@ -32,7 +32,7 @@ export class StopCommand extends Command {
 							.setRequired(true)
 					)
 					.setDMPermission(false)
-					.setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
+					.setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages),
 			{ idHints: ['1010535535468630166', '1013039773142745139'] }
 		);
 	}

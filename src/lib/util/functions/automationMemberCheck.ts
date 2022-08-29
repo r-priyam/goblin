@@ -5,7 +5,7 @@ import { bold } from 'colorette';
 import { PermissionFlagsBits } from 'discord-api-types/v9';
 import { GuildMember } from 'discord.js';
 
-export function automationMemberCheck(guildId: string, member: GuildMember, checkManageGuild = false) {
+export function automationMemberCheck(guildId: string, member: GuildMember, checkManageMessage = false) {
 	if (guildId === envParseString('EYG_GUILD') && !envParseArray('OWNERS').includes(member.id)) {
 		throw new UserError({
 			identifier: 'user-not-allowed',
@@ -15,12 +15,12 @@ export function automationMemberCheck(guildId: string, member: GuildMember, chec
 		});
 	}
 
-	if (checkManageGuild) {
+	if (checkManageMessage) {
 		const checkPermission = member.permissions.has(PermissionFlagsBits.ManageGuild);
 		if (!checkPermission) {
 			throw new UserError({
 				identifier: 'user-not-allowed',
-				message: `You are missing ${inlineCode(bold('Manage Server'))} permission to perform this action`
+				message: `You are missing ${inlineCode(bold('Manage Message'))} permission to run this command`
 			});
 		}
 	}

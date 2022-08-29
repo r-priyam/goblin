@@ -31,7 +31,7 @@ export class StartCommand extends Command {
 							.setRequired(true)
 					)
 					.setDMPermission(false)
-					.setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
+					.setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages),
 			{ idHints: ['1010855609043787796', '1013039770429034547'] }
 		);
 	}

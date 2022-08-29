@@ -1,5 +1,6 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes } from '@sapphire/framework';
+import { envParseString } from '@skyra/env-utilities';
 import {
 	ButtonInteraction,
 	GuildMember,
@@ -16,7 +17,11 @@ import { automationMemberCheck } from '#utils/functions/automationMemberCheck';
 })
 export class ButtonHandler extends InteractionHandler {
 	public override async run(interaction: ButtonInteraction, result: InteractionHandler.ParseResult<this>) {
-		automationMemberCheck(interaction.guildId!, interaction.member as GuildMember, true);
+		automationMemberCheck(
+			interaction.guildId!,
+			interaction.member as GuildMember,
+			interaction.guildId === envParseString('EYG_GUILD')
+		);
 		return interaction.showModal(result.modal);
 	}
 
