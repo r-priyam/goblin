@@ -1,5 +1,7 @@
 import '#lib/setup';
 
+import { exit } from 'node:process';
+
 import { GoblinClient } from '#lib/extensions/GoblinClient';
 import { logSuccess } from '#utils/functions/logging';
 
@@ -10,7 +12,6 @@ try {
 	client.logger.info(logSuccess('CORE', 'Logged In'));
 } catch (error) {
 	client.logger.error(error);
-	void client.destroy();
-	// eslint-disable-next-line unicorn/no-process-exit
-	process.exit(1);
+	client.destroy();
+	exit(1);
 }
