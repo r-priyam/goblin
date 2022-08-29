@@ -21,4 +21,4 @@ jobs:
         script: |
           cd goblin
           git pull
-          node scripts/syncDocker.mjs
+          yarn sync-docker

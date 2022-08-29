@@ -20,7 +20,8 @@
 		"release:test": "cliff-jumper --dry-run",
 		"start": "node --enable-source-maps dist/goblin.js",
 		"typecheck": "tsc -b src",
-		"watch": "tsup --watch"
+		"watch": "tsup --watch",
+		"sync-docker": "node scripts/syncDocker.mjs"
 	},
 	"resolutions": {
 		"minimist": "^1.2.6"
