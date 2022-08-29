@@ -21,7 +21,4 @@ jobs:
         script: |
           cd goblin
           git pull
-          cd .docker
-          docker-compose stop bot
-          docker-compose pull bot
-          docker-compose up bot
+          node scripts/syncDocker.mjs
