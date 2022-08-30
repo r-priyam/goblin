@@ -9,7 +9,7 @@ services:
       - POSTGRES_PASSWORD=goblin
       - POSTGRES_DB=goblin
     ports:
-    - '5433:5433'
+    - '5454:5432'
     restart: always
     logging:
       options:
