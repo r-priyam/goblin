@@ -4,15 +4,15 @@ import { RequestOptions } from 'clashofclans.js';
 import { redis } from '#utils/redis';
 
 export class LinkApi {
-	#username: string;
-	#password: string;
-	#url = 'https://cocdiscord.link';
-	#key: string | null = null;
-	#expiry: number | null = null;
+	private readonly userName: string;
+	private readonly password: string;
+	private readonly url = 'https://cocdiscord.link';
+	private apiKey: string | null = null;
+	private expiry: number | null = null;
 
 	public constructor(username: string, password: string) {
-		this.#username = username;
-		this.#password = password;
+		this.userName = username;
+		this.password = password;
 	}
 
 	public async getLinks(tagOrId: string) {
@@ -34,14 +34,14 @@ export class LinkApi {
 	}
 
 	private async request<T>(path: string, options: RequestOptions = {}): Promise<T> {
-		if (this.#expiry && !(this.#expiry < Date.now())) {
+		if (this.expiry && !(this.expiry < Date.now())) {
 			await this.getKey();
 		}
 
-		const response = await fetch(`${this.#url}${path}`, {
+		const response = await fetch(`${this.url}${path}`, {
 			method: options.method,
 			body: options.body,
-			headers: { 'Authorization': `Bearer ${this.#key}`, 'Content-Type': 'application/json' }
+			headers: { 'Authorization': `Bearer ${this.apiKey}`, 'Content-Type': 'application/json' }
 		}).catch(() => null);
 
 		const data = await response?.json().catch(() => null);
@@ -57,14 +57,14 @@ export class LinkApi {
 	private async getKey() {
 		const payload = await this.request<{ token: string }>('/login', {
 			method: 'POST',
-			body: JSON.stringify({ username: this.#username, password: this.#password })
+			body: JSON.stringify({ username: this.userName, password: this.password })
 		});
 
-		this.#key = payload.token;
+		this.apiKey = payload.token;
 		this.parseJwt();
 	}
 
 	private parseJwt() {
-		this.#expiry = JSON.parse(Buffer.from(this.#key!.split('.')[1], 'base64').toString()).exp;
+		this.expiry = JSON.parse(Buffer.from(this.apiKey!.split('.')[1], 'base64').toString()).exp;
 	}
 }
