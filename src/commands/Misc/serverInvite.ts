@@ -19,6 +19,6 @@ export class ServerInvite extends Command {
 	}
 
 	public override async chatInputRun(interaction: ChatInputCommand.Interaction<'cached'>) {
-		return interaction.reply({ content: 'http://discord.me/eygcommunity' });
+		return interaction.reply({ content: 'https://discord.me/eygcommunity' });
 	}
 }
