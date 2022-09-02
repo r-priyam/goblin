@@ -114,7 +114,7 @@ export class AliasCommand extends Subcommand {
 
 		if (!Util.isValidTag(tag)) return interaction.editReply({ content: 'No clan found for the provided tag!' });
 
-		const [result] = await this.sql<[{ clanName?: string; alias?: string }]>`DELETE
+		const [result] = await this.sql<[{ alias?: string; clanName?: string }]>`DELETE
                                                                                  FROM aliases
                                                                                  WHERE clan_tag = ${tag}
                                                                                  RETURNING clan_name, alias`;

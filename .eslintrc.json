@@ -1,21 +1,13 @@
 {
-	"extends": ["@sapphire", "plugin:unicorn/all"],
-	"plugins": ["prettier", "import"],
+	"root": true,
+	"parserOptions": {
+		"project": "./tsconfig.eslint.json"
+	},
+	"ignorePatterns": ["./dist/*"],
+	"extends": ["neon/common", "neon/node", "neon/typescript", "neon/prettier"],
 	"rules": {
-		"import/order": [
-			"error",
-			{
-				"groups": ["builtin", "external", "internal", "index", "sibling", "parent"],
-				"alphabetize": {
-					"order": "asc",
-					"caseInsensitive": true
-				}
-			}
-		],
 		"new-cap": "off",
-		"import/first": "error",
-		"import/no-duplicates": "error",
-		"import/newline-after-import": "error",
+		"import/extensions": "off",
 		"unicorn/no-unsafe-regex": "error",
 		"unicorn/prefer-at": "error",
 		"unicorn/prefer-top-level-await": "error",
@@ -30,5 +22,8 @@
 		"@typescript-eslint/consistent-type-imports": "off",
 		"@typescript-eslint/no-unnecessary-condition": "off",
 		"@typescript-eslint/no-unnecessary-type-assertion": "off"
+	},
+	"env": {
+		"jest": true
 	}
 }

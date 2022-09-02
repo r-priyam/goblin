@@ -12,7 +12,8 @@ export const UnidentifiedErrorMessage = `UH OH! Looks like something went wrong 
 
 /**
  * Formats an error path line.
- * @param error The error to format.
+ *
+ * @param error - The error to format.
  */
 export function getPathLine(error: DiscordAPIError | HTTPError): string {
 	return `**Path**: ${error.method.toUpperCase()} ${error.path}`;
@@ -20,7 +21,8 @@ export function getPathLine(error: DiscordAPIError | HTTPError): string {
 
 /**
  * Formats an error code line.
- * @param error The error to format.
+ *
+ * @param error - The error to format.
  */
 export function getCodeLine(error: DiscordAPIError | HTTPError): string {
 	return `**Code**: ${error.code}`;
@@ -28,18 +30,19 @@ export function getCodeLine(error: DiscordAPIError | HTTPError): string {
 
 /**
  * Formats an error codeblock.
- * @param error The error to format.
+ *
+ * @param error - The error to format.
  */
 export function getErrorLine(error: Error): string {
-	return `**Error**: ${codeBlock('js', error.stack || error)}`;
+	return `**Error**: ${codeBlock('js', error.stack ?? error)}`;
 }
 
 export async function handleUserError(interaction: Interaction, error: UserError) {
 	if (Reflect.get(Object(error.context), 'silent')) return;
 
 	if (interaction.isCommand())
-		return sendCommandErrorToUser(interaction, errorEmbedUser(error.message ?? UnidentifiedErrorMessage));
-	return sendErrorToUser(interaction, errorEmbedUser(error.message ?? UnidentifiedErrorMessage));
+		await sendCommandErrorToUser(interaction, errorEmbedUser(error.message ?? UnidentifiedErrorMessage));
+	await sendErrorToUser(interaction, errorEmbedUser(error.message ?? UnidentifiedErrorMessage));
 }
 
 export async function sendCommandErrorToUser(interaction: CommandInteraction, embed: MessageEmbed) {
@@ -54,10 +57,10 @@ export async function sendErrorToUser(interaction: Interaction, embed: MessageEm
 	if (!interaction.isSelectMenu() && !interaction.isButton() && !interaction.isModalSubmit()) return;
 
 	if (interaction.replied || interaction.deferred) {
-		return interaction.editReply({ embeds: [embed] });
+		await interaction.editReply({ embeds: [embed] });
 	}
 
-	return interaction.reply({ embeds: [embed], ephemeral: true });
+	await interaction.reply({ embeds: [embed], ephemeral: true });
 }
 
 export function errorEmbedUser(message: string) {

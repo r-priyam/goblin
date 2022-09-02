@@ -1,4 +1,8 @@
+/* eslint-disable n/no-sync */
+// TODO: Look for ASCII alternative package or use raw
+
 import { readFile } from 'node:fs/promises';
+import { URL } from 'node:url';
 import { ApplyOptions } from '@sapphire/decorators';
 import { Events, Listener, Store } from '@sapphire/framework';
 import { envParseString } from '@skyra/env-utilities';

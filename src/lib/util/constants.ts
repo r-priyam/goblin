@@ -27,24 +27,24 @@ export const enum Colors {
 }
 
 export const enum Emotes {
-	Typing = '<a:typing:597589448607399949>',
+	Error = '<:Error:1013836216174657576>',
 	Success = '<:Success:1013836120397709432>',
-	Error = '<:Error:1013836216174657576>'
+	Typing = '<a:typing:597589448607399949>'
 }
 
 export const enum ModalCustomIds {
-	StartClanEmbed = 'start-clan-embed-modal',
-	ClanEmbedRequirements = 'clan-embed-requirements'
+	ClanEmbedRequirements = 'clan-embed-requirements',
+	StartClanEmbed = 'start-clan-embed-modal'
 }
 
 export const enum ModalInputCustomIds {
-	StartClanEmbedLeader = 'start-clan-embed-leader-input',
-	StartClanEmbedColor = 'start-clan-embed-color-input',
-	FourteenRequirements = 'fourteen-requirements-input',
-	ThirteenRequirements = 'thirteen-requirements-input',
-	TwelveRequirements = 'twelve-requirements-input',
 	ElevenRequirements = 'eleven-requirements-input',
-	TenRequirements = 'ten-requirements-input'
+	FourteenRequirements = 'fourteen-requirements-input',
+	StartClanEmbedColor = 'start-clan-embed-color-input',
+	StartClanEmbedLeader = 'start-clan-embed-leader-input',
+	TenRequirements = 'ten-requirements-input',
+	ThirteenRequirements = 'thirteen-requirements-input',
+	TwelveRequirements = 'twelve-requirements-input'
 }
 
 export const enum ButtonCustomIds {

@@ -12,7 +12,7 @@ export class ChatInputCommandDenied extends Listener<typeof Events.ChatInputComm
 	public override async run({ context, message }: UserError, { interaction }: ChatInputCommandDeniedPayload) {
 		if (Reflect.get(Object(context), 'silent')) return;
 
-		return interaction.reply({
+		await interaction.reply({
 			embeds: [
 				new MessageEmbed() //
 					.setTitle('Error')

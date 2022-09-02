@@ -41,8 +41,8 @@ export class SyncClanEmbedTask extends ScheduledTask {
 			})
 		);
 
-		result.unwrapOrElse(async (e) => {
-			const error = e as HTTPError;
+		result.unwrapOrElse(async (err) => {
+			const error = err as HTTPError;
 			if (
 				[
 					RESTJSONErrorCodes.MissingAccess,
@@ -74,8 +74,8 @@ export class SyncClanEmbedTask extends ScheduledTask {
 
 	private async getClan(clanTag: string, channelId: string) {
 		const clan = await Result.fromAsync(() => this.coc.getClan(clanTag));
-		return clan.unwrapOrElse((e) => {
-			if ((e as COCHttpError).status === 404) return this.stopClanEmbed(clanTag, channelId);
+		return clan.unwrapOrElse((error) => {
+			if ((error as COCHttpError).status === 404) return this.stopClanEmbed(clanTag, channelId);
 			return null;
 		});
 	}
@@ -88,11 +88,11 @@ export class SyncClanEmbedTask extends ScheduledTask {
 	}
 }
 
-interface ClanEmbedSyncData {
-	clanTag: string;
-	leaderDiscordId: string;
-	requirements: Record<string, number>;
-	color: string;
-	messageId: string;
+type ClanEmbedSyncData = {
 	channelId: string;
-}
+	clanTag: string;
+	color: string;
+	leaderDiscordId: string;
+	messageId: string;
+	requirements: Record<string, number>;
+};
