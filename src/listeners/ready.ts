@@ -1,3 +1,6 @@
+/* eslint-disable n/no-sync */
+// TODO: Look for ASCII alternative package or use raw
+
 import { readFile } from 'node:fs/promises';
 import { URL } from 'node:url';
 import { ApplyOptions } from '@sapphire/decorators';

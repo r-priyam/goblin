@@ -1,3 +1,6 @@
+/* eslint-disable consistent-return */
+// TODO: Get a better error handler
+
 import {
 	container,
 	Events,
