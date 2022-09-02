@@ -79,7 +79,7 @@ export class EvalCommand extends Command {
 	protected async eval(
 		interaction: ChatInputCommand.Interaction<'cached'>,
 		code: string,
-		{ isAsync, depth }: { depth: number | null, isAsync: boolean | null; }
+		{ isAsync, depth }: { depth: number | null; isAsync: boolean | null }
 	) {
 		let result: any;
 		let success = true;

@@ -76,8 +76,8 @@ export const redis = new RedisUtil();
 export type ClanOrPlayer = {
 	name: string;
 	tag: string;
-}
+};
 
 export type ClanAlias = ClanOrPlayer & {
 	alias: string;
-}
+};

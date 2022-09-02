@@ -104,7 +104,7 @@ export class UnitsHelper {
 
 				return this.formatValue(data);
 			default:
-				return 'Not Implemented'
+				return 'Not Implemented';
 		}
 	}
 

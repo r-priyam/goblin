@@ -80,4 +80,4 @@ type WikipediaData = {
 			totalhits: number;
 		};
 	};
-}
+};

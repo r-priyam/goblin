@@ -59,7 +59,7 @@ export class ClanHelper {
 
 	public async generateAutomationClanEmbed(
 		clan: Clan,
-		{ leaderId, requirements, color }: { color: string, leaderId: string; requirements: string; }
+		{ leaderId, requirements, color }: { color: string; leaderId: string; requirements: string }
 	) {
 		const composition = await this.getClanComposition(clan, true);
 

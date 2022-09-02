@@ -11,13 +11,13 @@ jobs:
     name: Deploy bot image
     runs-on: ubuntu-latest
     steps:
-    - name: Log In
-      uses: appleboy/ssh-action@dce9d565de8d876c11d93fa4fe677c0285a66d78
-      with:
-        host: ${{ secrets.VPS_HOST }}
-        username: ${{ secrets.VPS_USER }}
-        password: ${{ secrets.VPS_PASSWORD }}
-        script_stop: true
-        script: |
-          cd goblin
-          npm run sync-docker
+      - name: Log In
+        uses: appleboy/ssh-action@dce9d565de8d876c11d93fa4fe677c0285a66d78
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          password: ${{ secrets.VPS_PASSWORD }}
+          script_stop: true
+          script: |
+            cd goblin
+            npm run sync-docker

@@ -3,7 +3,7 @@ import { ScheduledTask } from '@sapphire/plugin-scheduled-tasks';
 import { Util } from 'clashofclans.js';
 
 export class SyncPlayerLinkTask extends ScheduledTask {
-	public async run({ userId, tags }: { tags: string[], userId: string; }) {
+	public async run({ userId, tags }: { tags: string[]; userId: string }) {
 		const players = await Util.allSettled(tags.map((tag) => this.coc.getPlayer(tag))).then((data) => {
 			const insertData = [];
 			for (const player of data) {

@@ -95,4 +95,4 @@ type ClanEmbedSyncData = {
 	leaderDiscordId: string;
 	messageId: string;
 	requirements: Record<string, number>;
-}
+};
