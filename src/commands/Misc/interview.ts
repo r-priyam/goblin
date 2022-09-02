@@ -143,7 +143,7 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 		}
 
 		const reportingChannel = (await this.client.channels.fetch(
-			envParseString('EYG_REPORTING_CHANNEL')
+			envParseString('EYG_INTERVIEW_REPORTING_CHANNEL')
 		)) as TextChannel;
 
 		const successData = {
