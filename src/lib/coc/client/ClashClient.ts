@@ -9,7 +9,9 @@ import { PlayerHelper } from '#lib/coc/structure/PlayerHelper';
 
 export class GoblinClashClient extends Client {
 	public clanHelper: ClanHelper;
+
 	public playerHelper: PlayerHelper;
+
 	public linkApi: LinkApi;
 
 	public constructor() {

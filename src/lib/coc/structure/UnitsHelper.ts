@@ -11,13 +11,13 @@ import {
 } from '#lib/coc';
 
 export class UnitsHelper {
-	private player: Player;
+	private readonly player: Player;
 
 	public constructor(player: Player) {
 		this.player = player;
 	}
 
-	public unit(type: 'ELIXIR' | 'DARK' | 'SPELLS' | 'SIEGE' | 'HEROES' | 'PETS' | 'BUILDER' | 'SUPER') {
+	public unit(type: 'BUILDER' | 'DARK' | 'ELIXIR' | 'HEROES' | 'PETS' | 'SIEGE' | 'SPELLS' | 'SUPER') {
 		const data: { emoji: string; level: string }[] = [];
 
 		switch (type) {
@@ -30,6 +30,7 @@ export class UnitsHelper {
 						});
 					}
 				}
+
 				return this.formatValue(data);
 
 			case 'DARK':
@@ -41,6 +42,7 @@ export class UnitsHelper {
 						});
 					}
 				}
+
 				return this.formatValue(data);
 
 			case 'SPELLS':
@@ -50,6 +52,7 @@ export class UnitsHelper {
 						level: this.formatInlineBlock(spell.level, spell.hallMaxLevel)
 					});
 				}
+
 				return this.formatValue(data);
 
 			case 'SIEGE':
@@ -59,6 +62,7 @@ export class UnitsHelper {
 						level: this.formatInlineBlock(siege.level, siege.hallMaxLevel)
 					});
 				}
+
 				return this.formatValue(data);
 
 			case 'HEROES':
@@ -68,6 +72,7 @@ export class UnitsHelper {
 						level: this.formatInlineBlock(hero.level, hero.hallMaxLevel)
 					});
 				}
+
 				return this.formatValue(data);
 
 			case 'PETS':
@@ -77,6 +82,7 @@ export class UnitsHelper {
 						level: this.formatInlineBlock(pet.level, pet.hallMaxLevel)
 					});
 				}
+
 				return this.formatValue(data);
 
 			case 'BUILDER':
@@ -86,6 +92,7 @@ export class UnitsHelper {
 						level: this.formatInlineBlock(troop.level, troop.hallMaxLevel)
 					});
 				}
+
 				return this.formatValue(data);
 			case 'SUPER':
 				for (const troop of this.player.superTroops) {
@@ -94,7 +101,10 @@ export class UnitsHelper {
 						level: this.formatInlineBlock(troop.level, troop.hallMaxLevel)
 					});
 				}
+
 				return this.formatValue(data);
+			default:
+				return 'Not Implemented'
 		}
 	}
 
@@ -111,6 +121,7 @@ export class UnitsHelper {
 				}
 			}
 		}
+
 		return formattedValue;
 	}
 

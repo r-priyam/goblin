@@ -59,7 +59,7 @@ export class ClanHelper {
 
 	public async generateAutomationClanEmbed(
 		clan: Clan,
-		{ leaderId, requirements, color }: { leaderId: string; requirements: string; color: string }
+		{ leaderId, requirements, color }: { color: string, leaderId: string; requirements: string; }
 	) {
 		const composition = await this.getClanComposition(clan, true);
 
@@ -75,7 +75,7 @@ export class ClanHelper {
 				{
 					name: '\u200B',
 					value: `**Leader**
-${MiscEmotes['Leader']} ${userMention(leaderId)} ${clan.members.find((member) => member.role === 'leader')!.name}`,
+${MiscEmotes.Leader} ${userMention(leaderId)} ${clan.members.find((member) => member.role === 'leader')!.name}`,
 					inline: false
 				},
 				{

@@ -57,6 +57,7 @@ export class ClanCommand extends Command {
 				]
 			});
 		}
+
 		const infoEmbed = ClanCommand.infoEmbed(clan);
 
 		await interaction.editReply({ embeds: [infoEmbed] });
@@ -92,7 +93,7 @@ export class ClanCommand extends Command {
 				{
 					name: '\u200B',
 					value: `**Leader**
-${MiscEmotes['Leader']} ${clan.members.find((member) => member.role === 'leader')!.name}
+${MiscEmotes.Leader} ${clan.members.find((member) => member.role === 'leader')!.name}
 ${
 	clan.location
 		? `**Location**\n:${

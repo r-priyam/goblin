@@ -79,7 +79,7 @@ export class EvalCommand extends Command {
 	protected async eval(
 		interaction: ChatInputCommand.Interaction<'cached'>,
 		code: string,
-		{ isAsync, depth }: { isAsync: boolean | null; depth: number | null }
+		{ isAsync, depth }: { depth: number | null, isAsync: boolean | null; }
 	) {
 		let result: any;
 		let success = true;
@@ -88,12 +88,14 @@ export class EvalCommand extends Command {
 
 		try {
 			if (isAsync) {
+				// eslint-disable-next-line no-param-reassign
 				code = `(async () => {\n${code}\n})();`;
 			}
 
 			// @ts-expect-error use as a variable if needed in eval
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			// noinspection JSUnusedLocalSymbols
+			// eslint-disable-next-line id-length
 			const i = interaction;
 			// eslint-disable-next-line no-eval
 			result = eval(code);
@@ -111,6 +113,7 @@ export class EvalCommand extends Command {
 
 		const type = new Type(result).toString();
 		if (isThenable(result)) {
+			// eslint-disable-next-line @typescript-eslint/await-thenable
 			await result;
 		}
 

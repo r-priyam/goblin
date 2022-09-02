@@ -35,7 +35,7 @@ export class UserPrecondition extends Precondition {
 }
 
 declare module '@sapphire/framework' {
-	interface Preconditions {
+	type Preconditions = {
 		StartRequiredPermissions: never;
 	}
 }

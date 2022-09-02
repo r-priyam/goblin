@@ -202,7 +202,7 @@ export const MiscEmotes: { [key: string]: string } = {
 	'SpellDonations': '<:SpellDonations:978185026216808488>'
 };
 
-export const TownHallEmotes: { [key: string | number]: string } = {
+export const TownHallEmotes: { [key: number | string]: string } = {
 	1: '<:01:1013110155023491204>',
 	2: '<:02:1013110340336226359>',
 	3: '<:03:836304666656112650>',

@@ -5,9 +5,13 @@ import { redis } from '#utils/redis';
 
 export class LinkApi {
 	private readonly userName: string;
+
 	private readonly password: string;
+
 	private readonly url = 'https://cocdiscord.link';
+
 	private apiKey: string | null = null;
+
 	private expiry: number | null = null;
 
 	public constructor(username: string, password: string) {
@@ -19,7 +23,7 @@ export class LinkApi {
 		const cachedData = await redis.get<string[]>(`links-${tagOrId}`);
 
 		if (isNullish(cachedData)) {
-			const data = await this.request<{ playerTag: string; discordId: string }[]>(`/links/${tagOrId}`, {
+			const data = await this.request<{ discordId: string, playerTag: string; }[]>(`/links/${tagOrId}`, {
 				method: 'GET'
 			});
 			if (isNullishOrEmpty(data)) return null;

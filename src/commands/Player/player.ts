@@ -6,8 +6,8 @@ import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
 import { Achievement, Player } from 'clashofclans.js';
 import { MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
 import { GoblinPlayer, LabelEmotes, MiscEmotes, RawPosition } from '#lib/coc';
-import { Colors } from '#utils/constants';
 import { collectorFiler } from '#utils/InteractionHelpers';
+import { Colors } from '#utils/constants';
 import { ClanOrPlayer, redis } from '#utils/redis';
 import { humanizeNumber } from '#utils/utils';
 
@@ -194,6 +194,7 @@ export class PlayerCommand extends Command {
 		for (const achievement of achievements) {
 			value += `${achievement.name}\n${achievement.value}\n`;
 		}
+
 		value += `${last.name}\n${last.value}\n`;
 
 		return value;

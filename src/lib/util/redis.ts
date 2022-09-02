@@ -72,11 +72,11 @@ class RedisUtil {
 
 export const redis = new RedisUtil();
 
-export interface ClanOrPlayer {
+export type ClanOrPlayer = {
 	name: string;
 	tag: string;
 }
 
-export interface ClanAlias extends ClanOrPlayer {
+export type ClanAlias = ClanOrPlayer & {
 	alias: string;
 }

@@ -187,6 +187,7 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 			const data: { id: string } = await response.json();
 			return data.id;
 		}
+
 		throw new UserError({
 			identifier: 'http-error',
 			message: 'Something went wrong while taking the backup of interview channel, please try again!'

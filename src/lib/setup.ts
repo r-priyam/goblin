@@ -53,19 +53,21 @@ Object.defineProperties(Piece.prototype, {
 });
 
 declare module '@sapphire/pieces' {
+	// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 	interface Container {
 		coc: GoblinClashClient;
-		sql: SQL<any>;
-		redis: RedisClientType;
 		discordRest: REST;
+		redis: RedisClientType;
+		sql: SQL<any>;
 	}
+	// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 	interface Piece {
 		client: GoblinClient;
-		logger: Logger;
 		coc: GoblinClashClient;
-		sql: SQL<any>;
-		redis: RedisClientType;
-		tasks: ScheduledTaskHandler;
 		discordRest: REST;
+		logger: Logger;
+		redis: RedisClientType;
+		sql: SQL<any>;
+		tasks: ScheduledTaskHandler;
 	}
 }
