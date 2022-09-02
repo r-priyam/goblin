@@ -32,7 +32,7 @@ export class WhoIsCommand extends Command {
 
 	public override async chatInputRun(interaction: ChatInputCommand.Interaction<'cached'>) {
 		await interaction.deferReply();
-		const member = interaction.options.getMember('user') || interaction.member;
+		const member = interaction.options.getMember('user') ?? interaction.member;
 
 		const data = await this.coc.linkApi.getLinks(member.id);
 		if (isNullish(data)) {

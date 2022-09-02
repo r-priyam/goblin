@@ -80,10 +80,11 @@ export class ClanCommand extends Command {
 		let description = '';
 		description += `${MiscEmotes.HomeTrophy} **${clan.points}** ${MiscEmotes.BuilderTrophy} **${clan.versusPoints}** ${MiscEmotes.Members} **${clan.memberCount}**\n\n`;
 		description += clan.description ? `${clan.description}` : 'No description set';
-		clan.labels.length &&
-			(description += `\n\n${clan.labels
+		if (clan.labels.length) {
+			description += `\n\n${clan.labels
 				.map((label) => [`${LabelEmotes[label.name]} ${label.name}`])
-				.join('\n')}\n\n`);
+				.join('\n')}\n\n`;
+		}
 
 		return new MessageEmbed()
 			.setTitle(clan.name)

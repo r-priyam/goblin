@@ -29,7 +29,7 @@ export class UserInfoCommand extends Command {
 
 	public override async chatInputRun(interaction: ChatInputCommand.Interaction<'cached'>) {
 		await interaction.deferReply();
-		const member = interaction.options.getMember('user') || interaction.member;
+		const member = interaction.options.getMember('user') ?? interaction.member;
 
 		const embed = new MessageEmbed()
 			.setColor(member.displayColor || Colors.White)

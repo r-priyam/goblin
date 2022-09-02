@@ -111,7 +111,8 @@ export class UnitsHelper {
 	protected formatValue(value: { emoji: string; level: string }[]) {
 		let formattedValue = '';
 		if (value.length > 0) {
-			for (let [index, data] of value.entries()) {
+			for (const [index_, data] of value.entries()) {
+				let index = index_;
 				index++;
 				formattedValue += `${data.emoji} ${data.level} `;
 

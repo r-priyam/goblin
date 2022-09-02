@@ -1,5 +1,7 @@
-import '@sapphire/plugin-logger/register';
 import 'reflect-metadata';
+import '@sapphire/plugin-logger/register';
+import { process } from 'node:process';
+import { URL } from 'node:url';
 import { inspect } from 'node:util';
 import { REST } from '@discordjs/rest';
 import { container, Logger, Piece } from '@sapphire/framework';

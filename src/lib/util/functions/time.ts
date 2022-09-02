@@ -4,8 +4,8 @@ import { roundNumber } from '@sapphire/utilities';
 /**
  * Converts a number of seconds to milliseconds.
  *
- * @param seconds The amount of seconds
- * @returns The amount of milliseconds `seconds` equals to.
+ * @param seconds - The amount of seconds
+ * @returns - The amount of milliseconds `seconds` equals to.
  */
 export function seconds(seconds: number): number {
 	return seconds * Time.Second;
@@ -14,7 +14,7 @@ export function seconds(seconds: number): number {
 /**
  * Converts a number of milliseconds to seconds.
  *
- * @param milliseconds The amount of milliseconds
+ * @param milliseconds - The amount of milliseconds
  * @returns The amount of seconds `milliseconds` equals to.
  */
 seconds.fromMilliseconds = (milliseconds: number): number => {
@@ -24,7 +24,7 @@ seconds.fromMilliseconds = (milliseconds: number): number => {
 /**
  * Converts a number of minutes to milliseconds.
  *
- * @param minutes The amount of minutes
+ * @param minutes - The amount of minutes
  * @returns The amount of milliseconds `minutes` equals to.
  */
 export function minutes(minutes: number): number {
@@ -34,7 +34,7 @@ export function minutes(minutes: number): number {
 /**
  * Converts a number of minutes to seconds.
  *
- * @param value The amount of minutes
+ * @param value - The amount of minutes
  * @returns The amount of seconds `value` equals to.
  */
 minutes.toSeconds = (value: number): number => {
@@ -44,7 +44,7 @@ minutes.toSeconds = (value: number): number => {
 /**
  * Converts a number of hours to milliseconds.
  *
- * @param hours The amount of hours
+ * @param hours - The amount of hours
  * @returns The amount of milliseconds `hours` equals to.
  */
 export function hours(hours: number): number {
@@ -54,7 +54,7 @@ export function hours(hours: number): number {
 /**
  * Converts a number of days to milliseconds.
  *
- * @param days The amount of days
+ * @param days - The amount of days
  * @returns The amount of milliseconds `days` equals to.
  */
 export function days(days: number): number {
@@ -64,7 +64,7 @@ export function days(days: number): number {
 /**
  * Converts a number of months to milliseconds.
  *
- * @param months The amount of months
+ * @param months - The amount of months
  * @returns The amount of milliseconds `months` equals to.
  */
 export function months(months: number): number {
@@ -74,7 +74,7 @@ export function months(months: number): number {
 /**
  * Converts a number of years to milliseconds.
  *
- * @param years The amount of years
+ * @param years - The amount of years
  * @returns The amount of milliseconds `years` equals to.
  */
 export function years(years: number): number {

@@ -31,10 +31,8 @@ export function getFuzzyTagSuggestions(rawTag: string, matches: Fuse.FuseResult<
 		.slice(0, 14);
 
 	// TODO: there's a possible bug here to skip the suggestions for clan name
-	if (validateTag && result[0].value === Util.formatTag(String(rawTag))) {
-		return result;
-	}
+	if (validateTag && result[0].value === Util.formatTag(String(rawTag))) return result;
 
-	validateTag && result.unshift({ name: formattedTag, value: formattedTag });
+	if (validateTag) result.unshift({ name: formattedTag, value: formattedTag });
 	return result;
 }

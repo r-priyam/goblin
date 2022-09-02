@@ -1,5 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { cpus, uptime, type CpuInfo } from 'node:os';
+import process from 'node:process';
+import { URL } from 'node:url';
 import { hideLinkEmbed, hyperlink, time, TimestampStyles, userMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { Command, version as sapphireVersion, type ChatInputCommand } from '@sapphire/framework';

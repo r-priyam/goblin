@@ -27,7 +27,6 @@ export class SQLCommand extends Command {
 		);
 	}
 
-	// @ts-expect-error I know what I am doing
 	public override async chatInputRun(interaction: ChatInputCommand.Interaction<'cached'>) {
 		await interaction.deferReply();
 
@@ -58,14 +57,14 @@ export class SQLCommand extends Command {
 
 		while (rows.length > 0) {
 			const toSend = markdownTable([columns, ...rows.splice(0, 12)]);
-			await interaction.followUp(
-				rows.length === 0
-					? `${codeBlock('ts', toSend)}\nReturned \`${result.length}\` rows. Executed in: \`${inlineCodeBlock(
-							executionTime
-					  )}\``
-					: `${codeBlock('ts', toSend)}`
-			);
+			await interaction.followUp(`${codeBlock('ts', toSend)}`);
 		}
+
+		return interaction.followUp({
+			content: `${codeBlock('ts', toSend)}\nReturned \`${result.length}\` rows. Executed in: \`${inlineCodeBlock(
+				executionTime
+			)}\``
+		});
 	}
 
 	private async runSql(query: string) {

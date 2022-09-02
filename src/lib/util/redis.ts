@@ -6,7 +6,8 @@ class RedisUtil {
 		let success = true;
 
 		try {
-			ttl === 0 ? await container.redis.set(key, value) : await container.redis.set(key, value, { EX: ttl });
+			if (!ttl) await container.redis.set(key, value);
+			await container.redis.set(key, value, { EX: ttl });
 		} catch {
 			success = false;
 		}
@@ -41,7 +42,7 @@ class RedisUtil {
 			return this.set(`${initial}-${userId}`, JSON.stringify(cachedData));
 		}
 
-		if (isNullish(cachedData)) return;
+		if (isNullish(cachedData)) return false;
 
 		const updated = cachedData.filter((data) => data.tag === tag);
 
@@ -61,7 +62,7 @@ class RedisUtil {
 			return this.set('clan-aliases', JSON.stringify(cachedAlias));
 		}
 
-		if (isNullish(cachedAlias)) return;
+		if (isNullish(cachedAlias)) return false;
 
 		const updated = cachedAlias.filter((data) => data.tag === tag);
 
