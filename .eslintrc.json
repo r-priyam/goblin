@@ -22,5 +22,8 @@
 		"@typescript-eslint/consistent-type-imports": "off",
 		"@typescript-eslint/no-unnecessary-condition": "off",
 		"@typescript-eslint/no-unnecessary-type-assertion": "off"
+	},
+	"env": {
+		"jest": true
 	}
 }
