@@ -101,7 +101,7 @@ export class WhoIsCommand extends Command {
 
 		const paginator = new PaginatedMessage({ template: new MessageEmbed().setColor(Colors.Indigo) });
 		paginator.addPageEmbed(firstPage);
-		pages.map((page) => paginator.addPageEmbed(page));
+		pages.forEach((page) => paginator.addPageEmbed(page));
 		return paginator.run(interaction);
 	}
 }
