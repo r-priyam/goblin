@@ -39,7 +39,7 @@ export class LinkApi {
 	}
 
 	private async request<T>(path: string, options: RequestOptions = {}): Promise<T> {
-		if (this.expiry && !(this.expiry < Date.now())) {
+		if (this.expiry && this.expiry >= Date.now()) {
 			await this.getKey();
 		}
 
