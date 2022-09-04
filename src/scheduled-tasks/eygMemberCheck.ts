@@ -5,7 +5,12 @@ import { envParseString } from '@skyra/env-utilities';
 import { Constants, MessageEmbed, TextChannel } from 'discord.js';
 import { Colors } from '#utils/constants';
 
-@ApplyOptions<ScheduledTask.Options>({ cron: '*/01 * * * *' })
+@ApplyOptions<ScheduledTask.Options>({
+	cron: '*/01 * * * *',
+	bullJobsOptions: {
+		removeOnComplete: true
+	}
+})
 export class EygMemberCheck extends ScheduledTask {
 	public override async run() {
 		if (this.container.client.ws.status !== Constants.Status.READY) return;

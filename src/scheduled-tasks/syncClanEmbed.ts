@@ -8,7 +8,10 @@ import { BlueNumberEmotes, TownHallEmotes } from '#lib/coc';
 import { logInfo } from '#utils/functions/logging';
 
 @ApplyOptions<ScheduledTask.Options>({
-	cron: '00 */2 * * *'
+	cron: '00 */2 * * *',
+	bullJobsOptions: {
+		removeOnComplete: true
+	}
 })
 export class SyncClanEmbedTask extends ScheduledTask {
 	public override async run() {
