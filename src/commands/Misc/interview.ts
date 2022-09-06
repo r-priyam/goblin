@@ -4,7 +4,8 @@ import { ChatInputCommand, UserError } from '@sapphire/framework';
 import { Subcommand } from '@sapphire/plugin-subcommands';
 import { envParseString } from '@skyra/env-utilities';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
-import { GuildMember, MessageEmbed, TextChannel } from 'discord.js';
+import { CommandInteraction, MessageEmbed, TextChannel } from 'discord.js';
+import { EygInterviewCheck } from '#lib/decorators/EygInterviewCheck';
 import { Colors } from '#utils/constants';
 
 @ApplyOptions<Subcommand.Options>({
@@ -66,9 +67,9 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 		);
 	}
 
-	public async startInterview(interaction: ChatInputCommand.Interaction<'cached'>) {
+	@EygInterviewCheck()
+	public async startInterview(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply();
-		this.canPerformInterviewOperations(interaction.member);
 
 		const member = interaction.options.getMember('user', true);
 		const allowedPermissions = [
@@ -114,9 +115,9 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 		});
 	}
 
-	public async closeInterview(interaction: ChatInputCommand.Interaction<'cached'>) {
+	@EygInterviewCheck()
+	public async closeInterview(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply();
-		this.canPerformInterviewOperations(interaction.member);
 
 		const reason = interaction.options.getString('reason', true);
 		const { channel, member } = interaction;
@@ -159,14 +160,6 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 		return reportingChannel.send(successData);
 	}
 
-	private canPerformInterviewOperations(member: GuildMember) {
-		if (
-			!member.roles.cache.hasAny(envParseString('EYG_RECRUIT_ROLE_ID'), envParseString('EYG_ADMINISTRATOR_ROLE'))
-		) {
-			throw new UserError({ identifier: 'user-not-allowed', message: "You aren't allowed to use this command" });
-		}
-	}
-
 	private async createInterviewGist(fileName: string, content: string) {
 		const body = { public: false, files: {} };
 		Object.assign(body.files, { [`${fileName}.txt`]: { content } });
@@ -181,8 +174,6 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 			body: JSON.stringify(body)
 		});
 
-		// TODO: Create task here to handle the rate limit. I doubt it
-		// will occur here but if in case it does...
 		if (response.status >= 200 || response.status < 300) {
 			const data: { id: string } = await response.json();
 			return data.id;
