@@ -35,21 +35,23 @@ export class UserInfoCommand extends Command {
 			.setColor(member.displayColor || Colors.White)
 			.setThumbnail(member.displayAvatarURL({ size: 256, format: 'png', dynamic: true }))
 			.setTitle(member.user.tag)
-			.addField(
-				'Joined',
-				`${time(member.joinedAt!, TimestampStyles.LongDateTime)} ${time(
-					member.joinedAt!,
-					TimestampStyles.RelativeTime
-				)}`,
-				false
-			)
-			.addField(
-				'Created',
-				`${time(member.user.createdAt!, TimestampStyles.LongDateTime)} ${time(
-					member.user.createdAt!,
-					TimestampStyles.RelativeTime
-				)}`,
-				false
+			.addFields(
+				{
+					name: 'Joined',
+					value: `${time(member.joinedAt!, TimestampStyles.LongDateTime)} ${time(
+						member.joinedAt!,
+						TimestampStyles.RelativeTime
+					)}`,
+					inline: false
+				},
+				{
+					name: 'Created',
+					value: `${time(member.user.createdAt!, TimestampStyles.LongDateTime)} ${time(
+						member.user.createdAt!,
+						TimestampStyles.RelativeTime
+					)}`,
+					inline: false
+				}
 			)
 			.setFooter({
 				text: `ID: ${member.id}`,
@@ -70,7 +72,11 @@ export class UserInfoCommand extends Command {
 		roles.delete(guildId);
 
 		const value = [...roles.values()].join(' ');
-		embed.addField('Roles', `${value.length > 1024 ? `${value.slice(1, 1020)}...` : value}`, false);
+		embed.addFields({
+			name: 'Roles',
+			value: `${value.length > 1024 ? `${value.slice(1, 1020)}...` : value}`,
+			inline: false
+		});
 	}
 
 	private static avatarUrlButton(member: GuildMember) {

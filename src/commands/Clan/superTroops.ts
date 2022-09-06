@@ -85,13 +85,13 @@ export class SuperTroopsCommand extends Command {
 				return superTroopsEmbed;
 			}
 
-			superTroopsEmbed.addField(filterTroop, data.join('\n'), false);
+			superTroopsEmbed.addFields({ name: filterTroop, value: data.join('\n'), inline: false });
 			return superTroopsEmbed;
 		}
 
 		for (const [troop, data] of Object.entries(superTroops)) {
 			if (isNullishOrEmpty(data)) continue;
-			superTroopsEmbed.addField(troop, data.join('\n'), false);
+			superTroopsEmbed.addFields({ name: troop, value: data.join('\n'), inline: false });
 		}
 
 		if (superTroopsEmbed.fields.length === 0)

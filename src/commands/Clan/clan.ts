@@ -68,7 +68,7 @@ export class ClanCommand extends Command {
 		const composition = await this.coc.clanHelper.getClanComposition(clan, true);
 		// remove placeholder field for composition fetch
 		embed.spliceFields(2, 1);
-		embed.addField('\u200B', composition as string, false);
+		embed.addFields({ name: '\u200B', value: composition as string, inline: false });
 		return interaction.editReply({ embeds: [embed] });
 	}
 

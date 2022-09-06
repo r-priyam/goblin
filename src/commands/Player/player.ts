@@ -74,7 +74,7 @@ export class PlayerCommand extends Command {
 
 	public static unitsEmbed(player: GoblinPlayer, filterFields = ['']) {
 		const { units } = player;
-		const fields = [
+		const possibleFields = [
 			{ name: 'Elixir Troops', value: units.unit('ELIXIR') },
 			{ name: 'Dark Troops', value: units.unit('DARK') },
 			{ name: 'Spells', value: units.unit('SPELLS') },
@@ -89,12 +89,9 @@ export class PlayerCommand extends Command {
 			.setTitle(`Units for ${player.name}`)
 			.setColor(Colors.Indigo);
 
-		for (const field of fields) {
-			if (filterFields.includes(field.name) || isNullishOrEmpty(field.value)) {
-				continue;
-			}
-
-			embed.addField(field.name, field.value, false);
+		for (const field of possibleFields) {
+			if (filterFields.includes(field.name) || isNullishOrEmpty(field.value)) continue;
+			embed.addFields({ name: field.name, value: field.value, inline: false });
 		}
 
 		return embed;
@@ -143,8 +140,10 @@ export class PlayerCommand extends Command {
 			.setTitle(player.name)
 			.setURL(player.shareLink)
 			.setDescription(description)
-			.addField('\u200B', seasonStats, false)
-			.addField('\u200B', PlayerCommand.getAchievementsValue(player.achievements), false)
+			.addFields(
+				{ name: '\u200B', value: seasonStats, inline: false },
+				{ name: '\u200B', value: PlayerCommand.getAchievementsValue(player.achievements), inline: false }
+			)
 			.setThumbnail(townHallThumbnail)
 			.setFooter({ text: player.league.name, iconURL: player.league.icon.url })
 			.setColor(Colors.Indigo);

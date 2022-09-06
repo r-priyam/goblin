@@ -69,8 +69,10 @@ export class EvalCommand extends Command {
 
 		embed
 			.setTitle(success ? 'Eval Result ✨' : 'Eval Error 💀')
-			.addField('Type 📝', codeBlock('ts', type), true)
-			.addField('Elapsed ⏱', elapsed, true);
+			.addFields(
+				{ name: 'Type 📝', value: codeBlock('ts', type), inline: true },
+				{ name: 'Elapsed ⏱', value: elapsed, inline: true }
+			);
 
 		const files = embedLimitReached ? [{ attachment: Buffer.from(output), name: 'output.txt' }] : [];
 		await interaction.editReply({ embeds: [embed], files });
@@ -93,8 +95,6 @@ export class EvalCommand extends Command {
 			}
 
 			// @ts-expect-error use as a variable if needed in eval
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			// noinspection JSUnusedLocalSymbols
 			// eslint-disable-next-line id-length
 			const i = interaction;
 			// eslint-disable-next-line no-eval

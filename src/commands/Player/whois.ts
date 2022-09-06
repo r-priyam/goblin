@@ -77,13 +77,13 @@ export class WhoIsCommand extends Command {
 				shareLink,
 				townHallWeaponLevel
 			} = player;
-			firstPage.addField(
-				`<:dot:958824443445116960> ${TownHallEmotes[townHallLevel]} ${name} (${tag})`,
-				`${MiscEmotes.Clan} ${clan ? `${clan.name} (${RawPosition[role!]})` : 'Not in a clan'}\n${units.unit(
-					'HEROES'
-				)}`,
-				false
-			);
+			firstPage.addFields({
+				name: `<:dot:958824443445116960> ${TownHallEmotes[townHallLevel]} ${name} (${tag})`,
+				value: `${MiscEmotes.Clan} ${
+					clan ? `${clan.name} (${RawPosition[role!]})` : 'Not in a clan'
+				}\n${units.unit('HEROES')}`,
+				inline: false
+			});
 
 			const infoEmbed = PlayerCommand.unitsEmbed(player, ['Builder Troops', 'Heroes'])
 				.setTitle(`${name} (${tag})`)
