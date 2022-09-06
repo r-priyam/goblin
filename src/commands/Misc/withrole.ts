@@ -3,7 +3,7 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { ChatInputCommand, Command } from '@sapphire/framework';
 import { inlineCodeBlock } from '@sapphire/utilities';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
-import { MessageEmbed } from 'discord.js';
+import { CommandInteraction, MessageEmbed } from 'discord.js';
 import { Colors } from '#root/lib/util/constants';
 
 @ApplyOptions<ChatInputCommand.Options>({
@@ -28,7 +28,7 @@ export class WithRole extends Command {
 		);
 	}
 
-	public override async chatInputRun(interaction: ChatInputCommand.Interaction<'cached'>) {
+	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply();
 		const role = interaction.options.getRole('role', true);
 

@@ -3,7 +3,7 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { SnowflakeRegex } from '@sapphire/discord.js-utilities';
 import { ChatInputCommand, Command } from '@sapphire/framework';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
-import { DiscordAPIError, MessageEmbed, User } from 'discord.js';
+import { CommandInteraction, DiscordAPIError, MessageEmbed, User } from 'discord.js';
 import { Colors } from '#utils/constants';
 
 @ApplyOptions<ChatInputCommand.Options>({
@@ -28,7 +28,7 @@ export class HackBan extends Command {
 		);
 	}
 
-	public override async chatInputRun(interaction: ChatInputCommand.Interaction<'cached'>) {
+	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply();
 		const userId = interaction.options.getString('id', true);
 

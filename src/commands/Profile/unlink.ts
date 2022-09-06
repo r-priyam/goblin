@@ -1,7 +1,7 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { ChatInputCommand, Command } from '@sapphire/framework';
 import { Util } from 'clashofclans.js';
-import { MessageEmbed } from 'discord.js';
+import { CommandInteraction, MessageEmbed } from 'discord.js';
 import { Colors } from '#utils/constants';
 import { redis } from '#utils/redis';
 
@@ -33,14 +33,14 @@ export class SlashCommand extends Command {
 		);
 	}
 
-	public override async chatInputRun(interaction: ChatInputCommand.Interaction<'cached'>) {
+	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply({ ephemeral: true });
 
 		const type = interaction.options.getString('choice', true);
 		return type === 'clan' ? this.removeClan(interaction) : this.removePlayer(interaction);
 	}
 
-	private async removeClan(interaction: ChatInputCommand.Interaction<'cached'>) {
+	private async removeClan(interaction: CommandInteraction<'cached'>) {
 		const tag = Util.formatTag(interaction.options.getString('tag', true));
 
 		if (!Util.isValidTag(tag)) {
@@ -68,7 +68,7 @@ export class SlashCommand extends Command {
 		});
 	}
 
-	private async removePlayer(interaction: ChatInputCommand.Interaction<'cached'>) {
+	private async removePlayer(interaction: CommandInteraction<'cached'>) {
 		const tag = Util.formatTag(interaction.options.getString('tag', true));
 
 		if (!Util.isValidTag(tag)) {

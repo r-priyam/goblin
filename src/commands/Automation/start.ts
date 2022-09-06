@@ -2,7 +2,7 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { ChatInputCommand, Command, UserError } from '@sapphire/framework';
 import { Util } from 'clashofclans.js';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
-import { MessageActionRow, Modal, ModalActionRowComponent, TextInputComponent } from 'discord.js';
+import { CommandInteraction, MessageActionRow, Modal, ModalActionRowComponent, TextInputComponent } from 'discord.js';
 import { ModalCustomIds, ModalInputCustomIds } from '#utils/constants';
 import { automationMemberCheck } from '#utils/functions/automationMemberCheck';
 
@@ -36,14 +36,14 @@ export class StartCommand extends Command {
 		);
 	}
 
-	public override async chatInputRun(interaction: ChatInputCommand.Interaction<'cached'>) {
+	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
 		automationMemberCheck(interaction.guildId, interaction.member);
 
 		const startType = interaction.options.getString('type', true) as 'clanEmbed';
 		return this[startType](interaction);
 	}
 
-	private async clanEmbed(interaction: ChatInputCommand.Interaction<'cached'>) {
+	private async clanEmbed(interaction: CommandInteraction<'cached'>) {
 		const clanTag = interaction.options.getString('tag', true);
 		if (!Util.isValidTag(Util.formatTag(clanTag))) {
 			throw new UserError({

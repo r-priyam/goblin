@@ -1,5 +1,6 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { ChatInputCommand, Command } from '@sapphire/framework';
+import { CommandInteraction } from 'discord.js';
 
 @ApplyOptions<ChatInputCommand.Options>({
 	description: 'Returns the EYG server invite link'
@@ -18,7 +19,7 @@ export class ServerInvite extends Command {
 		);
 	}
 
-	public override async chatInputRun(interaction: ChatInputCommand.Interaction<'cached'>) {
+	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
 		return interaction.reply({ content: 'https://discord.me/eygcommunity' });
 	}
 }

@@ -4,7 +4,7 @@ import { PaginatedMessage } from '@sapphire/discord.js-utilities';
 import { ChatInputCommand, Command } from '@sapphire/framework';
 import { isNullish } from '@sapphire/utilities';
 import { Util } from 'clashofclans.js';
-import { MessageEmbed } from 'discord.js';
+import { CommandInteraction, MessageEmbed } from 'discord.js';
 import { MiscEmotes, RawPosition, TownHallEmotes } from '#lib/coc';
 import { PlayerCommand } from '#root/commands/Player/player';
 import { Colors } from '#root/lib/util/constants';
@@ -30,7 +30,7 @@ export class WhoIsCommand extends Command {
 		);
 	}
 
-	public override async chatInputRun(interaction: ChatInputCommand.Interaction<'cached'>) {
+	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply();
 		const member = interaction.options.getMember('user') ?? interaction.member;
 
@@ -101,7 +101,7 @@ export class WhoIsCommand extends Command {
 
 		const paginator = new PaginatedMessage({ template: new MessageEmbed().setColor(Colors.Indigo) });
 		paginator.addPageEmbed(firstPage);
-		pages.forEach((page) => paginator.addPageEmbed(page));
+		for (const page of pages) paginator.addPageEmbed(page);
 		return paginator.run(interaction);
 	}
 }

@@ -6,7 +6,7 @@ import { hideLinkEmbed, hyperlink, time, TimestampStyles, userMention } from '@d
 import { ApplyOptions } from '@sapphire/decorators';
 import { Command, version as sapphireVersion, type ChatInputCommand } from '@sapphire/framework';
 import { roundNumber } from '@sapphire/utilities';
-import { MessageEmbed, version } from 'discord.js';
+import { CommandInteraction, MessageEmbed, version } from 'discord.js';
 import { Colors } from '#root/lib/util/constants';
 import { seconds } from '#utils/functions/time';
 
@@ -40,7 +40,7 @@ export class AboutCommand extends Command {
 		);
 	}
 
-	public override async chatInputRun(interaction: ChatInputCommand.Interaction<'cached'>) {
+	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply({ ephemeral: true });
 		return interaction.editReply({ embeds: [await this.embed()] });
 	}

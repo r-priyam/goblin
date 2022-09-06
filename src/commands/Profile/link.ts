@@ -1,7 +1,7 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { ChatInputCommand, UserError } from '@sapphire/framework';
 import { Subcommand } from '@sapphire/plugin-subcommands';
-import { MessageEmbed } from 'discord.js';
+import { CommandInteraction, MessageEmbed } from 'discord.js';
 import { Colors } from '#utils/constants';
 import { redis } from '#utils/redis';
 
@@ -49,7 +49,7 @@ export class LinkCommand extends Subcommand {
 		);
 	}
 
-	public async clanLink(interaction: ChatInputCommand.Interaction<'cached'>) {
+	public async clanLink(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply({ ephemeral: true });
 
 		const clan = await this.coc.clanHelper.info(interaction.options.getString('tag', true));
@@ -77,7 +77,7 @@ export class LinkCommand extends Subcommand {
 		});
 	}
 
-	public async playerLink(interaction: ChatInputCommand.Interaction<'cached'>) {
+	public async playerLink(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply({ ephemeral: true });
 
 		const player = await this.coc.playerHelper.verifyPlayer(

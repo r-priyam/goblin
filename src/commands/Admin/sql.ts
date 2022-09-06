@@ -4,6 +4,7 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { ChatInputCommand, Command } from '@sapphire/framework';
 import { Stopwatch } from '@sapphire/stopwatch';
 import { inlineCodeBlock, isNullishOrEmpty } from '@sapphire/utilities';
+import { CommandInteraction } from 'discord.js';
 import { markdownTable } from 'markdown-table';
 
 @ApplyOptions<ChatInputCommand.Options>({
@@ -27,7 +28,7 @@ export class SQLCommand extends Command {
 		);
 	}
 
-	public override async chatInputRun(interaction: ChatInputCommand.Interaction<'cached'>) {
+	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply();
 
 		const query = interaction.options.getString('query', true);

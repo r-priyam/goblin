@@ -6,7 +6,7 @@ import { ChatInputCommand, Command } from '@sapphire/framework';
 import { Stopwatch } from '@sapphire/stopwatch';
 import { Type } from '@sapphire/type';
 import { isThenable } from '@sapphire/utilities';
-import { MessageEmbed } from 'discord.js';
+import { CommandInteraction, MessageEmbed } from 'discord.js';
 import { Colors } from '#utils/constants';
 
 @ApplyOptions<ChatInputCommand.Options>({
@@ -50,7 +50,7 @@ export class EvalCommand extends Command {
 		);
 	}
 
-	public override async chatInputRun(interaction: ChatInputCommand.Interaction<'cached'>) {
+	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
 		const code = interaction.options.getString('code', true);
 		const depth = interaction.options.getInteger('depth');
 		const isAsync = interaction.options.getBoolean('async');
@@ -77,7 +77,7 @@ export class EvalCommand extends Command {
 	}
 
 	protected async eval(
-		interaction: ChatInputCommand.Interaction<'cached'>,
+		interaction: CommandInteraction<'cached'>,
 		code: string,
 		{ isAsync, depth }: { depth: number | null; isAsync: boolean | null }
 	) {

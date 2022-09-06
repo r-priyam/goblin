@@ -1,7 +1,7 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { PaginatedMessage } from '@sapphire/discord.js-utilities';
 import { ChatInputCommand, Command } from '@sapphire/framework';
-import { MessageEmbed } from 'discord.js';
+import { CommandInteraction, MessageEmbed } from 'discord.js';
 import { stripHtml } from 'string-strip-html';
 import { Colors } from '#root/lib/util/constants';
 
@@ -26,7 +26,7 @@ export class WikipediaCommand extends Command {
 		);
 	}
 
-	public override async chatInputRun(interaction: ChatInputCommand.Interaction<'cached'>) {
+	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply({ ephemeral: true });
 		const keyword = interaction.options.getString('keyword', true);
 

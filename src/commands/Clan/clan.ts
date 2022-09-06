@@ -2,7 +2,7 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { ChatInputCommand, Command } from '@sapphire/framework';
 import { isNullish } from '@sapphire/utilities';
 import { Clan } from 'clashofclans.js';
-import { MessageEmbed } from 'discord.js';
+import { CommandInteraction, MessageEmbed } from 'discord.js';
 import { LabelEmotes, MiscEmotes, RawClanType, RawWarFrequency, TownHallEmotes, WarLeagueEmotes } from '#lib/coc';
 import { Colors, Emotes } from '#utils/constants';
 import { ClanOrPlayer, redis } from '#utils/redis';
@@ -29,7 +29,7 @@ export class ClanCommand extends Command {
 		);
 	}
 
-	public override async chatInputRun(interaction: ChatInputCommand.Interaction<'cached'>) {
+	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply();
 		let clanTag = interaction.options.getString('tag');
 
@@ -64,11 +64,7 @@ export class ClanCommand extends Command {
 		return this.injectClanComposition(interaction, infoEmbed, clan);
 	}
 
-	private async injectClanComposition(
-		interaction: ChatInputCommand.Interaction<'cached'>,
-		embed: MessageEmbed,
-		clan: Clan
-	) {
+	private async injectClanComposition(interaction: CommandInteraction<'cached'>, embed: MessageEmbed, clan: Clan) {
 		const composition = await this.coc.clanHelper.getClanComposition(clan, true);
 		// remove placeholder field for composition fetch
 		embed.spliceFields(2, 1);

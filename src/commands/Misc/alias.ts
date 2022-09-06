@@ -4,7 +4,7 @@ import { ChatInputCommand, UserError } from '@sapphire/framework';
 import { Subcommand } from '@sapphire/plugin-subcommands';
 import { envParseArray } from '@skyra/env-utilities';
 import { Util } from 'clashofclans.js';
-import { GuildMember, MessageEmbed } from 'discord.js';
+import { CommandInteraction, GuildMember, MessageEmbed } from 'discord.js';
 import { Colors } from '#utils/constants';
 import { ClanAlias, redis } from '#utils/redis';
 
@@ -66,7 +66,7 @@ export class AliasCommand extends Subcommand {
 		);
 	}
 
-	public async createAlias(interaction: ChatInputCommand.Interaction<'cached'>) {
+	public async createAlias(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply();
 		this.canPerformAliasOperations(interaction.member);
 
@@ -106,7 +106,7 @@ export class AliasCommand extends Subcommand {
 		});
 	}
 
-	public async removeAlias(interaction: ChatInputCommand.Interaction<'cached'>) {
+	public async removeAlias(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply();
 		this.canPerformAliasOperations(interaction.member);
 
@@ -131,7 +131,7 @@ export class AliasCommand extends Subcommand {
 		});
 	}
 
-	public async listAlias(interaction: ChatInputCommand.Interaction<'cached'>) {
+	public async listAlias(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply();
 
 		const aliases = await redis.get<ClanAlias[]>('clan-aliases');

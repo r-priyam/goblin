@@ -4,7 +4,7 @@ import { ChatInputCommand, Command } from '@sapphire/framework';
 import { Time } from '@sapphire/time-utilities';
 import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
 import { Achievement, Player } from 'clashofclans.js';
-import { MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
+import { CommandInteraction, MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
 import { GoblinPlayer, LabelEmotes, MiscEmotes, RawPosition } from '#lib/coc';
 import { collectorFiler } from '#utils/InteractionHelpers';
 import { Colors } from '#utils/constants';
@@ -33,7 +33,7 @@ export class PlayerCommand extends Command {
 		);
 	}
 
-	public override async chatInputRun(interaction: ChatInputCommand.Interaction<'cached'>) {
+	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
 		const message = await interaction.deferReply({ fetchReply: true });
 		let playerTag = interaction.options.getString('tag');
 

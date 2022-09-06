@@ -1,7 +1,7 @@
 import { time, TimestampStyles } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { ChatInputCommand, Command } from '@sapphire/framework';
-import { GuildMember, MessageActionRow, MessageButton, MessageEmbed, Role } from 'discord.js';
+import { CommandInteraction, GuildMember, MessageActionRow, MessageButton, MessageEmbed, Role } from 'discord.js';
 import { Colors } from '#lib/util/constants';
 
 const sortRanks = (x: Role, y: Role) => Number(y.position > x.position) || Number(x.position === y.position) - 1;
@@ -27,7 +27,7 @@ export class UserInfoCommand extends Command {
 		);
 	}
 
-	public override async chatInputRun(interaction: ChatInputCommand.Interaction<'cached'>) {
+	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply();
 		const member = interaction.options.getMember('user') ?? interaction.member;
 

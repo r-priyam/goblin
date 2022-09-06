@@ -3,7 +3,7 @@ import { ChatInputCommand, Command, UserError } from '@sapphire/framework';
 import { Util } from 'clashofclans.js';
 import { bold } from 'colorette';
 import { PermissionFlagsBits } from 'discord-api-types/v9';
-import { MessageEmbed } from 'discord.js';
+import { CommandInteraction, MessageEmbed } from 'discord.js';
 import { Colors } from '#utils/constants';
 import { automationMemberCheck } from '#utils/functions/automationMemberCheck';
 
@@ -37,7 +37,7 @@ export class StopCommand extends Command {
 		);
 	}
 
-	public override async chatInputRun(interaction: ChatInputCommand.Interaction<'cached'>) {
+	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
 		automationMemberCheck(interaction.guildId, interaction.member);
 
 		const stopType = interaction.options.getString('type', true) as 'clanEmbed';

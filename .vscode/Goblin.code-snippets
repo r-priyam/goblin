@@ -21,6 +21,7 @@
 		"body": [
 			"import { ApplyOptions } from '@sapphire/decorators';",
 			"import { Command, ChatInputCommand } from '@sapphire/framework';",
+			"import { CommandInteraction } from 'discord.js';",
 			"",
 			"@ApplyOptions<ChatInputCommand.Options>({",
 			"\tdescription: ''",
@@ -30,7 +31,7 @@
 			"\t\tregistry.registerChatInputCommand((builder) => builder.setName(this.name), { idHints: [''] });",
 			"\t}",
 			"",
-			"\tpublic override async chatInputRun(interaction: ChatInputCommand.Interaction<'cached'>) {",
+			"\tpublic override async chatInputRun(interaction: CommandInteraction<'cached'>) {",
 			"\t\t//",
 			"\t}",
 			"}",
