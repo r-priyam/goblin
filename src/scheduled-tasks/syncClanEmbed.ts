@@ -1,11 +1,11 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { Result } from '@sapphire/framework';
 import { ScheduledTask } from '@sapphire/plugin-scheduled-tasks';
-import { HTTPError as COCHttpError } from 'clashofclans.js';
+import { Clan, HTTPError as COCHttpError } from 'clashofclans.js';
 import { RESTJSONErrorCodes, Routes } from 'discord-api-types/v10';
 import { Constants, HTTPError } from 'discord.js';
 import { BlueNumberEmotes, TownHallEmotes } from '#lib/coc';
-import { logInfo } from '#utils/functions/logging';
+import { logInfo, logWarning } from '#utils/functions/logging';
 
 @ApplyOptions<ScheduledTask.Options>({
 	cron: '00 */2 * * *',
@@ -38,14 +38,14 @@ export class SyncClanEmbedTask extends ScheduledTask {
 			color: data.color
 		});
 
-		const result = await Result.fromAsync(async () =>
+		const result = await Result.fromAsync<unknown, HTTPError>(async () =>
 			this.discordRest.patch(Routes.channelMessage(data.channelId, data.messageId), {
 				body: { embeds: [embed.toJSON()] }
 			})
 		);
 
-		result.unwrapOrElse(async (err) => {
-			const error = err as HTTPError;
+		if (result.isErr()) {
+			const error = result.unwrapErr();
 			if (
 				[
 					RESTJSONErrorCodes.MissingAccess,
@@ -55,13 +55,18 @@ export class SyncClanEmbedTask extends ScheduledTask {
 			) {
 				await this.stopClanEmbed(data.clanTag, data.channelId);
 				this.logger.info(
-					logInfo('CLAN EMBED', `Stopping clan embed for ${data.clanTag} with reason ${error.message}`)
+					logInfo('ClanEmbed Syncer', `Stopping clan embed for ${data.clanTag} with reason ${error.message}`)
 				);
 				return;
 			}
 
-			this.logger.warn(`Failed to update the clan embed board for ${data.clanTag} with reason ${error.message}`);
-		});
+			this.logger.warn(
+				logWarning(
+					'ClanEmbed Syncer',
+					`Failed to update the clan embed board for ${data.clanTag} with reason ${error.message}`
+				)
+			);
+		}
 	}
 
 	private parseRequirements(requirements: Record<string, number>) {
@@ -75,12 +80,25 @@ export class SyncClanEmbedTask extends ScheduledTask {
 		return result.length > 0 ? result.trimEnd() : 'Please click on the button in this message to set requirements';
 	}
 
+	/**
+	 * Get clan information from the clan tag.
+	 * Stops the clan embed if clan not found and logs it
+	 *
+	 * @param clanTag - Clan Tag to get information for
+	 * @param channelId - Channel ID where the clan board is running
+	 */
 	private async getClan(clanTag: string, channelId: string) {
-		const clan = await Result.fromAsync(() => this.coc.getClan(clanTag));
-		return clan.unwrapOrElse((error) => {
-			if ((error as COCHttpError).status === 404) return this.stopClanEmbed(clanTag, channelId);
-			return null;
-		});
+		const result = await Result.fromAsync<Clan, COCHttpError>(() => this.coc.getClan(clanTag));
+
+		if (result.isErr() && result.unwrapErr().status === 404) {
+			await this.stopClanEmbed(clanTag, channelId);
+			this.logger.info(
+				logInfo('ClanEmbed Syncer', `Stopping clan embed for ${clanTag} with reason Clan not found`)
+			);
+			return;
+		}
+
+		return result.unwrap();
 	}
 
 	private async stopClanEmbed(clanTag: string, channelId: string) {

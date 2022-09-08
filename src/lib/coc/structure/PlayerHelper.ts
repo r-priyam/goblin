@@ -10,35 +10,31 @@ export class PlayerHelper {
 			throw new UserError({ identifier: this.identifier, message: 'No player found for the requested tag!' });
 		}
 
-		const player = await Result.fromAsync(() => container.coc.getPlayer(tag));
-		return player.unwrapOrElse((error) => {
-			if (error instanceof HTTPError) {
-				throw new UserError({
-					identifier: this.identifier,
-					message:
-						error.status === 404 ? 'No player found for the requested tag!' : ErrorMessages[error.status]
-				});
-			}
+		const result = await Result.fromAsync<GoblinPlayer, HTTPError>(() => container.coc.getPlayer(tag));
 
-			throw error;
-		});
+		if (result.isErr()) {
+			const error = result.unwrapErr();
+			throw new UserError({
+				identifier: this.identifier,
+				message: error.status === 404 ? 'No player found for the requested tag!' : ErrorMessages[error.status]
+			});
+		}
+
+		return result.unwrap();
 	}
 
 	public async verifyPlayer(tag: string, token: string) {
-		const status = await Result.fromAsync(() => container.coc.verifyPlayerToken(tag, token));
-		status.unwrapOrElse((error) => {
-			if (error instanceof HTTPError) {
-				throw new UserError({
-					identifier: this.identifier,
-					message:
-						error.status === 404 ? 'No player found for the requested tag!' : ErrorMessages[error.status]
-				});
-			}
+		const result = await Result.fromAsync<boolean, HTTPError>(() => container.coc.verifyPlayerToken(tag, token));
 
-			throw error;
-		});
+		if (result.isErr()) {
+			const error = result.unwrapErr();
+			throw new UserError({
+				identifier: this.identifier,
+				message: error.status === 404 ? 'No player found for the requested tag!' : ErrorMessages[error.status]
+			});
+		}
 
-		if (!status.isOk()) throw new UserError({ identifier: this.identifier, message: 'Invalid API token!' });
+		if (!result.unwrap()) throw new UserError({ identifier: this.identifier, message: 'Invalid API token!' });
 		return this.info(tag);
 	}
 }

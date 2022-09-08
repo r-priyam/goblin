@@ -49,13 +49,15 @@ export class StartClanEmbedModal extends InteractionHandler {
                              AND guild_id = ${guildId}`
 		);
 
-		result.unwrapOrElse((error) => {
+		if (result.isErr()) {
+			const error = result.unwrapErr();
+
 			this.logger.error(error);
 			throw new UserError({
 				identifier: 'clan-embed-modal-requirements-edit',
 				message: 'Something went wrong, please try again'
 			});
-		});
+		}
 	}
 
 	private validateRequirement(value: string) {
