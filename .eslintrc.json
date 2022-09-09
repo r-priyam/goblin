@@ -6,22 +6,11 @@
 	"ignorePatterns": ["./dist/*"],
 	"extends": ["neon/common", "neon/node", "neon/typescript", "neon/prettier"],
 	"rules": {
-		"new-cap": "off",
 		"import/extensions": "off",
-		"unicorn/no-unsafe-regex": "error",
-		"unicorn/prefer-at": "error",
-		"unicorn/prefer-top-level-await": "error",
-		"unicorn/prevent-abbreviations": "off",
-		"unicorn/no-nested-ternary": "off",
 		"unicorn/number-literal-case": "off",
-		"unicorn/filename-case": "off",
-		"unicorn/explicit-length-check": "off",
-		"unicorn/no-null": "off",
 		"unicorn/new-for-builtins": "off",
 		"unicorn/numeric-separators-style": "off",
-		"@typescript-eslint/consistent-type-imports": "off",
-		"@typescript-eslint/no-unnecessary-condition": "off",
-		"@typescript-eslint/no-unnecessary-type-assertion": "off"
+		"@typescript-eslint/consistent-type-imports": "off"
 	},
 	"env": {
 		"jest": true
