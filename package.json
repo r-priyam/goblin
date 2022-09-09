@@ -4,13 +4,13 @@
 	"private": true,
 	"author": "r-priyam",
 	"type": "module",
-	"main": "dist/goblin.js",
 	"imports": {
 		"#root/*": "./dist/*.js",
 		"#lib/*": "./dist/lib/*.js",
 		"#lib/coc": "./dist/lib/coc/index.js",
 		"#utils/*": "./dist/lib/util/*.js"
 	},
+	"main": "dist/goblin.js",
 	"scripts": {
 		"build": "tsup",
 		"dev": "tsup --watch --onSuccess \"yarn start\"",
@@ -19,12 +19,11 @@
 		"release": "cliff-jumper",
 		"release:test": "cliff-jumper --dry-run",
 		"start": "node --enable-source-maps dist/goblin.js",
+		"sync-docker": "node scripts/syncDocker.mjs",
 		"typecheck": "tsc -b src",
-		"watch": "tsup --watch",
-		"sync-docker": "node scripts/syncDocker.mjs"
+		"watch": "tsup --watch"
 	},
 	"resolutions": {
-		"@sapphire/shapeshift": "^3.6.0",
 		"minimist": "^1.2.6"
 	},
 	"dependencies": {
