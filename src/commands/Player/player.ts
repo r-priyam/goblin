@@ -1,38 +1,25 @@
-import { bold } from '@discordjs/builders';
+import { bold, SlashCommandBuilder } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
-import { ChatInputCommand, Command } from '@sapphire/framework';
 import { Time } from '@sapphire/time-utilities';
 import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
 import { Achievement, Player } from 'clashofclans.js';
 import { CommandInteraction, MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
 import { GoblinPlayer, LabelEmotes, MiscEmotes, RawPosition } from '#lib/coc';
+import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import { collectorFiler } from '#utils/InteractionHelpers';
 import { Colors } from '#utils/constants';
+import { playerOption } from '#utils/functions/commandOptions';
 import { ClanOrPlayer, redis } from '#utils/redis';
 import { humanizeNumber } from '#utils/utils';
 
-@ApplyOptions<ChatInputCommand.Options>({
-	description: 'Get info about a player'
+@ApplyOptions<GoblinCommandOptions>({
+	slashCommand: new SlashCommandBuilder()
+		.setName('player')
+		.setDescription('Get info about a player')
+		.addStringOption(playerOption({ autoComplete: true })),
+	commandMetaOptions: { idHints: ['977007152600350761', '980131956241092648'] }
 })
-export class PlayerCommand extends Command {
-	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
-		registry.registerChatInputCommand(
-			(builder) =>
-				builder
-					.setName(this.name)
-					.setDescription(this.description)
-					.addStringOption((option) =>
-						option //
-							.setName('tag')
-							.setDescription('Tag of the player')
-							.setRequired(false)
-							.setAutocomplete(true)
-					)
-					.setDMPermission(false),
-			{ idHints: ['977007152600350761', '980131956241092648'] }
-		);
-	}
-
+export class PlayerCommand extends GoblinCommand {
 	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
 		const message = await interaction.deferReply({ fetchReply: true });
 		let playerTag = interaction.options.getString('tag');
