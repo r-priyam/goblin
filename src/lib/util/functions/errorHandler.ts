@@ -18,7 +18,7 @@ import {
 	sendErrorToUser
 } from '#utils/functions/errorHelper';
 
-export function commandErrorHandler(error: Error, interaction: CommandInteraction) {
+export async function commandErrorHandler(error: Error, interaction: CommandInteraction) {
 	if (typeof error === 'string') return sendCommandErrorToUser(interaction, errorEmbedUser(error));
 	if (error instanceof UserError) return handleUserError(interaction, error);
 
@@ -40,9 +40,8 @@ export function commandErrorHandler(error: Error, interaction: CommandInteractio
 		logger.warn(`${getWarnError(interaction)} (${interaction.user.id}) | ${error.constructor.name}`);
 	}
 
-	// TODO: More detailed handling, I need to analyze
 	logger.error(error);
-	return sendErrorToUser(interaction, errorEmbedUser('Something went wrong'));
+	return sendCommandErrorToUser(interaction, errorEmbedUser('Something went wrong. I have reported it to my developer'));
 }
 
 export function interactionErrorHandler(
@@ -70,7 +69,6 @@ export function interactionErrorHandler(
 		logger.warn(`${getWarnError(interaction)} (${interaction.user.id}) | ${error.constructor.name}`);
 	}
 
-	// TODO: More detailed handling, I need to analyze
 	logger.error(error);
-	return sendErrorToUser(interaction, errorEmbedUser('Something went wrong'));
+	return sendErrorToUser(interaction, errorEmbedUser('Something went wrong. I have reported it to my developer'));
 }
