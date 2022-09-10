@@ -22,7 +22,7 @@ export function addClanOrPlayerOption(options: ClanOrPlayerOptions) {
  * @defaultValue `required: false` and `autoComplete: false`
  * @returns - {@link SlashCommandStringOption}
  */
-export const clanOption = (options: ClanOrPlayerOptions) => addClanOrPlayerOption({name: 'clan', ...options});
+export const clanOption = (options: ClanOrPlayerOptions) => addClanOrPlayerOption({ name: 'clan', ...options });
 
 /**
  * Generate PlayerTag SlashCommandString option

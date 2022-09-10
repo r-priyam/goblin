@@ -1,34 +1,22 @@
+import { SlashCommandBuilder } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
-import { ChatInputCommand, Command } from '@sapphire/framework';
 import { isNullish } from '@sapphire/utilities';
 import { Clan } from 'clashofclans.js';
 import { CommandInteraction, MessageEmbed } from 'discord.js';
 import { LabelEmotes, MiscEmotes, RawClanType, RawWarFrequency, TownHallEmotes, WarLeagueEmotes } from '#lib/coc';
+import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import { Colors, Emotes } from '#utils/constants';
+import { clanOption } from '#utils/functions/commandOptions';
 import { ClanOrPlayer, redis } from '#utils/redis';
 
-@ApplyOptions<ChatInputCommand.Options>({
-	description: 'Get info about a clan'
+@ApplyOptions<GoblinCommandOptions>({
+	slashCommand: new SlashCommandBuilder()
+		.setName('clan')
+		.setDescription('Get info about a clan')
+		.addStringOption(clanOption({ autoComplete: true })),
+	commandMetaOptions: { idHints: ['975586954982867024', '980132035089809429'] }
 })
-export class ClanCommand extends Command {
-	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
-		registry.registerChatInputCommand(
-			(builder) =>
-				builder
-					.setName(this.name)
-					.setDescription(this.description)
-					.addStringOption((option) =>
-						option //
-							.setName('tag')
-							.setDescription('Tag of the clan')
-							.setRequired(false)
-							.setAutocomplete(true)
-					)
-					.setDMPermission(false),
-			{ idHints: ['975586954982867024', '980132035089809429'] }
-		);
-	}
-
+export class ClanCommand extends GoblinCommand {
 	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply();
 		let clanTag = interaction.options.getString('tag');
