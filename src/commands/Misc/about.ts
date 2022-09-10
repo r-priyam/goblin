@@ -2,18 +2,20 @@ import { readFile } from 'node:fs/promises';
 import { cpus, uptime, type CpuInfo } from 'node:os';
 import process from 'node:process';
 import { URL } from 'node:url';
-import { hideLinkEmbed, hyperlink, time, TimestampStyles, userMention } from '@discordjs/builders';
+import { hideLinkEmbed, hyperlink, SlashCommandBuilder, time, TimestampStyles, userMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
-import { Command, version as sapphireVersion, type ChatInputCommand } from '@sapphire/framework';
+import { version as sapphireVersion } from '@sapphire/framework';
 import { roundNumber } from '@sapphire/utilities';
 import { CommandInteraction, MessageEmbed, version } from 'discord.js';
+import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#root/lib/util/constants';
 import { seconds } from '#utils/functions/time';
 
-@ApplyOptions<ChatInputCommand.Options>({
-	description: 'Something about myself'
+@ApplyOptions<GoblinCommandOptions>({
+	slashCommand: new SlashCommandBuilder().setName('about').setDescription('Something about myself'),
+	commandMetaOptions: { idHints: ['998801926315589672', '998831574449668126'] }
 })
-export class AboutCommand extends Command {
+export class AboutCommand extends GoblinCommand {
 	readonly #descriptionContent = [
 		`I am a cute goblin created by ${userMention('292332992251297794')} to steal resources from around.`,
 		'If you have any suggestion/feedback for me then please send a DM to my creator 💙',
@@ -26,19 +28,6 @@ export class AboutCommand extends Command {
 			hideLinkEmbed('https://clashofclans.js.org/')
 		)} to communicate with the clash api.`
 	].join('\n');
-
-	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
-		registry.registerChatInputCommand(
-			(builder) =>
-				builder //
-					.setName(this.name)
-					.setDescription(this.description)
-					.setDMPermission(false),
-			{
-				idHints: ['998801926315589672', '998831574449668126']
-			}
-		);
-	}
 
 	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply({ ephemeral: true });
@@ -106,6 +95,7 @@ export class AboutCommand extends Command {
 			channels: client.channels.cache.size,
 			guilds: client.guilds.cache.size,
 			nodeJs: process.version,
+			// eslint-disable-next-line @typescript-eslint/restrict-plus-operands
 			users: client.guilds.cache.reduce((acc, val) => acc + (val.memberCount ?? 0), 0),
 			discordjsVersion: `v${version}`,
 			clashofclansVersion: `v${dependencies['clashofclans.js']}`

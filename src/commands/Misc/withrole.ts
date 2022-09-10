@@ -1,33 +1,25 @@
-import { roleMention } from '@discordjs/builders';
+import { roleMention, SlashCommandBuilder } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
-import { ChatInputCommand, Command } from '@sapphire/framework';
 import { inlineCodeBlock } from '@sapphire/utilities';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
 import { CommandInteraction, MessageEmbed } from 'discord.js';
+import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#root/lib/util/constants';
 
-@ApplyOptions<ChatInputCommand.Options>({
-	description: 'Get list of members with specific role'
+@ApplyOptions<GoblinCommandOptions>({
+	requiredMemberPermissions: PermissionFlagsBits.BanMembers | PermissionFlagsBits.KickMembers,
+	slashCommand: new SlashCommandBuilder()
+		.setName('withrole')
+		.setDescription('Get list of members with specific role')
+		.addRoleOption((option) =>
+			option //
+				.setName('role')
+				.setDescription('Role to get members for')
+				.setRequired(true)
+		),
+	commandMetaOptions: { idHints: ['997227514726461490', '997373722178617405'] }
 })
-export class WithRoleCommand extends Command {
-	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
-		registry.registerChatInputCommand(
-			(builder) =>
-				builder
-					.setName(this.name)
-					.setDescription(this.description)
-					.addRoleOption((option) =>
-						option //
-							.setName('role')
-							.setDescription('Role to get members for')
-							.setRequired(true)
-					)
-					.setDMPermission(false)
-					.setDefaultMemberPermissions(PermissionFlagsBits.BanMembers | PermissionFlagsBits.KickMembers),
-			{ idHints: ['997227514726461490', '997373722178617405'] }
-		);
-	}
-
+export class WithRoleCommand extends GoblinCommand {
 	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply();
 		const role = interaction.options.getRole('role', true);
