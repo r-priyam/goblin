@@ -1,38 +1,27 @@
+import { SlashCommandBuilder } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
-import { ChatInputCommand, Command } from '@sapphire/framework';
 import { Util } from 'clashofclans.js';
 import { CommandInteraction, MessageEmbed } from 'discord.js';
+import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#utils/constants';
+import { addTagOption } from '#utils/functions/commandOptions';
 import { redis } from '#utils/redis';
 
-@ApplyOptions<ChatInputCommand.Options>({
-	description: 'Unlink a clan or a player from your discord account'
+@ApplyOptions<GoblinCommandOptions>({
+	slashCommand: new SlashCommandBuilder()
+		.setName('unlink')
+		.setDescription('Unlink a clan or a player from your discord account')
+		.addStringOption((option) =>
+			option
+				.setName('choice')
+				.setDescription('Select what you want to unlink')
+				.setRequired(true)
+				.addChoices({ name: 'Clan', value: 'clan' }, { name: 'Player', value: 'player' })
+		)
+		.addStringOption(addTagOption({ description: 'The tag to unlink', required: true })),
+	commandMetaOptions: { idHints: ['975442552134197248', '980131949911883847'] }
 })
-export class UnlinkCommand extends Command {
-	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
-		registry.registerChatInputCommand(
-			(builder) =>
-				builder
-					.setName(this.name)
-					.setDescription(this.description)
-					.addStringOption((option) =>
-						option
-							.setName('choice')
-							.setDescription('Select what you want to unlink')
-							.setRequired(true)
-							.addChoices({ name: 'Clan', value: 'clan' }, { name: 'Player', value: 'player' })
-					)
-					.addStringOption((option) =>
-						option //
-							.setName('tag')
-							.setDescription('The tag to unlink')
-							.setRequired(true)
-					)
-					.setDMPermission(false),
-			{ idHints: ['975442552134197248', '980131949911883847'] }
-		);
-	}
-
+export class UnlinkCommand extends GoblinCommand {
 	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply({ ephemeral: true });
 
