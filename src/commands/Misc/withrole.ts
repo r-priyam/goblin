@@ -9,7 +9,7 @@ import { Colors } from '#root/lib/util/constants';
 @ApplyOptions<ChatInputCommand.Options>({
 	description: 'Get list of members with specific role'
 })
-export class WithRole extends Command {
+export class WithRoleCommand extends Command {
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
 		registry.registerChatInputCommand(
 			(builder) =>

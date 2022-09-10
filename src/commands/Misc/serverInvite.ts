@@ -5,7 +5,7 @@ import { CommandInteraction } from 'discord.js';
 @ApplyOptions<ChatInputCommand.Options>({
 	description: 'Returns the EYG server invite link'
 })
-export class ServerInvite extends Command {
+export class ServerInviteCommand extends Command {
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
 		registry.registerChatInputCommand(
 			(builder) =>

@@ -9,7 +9,7 @@ import { Colors } from '#utils/constants';
 @ApplyOptions<ChatInputCommand.Options>({
 	description: 'Bans the user from server by id, not matter if they are in server or not'
 })
-export class HackBan extends Command {
+export class HackBanCommand extends Command {
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
 		registry.registerChatInputCommand(
 			(builder) =>

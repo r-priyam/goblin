@@ -8,7 +8,7 @@ import { redis } from '#utils/redis';
 @ApplyOptions<ChatInputCommand.Options>({
 	description: 'Unlink a clan or a player from your discord account'
 })
-export class SlashCommand extends Command {
+export class UnlinkCommand extends Command {
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
 		registry.registerChatInputCommand(
 			(builder) =>

@@ -23,7 +23,7 @@ import { redis } from '#utils/redis';
 	],
 	description: 'Commands related to linking clan or player to an user forcefully'
 })
-export class ForceLink extends Subcommand {
+export class ForceLinkCommand extends Subcommand {
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
 		registry.registerChatInputCommand(
 			(builder) =>
