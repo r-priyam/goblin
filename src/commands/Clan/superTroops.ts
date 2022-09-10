@@ -6,14 +6,14 @@ import { CommandInteraction, MessageActionRow, MessageEmbed, MessageSelectMenu }
 import { SuperTroopEmotes } from '#lib/coc';
 import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#utils/constants';
-import { clanOption } from '#utils/functions/commandOptions';
+import { clanTagOption } from '#utils/functions/commandOptions';
 import { ClanOrPlayer, redis } from '#utils/redis';
 
 @ApplyOptions<GoblinCommandOptions>({
 	slashCommand: new SlashCommandBuilder()
 		.setName('supertroops')
 		.setDescription('Lists clan members active super troops')
-		.addStringOption(clanOption({ autoComplete: true })),
+		.addStringOption(clanTagOption({ autoComplete: true })),
 	commandMetaOptions: { idHints: ['991987141259309067', '992380615884296213'] }
 })
 export class SuperTroopsCommand extends GoblinCommand {

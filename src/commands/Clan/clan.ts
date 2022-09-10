@@ -6,14 +6,14 @@ import { CommandInteraction, MessageEmbed } from 'discord.js';
 import { LabelEmotes, MiscEmotes, RawClanType, RawWarFrequency, TownHallEmotes, WarLeagueEmotes } from '#lib/coc';
 import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import { Colors, Emotes } from '#utils/constants';
-import { clanOption } from '#utils/functions/commandOptions';
+import { clanTagOption } from '#utils/functions/commandOptions';
 import { ClanOrPlayer, redis } from '#utils/redis';
 
 @ApplyOptions<GoblinCommandOptions>({
 	slashCommand: new SlashCommandBuilder()
 		.setName('clan')
 		.setDescription('Get info about a clan')
-		.addStringOption(clanOption({ autoComplete: true })),
+		.addStringOption(clanTagOption({ autoComplete: true })),
 	commandMetaOptions: { idHints: ['975586954982867024', '980132035089809429'] }
 })
 export class ClanCommand extends GoblinCommand {

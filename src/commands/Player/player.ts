@@ -8,7 +8,7 @@ import { GoblinPlayer, LabelEmotes, MiscEmotes, RawPosition } from '#lib/coc';
 import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import { collectorFiler } from '#utils/InteractionHelpers';
 import { Colors } from '#utils/constants';
-import { playerOption } from '#utils/functions/commandOptions';
+import { playerTagOption } from '#utils/functions/commandOptions';
 import { ClanOrPlayer, redis } from '#utils/redis';
 import { humanizeNumber } from '#utils/utils';
 
@@ -16,7 +16,7 @@ import { humanizeNumber } from '#utils/utils';
 	slashCommand: new SlashCommandBuilder()
 		.setName('player')
 		.setDescription('Get info about a player')
-		.addStringOption(playerOption({ autoComplete: true })),
+		.addStringOption(playerTagOption({ autoComplete: true })),
 	commandMetaOptions: { idHints: ['977007152600350761', '980131956241092648'] }
 })
 export class PlayerCommand extends GoblinCommand {
