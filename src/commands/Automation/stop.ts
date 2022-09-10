@@ -1,11 +1,11 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
-import { ChatInputCommand, Command, UserError } from '@sapphire/framework';
+import { ChatInputCommand, UserError } from '@sapphire/framework';
 import { Util } from 'clashofclans.js';
 import { bold } from 'colorette';
 import { PermissionFlagsBits } from 'discord-api-types/v9';
 import { CommandInteraction, MessageEmbed } from 'discord.js';
-import { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
+import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#utils/constants';
 import { automationMemberCheck } from '#utils/functions/automationMemberCheck';
 import { addTagOption } from '#utils/functions/commandOptions';
@@ -26,7 +26,7 @@ import { addTagOption } from '#utils/functions/commandOptions';
 	commandMetaOptions: { idHints: ['1010535535468630166', '1013039773142745139'] },
 	preconditions: ['OwnerOnly']
 })
-export class StopCommand extends Command {
+export class StopCommand extends GoblinCommand {
 	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
 		automationMemberCheck(interaction.guildId, interaction.member);
 
