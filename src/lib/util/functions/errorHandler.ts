@@ -41,7 +41,10 @@ export async function commandErrorHandler(error: Error, interaction: CommandInte
 	}
 
 	logger.error(error);
-	return sendCommandErrorToUser(interaction, errorEmbedUser('Something went wrong. I have reported it to my developer'));
+	return sendCommandErrorToUser(
+		interaction,
+		errorEmbedUser('Something went wrong. I have reported it to my developer')
+	);
 }
 
 export function interactionErrorHandler(
