@@ -11,7 +11,9 @@ export abstract class GoblinCommand extends Command {
 
 		this.chatInputCommandData = options.slashCommand;
 		this.commandMetaOptions = options.commandMetaOptions;
+
 		this.chatInputCommandData.setDMPermission(options.canRunInDm ?? false);
+		this.chatInputCommandData.setDefaultMemberPermissions(options.requiredMemberPermissions)
 	}
 
 	public override registerApplicationCommands(registry: ApplicationCommandRegistry) {
