@@ -2,7 +2,7 @@ import { SlashCommandBuilder } from '@discordjs/builders';
 import { ApplicationCommandRegistry, ApplicationCommandRegistryRegisterOptions, Command } from '@sapphire/framework';
 
 export abstract class GoblinCommand extends Command {
-	private readonly chatInputCommandData: SlashCommandBuilder;
+	private readonly chatInputCommandData: Omit<SlashCommandBuilder, 'addSubcommand' | 'addSubcommandGroup'>;
 
 	private readonly commandMetaOptions?: ApplicationCommandRegistryRegisterOptions;
 
@@ -23,5 +23,5 @@ export type GoblinCommandOptions = Command.Options & {
 	canRunInDm?: boolean;
 	commandMetaOptions?: ApplicationCommandRegistryRegisterOptions;
 	requiredMemberPermissions?: bigint | number | string | null | undefined;
-	slashCommand: SlashCommandBuilder;
+	slashCommand: Omit<SlashCommandBuilder, 'addSubcommand' | 'addSubcommandGroup'>;
 };
