@@ -642,6 +642,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sapphire/discord.js-utilities@npm:^5.0.1":
+  version: 5.0.1
+  resolution: "@sapphire/discord.js-utilities@npm:5.0.1"
+  dependencies:
+    "@sapphire/discord-utilities": ^2.11.6
+    "@sapphire/duration": ^1.0.0
+    "@sapphire/utilities": ^3.9.3
+    tslib: ^2.4.0
+  checksum: a4569fe945d5d3d4064e2b8d7dacfb83c0677200daf5cfaa706fa6d34ce986f0005ee5a3fd058b9d2ce20f895cf62e5e599105d3720ee87487ec78dbfd597cd2
+  languageName: node
+  linkType: hard
+
+"@sapphire/duration@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@sapphire/duration@npm:1.0.0"
+  checksum: dadf3b5742742b5f724d1d78b0c59fd468ffe3ac817da2ba84361ac310528cb8c43f3d9d6032ff08f0f22fcaf61b495fb29b87800748e14abb0b780e86afda75
+  languageName: node
+  linkType: hard
+
 "@sapphire/framework@npm:3.1.1":
   version: 3.1.1
   resolution: "@sapphire/framework@npm:3.1.1"
@@ -682,24 +701,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sapphire/plugin-logger@npm:3.0.0":
-  version: 3.0.0
-  resolution: "@sapphire/plugin-logger@npm:3.0.0"
+"@sapphire/plugin-logger@npm:3.0.1":
+  version: 3.0.1
+  resolution: "@sapphire/plugin-logger@npm:3.0.1"
   dependencies:
-    "@sapphire/time-utilities": ^1.7.6
+    "@sapphire/timestamp": ^1.0.0
     colorette: ^2.0.19
     tslib: ^2.4.0
-  checksum: b4323a7d319e53b9a7b01825d4eb73562fb767832d07cbbb00b02208577c36f0cffdbf0572203c53cf5f2348304765e0956661c31a21ad970c834ba295db1363
+  checksum: ed95258441b958e1618489c5e5ad336bf5a304a2d3efbfc15104c99133d92938bade2ed5eaf2739eba14d7e153db87af1d77891e15ad2b2414f4f3ecab6d3a27
   languageName: node
   linkType: hard
 
-"@sapphire/plugin-scheduled-tasks@npm:4.0.0":
-  version: 4.0.0
-  resolution: "@sapphire/plugin-scheduled-tasks@npm:4.0.0"
+"@sapphire/plugin-scheduled-tasks@npm:4.0.1":
+  version: 4.0.1
+  resolution: "@sapphire/plugin-scheduled-tasks@npm:4.0.1"
   dependencies:
-    "@sapphire/time-utilities": ^1.7.6
+    "@sapphire/stopwatch": ^1.4.1
+    "@sapphire/utilities": ^3.9.3
     tslib: ^2.4.0
-  checksum: addb8856842ec024c5d8bb3889c99f350aa26dc0fe3ad5ff6076c3fa36cffd1d37127b5432c885e85fe181540fd2e7e2f1172c63e4a70a567c36e261a9a42eb6
+  checksum: 5e3081885a12fd8fa960fb1897d742e09233541f82a9e86aab31af96cf52cd9da943746f11928ff3b3746c6bdc45bfea1f47abcefec4d1809d7adcfe98df052f
   languageName: node
   linkType: hard
 
@@ -770,6 +790,13 @@ __metadata:
   dependencies:
     "@sapphire/utilities": ^3.9.2
   checksum: eadcdf2cbadcc15fa36d7d3b4719acb05f30ed0611f3f8bcfd47d8037221239168f190e79b2c05942cc66a66cbbf3c7d313eda15e9a2a3cff81cf25cec42f3ce
+  languageName: node
+  linkType: hard
+
+"@sapphire/timestamp@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@sapphire/timestamp@npm:1.0.0"
+  checksum: 2852210825626431cb7aee4da9cd04518778854f5b9e8eafc0fa0a57d499251030ad115f0d0c58e15e5b176cfb495301df7418d95e51c4826e9fadc09ff98bbb
   languageName: node
   linkType: hard
 
@@ -1004,15 +1031,6 @@ __metadata:
   dependencies:
     "@types/tinycolor2": "*"
   checksum: 8bc665bcf277b4da9d30eb1dc5d83990678145700df991a24441948cb86b8e9c453cb701a370d3363dddafdd365748ef3190140601c82916ea70ee577de98dc3
-  languageName: node
-  linkType: hard
-
-"@types/ioredis@npm:^4.28.10":
-  version: 4.28.10
-  resolution: "@types/ioredis@npm:4.28.10"
-  dependencies:
-    "@types/node": "*"
-  checksum: 0f2788cf25f490d3b345db8c5f8b8ce3f6c92cc99abcf744c8f974f02b9b3875233b3d22098614c462a0d6c41c523bd655509418ea88eb6249db6652290ce7cf
   languageName: node
   linkType: hard
 
@@ -3770,10 +3788,10 @@ __metadata:
     "@favware/cliff-jumper": ^1.8.7
     "@sapphire/cron": ^1.0.0
     "@sapphire/decorators": ^5.0.0
-    "@sapphire/discord.js-utilities": ^5.0.0
+    "@sapphire/discord.js-utilities": ^5.0.1
     "@sapphire/framework": 3.1.1
-    "@sapphire/plugin-logger": 3.0.0
-    "@sapphire/plugin-scheduled-tasks": 4.0.0
+    "@sapphire/plugin-logger": 3.0.1
+    "@sapphire/plugin-scheduled-tasks": 4.0.1
     "@sapphire/plugin-subcommands": 3.2.1
     "@sapphire/prettier-config": ^1.4.4
     "@sapphire/stopwatch": ^1.4.1
@@ -3784,7 +3802,6 @@ __metadata:
     "@swc/core": ^1.3.1
     "@types/figlet": ^1.5.5
     "@types/gradient-string": ^1.1.2
-    "@types/ioredis": ^4.28.10
     "@types/node": ^18.7.18
     "@typescript-eslint/eslint-plugin": ^5.37.0
     "@typescript-eslint/parser": ^5.37.0
