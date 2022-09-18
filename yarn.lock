@@ -605,6 +605,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sapphire/cron@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@sapphire/cron@npm:1.0.0"
+  dependencies:
+    "@sapphire/utilities": ^3.9.3
+  checksum: ce33466c52ec8ee9392e67116858643c963a19543f77ce56ca928c743e04f18cde2c793a15c7f0fe0db071f1399a95338f17a25ba746a877dea0918c8b13672e
+  languageName: node
+  linkType: hard
+
 "@sapphire/decorators@npm:^5.0.0":
   version: 5.0.0
   resolution: "@sapphire/decorators@npm:5.0.0"
@@ -3759,6 +3768,7 @@ __metadata:
     "@discordjs/builders": ^0.16.0
     "@discordjs/rest": ^1.1.0
     "@favware/cliff-jumper": ^1.8.7
+    "@sapphire/cron": ^1.0.0
     "@sapphire/decorators": ^5.0.0
     "@sapphire/discord.js-utilities": ^5.0.0
     "@sapphire/framework": 3.1.1
@@ -3767,7 +3777,6 @@ __metadata:
     "@sapphire/plugin-subcommands": 3.2.1
     "@sapphire/prettier-config": ^1.4.4
     "@sapphire/stopwatch": ^1.4.1
-    "@sapphire/time-utilities": ^1.7.6
     "@sapphire/ts-config": ^3.3.4
     "@sapphire/type": ^2.2.4
     "@sapphire/utilities": ^3.9.3

@@ -1,7 +1,7 @@
 import { bold } from '@discordjs/builders';
+import { Time } from '@sapphire/cron';
 import { ApplyOptions } from '@sapphire/decorators';
 import { ChatInputCommand, Command } from '@sapphire/framework';
-import { Time } from '@sapphire/time-utilities';
 import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
 import { Achievement, Player } from 'clashofclans.js';
 import { CommandInteraction, MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
