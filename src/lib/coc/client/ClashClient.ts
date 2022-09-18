@@ -1,4 +1,4 @@
-import { Time } from '@sapphire/time-utilities';
+import { Time } from '@sapphire/cron';
 import { envParseString } from '@skyra/env-utilities';
 import { Client, OverrideOptions, RESTManager } from 'clashofclans.js';
 import { ClanHelper } from '#lib/coc/structure/ClanHelper';
