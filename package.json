@@ -40,7 +40,7 @@
 		"@sapphire/type": "^2.2.4",
 		"@sapphire/utilities": "^3.9.3",
 		"@skyra/env-utilities": "^1.0.2",
-		"bullmq": "^1.91.0",
+		"bullmq": "^1.91.1",
 		"clashofclans.js": "2.8.4",
 		"colorette": "^2.0.19",
 		"discord-api-types": "^0.33.5",
