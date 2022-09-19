@@ -1,5 +1,5 @@
 import { APIPlayer, Player } from 'clashofclans.js';
-import { GoblinClashClient } from '#lib/coc';
+import type { GoblinClashClient } from '#lib/coc';
 import { UnitsHelper } from '#lib/coc/structure/UnitsHelper';
 
 export class GoblinPlayer extends Player {

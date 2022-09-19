@@ -1,6 +1,6 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes } from '@sapphire/framework';
-import { SelectMenuInteraction } from 'discord.js';
+import type { SelectMenuInteraction } from 'discord.js';
 import { SuperTroopsCommand } from '#root/commands/Clan/superTroops';
 
 @ApplyOptions<InteractionHandler.Options>({

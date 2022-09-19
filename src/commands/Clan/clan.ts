@@ -1,7 +1,7 @@
 import {} from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { isNullish } from '@sapphire/utilities';
-import { Clan } from 'clashofclans.js';
+import type { Clan } from 'clashofclans.js';
 import { CommandInteraction, MessageEmbed } from 'discord.js';
 import { LabelEmotes, MiscEmotes, RawClanType, RawWarFrequency, TownHallEmotes, WarLeagueEmotes } from '#lib/coc';
 import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';

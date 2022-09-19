@@ -2,7 +2,7 @@ import { bold, inlineCode, userMention } from '@discordjs/builders';
 import { UserError } from '@sapphire/framework';
 import { envParseArray, envParseString } from '@skyra/env-utilities';
 import { PermissionFlagsBits } from 'discord-api-types/v9';
-import { GuildMember } from 'discord.js';
+import type { GuildMember } from 'discord.js';
 
 export function automationMemberCheck(guildId: string, member: GuildMember, checkManageMessage = false) {
 	if (guildId === envParseString('EYG_GUILD') && !envParseArray('OWNERS').includes(member.id)) {
