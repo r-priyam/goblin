@@ -1,4 +1,4 @@
-import { bold, SlashCommandBuilder } from '@discordjs/builders';
+import { bold } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { PaginatedMessage } from '@sapphire/discord.js-utilities';
 import { isNullish } from '@sapphire/utilities';
@@ -10,15 +10,16 @@ import { PlayerCommand } from '#root/commands/Player/player';
 import { Colors } from '#root/lib/util/constants';
 
 @ApplyOptions<GoblinCommandOptions>({
-	slashCommand: new SlashCommandBuilder()
-		.setName('whois')
-		.setDescription('Get information about an user')
-		.addUserOption((option) =>
-			option //
-				.setName('user')
-				.setDescription('The user to get information for')
-				.setRequired(false)
-		),
+	slashCommand: (builder) =>
+		builder
+			.setName('whois')
+			.setDescription('Get information about an user')
+			.addUserOption((option) =>
+				option //
+					.setName('user')
+					.setDescription('The user to get information for')
+					.setRequired(false)
+			),
 	commandMetaOptions: { idHints: ['974749593696874506', '980131954139734138'] }
 })
 export class WhoIsCommand extends GoblinCommand {

@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from '@discordjs/builders';
+import {} from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { ChatInputCommand, UserError } from '@sapphire/framework';
 import { Util } from 'clashofclans.js';
@@ -11,17 +11,20 @@ import { automationMemberCheck } from '#utils/functions/automationMemberCheck';
 import { addTagOption } from '#utils/functions/commandOptions';
 
 @ApplyOptions<GoblinCommandOptions>({
-	slashCommand: new SlashCommandBuilder()
-		.setName('stop')
-		.setDescription('Stops the selected automation in the channel')
-		.addStringOption((option) =>
-			option //
-				.setName('type')
-				.setDescription('The type of automation to stop')
-				.addChoices({ name: 'Clan Embed', value: 'clanEmbed' })
-				.setRequired(true)
-		)
-		.addStringOption(addTagOption({ description: 'Tag of the clan to stop automation for', required: true })),
+	slashCommand: (builder) =>
+		builder
+			.setName('stop')
+			.setDescription('Stops the selected automation in the channel')
+			.addStringOption((option) =>
+				option //
+					.setName('type')
+					.setDescription('The type of automation to stop')
+					.addChoices({ name: 'Clan Embed', value: 'clanEmbed' })
+					.setRequired(true)
+			)
+			.addStringOption((option) =>
+				addTagOption(option, { description: 'Tag of the clan to stop automation for', required: true })
+			),
 	requiredMemberPermissions: PermissionFlagsBits.ManageMessages,
 	commandMetaOptions: { idHints: ['1010535535468630166', '1013039773142745139'] },
 	preconditions: ['OwnerOnly']

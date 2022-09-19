@@ -2,22 +2,24 @@ import { SlashCommandBuilder } from '@discordjs/builders';
 import { ApplicationCommandRegistry, ApplicationCommandRegistryRegisterOptions, Command } from '@sapphire/framework';
 
 export abstract class GoblinCommand extends Command {
-	private readonly chatInputCommandData: Omit<SlashCommandBuilder, 'addSubcommand' | 'addSubcommandGroup'>;
-
-	private readonly commandMetaOptions?: ApplicationCommandRegistryRegisterOptions;
+	private readonly commandOptions: GoblinCommandOptions;
 
 	public constructor(context: Command.Context, options: GoblinCommandOptions) {
 		super(context, { ...options });
 
-		this.chatInputCommandData = options.slashCommand;
-		this.commandMetaOptions = options.commandMetaOptions;
-
-		this.chatInputCommandData.setDMPermission(options.canRunInDm ?? false);
-		this.chatInputCommandData.setDefaultMemberPermissions(options.requiredMemberPermissions);
+		this.commandOptions = options;
 	}
 
 	public override registerApplicationCommands(registry: ApplicationCommandRegistry) {
-		registry.registerChatInputCommand(this.chatInputCommandData, this.commandMetaOptions);
+		registry.registerChatInputCommand(
+			(builder) =>
+				this.commandOptions.slashCommand(
+					builder
+						.setDMPermission(this.commandOptions.canRunInDm ?? false)
+						.setDefaultMemberPermissions(this.commandOptions.requiredMemberPermissions)
+				),
+			this.commandOptions.commandMetaOptions
+		);
 	}
 }
 
@@ -25,5 +27,5 @@ export type GoblinCommandOptions = Command.Options & {
 	canRunInDm?: boolean;
 	commandMetaOptions?: ApplicationCommandRegistryRegisterOptions;
 	requiredMemberPermissions?: bigint | number | string | null | undefined;
-	slashCommand: Omit<SlashCommandBuilder, 'addSubcommand' | 'addSubcommandGroup'>;
+	slashCommand(builder: SlashCommandBuilder): unknown;
 };

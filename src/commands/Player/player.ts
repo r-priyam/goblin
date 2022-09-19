@@ -1,4 +1,4 @@
-import { bold, SlashCommandBuilder } from '@discordjs/builders';
+import { bold } from '@discordjs/builders';
 import { Time } from '@sapphire/cron';
 import { ApplyOptions } from '@sapphire/decorators';
 import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
@@ -13,10 +13,11 @@ import { ClanOrPlayer, redis } from '#utils/redis';
 import { humanizeNumber } from '#utils/utils';
 
 @ApplyOptions<GoblinCommandOptions>({
-	slashCommand: new SlashCommandBuilder()
-		.setName('player')
-		.setDescription('Get info about a player')
-		.addStringOption(playerTagOption({ autoComplete: true })),
+	slashCommand: (builder) =>
+		builder
+			.setName('player')
+			.setDescription('Get info about a player')
+			.addStringOption((option) => playerTagOption(option, { autoComplete: true })),
 	commandMetaOptions: { idHints: ['977007152600350761', '980131956241092648'] }
 })
 export class PlayerCommand extends GoblinCommand {

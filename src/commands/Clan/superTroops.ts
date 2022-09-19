@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from '@discordjs/builders';
+import {} from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
 import { Clan, SUPER_TROOPS } from 'clashofclans.js';
@@ -10,10 +10,11 @@ import { clanTagOption } from '#utils/functions/commandOptions';
 import { ClanOrPlayer, redis } from '#utils/redis';
 
 @ApplyOptions<GoblinCommandOptions>({
-	slashCommand: new SlashCommandBuilder()
-		.setName('supertroops')
-		.setDescription('Lists clan members active super troops')
-		.addStringOption(clanTagOption({ autoComplete: true })),
+	slashCommand: (builder) =>
+		builder
+			.setName('supertroops')
+			.setDescription('Lists clan members active super troops')
+			.addStringOption((option) => clanTagOption(option, { autoComplete: true })),
 	commandMetaOptions: { idHints: ['991987141259309067', '992380615884296213'] }
 })
 export class SuperTroopsCommand extends GoblinCommand {

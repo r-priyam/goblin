@@ -1,4 +1,4 @@
-import { userMention, SlashCommandBuilder } from '@discordjs/builders';
+import { userMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { SnowflakeRegex } from '@sapphire/discord.js-utilities';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
@@ -8,15 +8,16 @@ import { Colors } from '#utils/constants';
 
 @ApplyOptions<GoblinCommandOptions>({
 	requiredMemberPermissions: PermissionFlagsBits.BanMembers,
-	slashCommand: new SlashCommandBuilder()
-		.setName('hackban')
-		.setDescription('Bans the user from server by id, not matter if they are in server or not')
-		.addStringOption((option) =>
-			option //
-				.setName('id')
-				.setDescription('ID of the user to ban')
-				.setRequired(true)
-		),
+	slashCommand: (builder) =>
+		builder
+			.setName('hackban')
+			.setDescription('Bans the user from server by id, not matter if they are in server or not')
+			.addStringOption((option) =>
+				option //
+					.setName('id')
+					.setDescription('ID of the user to ban')
+					.setRequired(true)
+			),
 	commandMetaOptions: { idHints: ['999333483006673006', '999338916232581171'] }
 })
 export class HackBanCommand extends GoblinCommand {

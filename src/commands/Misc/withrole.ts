@@ -1,4 +1,4 @@
-import { roleMention, SlashCommandBuilder } from '@discordjs/builders';
+import { roleMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { inlineCodeBlock } from '@sapphire/utilities';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
@@ -8,15 +8,16 @@ import { Colors } from '#root/lib/util/constants';
 
 @ApplyOptions<GoblinCommandOptions>({
 	requiredMemberPermissions: PermissionFlagsBits.BanMembers | PermissionFlagsBits.KickMembers,
-	slashCommand: new SlashCommandBuilder()
-		.setName('withrole')
-		.setDescription('Get list of members with specific role')
-		.addRoleOption((option) =>
-			option //
-				.setName('role')
-				.setDescription('Role to get members for')
-				.setRequired(true)
-		),
+	slashCommand: (builder) =>
+		builder
+			.setName('withrole')
+			.setDescription('Get list of members with specific role')
+			.addRoleOption((option) =>
+				option //
+					.setName('role')
+					.setDescription('Role to get members for')
+					.setRequired(true)
+			),
 	commandMetaOptions: { idHints: ['997227514726461490', '997373722178617405'] }
 })
 export class WithRoleCommand extends GoblinCommand {

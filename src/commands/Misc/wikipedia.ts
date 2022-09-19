@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from '@discordjs/builders';
+import {} from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { PaginatedMessage } from '@sapphire/discord.js-utilities';
 import { CommandInteraction, MessageEmbed } from 'discord.js';
@@ -7,15 +7,16 @@ import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinComma
 import { Colors } from '#root/lib/util/constants';
 
 @ApplyOptions<GoblinCommandOptions>({
-	slashCommand: new SlashCommandBuilder()
-		.setName('wikipedia')
-		.setDescription('Search wikipedia for a keyword')
-		.addStringOption((option) =>
-			option //
-				.setName('keyword')
-				.setDescription('The keyword to search')
-				.setRequired(true)
-		),
+	slashCommand: (builder) =>
+		builder
+			.setName('wikipedia')
+			.setDescription('Search wikipedia for a keyword')
+			.addStringOption((option) =>
+				option //
+					.setName('keyword')
+					.setDescription('The keyword to search')
+					.setRequired(true)
+			),
 	commandMetaOptions: { idHints: ['987351901655945326', '987409434462519337'] }
 })
 export class WikipediaCommand extends GoblinCommand {

@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from '@discordjs/builders';
+import {} from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { UserError } from '@sapphire/framework';
 import { Util } from 'clashofclans.js';
@@ -10,17 +10,20 @@ import { automationMemberCheck } from '#utils/functions/automationMemberCheck';
 import { addTagOption } from '#utils/functions/commandOptions';
 
 @ApplyOptions<GoblinCommandOptions>({
-	slashCommand: new SlashCommandBuilder()
-		.setName('start')
-		.setDescription('Starts the selected automation in the channel')
-		.addStringOption((option) =>
-			option
-				.setName('type')
-				.setDescription('The type of automation to start')
-				.addChoices({ name: 'Clan Embed', value: 'clanEmbed' })
-				.setRequired(true)
-		)
-		.addStringOption(addTagOption({ description: 'Tag of the clan to start automation for', required: true })),
+	slashCommand: (builder) =>
+		builder
+			.setName('start')
+			.setDescription('Starts the selected automation in the channel')
+			.addStringOption((option) =>
+				option
+					.setName('type')
+					.setDescription('The type of automation to start')
+					.addChoices({ name: 'Clan Embed', value: 'clanEmbed' })
+					.setRequired(true)
+			)
+			.addStringOption((option) =>
+				addTagOption(option, { description: 'Tag of the clan to start automation for', required: true })
+			),
 	requiredMemberPermissions: PermissionFlagsBits.ManageMessages,
 	commandMetaOptions: { idHints: ['1010855609043787796', '1013039770429034547'] },
 	preconditions: ['StartRequiredPermissions']

@@ -3,12 +3,13 @@ import { SlashCommandStringOption } from '@discordjs/builders';
 /**
  * Generate ClanTag or PlayerTag SlashCommandString option
  *
+ * @param optionInstance  - {@link SlashCommandStringOption}
  * @param options - {@link TagProperties}
  * @defaultValue `required: false` and `autoComplete: false`
  * @returns - {@link SlashCommandStringOption}
  */
-export function addTagOption(options: TagProperties) {
-	return new SlashCommandStringOption()
+export function addTagOption(optionInstance: SlashCommandStringOption, options: TagProperties) {
+	return optionInstance
 		.setName('tag')
 		.setDescription(options.description!)
 		.setRequired(options.required ?? false)
@@ -18,21 +19,24 @@ export function addTagOption(options: TagProperties) {
 /**
  * Generate ClanTag SlashCommandString option
  *
+ * @param optionInstance  - {@link SlashCommandStringOption}
  * @param options - {@link TagProperties}
  * @defaultValue `required: false` and `autoComplete: false`
  * @returns - {@link SlashCommandStringOption}
  */
-export const clanTagOption = (options: TagProperties) => addTagOption({ description: 'Tag of the clan', ...options });
+export const clanTagOption = (optionInstance: SlashCommandStringOption, options: TagProperties) =>
+	addTagOption(optionInstance, { description: 'Tag of the clan', ...options });
 
 /**
  * Generate PlayerTag SlashCommandString option
  *
+ * @param optionInstance  - {@link SlashCommandStringOption}
  * @param options - {@link TagProperties}
  * @defaultValue `required: false` and `autoComplete: false`
  * @returns - {@link SlashCommandStringOption}
  */
-export const playerTagOption = (options: TagProperties) =>
-	addTagOption({ description: 'Tag of the player', ...options });
+export const playerTagOption = (optionInstance: SlashCommandStringOption, options: TagProperties) =>
+	addTagOption(optionInstance, { description: 'Tag of the player', ...options });
 
 type TagProperties = {
 	/**

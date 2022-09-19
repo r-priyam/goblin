@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from '@discordjs/builders';
+import {} from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { Util } from 'clashofclans.js';
 import { CommandInteraction, MessageEmbed } from 'discord.js';
@@ -8,17 +8,18 @@ import { addTagOption } from '#utils/functions/commandOptions';
 import { redis } from '#utils/redis';
 
 @ApplyOptions<GoblinCommandOptions>({
-	slashCommand: new SlashCommandBuilder()
-		.setName('unlink')
-		.setDescription('Unlink a clan or a player from your discord account')
-		.addStringOption((option) =>
-			option
-				.setName('choice')
-				.setDescription('Select what you want to unlink')
-				.setRequired(true)
-				.addChoices({ name: 'Clan', value: 'clan' }, { name: 'Player', value: 'player' })
-		)
-		.addStringOption(addTagOption({ description: 'The tag to unlink', required: true })),
+	slashCommand: (builder) =>
+		builder
+			.setName('unlink')
+			.setDescription('Unlink a clan or a player from your discord account')
+			.addStringOption((option) =>
+				option
+					.setName('choice')
+					.setDescription('Select what you want to unlink')
+					.setRequired(true)
+					.addChoices({ name: 'Clan', value: 'clan' }, { name: 'Player', value: 'player' })
+			)
+			.addStringOption((option) => addTagOption(option, { description: 'The tag to unlink', required: true })),
 	commandMetaOptions: { idHints: ['975442552134197248', '980131949911883847'] }
 })
 export class UnlinkCommand extends GoblinCommand {

@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from '@discordjs/builders';
+import {} from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { isNullish } from '@sapphire/utilities';
 import { Clan } from 'clashofclans.js';
@@ -10,10 +10,11 @@ import { clanTagOption } from '#utils/functions/commandOptions';
 import { ClanOrPlayer, redis } from '#utils/redis';
 
 @ApplyOptions<GoblinCommandOptions>({
-	slashCommand: new SlashCommandBuilder()
-		.setName('clan')
-		.setDescription('Get info about a clan')
-		.addStringOption(clanTagOption({ autoComplete: true })),
+	slashCommand: (builder) =>
+		builder
+			.setName('clan')
+			.setDescription('Get info about a clan')
+			.addStringOption((option) => clanTagOption(option, { autoComplete: true })),
 	commandMetaOptions: { idHints: ['975586954982867024', '980132035089809429'] }
 })
 export class ClanCommand extends GoblinCommand {
