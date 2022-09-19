@@ -13,7 +13,7 @@ import { ClanOrPlayer, redis } from '#utils/redis';
 import { humanizeNumber } from '#utils/utils';
 
 @ApplyOptions<GoblinCommandOptions>({
-	slashCommand: (builder) =>
+	command: (builder) =>
 		builder
 			.setName('player')
 			.setDescription('Get info about a player')

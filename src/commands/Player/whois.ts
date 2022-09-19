@@ -10,7 +10,7 @@ import { PlayerCommand } from '#root/commands/Player/player';
 import { Colors } from '#root/lib/util/constants';
 
 @ApplyOptions<GoblinCommandOptions>({
-	slashCommand: (builder) =>
+	command: (builder) =>
 		builder
 			.setName('whois')
 			.setDescription('Get information about an user')

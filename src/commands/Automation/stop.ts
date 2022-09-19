@@ -11,7 +11,7 @@ import { automationMemberCheck } from '#utils/functions/automationMemberCheck';
 import { addTagOption } from '#utils/functions/commandOptions';
 
 @ApplyOptions<GoblinCommandOptions>({
-	slashCommand: (builder) =>
+	command: (builder) =>
 		builder
 			.setName('stop')
 			.setDescription('Stops the selected automation in the channel')

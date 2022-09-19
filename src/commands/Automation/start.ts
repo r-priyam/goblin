@@ -10,7 +10,7 @@ import { automationMemberCheck } from '#utils/functions/automationMemberCheck';
 import { addTagOption } from '#utils/functions/commandOptions';
 
 @ApplyOptions<GoblinCommandOptions>({
-	slashCommand: (builder) =>
+	command: (builder) =>
 		builder
 			.setName('start')
 			.setDescription('Starts the selected automation in the channel')

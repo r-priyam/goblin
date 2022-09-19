@@ -7,7 +7,7 @@ import { Colors } from '#lib/util/constants';
 const sortRanks = (x: Role, y: Role) => Number(y.position > x.position) || Number(x.position === y.position) - 1;
 
 @ApplyOptions<GoblinCommandOptions>({
-	slashCommand: (builder) =>
+	command: (builder) =>
 		builder
 			.setName('userinfo')
 			.setDescription('Get discord related information for user')

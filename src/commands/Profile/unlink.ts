@@ -8,7 +8,7 @@ import { addTagOption } from '#utils/functions/commandOptions';
 import { redis } from '#utils/redis';
 
 @ApplyOptions<GoblinCommandOptions>({
-	slashCommand: (builder) =>
+	command: (builder) =>
 		builder
 			.setName('unlink')
 			.setDescription('Unlink a clan or a player from your discord account')

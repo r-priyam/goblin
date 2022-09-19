@@ -8,7 +8,7 @@ import { Colors } from '#utils/constants';
 
 @ApplyOptions<GoblinCommandOptions>({
 	requiredMemberPermissions: PermissionFlagsBits.BanMembers,
-	slashCommand: (builder) =>
+	command: (builder) =>
 		builder
 			.setName('hackban')
 			.setDescription('Bans the user from server by id, not matter if they are in server or not')

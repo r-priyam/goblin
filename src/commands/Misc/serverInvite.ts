@@ -4,8 +4,7 @@ import { CommandInteraction } from 'discord.js';
 import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 
 @ApplyOptions<GoblinCommandOptions>({
-	canRunInDm: false,
-	slashCommand: (builder) =>
+	command: (builder) =>
 		builder //
 			.setName('serverinvite')
 			.setDescription('Returns the server invite link'),

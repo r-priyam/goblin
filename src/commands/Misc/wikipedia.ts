@@ -7,7 +7,7 @@ import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinComma
 import { Colors } from '#root/lib/util/constants';
 
 @ApplyOptions<GoblinCommandOptions>({
-	slashCommand: (builder) =>
+	command: (builder) =>
 		builder
 			.setName('wikipedia')
 			.setDescription('Search wikipedia for a keyword')

@@ -25,7 +25,7 @@
 			"import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';",
 			"",
 			"@ApplyOptions<GoblinCommandOptions>({",
-			"\tslashCommand: (builder) => builder.setName('').setDescription(''),",
+			"\tcommand: (builder) => builder.setName('').setDescription(''),",
 			"\tcommandMetaOptions: {idHints: ['']}",
 			"})",
 			"export class ${1:CommandName} extends GoblinCommand {",

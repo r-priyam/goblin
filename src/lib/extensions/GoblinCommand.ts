@@ -13,7 +13,7 @@ export abstract class GoblinCommand extends Command {
 	public override registerApplicationCommands(registry: ApplicationCommandRegistry) {
 		registry.registerChatInputCommand(
 			(builder) =>
-				this.commandOptions.slashCommand(
+				this.commandOptions.command(
 					builder
 						.setDMPermission(this.commandOptions.canRunInDm ?? false)
 						.setDefaultMemberPermissions(this.commandOptions.requiredMemberPermissions)
@@ -25,7 +25,7 @@ export abstract class GoblinCommand extends Command {
 
 export type GoblinCommandOptions = Command.Options & {
 	canRunInDm?: boolean;
+	command(builder: SlashCommandBuilder): unknown;
 	commandMetaOptions?: ApplicationCommandRegistryRegisterOptions;
 	requiredMemberPermissions?: bigint | number | string | null | undefined;
-	slashCommand(builder: SlashCommandBuilder): unknown;
 };

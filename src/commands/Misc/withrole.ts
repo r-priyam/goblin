@@ -8,7 +8,7 @@ import { Colors } from '#root/lib/util/constants';
 
 @ApplyOptions<GoblinCommandOptions>({
 	requiredMemberPermissions: PermissionFlagsBits.BanMembers | PermissionFlagsBits.KickMembers,
-	slashCommand: (builder) =>
+	command: (builder) =>
 		builder
 			.setName('withrole')
 			.setDescription('Get list of members with specific role')

@@ -12,7 +12,7 @@ import { Colors } from '#root/lib/util/constants';
 import { seconds } from '#utils/functions/time';
 
 @ApplyOptions<GoblinCommandOptions>({
-	slashCommand: (builder) => builder.setName('about').setDescription('Something about myself'),
+	command: (builder) => builder.setName('about').setDescription('Something about myself'),
 	commandMetaOptions: { idHints: ['998801926315589672', '998831574449668126'] }
 })
 export class AboutCommand extends GoblinCommand {
