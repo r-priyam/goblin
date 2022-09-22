@@ -41,7 +41,7 @@ export class AboutCommand extends Command {
 	}
 
 	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
-		await interaction.deferReply({ ephemeral: true });
+		await interaction.deferReply();
 		return interaction.editReply({ embeds: [await this.embed()] });
 	}
 
