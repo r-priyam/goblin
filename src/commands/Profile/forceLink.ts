@@ -39,7 +39,7 @@ import { redis } from '#utils/redis';
 							.setDescription('User to link player to')
 							.setRequired(true)
 					)
-					.addStringOption((option) => playerTagOption(option, {required: true}))
+					.addStringOption((option) => playerTagOption(option, { required: true }))
 			),
 	commandMetaOptions: { idHints: ['1017973522171187250', '1017984888575631381'] },
 	subcommands: [

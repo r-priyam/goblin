@@ -9,8 +9,9 @@ declare module '@skyra/env-utilities' {
 		CLASH_LINK_PASSWORD: string;
 		CLASH_LINK_USER_NAME: string;
 		CLASH_PASSWORD: string;
-
 		DEBUG: BooleanString;
+
+		DEVELOPMENT_GUILD: string;
 
 		DISCORD_TOKEN: string;
 

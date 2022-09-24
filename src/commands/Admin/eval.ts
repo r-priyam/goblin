@@ -2,54 +2,50 @@ import { Buffer } from 'node:buffer';
 import { inspect } from 'node:util';
 import { codeBlock } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
-import { ChatInputCommand, Command } from '@sapphire/framework';
 import { Stopwatch } from '@sapphire/stopwatch';
 import { Type } from '@sapphire/type';
 import { isThenable } from '@sapphire/utilities';
+import { envParseString } from '@skyra/env-utilities';
 import { CommandInteraction, MessageEmbed } from 'discord.js';
+import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#utils/constants';
 
-@ApplyOptions<ChatInputCommand.Options>({
-	description: '[Owner Only] Evaluate any JavaScript code',
+@ApplyOptions<GoblinCommandOptions>({
+	command: (builder) =>
+		builder
+			.setName('eval')
+			.setDescription('[Owner Only] Evaluate any JavaScript code')
+			.addStringOption((option) =>
+				option //
+					.setName('code')
+					.setDescription('The code to evaluate')
+					.setRequired(true)
+			)
+			.addBooleanOption((option) =>
+				option
+					.setName('async')
+					.setDescription('Whether to allow use of async/await. If set, the result will have to be returned')
+					.setRequired(false)
+			)
+			.addBooleanOption((option) =>
+				option //
+					.setName('ephemeral')
+					.setDescription('Whether to show the result ephemerally')
+					.setRequired(false)
+			)
+			.addIntegerOption((option) =>
+				option //
+					.setName('depth')
+					.setDescription('The depth of the displayed return type')
+					.setRequired(false)
+			),
+	commandMetaOptions: {
+		idHints: ['978257844585500702', '980132037891592293'],
+		guildIds: [envParseString('DEVELOPMENT_GUILD')]
+	},
 	preconditions: ['OwnerOnly']
 })
-export class EvalCommand extends Command {
-	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
-		registry.registerChatInputCommand(
-			(builder) =>
-				builder
-					.setName(this.name)
-					.setDescription(this.description)
-					.addStringOption((option) =>
-						option //
-							.setName('code')
-							.setDescription('The code to evaluate')
-							.setRequired(true)
-					)
-					.addBooleanOption((option) =>
-						option
-							.setName('async')
-							.setDescription(
-								'Whether to allow use of async/await. If set, the result will have to be returned'
-							)
-							.setRequired(false)
-					)
-					.addBooleanOption((option) =>
-						option //
-							.setName('ephemeral')
-							.setDescription('Whether to show the result ephemerally')
-							.setRequired(false)
-					)
-					.addIntegerOption((option) =>
-						option //
-							.setName('depth')
-							.setDescription('The depth of the displayed return type')
-							.setRequired(false)
-					),
-			{ idHints: ['978257844585500702', '980132037891592293'], guildIds: ['789853678730608651'] }
-		);
-	}
-
+export class EvalCommand extends GoblinCommand {
 	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
 		const code = interaction.options.getString('code', true);
 		const depth = interaction.options.getInteger('depth');
