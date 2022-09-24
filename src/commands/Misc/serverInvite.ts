@@ -1,24 +1,16 @@
+import {} from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
-import { ChatInputCommand, Command } from '@sapphire/framework';
-import { CommandInteraction } from 'discord.js';
+import type { CommandInteraction } from 'discord.js';
+import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 
-@ApplyOptions<ChatInputCommand.Options>({
-	description: 'Returns the EYG server invite link'
+@ApplyOptions<GoblinCommandOptions>({
+	command: (builder) =>
+		builder //
+			.setName('serverinvite')
+			.setDescription('Returns the EYG server invite link'),
+	commandMetaOptions: { idHints: ['993241403985506424', '993241985576075295'] }
 })
-export class ServerInviteCommand extends Command {
-	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
-		registry.registerChatInputCommand(
-			(builder) =>
-				builder //
-					.setName(this.name)
-					.setDescription(this.description)
-					.setDMPermission(false),
-			{
-				idHints: ['993241403985506424', '993241985576075295']
-			}
-		);
-	}
-
+export class ServerInviteCommand extends GoblinCommand {
 	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
 		return interaction.reply({ content: 'https://discord.me/eygcommunity' });
 	}

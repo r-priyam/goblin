@@ -1,31 +1,25 @@
+import {} from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { PaginatedMessage } from '@sapphire/discord.js-utilities';
-import { ChatInputCommand, Command } from '@sapphire/framework';
 import { CommandInteraction, MessageEmbed } from 'discord.js';
 import { stripHtml } from 'string-strip-html';
+import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#root/lib/util/constants';
 
-@ApplyOptions<ChatInputCommand.Options>({
-	description: 'Search wikipedia for a keyword'
+@ApplyOptions<GoblinCommandOptions>({
+	command: (builder) =>
+		builder
+			.setName('wikipedia')
+			.setDescription('Search wikipedia for a keyword')
+			.addStringOption((option) =>
+				option //
+					.setName('keyword')
+					.setDescription('The keyword to search')
+					.setRequired(true)
+			),
+	commandMetaOptions: { idHints: ['987351901655945326', '987409434462519337'] }
 })
-export class WikipediaCommand extends Command {
-	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
-		registry.registerChatInputCommand(
-			(builder) =>
-				builder
-					.setName(this.name)
-					.setDescription(this.description)
-					.addStringOption((option) =>
-						option //
-							.setName('keyword')
-							.setDescription('The keyword to search')
-							.setRequired(true)
-					)
-					.setDMPermission(false),
-			{ idHints: ['987351901655945326', '987409434462519337'] }
-		);
-	}
-
+export class WikipediaCommand extends GoblinCommand {
 	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply({ ephemeral: true });
 		const keyword = interaction.options.getString('keyword', true);

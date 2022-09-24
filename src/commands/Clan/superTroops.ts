@@ -1,36 +1,23 @@
+import {} from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
-import { ChatInputCommand, Command } from '@sapphire/framework';
 import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
 import { Clan, SUPER_TROOPS } from 'clashofclans.js';
 import { CommandInteraction, MessageActionRow, MessageEmbed, MessageSelectMenu } from 'discord.js';
 import { SuperTroopEmotes } from '#lib/coc';
+import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#utils/constants';
+import { clanTagOption } from '#utils/functions/commandOptions';
 import { ClanOrPlayer, redis } from '#utils/redis';
 
-@ApplyOptions<ChatInputCommand.Options>({
-	description: 'Lists clan members active super troops'
+@ApplyOptions<GoblinCommandOptions>({
+	command: (builder) =>
+		builder
+			.setName('supertroops')
+			.setDescription('Lists clan members active super troops')
+			.addStringOption((option) => clanTagOption(option, { autoComplete: true })),
+	commandMetaOptions: { idHints: ['991987141259309067', '992380615884296213'] }
 })
-export class SuperTroopsCommand extends Command {
-	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
-		registry.registerChatInputCommand(
-			(builder) =>
-				builder
-					.setName(this.name)
-					.setDescription(this.description)
-					.addStringOption((option) =>
-						option //
-							.setName('tag')
-							.setDescription('Tag of the clan')
-							.setRequired(false)
-							.setAutocomplete(true)
-					)
-					.setDMPermission(false),
-			{
-				idHints: ['991987141259309067', '992380615884296213']
-			}
-		);
-	}
-
+export class SuperTroopsCommand extends GoblinCommand {
 	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply();
 		let clanTag = interaction.options.getString('tag');

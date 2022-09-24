@@ -1,41 +1,34 @@
+import {} from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
-import { ChatInputCommand, Command, UserError } from '@sapphire/framework';
+import { UserError } from '@sapphire/framework';
 import { Util } from 'clashofclans.js';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
 import { CommandInteraction, MessageActionRow, Modal, ModalActionRowComponent, TextInputComponent } from 'discord.js';
+import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import { ModalCustomIds, ModalInputCustomIds } from '#utils/constants';
 import { automationMemberCheck } from '#utils/functions/automationMemberCheck';
+import { addTagOption } from '#utils/functions/commandOptions';
 
-@ApplyOptions<ChatInputCommand.Options>({
-	description: 'Starts the selected automation in the channel',
+@ApplyOptions<GoblinCommandOptions>({
+	command: (builder) =>
+		builder
+			.setName('start')
+			.setDescription('Starts the selected automation in the channel')
+			.addStringOption((option) =>
+				option
+					.setName('type')
+					.setDescription('The type of automation to start')
+					.addChoices({ name: 'Clan Embed', value: 'clanEmbed' })
+					.setRequired(true)
+			)
+			.addStringOption((option) =>
+				addTagOption(option, { description: 'Tag of the clan to start automation for', required: true })
+			),
+	requiredMemberPermissions: PermissionFlagsBits.ManageMessages,
+	commandMetaOptions: { idHints: ['1010855609043787796', '1013039770429034547'] },
 	preconditions: ['StartRequiredPermissions']
 })
-export class StartCommand extends Command {
-	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
-		registry.registerChatInputCommand(
-			(builder) =>
-				builder
-					.setName(this.name)
-					.setDescription(this.description)
-					.addStringOption((option) =>
-						option //
-							.setName('type')
-							.setDescription('The type of automation to start')
-							.addChoices({ name: 'Clan Embed', value: 'clanEmbed' })
-							.setRequired(true)
-					)
-					.addStringOption((option) =>
-						option //
-							.setName('tag')
-							.setDescription('Tag of the clan to start automation for')
-							.setRequired(true)
-					)
-					.setDMPermission(false)
-					.setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages),
-			{ idHints: ['1010855609043787796', '1013039770429034547'] }
-		);
-	}
-
+export class StartCommand extends GoblinCommand {
 	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
 		automationMemberCheck(interaction.guildId, interaction.member);
 

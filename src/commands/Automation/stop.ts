@@ -1,42 +1,35 @@
+import {} from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
-import { ChatInputCommand, Command, UserError } from '@sapphire/framework';
+import { ChatInputCommand, UserError } from '@sapphire/framework';
 import { Util } from 'clashofclans.js';
 import { bold } from 'colorette';
 import { PermissionFlagsBits } from 'discord-api-types/v9';
 import { CommandInteraction, MessageEmbed } from 'discord.js';
+import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#utils/constants';
 import { automationMemberCheck } from '#utils/functions/automationMemberCheck';
+import { addTagOption } from '#utils/functions/commandOptions';
 
-@ApplyOptions<ChatInputCommand.Options>({
-	description: 'Stops the selected automation in the channel',
+@ApplyOptions<GoblinCommandOptions>({
+	command: (builder) =>
+		builder
+			.setName('stop')
+			.setDescription('Stops the selected automation in the channel')
+			.addStringOption((option) =>
+				option //
+					.setName('type')
+					.setDescription('The type of automation to stop')
+					.addChoices({ name: 'Clan Embed', value: 'clanEmbed' })
+					.setRequired(true)
+			)
+			.addStringOption((option) =>
+				addTagOption(option, { description: 'Tag of the clan to stop automation for', required: true })
+			),
+	requiredMemberPermissions: PermissionFlagsBits.ManageMessages,
+	commandMetaOptions: { idHints: ['1010535535468630166', '1013039773142745139'] },
 	preconditions: ['OwnerOnly']
 })
-export class StopCommand extends Command {
-	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
-		registry.registerChatInputCommand(
-			(builder) =>
-				builder
-					.setName(this.name)
-					.setDescription(this.description)
-					.addStringOption((option) =>
-						option //
-							.setName('type')
-							.setDescription('The type of automation to stop')
-							.addChoices({ name: 'Clan Embed', value: 'clanEmbed' })
-							.setRequired(true)
-					)
-					.addStringOption((option) =>
-						option //
-							.setName('tag')
-							.setDescription('Tag of the clan to stop automation for')
-							.setRequired(true)
-					)
-					.setDMPermission(false)
-					.setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages),
-			{ idHints: ['1010535535468630166', '1013039773142745139'] }
-		);
-	}
-
+export class StopCommand extends GoblinCommand {
 	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
 		automationMemberCheck(interaction.guildId, interaction.member);
 

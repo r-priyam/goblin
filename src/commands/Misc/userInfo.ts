@@ -1,32 +1,25 @@
 import { time, TimestampStyles } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
-import { ChatInputCommand, Command } from '@sapphire/framework';
 import { CommandInteraction, GuildMember, MessageActionRow, MessageButton, MessageEmbed, Role } from 'discord.js';
+import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#lib/util/constants';
 
 const sortRanks = (x: Role, y: Role) => Number(y.position > x.position) || Number(x.position === y.position) - 1;
 
-@ApplyOptions<ChatInputCommand.Options>({
-	description: 'Get discord related information for user'
+@ApplyOptions<GoblinCommandOptions>({
+	command: (builder) =>
+		builder
+			.setName('userinfo')
+			.setDescription('Get discord related information for user')
+			.addUserOption((option) =>
+				option //
+					.setName('user')
+					.setDescription('The user to get information for')
+					.setRequired(false)
+			),
+	commandMetaOptions: { idHints: ['987411522198335619', '987411679115624502'] }
 })
-export class UserInfoCommand extends Command {
-	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
-		registry.registerChatInputCommand(
-			(builder) =>
-				builder
-					.setName(this.name)
-					.setDescription(this.description)
-					.addUserOption((option) =>
-						option //
-							.setName('user')
-							.setDescription('The user to get information for')
-							.setRequired(false)
-					)
-					.setDMPermission(false),
-			{ idHints: ['987411522198335619', '987411679115624502'] }
-		);
-	}
-
+export class UserInfoCommand extends GoblinCommand {
 	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply();
 		const member = interaction.options.getMember('user') ?? interaction.member;

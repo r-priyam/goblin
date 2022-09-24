@@ -1,11 +1,32 @@
 import { ApplyOptions } from '@sapphire/decorators';
-import { ChatInputCommand, UserError } from '@sapphire/framework';
-import { Subcommand } from '@sapphire/plugin-subcommands';
+import { UserError } from '@sapphire/framework';
 import { CommandInteraction, MessageEmbed } from 'discord.js';
+import { GoblinSubCommand, GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
 import { Colors } from '#utils/constants';
+import { clanTagOption, playerTagOption } from '#utils/functions/commandOptions';
 import { redis } from '#utils/redis';
 
-@ApplyOptions<Subcommand.Options>({
+@ApplyOptions<GoblinSubCommandOptions>({
+	command: (builder) =>
+		builder
+			.setName('link')
+			.setDescription('Command related to linking clan or player to user profile')
+			.addSubcommand((command) =>
+				command
+					.setName('clan')
+					.setDescription('Link a clan to your discord account')
+					.addStringOption((option) => clanTagOption(option, { required: true }))
+			)
+			.addSubcommand((command) =>
+				command
+					.setName('player')
+					.setDescription('Link a player to your discord account')
+					.addStringOption((option) => playerTagOption(option, { required: true }))
+					.addStringOption((option) =>
+						option.setName('token').setDescription('API token of the player').setRequired(true)
+					)
+			),
+	commandMetaOptions: { idHints: ['975266632299606106', '980131947475009556'] },
 	subcommands: [
 		{
 			name: 'clan',
@@ -15,40 +36,9 @@ import { redis } from '#utils/redis';
 			name: 'player',
 			chatInputRun: 'playerLink'
 		}
-	],
-	description: 'Commands related to user profile'
+	]
 })
-export class LinkCommand extends Subcommand {
-	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
-		registry.registerChatInputCommand(
-			(builder) =>
-				builder
-					.setName(this.name)
-					.setDescription(this.description)
-					.setDMPermission(false)
-					.addSubcommand((command) =>
-						command
-							.setName('clan')
-							.setDescription('Link a clan to your discord account')
-							.addStringOption((option) =>
-								option.setName('tag').setDescription('Tag of the clan').setRequired(true)
-							)
-					)
-					.addSubcommand((command) =>
-						command
-							.setName('player')
-							.setDescription('Link a player to your discord account')
-							.addStringOption((option) =>
-								option.setName('tag').setDescription('Tag of the player').setRequired(true)
-							)
-							.addStringOption((option) =>
-								option.setName('token').setDescription('API token of the player').setRequired(true)
-							)
-					),
-			{ idHints: ['975266632299606106', '980131947475009556'] }
-		);
-	}
-
+export class LinkCommand extends GoblinSubCommand {
 	public async clanLink(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply({ ephemeral: true });
 

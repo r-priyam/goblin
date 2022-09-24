@@ -1,35 +1,28 @@
 import { bold } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { PaginatedMessage } from '@sapphire/discord.js-utilities';
-import { ChatInputCommand, Command } from '@sapphire/framework';
 import { isNullish } from '@sapphire/utilities';
 import { Util } from 'clashofclans.js';
 import { CommandInteraction, MessageEmbed } from 'discord.js';
 import { MiscEmotes, RawPosition, TownHallEmotes } from '#lib/coc';
+import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import { PlayerCommand } from '#root/commands/Player/player';
 import { Colors } from '#root/lib/util/constants';
 
-@ApplyOptions<ChatInputCommand.Options>({
-	description: 'Get information about an user'
+@ApplyOptions<GoblinCommandOptions>({
+	command: (builder) =>
+		builder
+			.setName('whois')
+			.setDescription('Get information about an user')
+			.addUserOption((option) =>
+				option //
+					.setName('user')
+					.setDescription('The user to get information for')
+					.setRequired(false)
+			),
+	commandMetaOptions: { idHints: ['974749593696874506', '980131954139734138'] }
 })
-export class WhoIsCommand extends Command {
-	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
-		registry.registerChatInputCommand(
-			(builder) =>
-				builder
-					.setName(this.name)
-					.setDescription(this.description)
-					.addUserOption((option) =>
-						option //
-							.setName('user')
-							.setDescription('The user to get information for')
-							.setRequired(false)
-					)
-					.setDMPermission(false),
-			{ idHints: ['974749593696874506', '980131954139734138'] }
-		);
-	}
-
+export class WhoIsCommand extends GoblinCommand {
 	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply();
 		const member = interaction.options.getMember('user') ?? interaction.member;

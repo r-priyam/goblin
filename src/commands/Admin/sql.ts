@@ -1,33 +1,31 @@
 import { inspect } from 'node:util';
 import { codeBlock } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
-import { ChatInputCommand, Command } from '@sapphire/framework';
 import { Stopwatch } from '@sapphire/stopwatch';
 import { inlineCodeBlock, isNullishOrEmpty } from '@sapphire/utilities';
-import { CommandInteraction } from 'discord.js';
+import { envParseString } from '@skyra/env-utilities';
+import type { CommandInteraction } from 'discord.js';
 import { markdownTable } from 'markdown-table';
+import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 
-@ApplyOptions<ChatInputCommand.Options>({
-	description: '[Owner Only] Executes SQL query',
+@ApplyOptions<GoblinCommandOptions>({
+	command: (builder) =>
+		builder
+			.setName('sql')
+			.setDescription('[Owner Only] Executes SQL query')
+			.addStringOption((option) =>
+				option //
+					.setName('query')
+					.setDescription('The query to execute')
+					.setRequired(true)
+			),
+	commandMetaOptions: {
+		idHints: ['991266724093632532', '991269577386373190'],
+		guildIds: [envParseString('DEVELOPMENT_GUILD')]
+	},
 	preconditions: ['OwnerOnly']
 })
-export class SQLCommand extends Command {
-	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
-		registry.registerChatInputCommand(
-			(builder) =>
-				builder
-					.setName(this.name)
-					.setDescription(this.description)
-					.addStringOption((option) =>
-						option //
-							.setName('query')
-							.setDescription('The query to execute')
-							.setRequired(true)
-					),
-			{ idHints: ['991266724093632532', '991269577386373190'], guildIds: ['789853678730608651'] }
-		);
-	}
-
+export class SQLCommand extends GoblinCommand {
 	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply();
 

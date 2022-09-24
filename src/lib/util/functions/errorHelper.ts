@@ -1,5 +1,5 @@
 import { userMention } from '@discordjs/builders';
-import { UserError } from '@sapphire/framework';
+import type { UserError } from '@sapphire/framework';
 import { codeBlock } from '@sapphire/utilities';
 import { RESTJSONErrorCodes } from 'discord-api-types/v9';
 import { CommandInteraction, DiscordAPIError, HTTPError, Interaction, MessageEmbed } from 'discord.js';

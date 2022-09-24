@@ -1,16 +1,46 @@
 import { userMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
-import type { ChatInputCommand } from '@sapphire/framework';
 import { Result, UserError } from '@sapphire/framework';
-import { Subcommand } from '@sapphire/plugin-subcommands';
 import { isNullishOrEmpty } from '@sapphire/utilities';
 import { PermissionFlagsBits } from 'discord-api-types/v9';
 import type { CommandInteraction } from 'discord.js';
 import { MessageEmbed } from 'discord.js';
+import { GoblinSubCommand, GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
 import { Colors } from '#utils/constants';
+import { clanTagOption, playerTagOption } from '#utils/functions/commandOptions';
 import { redis } from '#utils/redis';
 
-@ApplyOptions<Subcommand.Options>({
+@ApplyOptions<GoblinSubCommandOptions>({
+	command: (builder) =>
+		builder
+			.setName('forcelink')
+			.setDescription('Commands related to linking clan or player to an user forcefully')
+			.addSubcommand((command) =>
+				command
+					.setName('clan')
+					.setDescription('Link clan to an user forcibly')
+					.addUserOption((option) =>
+						option //
+							.setName('user')
+							.setDescription('User to link clan to')
+							.setRequired(true)
+					)
+					.addStringOption((option) => clanTagOption(option, { required: true }))
+			)
+			.addSubcommand((command) =>
+				command
+					.setName('player')
+					.setDescription('Link player to an user forcibly')
+					.addUserOption((option) =>
+						option //
+							.setName('user')
+							.setDescription('User to link player to')
+							.setRequired(true)
+					)
+					.addStringOption((option) => playerTagOption(option, { required: true }))
+			),
+	commandMetaOptions: { idHints: ['1017973522171187250', '1017984888575631381'] },
+	requiredMemberPermissions: PermissionFlagsBits.BanMembers | PermissionFlagsBits.KickMembers,
 	subcommands: [
 		{
 			name: 'clan',
@@ -20,56 +50,9 @@ import { redis } from '#utils/redis';
 			name: 'player',
 			chatInputRun: 'forceLinkPlayer'
 		}
-	],
-	description: 'Commands related to linking clan or player to an user forcefully'
+	]
 })
-export class ForceLinkCommand extends Subcommand {
-	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
-		registry.registerChatInputCommand(
-			(builder) =>
-				builder
-					.setName(this.name)
-					.setDescription(this.description)
-					.setDMPermission(false)
-					.setDefaultMemberPermissions(PermissionFlagsBits.BanMembers | PermissionFlagsBits.KickMembers)
-					.addSubcommand((command) =>
-						command
-							.setName('clan')
-							.setDescription('Link clan to an user forcibly')
-							.addUserOption((option) =>
-								option //
-									.setName('user')
-									.setDescription('User to link clan to')
-									.setRequired(true)
-							)
-							.addStringOption((option) =>
-								option //
-									.setName('tag')
-									.setDescription('Tag of the clan')
-									.setRequired(true)
-							)
-					)
-					.addSubcommand((command) =>
-						command
-							.setName('player')
-							.setDescription('Link player to an user forcibly')
-							.addUserOption((option) =>
-								option //
-									.setName('user')
-									.setDescription('User to link player to')
-									.setRequired(true)
-							)
-							.addStringOption((option) =>
-								option //
-									.setName('tag')
-									.setDescription('Tag of the player')
-									.setRequired(true)
-							)
-					),
-			{ idHints: ['1017973522171187250', '1017984888575631381'] }
-		);
-	}
-
+export class ForceLinkCommand extends GoblinSubCommand {
 	public async forceLinkClan(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply();
 

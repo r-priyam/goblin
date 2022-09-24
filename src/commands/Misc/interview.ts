@@ -1,14 +1,41 @@
 import { channelMention, userMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
-import { ChatInputCommand, UserError } from '@sapphire/framework';
-import { Subcommand } from '@sapphire/plugin-subcommands';
+import { UserError } from '@sapphire/framework';
 import { envParseString } from '@skyra/env-utilities';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
 import { CommandInteraction, MessageEmbed, TextChannel } from 'discord.js';
 import { EygInterviewCheck } from '#lib/decorators/EygInterviewCheck';
+import { GoblinSubCommand, GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
 import { Colors } from '#utils/constants';
 
-@ApplyOptions<Subcommand.Options>({
+@ApplyOptions<GoblinSubCommandOptions>({
+	command: (builder) =>
+		builder
+			.setName('interview')
+			.setDescription('Commands related to interview channel')
+			.addSubcommand((command) =>
+				command
+					.setName('start')
+					.setDescription('Starts the interview for an user')
+					.addUserOption((option) =>
+						option //
+							.setName('user')
+							.setDescription('The user to start interview with')
+							.setRequired(true)
+					)
+			)
+			.addSubcommand((command) =>
+				command
+					.setName('close')
+					.setDescription('Closes the ongoing interview in channel')
+					.addStringOption((option) =>
+						option //
+							.setName('reason')
+							.setDescription('Reason to close the interview')
+							.setRequired(true)
+					)
+			),
+	commandMetaOptions: { idHints: ['979827529579921458', '980131952327802930'] },
 	subcommands: [
 		{
 			name: 'start',
@@ -18,10 +45,9 @@ import { Colors } from '#utils/constants';
 			name: 'close',
 			chatInputRun: 'closeInterview'
 		}
-	],
-	description: 'Commands related to interview channel'
+	]
 })
-export class InterviewCommand extends Subcommand {
+export class InterviewCommand extends GoblinSubCommand {
 	#welcomeMessage = `Thank you for your interest in joining EYG!
 Please answer the questions below and post a screenshot of your base.
 Our clans have 8 hours to review your answers & ask further questions. After this, you will be offered a place. If now is not a good time to start please tell us.
@@ -33,39 +59,6 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 5. Do you have any specific requirements from your new clan? For example, hero(s) down war, players from your time zone?
 6. Why do you want to join EYG? What can you bring your new clan?
 7. What CWL league(s) do you have experience in?`;
-
-	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
-		registry.registerChatInputCommand(
-			(builder) =>
-				builder
-					.setName(this.name)
-					.setDescription(this.description)
-					.setDMPermission(false)
-					.addSubcommand((command) =>
-						command
-							.setName('start')
-							.setDescription('Starts the interview for an user')
-							.addUserOption((option) =>
-								option //
-									.setName('user')
-									.setDescription('The user to start interview with')
-									.setRequired(true)
-							)
-					)
-					.addSubcommand((command) =>
-						command
-							.setName('close')
-							.setDescription('Closes the ongoing interview in channel')
-							.addStringOption((option) =>
-								option //
-									.setName('reason')
-									.setDescription('Reason to close the interview')
-									.setRequired(true)
-							)
-					),
-			{ idHints: ['979827529579921458', '980131952327802930'] }
-		);
-	}
 
 	@EygInterviewCheck()
 	public async startInterview(interaction: CommandInteraction<'cached'>) {

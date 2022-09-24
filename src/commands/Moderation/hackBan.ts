@@ -1,33 +1,26 @@
 import { userMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { SnowflakeRegex } from '@sapphire/discord.js-utilities';
-import { ChatInputCommand, Command } from '@sapphire/framework';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
 import { CommandInteraction, DiscordAPIError, MessageEmbed, User } from 'discord.js';
+import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#utils/constants';
 
-@ApplyOptions<ChatInputCommand.Options>({
-	description: 'Bans the user from server by id, not matter if they are in server or not'
+@ApplyOptions<GoblinCommandOptions>({
+	requiredMemberPermissions: PermissionFlagsBits.BanMembers,
+	command: (builder) =>
+		builder
+			.setName('hackban')
+			.setDescription('Bans the user from server by id, not matter if they are in server or not')
+			.addStringOption((option) =>
+				option //
+					.setName('id')
+					.setDescription('ID of the user to ban')
+					.setRequired(true)
+			),
+	commandMetaOptions: { idHints: ['999333483006673006', '999338916232581171'] }
 })
-export class HackBanCommand extends Command {
-	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
-		registry.registerChatInputCommand(
-			(builder) =>
-				builder
-					.setName(this.name)
-					.setDescription(this.description)
-					.addStringOption((option) =>
-						option //
-							.setName('id')
-							.setDescription('ID of the user to ban')
-							.setRequired(true)
-					)
-					.setDMPermission(false)
-					.setDefaultMemberPermissions(PermissionFlagsBits.BanMembers),
-			{ idHints: ['999333483006673006', '999338916232581171'] }
-		);
-	}
-
+export class HackBanCommand extends GoblinCommand {
 	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply();
 		const userId = interaction.options.getString('id', true);
