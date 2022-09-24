@@ -13,4 +13,3 @@ export class UserPrecondition extends Precondition {
 			: this.error({ message: 'This command can only be used by the owner.' });
 	}
 }
-
