@@ -11,7 +11,6 @@ import { redis } from '#utils/redis';
 		builder
 			.setName('link')
 			.setDescription('Command related to linking clan or player to user profile')
-			.setDMPermission(false)
 			.addSubcommand((command) =>
 				command
 					.setName('clan')

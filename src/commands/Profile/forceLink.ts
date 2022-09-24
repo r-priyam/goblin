@@ -15,8 +15,6 @@ import { redis } from '#utils/redis';
 		builder
 			.setName('force')
 			.setDescription('Commands related to linking clan or player to an user forcefully')
-			.setDMPermission(false)
-			.setDefaultMemberPermissions(PermissionFlagsBits.BanMembers | PermissionFlagsBits.KickMembers)
 			.addSubcommand((command) =>
 				command
 					.setName('clan')
@@ -42,6 +40,7 @@ import { redis } from '#utils/redis';
 					.addStringOption((option) => playerTagOption(option, { required: true }))
 			),
 	commandMetaOptions: { idHints: ['1017973522171187250', '1017984888575631381'] },
+	requiredMemberPermissions: PermissionFlagsBits.BanMembers | PermissionFlagsBits.KickMembers,
 	subcommands: [
 		{
 			name: 'clan',
