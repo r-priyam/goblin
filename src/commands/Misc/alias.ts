@@ -1,14 +1,43 @@
 import { codeBlock } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
-import { ChatInputCommand, UserError } from '@sapphire/framework';
-import { Subcommand } from '@sapphire/plugin-subcommands';
+import { UserError } from '@sapphire/framework';
 import { envParseArray } from '@skyra/env-utilities';
 import { Util } from 'clashofclans.js';
 import { CommandInteraction, GuildMember, MessageEmbed } from 'discord.js';
+import { GoblinSubCommand, GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
 import { Colors } from '#utils/constants';
+import { addTagOption } from '#utils/functions/commandOptions';
 import { ClanAlias, redis } from '#utils/redis';
 
-@ApplyOptions<Subcommand.Options>({
+@ApplyOptions<GoblinSubCommandOptions>({
+	command: (builder) =>
+		builder
+			.setName('alias')
+			.setDescription('Commands related to aliases')
+			.addSubcommand((command) =>
+				command
+					.setName('create')
+					.setDescription('Creates the alias for clan')
+					.addStringOption((option) =>
+						addTagOption(option, { description: 'Tag of the clan to create an alias for', required: true })
+					)
+					.addStringOption((option) =>
+						option //
+							.setName('alias')
+							.setDescription('Alias of the clan')
+							.setRequired(true)
+					)
+			)
+			.addSubcommand((command) =>
+				command
+					.setName('remove')
+					.setDescription('Removes the alias for clan')
+					.addStringOption((option) =>
+						addTagOption(option, { description: 'Tag of the clan to remove an alias for', required: true })
+					)
+			)
+			.addSubcommand((command) => command.setName('list').setDescription('Lists all clan alias')),
+	commandMetaOptions: { idHints: ['983041653034074203', '983446195672342689'] },
 	subcommands: [
 		{
 			name: 'create',
@@ -22,50 +51,9 @@ import { ClanAlias, redis } from '#utils/redis';
 			name: 'list',
 			chatInputRun: 'listAlias'
 		}
-	],
-	description: 'Commands related to aliases'
+	]
 })
-export class AliasCommand extends Subcommand {
-	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
-		registry.registerChatInputCommand(
-			(builder) =>
-				builder
-					.setName('alias')
-					.setDescription(this.description)
-					.setDMPermission(false)
-					.addSubcommand((command) =>
-						command
-							.setName('create')
-							.setDescription('Creates the alias for clan')
-							.addStringOption((option) =>
-								option //
-									.setName('tag')
-									.setDescription('Tag of the clan to create an alias for')
-									.setRequired(true)
-							)
-							.addStringOption((option) =>
-								option //
-									.setName('alias')
-									.setDescription('Alias of the clan')
-									.setRequired(true)
-							)
-					)
-					.addSubcommand((command) =>
-						command
-							.setName('remove')
-							.setDescription('Removes the alias for clan')
-							.addStringOption((option) =>
-								option //
-									.setName('tag')
-									.setDescription('Tag of the clan to create an alias for')
-									.setRequired(true)
-							)
-					)
-					.addSubcommand((command) => command.setName('list').setDescription('Lists all clan alias')),
-			{ idHints: ['983041653034074203', '983446195672342689'] }
-		);
-	}
-
+export class AliasCommand extends GoblinSubCommand {
 	public async createAlias(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply();
 		this.canPerformAliasOperations(interaction.member);
