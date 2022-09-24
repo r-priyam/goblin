@@ -13,7 +13,7 @@ import { redis } from '#utils/redis';
 @ApplyOptions<GoblinSubCommandOptions>({
 	command: (builder) =>
 		builder
-			.setName('force')
+			.setName('forcelink')
 			.setDescription('Commands related to linking clan or player to an user forcefully')
 			.addSubcommand((command) =>
 				command

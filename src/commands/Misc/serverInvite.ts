@@ -7,7 +7,7 @@ import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinComma
 	command: (builder) =>
 		builder //
 			.setName('serverinvite')
-			.setDescription('Returns the server invite link'),
+			.setDescription('Returns the EYG server invite link'),
 	commandMetaOptions: { idHints: ['993241403985506424', '993241985576075295'] }
 })
 export class ServerInviteCommand extends GoblinCommand {
