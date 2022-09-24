@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/consistent-type-definitions */
 import { ScheduledTask } from '@sapphire/plugin-scheduled-tasks';
 import { Util } from 'clashofclans.js';
 
@@ -22,11 +21,5 @@ export class SyncPlayerLinkTask extends ScheduledTask {
 		} catch (error) {
 			this.logger.error(error);
 		}
-	}
-}
-
-declare module '@sapphire/plugin-scheduled-tasks' {
-	interface ScheduledTasks {
-		syncPlayerLinks: never;
 	}
 }

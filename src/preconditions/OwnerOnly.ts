@@ -14,9 +14,3 @@ export class UserPrecondition extends Precondition {
 	}
 }
 
-declare module '@sapphire/framework' {
-	// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-	interface Preconditions {
-		OwnerOnly: never;
-	}
-}

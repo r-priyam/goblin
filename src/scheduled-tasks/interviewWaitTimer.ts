@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/consistent-type-definitions */
 import { bold, roleMention, time, TimestampStyles } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { ScheduledTask } from '@sapphire/plugin-scheduled-tasks';
@@ -38,11 +37,5 @@ export class BotScheduledTask extends ScheduledTask {
 				)
 			]
 		});
-	}
-}
-
-declare module '@sapphire/plugin-scheduled-tasks' {
-	interface ScheduledTasks {
-		interviewWaitTimer: never;
 	}
 }

@@ -4,14 +4,12 @@ import process from 'node:process';
 import { URL } from 'node:url';
 import { inspect } from 'node:util';
 import { REST } from '@discordjs/rest';
-import { container, Logger, Piece } from '@sapphire/framework';
-import type { ScheduledTaskHandler } from '@sapphire/plugin-scheduled-tasks';
+import { container, Piece } from '@sapphire/framework';
 import { envParseInteger, envParseString, setup } from '@skyra/env-utilities';
 import { createColors } from 'colorette';
-import postgres, { Sql as SQL } from 'postgres';
-import { createClient as redisClient, RedisClientType } from 'redis';
+import postgres from 'postgres';
+import { createClient as redisClient } from 'redis';
 import { GoblinClashClient } from '#lib/coc';
-import type { GoblinClient } from '#lib/extensions/GoblinClient';
 import { SrcDir } from '#utils/constants';
 import { logSuccess, logWarning } from '#utils/functions/logging';
 
@@ -53,23 +51,3 @@ Object.defineProperties(Piece.prototype, {
 	tasks: { get: () => container.tasks },
 	discordRest: { get: () => container.discordRest }
 });
-
-declare module '@sapphire/pieces' {
-	// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-	interface Container {
-		coc: GoblinClashClient;
-		discordRest: REST;
-		redis: RedisClientType;
-		sql: SQL<any>;
-	}
-	// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-	interface Piece {
-		client: GoblinClient;
-		coc: GoblinClashClient;
-		discordRest: REST;
-		logger: Logger;
-		redis: RedisClientType;
-		sql: SQL<any>;
-		tasks: ScheduledTaskHandler;
-	}
-}

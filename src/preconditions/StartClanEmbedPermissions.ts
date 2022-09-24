@@ -33,10 +33,3 @@ export class UserPrecondition extends Precondition {
 		return formatted.slice(0, -2);
 	}
 }
-
-declare module '@sapphire/framework' {
-	// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-	interface Preconditions {
-		StartRequiredPermissions: never;
-	}
-}
