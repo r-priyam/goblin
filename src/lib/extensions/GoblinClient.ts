@@ -33,8 +33,6 @@ export class GoblinClient extends SapphireClient {
 	}
 
 	public override async login() {
-		await container.redis.connect();
-
 		await container.coc.login({
 			email: envParseString('CLASH_EMAIL'),
 			password: envParseString('CLASH_PASSWORD'),

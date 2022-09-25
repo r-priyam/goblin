@@ -5,9 +5,9 @@ import { Clan, SUPER_TROOPS } from 'clashofclans.js';
 import { CommandInteraction, MessageActionRow, MessageEmbed, MessageSelectMenu } from 'discord.js';
 import { SuperTroopEmotes } from '#lib/coc';
 import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
+import type { ClanOrPlayer } from '#lib/redis-cache/RedisCacheClient';
 import { Colors } from '#utils/constants';
 import { clanTagOption } from '#utils/functions/commandOptions';
-import { ClanOrPlayer, redis } from '#utils/redis';
 
 @ApplyOptions<GoblinCommandOptions>({
 	command: (builder) =>
@@ -23,7 +23,7 @@ export class SuperTroopsCommand extends GoblinCommand {
 		let clanTag = interaction.options.getString('tag');
 
 		if (isNullish(clanTag)) {
-			const cachedClans = await redis.get<ClanOrPlayer[]>(`c-${interaction.user.id}`);
+			const cachedClans = await this.redis.fetch<ClanOrPlayer[]>(`c-${interaction.user.id}`);
 			if (isNullish(cachedClans)) {
 				return interaction.editReply({
 					content:

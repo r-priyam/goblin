@@ -3,9 +3,9 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { Util } from 'clashofclans.js';
 import { CommandInteraction, MessageEmbed } from 'discord.js';
 import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
+import { RedisMethods } from '#lib/redis-cache/RedisCacheClient';
 import { Colors } from '#utils/constants';
 import { addTagOption } from '#utils/functions/commandOptions';
-import { redis } from '#utils/redis';
 
 @ApplyOptions<GoblinCommandOptions>({
 	command: (builder) =>
@@ -47,7 +47,7 @@ export class UnlinkCommand extends GoblinCommand {
 			return interaction.editReply({ content: `**${tag}** isn't linked to your profile` });
 		}
 
-		await redis.handleClanOrPlayerCache('CLAN', 'REMOVE', interaction.member.id, tag);
+		await this.redis.handleClanOrPlayerCache('CLAN', RedisMethods.Delete, interaction.member.id, tag);
 		return interaction.editReply({
 			embeds: [
 				new MessageEmbed()
@@ -75,7 +75,7 @@ export class UnlinkCommand extends GoblinCommand {
 			return interaction.editReply({ content: `**${tag}** isn't linked to your profile` });
 		}
 
-		await redis.handleClanOrPlayerCache('PLAYER', 'REMOVE', interaction.member.id, tag);
+		await this.redis.handleClanOrPlayerCache('PLAYER', RedisMethods.Delete, interaction.member.id, tag);
 		return interaction.editReply({
 			embeds: [
 				new MessageEmbed()

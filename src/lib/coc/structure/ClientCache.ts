@@ -3,18 +3,12 @@ import { isNullish } from '@sapphire/utilities';
 
 export class ClientCache {
 	public async set(key: string, value: string, ttl = 0) {
-		await container.redis.set(key, JSON.stringify(value), { PX: ttl });
-		return true;
+		return container.redis.set(key, JSON.stringify(value), 'PX', ttl);
 	}
 
 	public async get(key: string) {
 		const data = await container.redis.get(key);
-
-		if (isNullish(data)) {
-			return null;
-		}
-
-		return JSON.parse(data);
+		return isNullish(data) ? null : JSON.parse(data);
 	}
 
 	public async delete(key: string) {

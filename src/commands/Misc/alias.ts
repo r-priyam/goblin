@@ -5,9 +5,9 @@ import { envParseArray } from '@skyra/env-utilities';
 import { Util } from 'clashofclans.js';
 import { CommandInteraction, GuildMember, MessageEmbed } from 'discord.js';
 import { GoblinSubCommand, GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
+import { ClanAlias, RedisMethods } from '#lib/redis-cache/RedisCacheClient';
 import { Colors } from '#utils/constants';
 import { addTagOption } from '#utils/functions/commandOptions';
-import { ClanAlias, redis } from '#utils/redis';
 
 @ApplyOptions<GoblinSubCommandOptions>({
 	command: (builder) =>
@@ -82,7 +82,7 @@ export class AliasCommand extends GoblinSubCommand {
 			}
 		}
 
-		await redis.handleAliasOperations('CREATE', clan.tag, alias.toUpperCase(), clan.name);
+		await this.redis.handleAliasOperations(RedisMethods.Insert, clan.tag, alias.toUpperCase(), clan.name);
 		return interaction.editReply({
 			embeds: [
 				new MessageEmbed() //
@@ -109,7 +109,7 @@ export class AliasCommand extends GoblinSubCommand {
 
 		if (!result) return interaction.editReply({ content: `Alias for ${tag} doesn't exist` });
 
-		await redis.handleAliasOperations('DELETE', tag, result.alias!);
+		await this.redis.handleAliasOperations(RedisMethods.Delete, tag, result.alias!);
 		return interaction.editReply({
 			embeds: [
 				new MessageEmbed() //
@@ -122,7 +122,7 @@ export class AliasCommand extends GoblinSubCommand {
 	public async listAlias(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply();
 
-		const aliases = await redis.get<ClanAlias[]>('clan-aliases');
+		const aliases = await this.redis.fetch<ClanAlias[]>('clan-aliases');
 		let aliasList = 'Clan Name         Tag          Alias\n';
 
 		for (const { name, tag, alias } of aliases!) {

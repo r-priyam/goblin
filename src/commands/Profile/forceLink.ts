@@ -6,9 +6,9 @@ import { PermissionFlagsBits } from 'discord-api-types/v9';
 import type { CommandInteraction } from 'discord.js';
 import { MessageEmbed } from 'discord.js';
 import { GoblinSubCommand, GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
+import { RedisMethods } from '#lib/redis-cache/RedisCacheClient';
 import { Colors } from '#utils/constants';
 import { clanTagOption, playerTagOption } from '#utils/functions/commandOptions';
-import { redis } from '#utils/redis';
 
 @ApplyOptions<GoblinSubCommandOptions>({
 	command: (builder) =>
@@ -76,7 +76,13 @@ export class ForceLinkCommand extends GoblinSubCommand {
 			}
 		}
 
-		await redis.handleClanOrPlayerCache('CLAN', 'UPDATE', interaction.member.id, clan.tag, clan.name);
+		await this.redis.handleClanOrPlayerCache(
+			'CLAN',
+			RedisMethods.Insert,
+			interaction.member.id,
+			clan.tag,
+			clan.name
+		);
 		return interaction.editReply({
 			embeds: [
 				new MessageEmbed()
@@ -128,7 +134,13 @@ export class ForceLinkCommand extends GoblinSubCommand {
 			}
 		}
 
-		await redis.handleClanOrPlayerCache('PLAYER', 'UPDATE', interaction.member.id, player.tag, player.name);
+		await this.redis.handleClanOrPlayerCache(
+			'PLAYER',
+			RedisMethods.Insert,
+			interaction.member.id,
+			player.tag,
+			player.name
+		);
 		return interaction.editReply({
 			embeds: [
 				new MessageEmbed()

@@ -6,10 +6,10 @@ import type { Achievement, Player } from 'clashofclans.js';
 import { CommandInteraction, MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
 import { GoblinPlayer, LabelEmotes, MiscEmotes, RawPosition } from '#lib/coc';
 import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
+import type { ClanOrPlayer } from '#lib/redis-cache/RedisCacheClient';
 import { collectorFiler } from '#utils/InteractionHelpers';
 import { Colors } from '#utils/constants';
 import { playerTagOption } from '#utils/functions/commandOptions';
-import { ClanOrPlayer, redis } from '#utils/redis';
 import { humanizeNumber } from '#utils/utils';
 
 @ApplyOptions<GoblinCommandOptions>({
@@ -26,7 +26,7 @@ export class PlayerCommand extends GoblinCommand {
 		let playerTag = interaction.options.getString('tag');
 
 		if (isNullish(playerTag)) {
-			const cachedPlayers = await redis.get<ClanOrPlayer[]>(`p-${interaction.user.id}`);
+			const cachedPlayers = await this.redis.fetch<ClanOrPlayer[]>(`p-${interaction.user.id}`);
 			if (isNullish(cachedPlayers)) {
 				await interaction.editReply({
 					content:

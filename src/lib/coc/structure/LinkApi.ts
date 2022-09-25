@@ -2,7 +2,6 @@ import { Buffer } from 'node:buffer';
 import { container } from '@sapphire/framework';
 import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
 import type { RequestOptions } from 'clashofclans.js';
-import { redis } from '#utils/redis';
 
 export class LinkApi {
 	private readonly userName: string;
@@ -21,7 +20,7 @@ export class LinkApi {
 	}
 
 	public async getLinks(tagOrId: string) {
-		const cachedData = await redis.get<string[]>(`links-${tagOrId}`);
+		const cachedData = await container.redis.fetch<string[]>(`links-${tagOrId}`);
 
 		if (isNullish(cachedData)) {
 			const data = await this.request<{ discordId: string; playerTag: string }[]>(`/links/${tagOrId}`, {
@@ -31,7 +30,7 @@ export class LinkApi {
 
 			const tags = data.map((linkData) => linkData.playerTag);
 			container.tasks.create('syncPlayerLinks', { userId: tagOrId, tags }, 60_000);
-			await redis.set(`links-${tagOrId}`, JSON.stringify(tags), 10 * 60);
+			await container.redis.insertWithExpiry(`links-${tagOrId}`, JSON.stringify(tags), 10 * 60);
 			return tags;
 		}
 

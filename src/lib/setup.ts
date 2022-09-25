@@ -5,11 +5,11 @@ import { URL } from 'node:url';
 import { inspect } from 'node:util';
 import { REST } from '@discordjs/rest';
 import { container, Piece } from '@sapphire/framework';
-import { envParseInteger, envParseString, setup } from '@skyra/env-utilities';
+import { envParseString, setup } from '@skyra/env-utilities';
 import { createColors } from 'colorette';
 import postgres from 'postgres';
-import { createClient as redisClient } from 'redis';
 import { GoblinClashClient } from '#lib/coc';
+import { GoblinRedisClient } from '#lib/redis-cache/RedisCacheClient';
 import { SrcDir } from '#utils/constants';
 import { logSuccess, logWarning } from '#utils/functions/logging';
 
@@ -19,7 +19,7 @@ setup(new URL('.env', SrcDir));
 inspect.defaultOptions.depth = 1;
 createColors({ useColor: true });
 
-container.redis = redisClient({ url: `redis://:@${envParseString('REDIS_HOST')}:${envParseInteger('REDIS_PORT')}` });
+container.redis = new GoblinRedisClient();
 container.redis.on('ready', () => container.logger.info(logSuccess('REDIS', 'Connected')));
 container.redis.on('error', (error) => container.logger.error(error));
 container.redis.on('reconnecting', () => container.logger.warn(logWarning('REDIS', 'Reconnecting')));

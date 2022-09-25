@@ -3,15 +3,15 @@ import type { REST } from '@discordjs/rest';
 import type { Logger } from '@sapphire/framework';
 import type { ScheduledTaskHandler } from '@sapphire/plugin-scheduled-tasks';
 import type { Sql } from 'postgres';
-import type { RedisClientType } from 'redis';
 import type { GoblinClashClient } from '#lib/coc';
 import type { GoblinClient } from '#lib/extensions/GoblinClient';
+import type { GoblinRedisClient } from '#lib/redis-cache/RedisCacheClient';
 
 declare module '@sapphire/pieces' {
 	interface Container {
 		coc: GoblinClashClient;
 		discordRest: REST;
-		redis: RedisClientType;
+		redis: GoblinRedisClient;
 		sql: Sql<any>;
 	}
 
@@ -20,7 +20,7 @@ declare module '@sapphire/pieces' {
 		coc: GoblinClashClient;
 		discordRest: REST;
 		logger: Logger;
-		redis: RedisClientType;
+		redis: GoblinRedisClient;
 		sql: Sql<any>;
 		tasks: ScheduledTaskHandler;
 	}

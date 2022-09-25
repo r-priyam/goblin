@@ -48,9 +48,9 @@
 		"figlet": "^1.5.2",
 		"fuse.js": "^6.6.2",
 		"gradient-string": "^2.0.2",
+		"ioredis": "^5.2.3",
 		"markdown-table": "^3.0.2",
 		"postgres": "^3.2.4",
-		"redis": "^4.3.1",
 		"reflect-metadata": "^0.1.13",
 		"string-strip-html": "^11.6.6"
 	},

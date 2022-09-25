@@ -4,7 +4,6 @@ import { isNullishOrEmpty } from '@sapphire/utilities';
 import type { AutocompleteInteraction } from 'discord.js';
 import Fuse from 'fuse.js';
 import { getFuzzyTagSuggestions, handleNoFuzzyMatch, handleNoValue } from '#lib/coc';
-import { redis } from '#utils/redis';
 
 @ApplyOptions<InteractionHandler.Options>({
 	interactionHandlerType: InteractionHandlerTypes.Autocomplete
@@ -17,7 +16,9 @@ export class AutocompleteHandler extends InteractionHandler {
 	public override async parse(interaction: AutocompleteInteraction) {
 		// use array when there are more player specific commands
 		const shortType = interaction.commandName === 'player' ? 'p-' : 'c-';
-		const cachedData = await redis.get<{ name: string; tag: string }[]>(`${shortType}${interaction.user.id}`);
+		const cachedData = await this.redis.fetch<{ name: string; tag: string }[]>(
+			`${shortType}${interaction.user.id}`
+		);
 		const focused = interaction.options.getFocused(true);
 
 		if (isNullishOrEmpty(focused.value)) {
