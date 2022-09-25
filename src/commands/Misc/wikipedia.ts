@@ -1,4 +1,3 @@
-import {} from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { PaginatedMessage } from '@sapphire/discord.js-utilities';
 import { CommandInteraction, MessageEmbed } from 'discord.js';

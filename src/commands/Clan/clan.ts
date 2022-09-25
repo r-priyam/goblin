@@ -1,4 +1,3 @@
-import {} from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { isNullish } from '@sapphire/utilities';
 import type { Clan } from 'clashofclans.js';

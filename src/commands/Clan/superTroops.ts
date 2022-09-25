@@ -1,4 +1,3 @@
-import {} from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
 import { Clan, SUPER_TROOPS } from 'clashofclans.js';

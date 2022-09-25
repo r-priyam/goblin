@@ -1,4 +1,3 @@
-import {} from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { UserError } from '@sapphire/framework';
 import { Util } from 'clashofclans.js';

@@ -1,4 +1,3 @@
-import {} from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { Util } from 'clashofclans.js';
 import { CommandInteraction, MessageEmbed } from 'discord.js';
