@@ -31,7 +31,10 @@
 		]
 	},
 	"lint-staged": {
-		"*.{mjs,js,ts}": "eslint --fix --ext mjs,js,ts"
+		"*.{mjs,js,ts}": [
+			"prettier --write --loglevel=warn \"src/**/*.ts\"",
+			"eslint --fix --ext mjs,js,ts"
+		]
 	},
 	"config": {
 		"commitizen": {
