@@ -2,6 +2,7 @@ import { createFunctionPrecondition } from '@sapphire/decorators';
 import { UserError } from '@sapphire/framework';
 import { envParseString } from '@skyra/env-utilities';
 import type { CommandInteraction, GuildMember } from 'discord.js';
+import { ErrorIdentifiers } from '#utils/constants';
 
 export const EygInterviewCheck = (): MethodDecorator => {
 	return createFunctionPrecondition((interaction: CommandInteraction<'cached'>) => {
@@ -12,7 +13,7 @@ export const EygInterviewCheck = (): MethodDecorator => {
 
 		if (!roleCheck) {
 			throw new UserError({
-				identifier: 'failed-interview-check',
+				identifier: ErrorIdentifiers.MissingPermissions,
 				message: "You aren't allowed to run interview command"
 			});
 		}

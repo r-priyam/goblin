@@ -6,7 +6,7 @@ import { PermissionFlagsBits } from 'discord-api-types/v10';
 import { CommandInteraction, MessageEmbed, TextChannel } from 'discord.js';
 import { EygInterviewCheck } from '#lib/decorators/EygInterviewCheck';
 import { GoblinSubCommand, GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
-import { Colors } from '#utils/constants';
+import { Colors, ErrorIdentifiers } from '#utils/constants';
 
 @ApplyOptions<GoblinSubCommandOptions>({
 	command: (builder) =>
@@ -173,7 +173,7 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 		}
 
 		throw new UserError({
-			identifier: 'http-error',
+			identifier: ErrorIdentifiers.HttpError,
 			message: 'Something went wrong while taking the backup of interview channel, please try again!'
 		});
 	}

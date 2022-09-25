@@ -6,7 +6,7 @@ import { bold } from 'colorette';
 import { PermissionFlagsBits } from 'discord-api-types/v9';
 import { CommandInteraction, MessageEmbed } from 'discord.js';
 import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
-import { Colors } from '#utils/constants';
+import { Colors, ErrorIdentifiers } from '#utils/constants';
 import { automationMemberCheck } from '#utils/functions/automationMemberCheck';
 import { addTagOption } from '#utils/functions/commandOptions';
 
@@ -41,7 +41,7 @@ export class StopCommand extends GoblinCommand {
 		const clanTag = interaction.options.getString('tag', true);
 		if (!Util.isValidTag(Util.formatTag(clanTag))) {
 			throw new UserError({
-				identifier: 'clan-wrong-tag',
+				identifier: ErrorIdentifiers.WrongTag,
 				message: 'No clan found for the requested tag!'
 			});
 		}

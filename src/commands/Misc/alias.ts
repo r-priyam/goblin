@@ -1,12 +1,12 @@
 import { codeBlock } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { UserError } from '@sapphire/framework';
-import { envParseArray } from '@skyra/env-utilities';
+import { envParseArray, envParseString } from '@skyra/env-utilities';
 import { Util } from 'clashofclans.js';
 import { CommandInteraction, GuildMember, MessageEmbed } from 'discord.js';
 import { GoblinSubCommand, GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
 import { ClanAlias, RedisMethods } from '#lib/redis-cache/RedisCacheClient';
-import { Colors } from '#utils/constants';
+import { Colors, ErrorIdentifiers } from '#utils/constants';
 import { addTagOption } from '#utils/functions/commandOptions';
 
 @ApplyOptions<GoblinSubCommandOptions>({
@@ -63,7 +63,7 @@ export class AliasCommand extends GoblinSubCommand {
 
 		if (alias.length <= 1 || alias.length > 5) {
 			throw new UserError({
-				identifier: 'arg-error',
+				identifier: ErrorIdentifiers.FalseParameter,
 				message: 'Alias length must be greater than 1 and less than 6'
 			});
 		}
@@ -76,7 +76,7 @@ export class AliasCommand extends GoblinSubCommand {
 		} catch (error) {
 			if (error instanceof this.sql.PostgresError && error.code === '23505') {
 				throw new UserError({
-					identifier: 'database-error',
+					identifier: ErrorIdentifiers.DatabaseError,
 					message: `Alias for **${clan.name} (${clan.tag})** is already present`
 				});
 			}
@@ -133,8 +133,14 @@ export class AliasCommand extends GoblinSubCommand {
 	}
 
 	private canPerformAliasOperations(member: GuildMember) {
-		if (!member.roles.cache.has('349856938579984385') && !envParseArray('OWNERS').includes(member.id)) {
-			throw new UserError({ identifier: 'user-not-allowed', message: "You aren't allowed to use this command" });
+		if (
+			!member.roles.cache.has(envParseString('EYG_ADMINISTRATOR_ROLE')) &&
+			!envParseArray('OWNERS').includes(member.id)
+		) {
+			throw new UserError({
+				identifier: ErrorIdentifiers.MissingPermissions,
+				message: "You aren't allowed to use this command"
+			});
 		}
 	}
 }

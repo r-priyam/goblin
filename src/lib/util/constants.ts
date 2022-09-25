@@ -50,3 +50,14 @@ export const enum ModalInputCustomIds {
 export const enum ButtonCustomIds {
 	ClanEmbedRequirement = 'add-clan-requirement-button'
 }
+
+export const enum ErrorIdentifiers {
+	ClanHelper = 'ClanHelper',
+	DatabaseError = 'DatabaseError',
+	FalseParameter = 'FalseParameter',
+	HttpError = 'HTTPError',
+	MissingPermissions = 'UserMissingPermission',
+	PlayerHelper = 'PlayerHelper',
+	Unknown = 'UNKNOWN',
+	WrongTag = 'WrongTag'
+}

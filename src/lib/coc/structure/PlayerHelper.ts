@@ -1,13 +1,15 @@
 import { container, Result, UserError } from '@sapphire/framework';
 import { HTTPError, Util } from 'clashofclans.js';
 import { ErrorMessages, GoblinPlayer } from '#lib/coc';
+import { ErrorIdentifiers } from '#utils/constants';
 
 export class PlayerHelper {
-	private readonly identifier = 'player-helper';
-
 	public async info(tag: string): Promise<GoblinPlayer> {
 		if (!Util.isValidTag(Util.formatTag(tag))) {
-			throw new UserError({ identifier: this.identifier, message: 'No player found for the requested tag!' });
+			throw new UserError({
+				identifier: ErrorIdentifiers.WrongTag,
+				message: 'No player found for the requested tag!'
+			});
 		}
 
 		const result = await Result.fromAsync<GoblinPlayer, HTTPError>(() => container.coc.getPlayer(tag));
@@ -15,7 +17,7 @@ export class PlayerHelper {
 		if (result.isErr()) {
 			const error = result.unwrapErr();
 			throw new UserError({
-				identifier: this.identifier,
+				identifier: ErrorIdentifiers.PlayerHelper,
 				message: error.status === 404 ? 'No player found for the requested tag!' : ErrorMessages[error.status]
 			});
 		}
@@ -29,12 +31,13 @@ export class PlayerHelper {
 		if (result.isErr()) {
 			const error = result.unwrapErr();
 			throw new UserError({
-				identifier: this.identifier,
+				identifier: ErrorIdentifiers.PlayerHelper,
 				message: error.status === 404 ? 'No player found for the requested tag!' : ErrorMessages[error.status]
 			});
 		}
 
-		if (!result.unwrap()) throw new UserError({ identifier: this.identifier, message: 'Invalid API token!' });
+		if (!result.unwrap())
+			throw new UserError({ identifier: ErrorIdentifiers.PlayerHelper, message: 'Invalid API token!' });
 		return this.info(tag);
 	}
 }

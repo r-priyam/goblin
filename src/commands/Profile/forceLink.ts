@@ -7,7 +7,7 @@ import type { CommandInteraction } from 'discord.js';
 import { MessageEmbed } from 'discord.js';
 import { GoblinSubCommand, GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
 import { RedisMethods } from '#lib/redis-cache/RedisCacheClient';
-import { Colors } from '#utils/constants';
+import { Colors, ErrorIdentifiers } from '#utils/constants';
 import { clanTagOption, playerTagOption } from '#utils/functions/commandOptions';
 
 @ApplyOptions<GoblinSubCommandOptions>({
@@ -68,7 +68,7 @@ export class ForceLinkCommand extends GoblinSubCommand {
 			const error = result.unwrapErr();
 			if (error instanceof this.sql.PostgresError && error.code === '23505') {
 				throw new UserError({
-					identifier: 'database-error',
+					identifier: ErrorIdentifiers.DatabaseError,
 					message: `**${clan.name} (${clan.tag})** is already linked to ${userMention(
 						user.id
 					)} discord account`
@@ -110,7 +110,7 @@ export class ForceLinkCommand extends GoblinSubCommand {
 
 		if (!isNullishOrEmpty(check.unwrap())) {
 			throw new UserError({
-				identifier: 'database-error',
+				identifier: ErrorIdentifiers.DatabaseError,
 				message: `**${player.name} (${player.tag})** is already linked ${userMention(user.id)} account`
 			});
 		}
@@ -124,7 +124,7 @@ export class ForceLinkCommand extends GoblinSubCommand {
 			const error = result.unwrapErr();
 			if (error instanceof this.sql.PostgresError && error.code === '23505') {
 				throw new UserError({
-					identifier: 'database-error',
+					identifier: ErrorIdentifiers.DatabaseError,
 					message: `**${player.name} (${
 						player.tag
 					})** is already linked to an user. If you think this was a mistake then please contact ${userMention(

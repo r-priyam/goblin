@@ -1,7 +1,7 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes, Result, UserError } from '@sapphire/framework';
 import { MessageEmbed, ModalSubmitInteraction } from 'discord.js';
-import { Colors, ModalCustomIds, ModalInputCustomIds } from '#utils/constants';
+import { Colors, ErrorIdentifiers, ModalCustomIds, ModalInputCustomIds } from '#utils/constants';
 
 @ApplyOptions<InteractionHandler.Options>({
 	interactionHandlerType: InteractionHandlerTypes.ModalSubmit
@@ -54,7 +54,7 @@ export class StartClanEmbedModal extends InteractionHandler {
 
 			this.logger.error(error);
 			throw new UserError({
-				identifier: 'clan-embed-modal-requirements-edit',
+				identifier: ErrorIdentifiers.Unknown,
 				message: 'Something went wrong, please try again'
 			});
 		}

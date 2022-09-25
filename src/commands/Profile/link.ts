@@ -3,7 +3,7 @@ import { UserError } from '@sapphire/framework';
 import { CommandInteraction, MessageEmbed } from 'discord.js';
 import { GoblinSubCommand, GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
 import { RedisMethods } from '#lib/redis-cache/RedisCacheClient';
-import { Colors } from '#utils/constants';
+import { Colors, ErrorIdentifiers } from '#utils/constants';
 import { clanTagOption, playerTagOption } from '#utils/functions/commandOptions';
 
 @ApplyOptions<GoblinSubCommandOptions>({
@@ -50,7 +50,7 @@ export class LinkCommand extends GoblinSubCommand {
 		} catch (error) {
 			if (error instanceof this.sql.PostgresError && error.code === '23505') {
 				throw new UserError({
-					identifier: 'database-error',
+					identifier: ErrorIdentifiers.DatabaseError,
 					message: `**${clan.name} (${clan.tag})** is already linked to your account`
 				});
 			}
@@ -87,7 +87,7 @@ export class LinkCommand extends GoblinSubCommand {
 		} catch (error) {
 			if (error instanceof this.sql.PostgresError && error.code === '23505') {
 				throw new UserError({
-					identifier: 'database-error',
+					identifier: ErrorIdentifiers.DatabaseError,
 					message: `**${player.name} (${player.tag})** is already linked to your account`
 				});
 			}

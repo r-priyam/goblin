@@ -11,12 +11,13 @@ import {
 	TownHallEmotes,
 	WarLeagueEmotes
 } from '#lib/coc';
+import { ErrorIdentifiers } from '#utils/constants';
 
 export class ClanHelper {
 	public async info(tag: string) {
 		if (!Util.isValidTag(Util.formatTag(tag))) {
 			throw new UserError({
-				identifier: 'clan-wrong-tag',
+				identifier: ErrorIdentifiers.WrongTag,
 				message: 'No clan found for the requested tag!'
 			});
 		}
@@ -25,7 +26,7 @@ export class ClanHelper {
 		return clan.unwrapOrElse((error) => {
 			if (error instanceof HTTPError) {
 				throw new UserError({
-					identifier: 'clan-info-request',
+					identifier: ErrorIdentifiers.ClanHelper,
 					message: error.status === 404 ? 'No clan found for the requested tag!' : ErrorMessages[error.status]
 				});
 			}

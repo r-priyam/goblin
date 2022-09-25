@@ -4,7 +4,7 @@ import { SnowflakeRegex } from '@sapphire/discord.js-utilities';
 import { InteractionHandler, InteractionHandlerTypes, UserError } from '@sapphire/framework';
 import type { Clan } from 'clashofclans.js';
 import { MessageActionRow, MessageButton, MessageEmbed, ModalSubmitInteraction } from 'discord.js';
-import { ButtonCustomIds, Colors, ModalCustomIds, ModalInputCustomIds } from '#utils/constants';
+import { ButtonCustomIds, Colors, ErrorIdentifiers, ModalCustomIds, ModalInputCustomIds } from '#utils/constants';
 
 @ApplyOptions<InteractionHandler.Options>({
 	interactionHandlerType: InteractionHandlerTypes.ModalSubmit
@@ -29,7 +29,7 @@ export class StartClanEmbedModal extends InteractionHandler {
 
 		if (check.exists) {
 			throw new UserError({
-				identifier: 'clan-embed-already-exist',
+				identifier: ErrorIdentifiers.DatabaseError,
 				message: `The clan embed for tag ${clanTag} is already running in this server.`
 			});
 		}
@@ -39,14 +39,14 @@ export class StartClanEmbedModal extends InteractionHandler {
 
 		if (!SnowflakeRegex.test(leaderId)) {
 			throw new UserError({
-				identifier: 'clan-embed-wrong-input',
+				identifier: ErrorIdentifiers.FalseParameter,
 				message: 'Leader discord id appears to be wrong, please double check it'
 			});
 		}
 
 		if (!/^#?[\da-f]{6}$/i.test(embedColor)) {
 			throw new UserError({
-				identifier: 'clan-embed-wrong-input',
+				identifier: ErrorIdentifiers.FalseParameter,
 				message: 'Clan embed color appears to be wrong, please double check it'
 			});
 		}
