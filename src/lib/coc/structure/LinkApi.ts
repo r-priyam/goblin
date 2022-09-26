@@ -2,6 +2,7 @@ import { Buffer } from 'node:buffer';
 import { container } from '@sapphire/framework';
 import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
 import type { RequestOptions } from 'clashofclans.js';
+import { fetch } from 'undici';
 
 export class LinkApi {
 	private readonly userName: string;
@@ -55,7 +56,7 @@ export class LinkApi {
 			return this.request(path, options);
 		}
 
-		return data;
+		return data as T;
 	}
 
 	private async getKey() {

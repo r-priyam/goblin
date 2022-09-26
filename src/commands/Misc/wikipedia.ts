@@ -2,6 +2,7 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { PaginatedMessage } from '@sapphire/discord.js-utilities';
 import { CommandInteraction, MessageEmbed } from 'discord.js';
 import { stripHtml } from 'string-strip-html';
+import { fetch } from 'undici';
 import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#root/lib/util/constants';
 
@@ -27,7 +28,7 @@ export class WikipediaCommand extends GoblinCommand {
 			`https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info&format=json&origin=*&srlimit=20&srsearch=${keyword}`
 		).catch(() => null);
 
-		const data: WikipediaData = await response?.json().catch(() => null);
+		const data = (await response?.json().catch(() => null)) as WikipediaData;
 
 		if (response?.status !== 200) return interaction.editReply({ content: 'Something went wrong, try again!' });
 

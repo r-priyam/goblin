@@ -4,6 +4,7 @@ import { UserError } from '@sapphire/framework';
 import { envParseString } from '@skyra/env-utilities';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
 import { CommandInteraction, MessageEmbed, TextChannel } from 'discord.js';
+import { fetch } from 'undici';
 import { EygInterviewCheck } from '#lib/decorators/EygInterviewCheck';
 import { GoblinSubCommand, GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
 import { Colors, ErrorIdentifiers } from '#utils/constants';
@@ -168,7 +169,7 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 		});
 
 		if (response.status >= 200 || response.status < 300) {
-			const data: { id: string } = await response.json();
+			const data = (await response.json()) as { id: string };
 			return data.id;
 		}
 
