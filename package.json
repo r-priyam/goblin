@@ -70,7 +70,7 @@
 		"markdown-table": "^3.0.2",
 		"postgres": "^3.2.4",
 		"reflect-metadata": "^0.1.13",
-		"string-strip-html": "^11.6.6",
+		"string-strip-html": "^11.6.8",
 		"undici": "^5.10.0"
 	},
 	"devDependencies": {
@@ -83,8 +83,8 @@
 		"@types/figlet": "^1.5.5",
 		"@types/gradient-string": "^1.1.2",
 		"@types/node": "^18.7.21",
-		"@typescript-eslint/eslint-plugin": "^5.38.0",
-		"@typescript-eslint/parser": "^5.38.0",
+		"@typescript-eslint/eslint-plugin": "^5.38.1",
+		"@typescript-eslint/parser": "^5.38.1",
 		"cz-conventional-changelog": "^3.3.0",
 		"eslint": "^8.24.0",
 		"eslint-config-neon": "^0.1.33",
