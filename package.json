@@ -58,6 +58,7 @@
 		"@sapphire/type": "^2.2.4",
 		"@sapphire/utilities": "^3.9.3",
 		"@skyra/env-utilities": "^1.0.2",
+		"bufferutil": "^4.0.6",
 		"bullmq": "^2.1.0",
 		"clashofclans.js": "2.8.4",
 		"colorette": "^2.0.19",
@@ -71,7 +72,9 @@
 		"postgres": "^3.2.4",
 		"reflect-metadata": "^0.1.13",
 		"string-strip-html": "^11.6.6",
-		"undici": "^5.10.0"
+		"undici": "^5.10.0",
+		"utf-8-validate": "^5.0.9",
+		"zlib-sync": "^0.1.7"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^17.1.2",
