@@ -29,7 +29,7 @@ We thank you for your patience and can't wait to welcome you in!`.replace(/\n/g,
 		if (!message.member?.roles.cache.has(envParseString('EYG_RECRUITER_ROLE'))) return;
 
 		const timerMessage = await message.channel.send({
-			content: `Hello ${roleMention(envParseString('EYG_RECRUIT_ROLE_ID'))}! ${this.#waitMessage}\n\n${bold(
+			content: `Hello ${roleMention(envParseString('EYG_RECRUIT_ROLE'))}! ${this.#waitMessage}\n\n${bold(
 				'Ends at:'
 			)} ${time(seconds.fromMilliseconds(Date.now() + Time.Hour * 8), TimestampStyles.RelativeTime)}`
 		});

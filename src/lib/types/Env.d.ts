@@ -18,13 +18,14 @@ declare module '@skyra/env-utilities' {
 		ERROR_LOGS_WEBHOOK: string;
 
 		EYG_ADMINISTRATOR_ROLE: string;
+		EYG_CLAN_REP_ROLE: string;
 		EYG_FRESH_SPAWN_ROLE: string;
 		EYG_GATEWAY_CHANNEL: string;
 		EYG_GUILD: string;
 		EYG_INTERVIEW_CHANNEL_PARENT: string;
 		EYG_INTERVIEW_REPORTING_CHANNEL: string;
 		EYG_RECRUITER_ROLE: string;
-		EYG_RECRUIT_ROLE_ID: string;
+		EYG_RECRUIT_ROLE: string;
 
 		GITHUB_TOKEN: string;
 

@@ -86,13 +86,14 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 					id: envParseString('EYG_RECRUITER_ROLE'),
 					allow: [...allowedPermissions, PermissionFlagsBits.ManageRoles]
 				},
+				{ id: envParseString('EYG_CLAN_REP_ROLE'), allow: allowedPermissions },
 				{ id: member.id, allow: allowedPermissions }
 			]
 		});
 
 		// remove fresh-spawn role and add recruiter role
 		await member.roles.remove(envParseString('EYG_FRESH_SPAWN_ROLE'));
-		await member.roles.add(envParseString('EYG_RECRUIT_ROLE_ID'));
+		await member.roles.add(envParseString('EYG_RECRUIT_ROLE'));
 
 		await channel.send({
 			content: userMention(member.id),
