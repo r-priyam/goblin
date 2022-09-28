@@ -1,8 +1,10 @@
 import { Buffer } from 'node:buffer';
+import { Time } from '@sapphire/cron';
 import { container } from '@sapphire/framework';
 import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
 import type { RequestOptions } from 'clashofclans.js';
 import { fetch } from 'undici';
+import { seconds } from '#utils/functions/time';
 
 export class LinkApi {
 	private readonly userName: string;
@@ -31,7 +33,7 @@ export class LinkApi {
 
 			const tags = data.map((linkData) => linkData.playerTag);
 			container.tasks.create('syncPlayerLinks', { userId: tagOrId, tags }, 60_000);
-			await container.redis.insertWithExpiry(`links-${tagOrId}`, JSON.stringify(tags), 10 * 60);
+			await container.redis.insertWithExpiry(`links-${tagOrId}`, tags, seconds.fromMilliseconds(Time.Minute * 5));
 			return tags;
 		}
 
