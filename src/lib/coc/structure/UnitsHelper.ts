@@ -1,5 +1,5 @@
 import { inlineCode } from '@discordjs/builders';
-import { DARK_ELIXIR_TROOPS, ELIXIR_TROOPS, Player } from 'clashofclans.js';
+import { DarkElixirTroops, ElixirTroops, Player } from 'clashofclans.js';
 import {
 	BuilderBaseTroopEmotes,
 	HeroEmotes,
@@ -23,7 +23,7 @@ export class UnitsHelper {
 		switch (type) {
 			case 'ELIXIR':
 				for (const troop of this.player.homeTroops) {
-					if (ELIXIR_TROOPS.includes(troop.name)) {
+					if (ElixirTroops.includes(troop.name)) {
 						data.push({
 							emoji: HomeBaseTroopEmotes[troop.name],
 							level: this.formatInlineBlock(troop.level, troop.hallMaxLevel)
@@ -35,7 +35,7 @@ export class UnitsHelper {
 
 			case 'DARK':
 				for (const troop of this.player.homeTroops) {
-					if (DARK_ELIXIR_TROOPS.includes(troop.name)) {
+					if (DarkElixirTroops.includes(troop.name)) {
 						data.push({
 							emoji: HomeBaseTroopEmotes[troop.name],
 							level: this.formatInlineBlock(troop.level, troop.hallMaxLevel)

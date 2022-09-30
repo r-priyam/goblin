@@ -1,6 +1,6 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
-import { Clan, SUPER_TROOPS } from 'clashofclans.js';
+import { Clan, SuperTroops } from 'clashofclans.js';
 import { CommandInteraction, MessageActionRow, MessageEmbed, MessageSelectMenu } from 'discord.js';
 import { SuperTroopEmotes } from '#lib/coc';
 import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
@@ -42,7 +42,7 @@ export class SuperTroopsCommand extends GoblinCommand {
 		const superTroopsMenu = new MessageSelectMenu()
 			.setPlaceholder('Select a troop')
 			.setCustomId(`SUPER_TROOP_MENU_${clanTag}`)
-			.addOptions(SUPER_TROOPS.map((troop) => ({ label: troop, emoji: SuperTroopEmotes[troop], value: troop })));
+			.addOptions(SuperTroops.map((troop) => ({ label: troop, emoji: SuperTroopEmotes[troop], value: troop })));
 
 		return new MessageActionRow().addComponents(superTroopsMenu);
 	}
@@ -50,7 +50,7 @@ export class SuperTroopsCommand extends GoblinCommand {
 	public static async getSuperTroops(clan: Clan, filterTroop?: string) {
 		const members = await clan.fetchMembers();
 		const superTroops = Object.fromEntries(
-			SUPER_TROOPS.map((troop) => [`${SuperTroopEmotes[troop]} ${troop}`, [] as string[]])
+			SuperTroops.map((troop) => [`${SuperTroopEmotes[troop]} ${troop}`, [] as string[]])
 		);
 
 		for (const member of members) {
