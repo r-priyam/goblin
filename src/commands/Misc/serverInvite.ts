@@ -1,5 +1,5 @@
 import { ApplyOptions } from '@sapphire/decorators';
-import type { CommandInteraction } from 'discord.js';
+import type { ChatInputCommandInteraction } from 'discord.js';
 import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 
 @ApplyOptions<GoblinCommandOptions>({
@@ -10,7 +10,7 @@ import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinComma
 	commandMetaOptions: { idHints: ['993241403985506424', '993241985576075295'] }
 })
 export class ServerInviteCommand extends GoblinCommand {
-	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
+	public override async chatInputRun(interaction: ChatInputCommandInteraction<'cached'>) {
 		return interaction.reply({ content: 'https://discord.me/eygcommunity' });
 	}
 }

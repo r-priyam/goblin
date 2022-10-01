@@ -20,7 +20,7 @@
 		"prefix": "command",
 		"body": [
 			"import { ApplyOptions } from '@sapphire/decorators';",
-			"import type { CommandInteraction } from 'discord.js';",
+			"import type { ChatInputCommandInteraction } from 'discord.js';",
 			"import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';",
 			"",
 			"@ApplyOptions<GoblinCommandOptions>({",
@@ -28,7 +28,7 @@
 			"\tcommandMetaOptions: {idHints: ['']}",
 			"})",
 			"export class ${1:CommandName} extends GoblinCommand {",
-			"\tpublic override async chatInputRun(interaction: CommandInteraction<'cached'>) {",
+			"\tpublic override async chatInputRun(interaction: ChatInputCommandInteraction<'cached'>) {",
 			"\t\t//",
 			"\t}",
 			"}",

@@ -1,8 +1,7 @@
-import { userMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { SnowflakeRegex } from '@sapphire/discord.js-utilities';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
-import { CommandInteraction, DiscordAPIError, MessageEmbed, User } from 'discord.js';
+import { ChatInputCommandInteraction, DiscordAPIError, EmbedBuilder, User, userMention } from 'discord.js';
 import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#utils/constants';
 
@@ -21,7 +20,7 @@ import { Colors } from '#utils/constants';
 	commandMetaOptions: { idHints: ['999333483006673006', '999338916232581171'] }
 })
 export class HackBanCommand extends GoblinCommand {
-	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
+	public override async chatInputRun(interaction: ChatInputCommandInteraction<'cached'>) {
 		await interaction.deferReply();
 		const userId = interaction.options.getString('id', true);
 
@@ -34,10 +33,10 @@ export class HackBanCommand extends GoblinCommand {
 		try {
 			user = await this.client.users.fetch(userId);
 		} catch (error) {
-			if (error instanceof DiscordAPIError && error.httpStatus === 404) {
+			if (error instanceof DiscordAPIError && error.status === 404) {
 				return interaction.editReply({
 					embeds: [
-						new MessageEmbed()
+						new EmbedBuilder()
 							.setDescription("User with the provided id doesn't exist")
 							.setColor(Colors.Red)
 					]
@@ -55,7 +54,7 @@ export class HackBanCommand extends GoblinCommand {
 			reason: `Forced ban ${user.username}. Action carried out by ${interaction.user.username}`
 		});
 		return interaction.editReply({
-			embeds: [new MessageEmbed().setDescription(`Successfully banned ${user.username}`).setColor(Colors.Green)]
+			embeds: [new EmbedBuilder().setDescription(`Successfully banned ${user.username}`).setColor(Colors.Green)]
 		});
 	}
 }

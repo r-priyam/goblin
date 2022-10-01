@@ -1,8 +1,7 @@
-import { bold, inlineCode, userMention } from '@discordjs/builders';
 import { UserError } from '@sapphire/framework';
 import { envParseArray, envParseString } from '@skyra/env-utilities';
-import { PermissionFlagsBits } from 'discord-api-types/v9';
-import type { GuildMember } from 'discord.js';
+import { PermissionFlagsBits } from 'discord-api-types/v10';
+import { GuildMember, bold, inlineCode, userMention } from 'discord.js';
 import { ErrorIdentifiers } from '#utils/constants';
 
 export function automationMemberCheck(guildId: string, member: GuildMember, checkManageMessage = false) {

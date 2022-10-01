@@ -1,6 +1,15 @@
-import { time, TimestampStyles } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
-import { CommandInteraction, GuildMember, MessageActionRow, MessageButton, MessageEmbed, Role } from 'discord.js';
+import { ButtonStyle } from 'discord-api-types/v10';
+import {
+	ChatInputCommandInteraction,
+	GuildMember,
+	ActionRowBuilder,
+	ButtonBuilder,
+	EmbedBuilder,
+	Role,
+	time,
+	TimestampStyles
+} from 'discord.js';
 import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#lib/util/constants';
 
@@ -20,13 +29,13 @@ const sortRanks = (x: Role, y: Role) => Number(y.position > x.position) || Numbe
 	commandMetaOptions: { idHints: ['987411522198335619', '987411679115624502'] }
 })
 export class UserInfoCommand extends GoblinCommand {
-	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
+	public override async chatInputRun(interaction: ChatInputCommandInteraction<'cached'>) {
 		await interaction.deferReply();
 		const member = interaction.options.getMember('user') ?? interaction.member;
 
-		const embed = new MessageEmbed()
+		const embed = new EmbedBuilder()
 			.setColor(member.displayColor || Colors.White)
-			.setThumbnail(member.displayAvatarURL({ size: 256, format: 'png', dynamic: true }))
+			.setThumbnail(member.displayAvatarURL({ size: 256, extension: 'png', forceStatic: true }))
 			.setTitle(member.user.tag)
 			.addFields(
 				{
@@ -48,7 +57,11 @@ export class UserInfoCommand extends GoblinCommand {
 			)
 			.setFooter({
 				text: `ID: ${member.id}`,
-				iconURL: this.container.client.user!.displayAvatarURL({ size: 128, format: 'png', dynamic: true })
+				iconURL: this.container.client.user!.displayAvatarURL({
+					size: 128,
+					extension: 'png',
+					forceStatic: true
+				})
 			})
 			.setTimestamp();
 		this.addRoles(interaction.guildId, member, embed);
@@ -56,7 +69,7 @@ export class UserInfoCommand extends GoblinCommand {
 		return interaction.editReply({ embeds: [embed], components: [UserInfoCommand.avatarUrlButton(member)] });
 	}
 
-	private addRoles(guildId: string, member: GuildMember, embed: MessageEmbed) {
+	private addRoles(guildId: string, member: GuildMember, embed: EmbedBuilder) {
 		if (member.roles.cache.size <= 1) {
 			return;
 		}
@@ -73,11 +86,11 @@ export class UserInfoCommand extends GoblinCommand {
 	}
 
 	private static avatarUrlButton(member: GuildMember) {
-		return new MessageActionRow().addComponents([
-			new MessageButton() //
+		return new ActionRowBuilder<ButtonBuilder>().addComponents([
+			new ButtonBuilder() //
 				.setLabel('🖼️ Avatar')
-				.setStyle('LINK')
-				.setURL(member.displayAvatarURL({ size: 512, format: 'png', dynamic: true }))
+				.setStyle(ButtonStyle.Link)
+				.setURL(member.displayAvatarURL({ size: 512, extension: 'png', forceStatic: true }))
 		]);
 	}
 }

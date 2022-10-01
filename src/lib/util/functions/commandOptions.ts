@@ -1,4 +1,4 @@
-import type { SlashCommandStringOption } from '@discordjs/builders';
+import type { SlashCommandStringOption } from 'discord.js';
 
 /**
  * Generate ClanTag or PlayerTag SlashCommandString option

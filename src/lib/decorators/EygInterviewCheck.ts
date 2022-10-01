@@ -1,11 +1,11 @@
 import { createFunctionPrecondition } from '@sapphire/decorators';
 import { UserError } from '@sapphire/framework';
 import { envParseString } from '@skyra/env-utilities';
-import type { CommandInteraction, GuildMember } from 'discord.js';
+import type { ChatInputCommandInteraction, GuildMember } from 'discord.js';
 import { ErrorIdentifiers } from '#utils/constants';
 
 export const EygInterviewCheck = (): MethodDecorator => {
-	return createFunctionPrecondition((interaction: CommandInteraction<'cached'>) => {
+	return createFunctionPrecondition((interaction: ChatInputCommandInteraction<'cached'>) => {
 		const roleCheck = (interaction.member as GuildMember).roles.cache.hasAny(
 			envParseString('EYG_RECRUIT_ROLE'),
 			envParseString('EYG_ADMINISTRATOR_ROLE')

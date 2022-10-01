@@ -1,9 +1,8 @@
-import { codeBlock } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { UserError } from '@sapphire/framework';
 import { envParseArray, envParseString } from '@skyra/env-utilities';
 import { Util } from 'clashofclans.js';
-import { CommandInteraction, GuildMember, MessageEmbed } from 'discord.js';
+import { ChatInputCommandInteraction, GuildMember, EmbedBuilder, codeBlock } from 'discord.js';
 import { GoblinSubCommand, GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
 import { ClanAlias, RedisMethods } from '#lib/redis-cache/RedisCacheClient';
 import { Colors, ErrorIdentifiers } from '#utils/constants';
@@ -54,7 +53,7 @@ import { addTagOption } from '#utils/functions/commandOptions';
 	]
 })
 export class AliasCommand extends GoblinSubCommand {
-	public async createAlias(interaction: CommandInteraction<'cached'>) {
+	public async createAlias(interaction: ChatInputCommandInteraction<'cached'>) {
 		await interaction.deferReply();
 		this.canPerformAliasOperations(interaction.member);
 
@@ -85,7 +84,7 @@ export class AliasCommand extends GoblinSubCommand {
 		await this.redis.handleAliasOperations(RedisMethods.Insert, clan.tag, alias.toUpperCase(), clan.name);
 		return interaction.editReply({
 			embeds: [
-				new MessageEmbed() //
+				new EmbedBuilder() //
 					.setDescription(
 						`Successfully created alias **${alias.toUpperCase()}** for ${clan.name} (${clan.tag})`
 					)
@@ -94,7 +93,7 @@ export class AliasCommand extends GoblinSubCommand {
 		});
 	}
 
-	public async removeAlias(interaction: CommandInteraction<'cached'>) {
+	public async removeAlias(interaction: ChatInputCommandInteraction<'cached'>) {
 		await interaction.deferReply();
 		this.canPerformAliasOperations(interaction.member);
 
@@ -112,14 +111,14 @@ export class AliasCommand extends GoblinSubCommand {
 		await this.redis.handleAliasOperations(RedisMethods.Delete, tag, result.alias!);
 		return interaction.editReply({
 			embeds: [
-				new MessageEmbed() //
+				new EmbedBuilder() //
 					.setDescription(`Successfully deleted alias **${result.alias}** for ${result.clanName}`)
 					.setColor(Colors.Green)
 			]
 		});
 	}
 
-	public async listAlias(interaction: CommandInteraction<'cached'>) {
+	public async listAlias(interaction: ChatInputCommandInteraction<'cached'>) {
 		await interaction.deferReply();
 
 		const aliases = await this.redis.fetch<ClanAlias[]>('clan-aliases');
@@ -129,7 +128,7 @@ export class AliasCommand extends GoblinSubCommand {
 			aliasList += `${name.padEnd(18, ' ')}${tag.padEnd(13, ' ')}${alias}\n`;
 		}
 
-		return interaction.editReply({ embeds: [new MessageEmbed().setDescription(codeBlock(aliasList))] });
+		return interaction.editReply({ embeds: [new EmbedBuilder().setDescription(codeBlock(aliasList))] });
 	}
 
 	private canPerformAliasOperations(member: GuildMember) {

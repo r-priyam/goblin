@@ -1,8 +1,14 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { UserError } from '@sapphire/framework';
 import { Util } from 'clashofclans.js';
-import { PermissionFlagsBits } from 'discord-api-types/v10';
-import { CommandInteraction, MessageActionRow, Modal, ModalActionRowComponent, TextInputComponent } from 'discord.js';
+import { PermissionFlagsBits, TextInputStyle } from 'discord-api-types/v10';
+import {
+	ChatInputCommandInteraction,
+	ActionRowBuilder,
+	ModalBuilder,
+	ModalActionRowComponentBuilder,
+	TextInputBuilder
+} from 'discord.js';
 import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import { ErrorIdentifiers, ModalCustomIds, ModalInputCustomIds } from '#utils/constants';
 import { automationMemberCheck } from '#utils/functions/automationMemberCheck';
@@ -28,14 +34,14 @@ import { addTagOption } from '#utils/functions/commandOptions';
 	preconditions: ['StartRequiredPermissions']
 })
 export class StartCommand extends GoblinCommand {
-	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
+	public override async chatInputRun(interaction: ChatInputCommandInteraction<'cached'>) {
 		automationMemberCheck(interaction.guildId, interaction.member);
 
 		const startType = interaction.options.getString('type', true) as 'clanEmbed';
 		return this[startType](interaction);
 	}
 
-	private async clanEmbed(interaction: CommandInteraction<'cached'>) {
+	private async clanEmbed(interaction: ChatInputCommandInteraction<'cached'>) {
 		const clanTag = interaction.options.getString('tag', true);
 		if (!Util.isValidTag(Util.formatTag(clanTag))) {
 			throw new UserError({
@@ -44,24 +50,24 @@ export class StartCommand extends GoblinCommand {
 			});
 		}
 
-		const embedModal = new Modal()
+		const embedModal = new ModalBuilder()
 			.setTitle('Clan Embed Start Form')
 			.setCustomId(`${ModalCustomIds.StartClanEmbed}-${Util.formatTag(clanTag)}`)
 			.addComponents(
-				new MessageActionRow<ModalActionRowComponent>().addComponents(
-					new TextInputComponent() //
+				new ActionRowBuilder<ModalActionRowComponentBuilder>().addComponents(
+					new TextInputBuilder() //
 						.setCustomId(ModalInputCustomIds.StartClanEmbedLeader)
 						.setLabel("What's the clan leader discord id?")
-						.setStyle('SHORT')
+						.setStyle(TextInputStyle.Short)
 						.setMinLength(16)
 						.setMaxLength(22)
 						.setRequired(true)
 				),
-				new MessageActionRow<ModalActionRowComponent>().addComponents(
-					new TextInputComponent() //
+				new ActionRowBuilder<ModalActionRowComponentBuilder>().addComponents(
+					new TextInputBuilder() //
 						.setCustomId(ModalInputCustomIds.StartClanEmbedColor)
 						.setLabel('Enter the embed color. For example: #FF5733')
-						.setStyle('SHORT')
+						.setStyle(TextInputStyle.Short)
 						.setMinLength(6)
 						.setMaxLength(7)
 						.setRequired(true)

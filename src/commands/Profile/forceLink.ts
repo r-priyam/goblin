@@ -1,10 +1,8 @@
-import { userMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { Result, UserError } from '@sapphire/framework';
 import { isNullishOrEmpty } from '@sapphire/utilities';
-import { PermissionFlagsBits } from 'discord-api-types/v9';
-import type { CommandInteraction } from 'discord.js';
-import { MessageEmbed } from 'discord.js';
+import { PermissionFlagsBits } from 'discord-api-types/v10';
+import { ChatInputCommandInteraction, userMention, EmbedBuilder } from 'discord.js';
 import { GoblinSubCommand, GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
 import { RedisMethods } from '#lib/redis-cache/RedisCacheClient';
 import { Colors, ErrorIdentifiers } from '#utils/constants';
@@ -53,7 +51,7 @@ import { clanTagOption, playerTagOption } from '#utils/functions/commandOptions'
 	]
 })
 export class ForceLinkCommand extends GoblinSubCommand {
-	public async forceLinkClan(interaction: CommandInteraction<'cached'>) {
+	public async forceLinkClan(interaction: ChatInputCommandInteraction<'cached'>) {
 		await interaction.deferReply();
 
 		const clan = await this.coc.clanHelper.info(interaction.options.getString('tag', true));
@@ -85,7 +83,7 @@ export class ForceLinkCommand extends GoblinSubCommand {
 		);
 		return interaction.editReply({
 			embeds: [
-				new MessageEmbed()
+				new EmbedBuilder()
 					.setTitle('Success')
 					.setDescription(
 						`Forcibly linked **${clan.name} (${clan.tag})** to ${userMention(user.id)} discord account`
@@ -95,7 +93,7 @@ export class ForceLinkCommand extends GoblinSubCommand {
 		});
 	}
 
-	public async forceLinkPlayer(interaction: CommandInteraction<'cached'>) {
+	public async forceLinkPlayer(interaction: ChatInputCommandInteraction<'cached'>) {
 		await interaction.deferReply();
 
 		const player = await this.coc.playerHelper.info(interaction.options.getString('tag', true));
@@ -143,7 +141,7 @@ export class ForceLinkCommand extends GoblinSubCommand {
 		);
 		return interaction.editReply({
 			embeds: [
-				new MessageEmbed()
+				new EmbedBuilder()
 					.setTitle('Success')
 					.setDescription(`Forcibly linked **${player.name} (${player.tag})** to ${user.id} discord account`)
 					.setColor(Colors.DeepOrange)

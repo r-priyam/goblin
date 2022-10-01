@@ -1,9 +1,9 @@
-import { bold, roleMention, time, TimestampStyles } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { ScheduledTask } from '@sapphire/plugin-scheduled-tasks';
 import { isNullish } from '@sapphire/utilities';
 import { envParseString } from '@skyra/env-utilities';
-import { MessageActionRow, MessageButton, TextChannel } from 'discord.js';
+import { ButtonStyle } from 'discord-api-types/v10';
+import { ActionRowBuilder, ButtonBuilder, TextChannel, bold, roleMention, time, TimestampStyles } from 'discord.js';
 
 @ApplyOptions<ScheduledTask.Options>({
 	name: 'interviewWaitTimer',
@@ -29,11 +29,11 @@ export class BotScheduledTask extends ScheduledTask {
 				'Started at:'
 			)} ${time(new Date(startedAt), TimestampStyles.LongDateTime)}`,
 			components: [
-				new MessageActionRow().addComponents(
-					new MessageButton() //
+				new ActionRowBuilder<ButtonBuilder>().addComponents(
+					new ButtonBuilder() //
 						.setLabel('Reference Message')
 						.setURL(messageUrl)
-						.setStyle('LINK')
+						.setStyle(ButtonStyle.Link)
 				)
 			]
 		});

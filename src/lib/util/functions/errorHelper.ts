@@ -1,8 +1,14 @@
-import { userMention } from '@discordjs/builders';
 import type { UserError } from '@sapphire/framework';
 import { codeBlock } from '@sapphire/utilities';
-import { RESTJSONErrorCodes } from 'discord-api-types/v9';
-import { CommandInteraction, DiscordAPIError, HTTPError, Interaction, MessageEmbed } from 'discord.js';
+import { RESTJSONErrorCodes } from 'discord-api-types/v10';
+import {
+	ChatInputCommandInteraction,
+	DiscordAPIError,
+	HTTPError,
+	Interaction,
+	EmbedBuilder,
+	userMention
+} from 'discord.js';
 import { Colors, Emotes } from '#utils/constants';
 
 export const IgnoredCodes = new Set([RESTJSONErrorCodes.UnknownChannel, RESTJSONErrorCodes.UnknownMessage]);
@@ -16,7 +22,7 @@ export const UnidentifiedErrorMessage = `UH OH! Looks like something went wrong 
  * @param error - The error to format.
  */
 export function getPathLine(error: DiscordAPIError | HTTPError): string {
-	return `**Path**: ${error.method.toUpperCase()} ${error.path}`;
+	return `**Path**: ${error.method.toUpperCase()} ${error.url}`;
 }
 
 /**
@@ -25,7 +31,7 @@ export function getPathLine(error: DiscordAPIError | HTTPError): string {
  * @param error - The error to format.
  */
 export function getCodeLine(error: DiscordAPIError | HTTPError): string {
-	return `**Code**: ${error.code}`;
+	return `**Code**: ${error.status}`;
 }
 
 /**
@@ -40,12 +46,17 @@ export function getErrorLine(error: Error): string {
 export async function handleUserError(interaction: Interaction, error: UserError) {
 	if (Reflect.get(Object(error.context), 'silent')) return;
 
-	if (interaction.isCommand())
-		await sendCommandErrorToUser(interaction, errorEmbedUser(error.message ?? UnidentifiedErrorMessage));
+	if (interaction.isCommand()) {
+		await sendCommandErrorToUser(
+			interaction as ChatInputCommandInteraction<'cached'>,
+			errorEmbedUser(error.message ?? UnidentifiedErrorMessage)
+		);
+	}
+
 	await sendErrorToUser(interaction, errorEmbedUser(error.message ?? UnidentifiedErrorMessage));
 }
 
-export async function sendCommandErrorToUser(interaction: CommandInteraction, embed: MessageEmbed) {
+export async function sendCommandErrorToUser(interaction: ChatInputCommandInteraction<'cached'>, embed: EmbedBuilder) {
 	if (interaction.replied || interaction.deferred) {
 		return interaction.editReply({ embeds: [embed] });
 	}
@@ -53,7 +64,7 @@ export async function sendCommandErrorToUser(interaction: CommandInteraction, em
 	return interaction.reply({ embeds: [embed], ephemeral: true });
 }
 
-export async function sendErrorToUser(interaction: Interaction, embed: MessageEmbed) {
+export async function sendErrorToUser(interaction: Interaction, embed: EmbedBuilder) {
 	if (!interaction.isSelectMenu() && !interaction.isButton() && !interaction.isModalSubmit()) return;
 
 	if (interaction.replied || interaction.deferred) {
@@ -64,7 +75,7 @@ export async function sendErrorToUser(interaction: Interaction, embed: MessageEm
 }
 
 export function errorEmbedUser(message: string) {
-	return new MessageEmbed().setTitle(`${Emotes.Error} Error`).setDescription(message).setColor(Colors.Red);
+	return new EmbedBuilder().setTitle(`${Emotes.Error} Error`).setDescription(message).setColor(Colors.Red);
 }
 
 export function getWarnError(interaction: Interaction) {

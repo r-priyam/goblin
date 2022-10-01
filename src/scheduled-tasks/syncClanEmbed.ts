@@ -3,7 +3,7 @@ import { Result } from '@sapphire/framework';
 import { ScheduledTask } from '@sapphire/plugin-scheduled-tasks';
 import type { Clan, HTTPError as COCHttpError } from 'clashofclans.js';
 import { RESTJSONErrorCodes, Routes } from 'discord-api-types/v10';
-import { Constants, HTTPError } from 'discord.js';
+import { HTTPError, Status } from 'discord.js';
 import { BlueNumberEmotes, TownHallEmotes } from '#lib/coc';
 import { logInfo, logWarning } from '#utils/functions/logging';
 
@@ -15,7 +15,7 @@ import { logInfo, logWarning } from '#utils/functions/logging';
 })
 export class SyncClanEmbedTask extends ScheduledTask {
 	public override async run() {
-		if (this.container.client.ws.status !== Constants.Status.READY) return;
+		if (this.container.client.ws.status !== Status.Ready) return;
 
 		const data = await this.sql<ClanEmbedSyncData[]>`SELECT clan_tag,
                                                                 leader_discord_id,
@@ -39,7 +39,7 @@ export class SyncClanEmbedTask extends ScheduledTask {
 		});
 
 		const result = await Result.fromAsync<unknown, HTTPError>(async () =>
-			this.discordRest.patch(Routes.channelMessage(data.channelId, data.messageId), {
+			this.client.rest.patch(Routes.channelMessage(data.channelId, data.messageId), {
 				body: { embeds: [embed.toJSON()] }
 			})
 		);
@@ -51,7 +51,7 @@ export class SyncClanEmbedTask extends ScheduledTask {
 					RESTJSONErrorCodes.MissingAccess,
 					RESTJSONErrorCodes.MissingPermissions,
 					RESTJSONErrorCodes.UnknownMessage
-				].includes(error.code)
+				].includes(error.status)
 			) {
 				await this.stopClanEmbed(data.clanTag, data.channelId);
 				this.logger.info(

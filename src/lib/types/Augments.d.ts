@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
-import type { REST } from '@discordjs/rest';
 import type { Logger } from '@sapphire/framework';
 import type { ScheduledTaskHandler } from '@sapphire/plugin-scheduled-tasks';
 import type { Sql } from 'postgres';
@@ -10,7 +9,6 @@ import type { GoblinRedisClient } from '#lib/redis-cache/RedisCacheClient';
 declare module '@sapphire/pieces' {
 	interface Container {
 		coc: GoblinClashClient;
-		discordRest: REST;
 		redis: GoblinRedisClient;
 		sql: Sql<any>;
 	}
@@ -18,7 +16,6 @@ declare module '@sapphire/pieces' {
 	interface Piece {
 		client: GoblinClient;
 		coc: GoblinClashClient;
-		discordRest: REST;
 		logger: Logger;
 		redis: GoblinRedisClient;
 		sql: Sql<any>;

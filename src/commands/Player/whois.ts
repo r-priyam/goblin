@@ -1,9 +1,8 @@
-import { bold } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { PaginatedMessage } from '@sapphire/discord.js-utilities';
 import { isNullish } from '@sapphire/utilities';
 import { Util } from 'clashofclans.js';
-import { CommandInteraction, MessageEmbed } from 'discord.js';
+import { ChatInputCommandInteraction, EmbedBuilder, bold } from 'discord.js';
 import { MiscEmotes, RawPosition, TownHallEmotes } from '#lib/coc';
 import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import { PlayerCommand } from '#root/commands/Player/player';
@@ -23,7 +22,7 @@ import { Colors } from '#root/lib/util/constants';
 	commandMetaOptions: { idHints: ['974749593696874506', '980131954139734138'] }
 })
 export class WhoIsCommand extends GoblinCommand {
-	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
+	public override async chatInputRun(interaction: ChatInputCommandInteraction<'cached'>) {
 		await interaction.deferReply();
 		const member = interaction.options.getMember('user') ?? interaction.member;
 
@@ -35,9 +34,9 @@ export class WhoIsCommand extends GoblinCommand {
 		const overall = { stars: 0, donations: 0, received: 0, attacks: 0, defenses: 0 };
 		const players = await Util.allSettled(data.splice(0, 5).map((tag) => this.coc.getPlayer(tag)));
 
-		const firstPage = new MessageEmbed()
+		const firstPage = new EmbedBuilder()
 			.setAuthor({ name: `${member.user.username} (${member.id})` })
-			.setThumbnail(member.displayAvatarURL({ size: 96, format: 'png', dynamic: true }))
+			.setThumbnail(member.displayAvatarURL({ size: 128, extension: 'png', forceStatic: true }))
 			.setColor(Colors.Indigo)
 			.setTimestamp();
 		const pages = [];
@@ -92,7 +91,7 @@ export class WhoIsCommand extends GoblinCommand {
 			pages.push(infoEmbed);
 		}
 
-		const paginator = new PaginatedMessage({ template: new MessageEmbed().setColor(Colors.Indigo) });
+		const paginator = new PaginatedMessage({ template: new EmbedBuilder().setColor(Colors.Indigo) });
 		paginator.addPageEmbed(firstPage);
 		for (const page of pages) paginator.addPageEmbed(page);
 		return paginator.run(interaction);

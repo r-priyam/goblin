@@ -1,8 +1,7 @@
-import { bold, inlineCode, userMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { ScheduledTask } from '@sapphire/plugin-scheduled-tasks';
 import { envParseString } from '@skyra/env-utilities';
-import { Constants, MessageEmbed, TextChannel } from 'discord.js';
+import { EmbedBuilder, TextChannel, Status, bold, inlineCode, userMention } from 'discord.js';
 import { Colors } from '#utils/constants';
 
 @ApplyOptions<ScheduledTask.Options>({
@@ -13,7 +12,7 @@ import { Colors } from '#utils/constants';
 })
 export class EygMemberCheck extends ScheduledTask {
 	public override async run() {
-		if (this.container.client.ws.status !== Constants.Status.READY) return;
+		if (this.container.client.ws.status !== Status.Ready) return;
 
 		const eygGuild = await this.client.guilds.fetch(envParseString('EYG_GUILD'));
 		// TODO: Write pending members check
@@ -37,7 +36,7 @@ export class EygMemberCheck extends ScheduledTask {
 				await gatewayChannel.send({
 					content: userMention(member.id),
 					embeds: [
-						new MessageEmbed()
+						new EmbedBuilder()
 							.setTitle('Warning')
 							.setDescription(
 								`Hello 👋\nYou have been in ${inlineCode(
@@ -53,7 +52,7 @@ export class EygMemberCheck extends ScheduledTask {
 				await member.kick('Automatically kicked member for being in gateway for more than 24 hours');
 				await gatewayChannel.send({
 					embeds: [
-						new MessageEmbed()
+						new EmbedBuilder()
 							.setTitle('Info')
 							.setDescription(
 								`Automatically kicked ${inlineCode(

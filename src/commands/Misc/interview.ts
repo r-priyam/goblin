@@ -1,9 +1,15 @@
-import { channelMention, userMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { UserError } from '@sapphire/framework';
 import { envParseString } from '@skyra/env-utilities';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
-import { CommandInteraction, MessageEmbed, TextChannel } from 'discord.js';
+import {
+	ChatInputCommandInteraction,
+	EmbedBuilder,
+	TextChannel,
+	channelMention,
+	userMention,
+	ChannelType
+} from 'discord.js';
 import { fetch } from 'undici';
 import { EygInterviewCheck } from '#lib/decorators/EygInterviewCheck';
 import { GoblinSubCommand, GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
@@ -62,10 +68,10 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 7. What CWL league(s) do you have experience in?`;
 
 	@EygInterviewCheck()
-	public async startInterview(interaction: CommandInteraction<'cached'>) {
+	public async startInterview(interaction: ChatInputCommandInteraction<'cached'>) {
 		await interaction.deferReply();
 
-		const member = interaction.options.getMember('user', true);
+		const member = interaction.options.getMember('user')!;
 		const allowedPermissions = [
 			PermissionFlagsBits.SendMessages,
 			PermissionFlagsBits.ReadMessageHistory,
@@ -76,9 +82,10 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 			PermissionFlagsBits.UseExternalEmojis
 		];
 
-		const channel = await interaction.guild.channels.create(`${member.displayName}-interview`, {
+		const channel = await interaction.guild.channels.create({
+			name: `${member.displayName}-interview`,
 			reason: `Automated interview channel creation by ${interaction.member.displayName}`,
-			type: 'GUILD_TEXT',
+			type: ChannelType.GuildText,
 			parent: envParseString('EYG_INTERVIEW_CHANNEL_PARENT'),
 			permissionOverwrites: [
 				{ id: interaction.guild.id, deny: [PermissionFlagsBits.ViewChannel] },
@@ -97,12 +104,12 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 
 		await channel.send({
 			content: userMention(member.id),
-			embeds: [new MessageEmbed().setColor(Colors.LightGreen).setDescription(this.#welcomeMessage)]
+			embeds: [new EmbedBuilder().setColor(Colors.LightGreen).setDescription(this.#welcomeMessage)]
 		});
 
 		return interaction.editReply({
 			embeds: [
-				new MessageEmbed()
+				new EmbedBuilder()
 					.setTitle('Success')
 					.setDescription(`Successfully created ${channelMention(channel.id)}`)
 					.setColor(Colors.Green)
@@ -111,14 +118,14 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 	}
 
 	@EygInterviewCheck()
-	public async closeInterview(interaction: CommandInteraction<'cached'>) {
+	public async closeInterview(interaction: ChatInputCommandInteraction<'cached'>) {
 		await interaction.deferReply();
 
 		const reason = interaction.options.getString('reason', true);
 		const { channel, member } = interaction;
 
 		const messages: string[] = [];
-		await channel?.messages.fetch({ limit: 100 }, { force: true }).then((data) => {
+		await channel!.messages.fetch({ limit: 100, cache: false }).then((data) => {
 			for (const message of [...data.values()].sort((a, b) => a.createdTimestamp - b.createdTimestamp)) {
 				if (message.embeds.length) {
 					messages.push(
@@ -144,7 +151,7 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 
 		const successData = {
 			embeds: [
-				new MessageEmbed()
+				new EmbedBuilder()
 					.setDescription(
 						`Backup file for ${channel?.name} is saved at https://gist.github.com/robo-goblin/${gistId}`
 					)

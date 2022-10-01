@@ -1,6 +1,6 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { Util } from 'clashofclans.js';
-import { CommandInteraction, MessageEmbed } from 'discord.js';
+import { ChatInputCommandInteraction, EmbedBuilder } from 'discord.js';
 import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import { RedisMethods } from '#lib/redis-cache/RedisCacheClient';
 import { Colors } from '#utils/constants';
@@ -22,14 +22,14 @@ import { addTagOption } from '#utils/functions/commandOptions';
 	commandMetaOptions: { idHints: ['975442552134197248', '980131949911883847'] }
 })
 export class UnlinkCommand extends GoblinCommand {
-	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
+	public override async chatInputRun(interaction: ChatInputCommandInteraction<'cached'>) {
 		await interaction.deferReply({ ephemeral: true });
 
 		const type = interaction.options.getString('choice', true);
 		return type === 'clan' ? this.removeClan(interaction) : this.removePlayer(interaction);
 	}
 
-	private async removeClan(interaction: CommandInteraction<'cached'>) {
+	private async removeClan(interaction: ChatInputCommandInteraction<'cached'>) {
 		const tag = Util.formatTag(interaction.options.getString('tag', true));
 
 		if (!Util.isValidTag(tag)) {
@@ -49,7 +49,7 @@ export class UnlinkCommand extends GoblinCommand {
 		await this.redis.handleClanOrPlayerCache('CLAN', RedisMethods.Delete, interaction.member.id, tag);
 		return interaction.editReply({
 			embeds: [
-				new MessageEmbed()
+				new EmbedBuilder()
 					.setTitle('Success')
 					.setDescription(`Removed **${result.clanName} (${tag})** from your discord account`)
 					.setColor(Colors.Green)
@@ -57,7 +57,7 @@ export class UnlinkCommand extends GoblinCommand {
 		});
 	}
 
-	private async removePlayer(interaction: CommandInteraction<'cached'>) {
+	private async removePlayer(interaction: ChatInputCommandInteraction<'cached'>) {
 		const tag = Util.formatTag(interaction.options.getString('tag', true));
 
 		if (!Util.isValidTag(tag)) {
@@ -77,7 +77,7 @@ export class UnlinkCommand extends GoblinCommand {
 		await this.redis.handleClanOrPlayerCache('PLAYER', RedisMethods.Delete, interaction.member.id, tag);
 		return interaction.editReply({
 			embeds: [
-				new MessageEmbed()
+				new EmbedBuilder()
 					.setTitle('Success')
 					.setDescription(`Removed **${result.playerName} (${tag})** from your discord account`)
 					.setColor(Colors.Green)

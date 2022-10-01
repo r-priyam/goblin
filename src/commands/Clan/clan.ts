@@ -1,7 +1,7 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { isNullish } from '@sapphire/utilities';
 import type { Clan } from 'clashofclans.js';
-import { CommandInteraction, MessageEmbed } from 'discord.js';
+import { ChatInputCommandInteraction, EmbedBuilder } from 'discord.js';
 import { LabelEmotes, MiscEmotes, RawClanType, RawWarFrequency, TownHallEmotes, WarLeagueEmotes } from '#lib/coc';
 import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import type { ClanOrPlayer } from '#lib/redis-cache/RedisCacheClient';
@@ -17,7 +17,7 @@ import { clanTagOption } from '#utils/functions/commandOptions';
 	commandMetaOptions: { idHints: ['975586954982867024', '980132035089809429'] }
 })
 export class ClanCommand extends GoblinCommand {
-	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
+	public override async chatInputRun(interaction: ChatInputCommandInteraction<'cached'>) {
 		await interaction.deferReply();
 		let clanTag = interaction.options.getString('tag');
 
@@ -38,7 +38,7 @@ export class ClanCommand extends GoblinCommand {
 		if (clan.memberCount === 0) {
 			return interaction.editReply({
 				embeds: [
-					new MessageEmbed()
+					new EmbedBuilder()
 						.setTitle('Error')
 						.setDescription('Clan has 0 members, failed to collect the required data')
 						.setColor(Colors.Red)
@@ -52,7 +52,11 @@ export class ClanCommand extends GoblinCommand {
 		return this.injectClanComposition(interaction, infoEmbed, clan);
 	}
 
-	private async injectClanComposition(interaction: CommandInteraction<'cached'>, embed: MessageEmbed, clan: Clan) {
+	private async injectClanComposition(
+		interaction: ChatInputCommandInteraction<'cached'>,
+		embed: EmbedBuilder,
+		clan: Clan
+	) {
 		const composition = await this.coc.clanHelper.getClanComposition(clan, true);
 		// remove placeholder field for composition fetch
 		embed.spliceFields(2, 1);
@@ -70,7 +74,7 @@ export class ClanCommand extends GoblinCommand {
 				.join('\n')}\n\n`;
 		}
 
-		return new MessageEmbed()
+		return new EmbedBuilder()
 			.setTitle(clan.name)
 			.setURL(clan.shareLink)
 			.setDescription(description)

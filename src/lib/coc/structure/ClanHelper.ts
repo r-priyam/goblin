@@ -1,7 +1,6 @@
-import { userMention } from '@discordjs/builders';
 import { container, Result, UserError } from '@sapphire/framework';
 import { Clan, HTTPError, Util } from 'clashofclans.js';
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder, userMention } from 'discord.js';
 import {
 	BlueNumberEmotes,
 	ErrorMessages,
@@ -64,7 +63,7 @@ export class ClanHelper {
 	) {
 		const composition = await this.getClanComposition(clan, true);
 
-		return new MessageEmbed()
+		return new EmbedBuilder()
 			.setTitle(clan.name)
 			.setURL(clan.shareLink)
 			.setDescription(

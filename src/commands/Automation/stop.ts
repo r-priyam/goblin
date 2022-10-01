@@ -1,9 +1,9 @@
 import { ApplyOptions } from '@sapphire/decorators';
-import { ChatInputCommand, UserError } from '@sapphire/framework';
+import { UserError } from '@sapphire/framework';
 import { Util } from 'clashofclans.js';
 import { bold } from 'colorette';
-import { PermissionFlagsBits } from 'discord-api-types/v9';
-import { CommandInteraction, MessageEmbed } from 'discord.js';
+import { PermissionFlagsBits } from 'discord-api-types/v10';
+import { ChatInputCommandInteraction, EmbedBuilder } from 'discord.js';
 import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import { Colors, ErrorIdentifiers } from '#utils/constants';
 import { automationMemberCheck } from '#utils/functions/automationMemberCheck';
@@ -29,14 +29,14 @@ import { addTagOption } from '#utils/functions/commandOptions';
 	preconditions: ['OwnerOnly']
 })
 export class StopCommand extends GoblinCommand {
-	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
+	public override async chatInputRun(interaction: ChatInputCommandInteraction<'cached'>) {
 		automationMemberCheck(interaction.guildId, interaction.member);
 
 		const stopType = interaction.options.getString('type', true) as 'clanEmbed';
 		return this[stopType](interaction);
 	}
 
-	private async clanEmbed(interaction: ChatInputCommand.Interaction) {
+	private async clanEmbed(interaction: ChatInputCommandInteraction<'cached'>) {
 		const clanTag = interaction.options.getString('tag', true);
 		if (!Util.isValidTag(Util.formatTag(clanTag))) {
 			throw new UserError({
@@ -58,7 +58,7 @@ export class StopCommand extends GoblinCommand {
 
 		return interaction.editReply({
 			embeds: [
-				new MessageEmbed()
+				new EmbedBuilder()
 					.setTitle('Success')
 					.setDescription(
 						`Successfully stopped ${bold(result.clanName!)}(${bold(clanTag)}) Clan Embed in this server`

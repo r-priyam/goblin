@@ -1,9 +1,9 @@
-import { inlineCode } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { SnowflakeRegex } from '@sapphire/discord.js-utilities';
 import { InteractionHandler, InteractionHandlerTypes, UserError } from '@sapphire/framework';
 import type { Clan } from 'clashofclans.js';
-import { MessageActionRow, MessageButton, MessageEmbed, ModalSubmitInteraction } from 'discord.js';
+import { ButtonStyle } from 'discord-api-types/v10';
+import { ActionRowBuilder, ButtonBuilder, EmbedBuilder, ModalSubmitInteraction, inlineCode } from 'discord.js';
 import { ButtonCustomIds, Colors, ErrorIdentifiers, ModalCustomIds, ModalInputCustomIds } from '#utils/constants';
 
 @ApplyOptions<InteractionHandler.Options>({
@@ -55,7 +55,7 @@ export class StartClanEmbedModal extends InteractionHandler {
 		await this.handleClanEmbedBoardGeneration(interaction, clan, leaderId, embedColor);
 
 		return this.some({
-			embed: new MessageEmbed()
+			embed: new EmbedBuilder()
 				.setTitle('Success')
 				.setDescription(`Successfully started Clan Embed automation for ${inlineCode(clan.name)}`)
 				.setColor(Colors.Green)
@@ -78,11 +78,11 @@ export class StartClanEmbedModal extends InteractionHandler {
 				})
 			],
 			components: [
-				new MessageActionRow().addComponents(
-					new MessageButton() //
+				new ActionRowBuilder<ButtonBuilder>().addComponents(
+					new ButtonBuilder() //
 						.setCustomId(`${ButtonCustomIds.ClanEmbedRequirement}-${clan.tag}`)
 						.setLabel('Edit Clan Requirements')
-						.setStyle('SECONDARY')
+						.setStyle(ButtonStyle.Secondary)
 				)
 			]
 		});

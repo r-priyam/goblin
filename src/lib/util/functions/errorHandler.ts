@@ -8,7 +8,7 @@ import {
 	InteractionHandlerParseError,
 	UserError
 } from '@sapphire/framework';
-import { CommandInteraction, DiscordAPIError, HTTPError } from 'discord.js';
+import { ChatInputCommandInteraction, DiscordAPIError, HTTPError } from 'discord.js';
 import {
 	errorEmbedUser,
 	getWarnError,
@@ -18,7 +18,7 @@ import {
 	sendErrorToUser
 } from '#utils/functions/errorHelper';
 
-export async function commandErrorHandler(error: Error, interaction: CommandInteraction) {
+export async function commandErrorHandler(error: Error, interaction: ChatInputCommandInteraction<'cached'>) {
 	if (typeof error === 'string') return sendCommandErrorToUser(interaction, errorEmbedUser(error));
 	if (error instanceof UserError) return handleUserError(interaction, error);
 
@@ -33,7 +33,7 @@ export async function commandErrorHandler(error: Error, interaction: CommandInte
 	}
 
 	if (error instanceof DiscordAPIError || error instanceof HTTPError) {
-		if (IgnoredCodes.has(error.code)) return;
+		if (IgnoredCodes.has(error.status)) return;
 
 		client.emit(Events.Error, error);
 	} else {
@@ -65,7 +65,7 @@ export function interactionErrorHandler(
 	}
 
 	if (error instanceof DiscordAPIError || error instanceof HTTPError) {
-		if (IgnoredCodes.has(error.code)) return;
+		if (IgnoredCodes.has(error.status)) return;
 
 		client.emit(Events.Error, error);
 	} else {

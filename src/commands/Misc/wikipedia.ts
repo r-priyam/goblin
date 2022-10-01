@@ -1,6 +1,6 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { PaginatedMessage } from '@sapphire/discord.js-utilities';
-import { CommandInteraction, MessageEmbed } from 'discord.js';
+import { ChatInputCommandInteraction, EmbedBuilder } from 'discord.js';
 import { stripHtml } from 'string-strip-html';
 import { fetch } from 'undici';
 import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
@@ -20,7 +20,7 @@ import { Colors } from '#root/lib/util/constants';
 	commandMetaOptions: { idHints: ['987351901655945326', '987409434462519337'] }
 })
 export class WikipediaCommand extends GoblinCommand {
-	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
+	public override async chatInputRun(interaction: ChatInputCommandInteraction<'cached'>) {
 		await interaction.deferReply({ ephemeral: true });
 		const keyword = interaction.options.getString('keyword', true);
 
@@ -35,7 +35,7 @@ export class WikipediaCommand extends GoblinCommand {
 		if (data.query.searchinfo.totalhits === 0) return interaction.editReply({ content: 'No result found' });
 
 		const paginatedMessage = new PaginatedMessage({
-			template: new MessageEmbed() //
+			template: new EmbedBuilder() //
 				.setColor(Colors.Blue)
 				.setFooter({ text: ` Showing results for ${keyword}` })
 		});

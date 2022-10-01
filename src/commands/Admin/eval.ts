@@ -1,12 +1,11 @@
 import { Buffer } from 'node:buffer';
 import { inspect } from 'node:util';
-import { codeBlock } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { Stopwatch } from '@sapphire/stopwatch';
 import { Type } from '@sapphire/type';
 import { isThenable } from '@sapphire/utilities';
 import { envParseString } from '@skyra/env-utilities';
-import { CommandInteraction, MessageEmbed } from 'discord.js';
+import { ChatInputCommandInteraction, EmbedBuilder, codeBlock } from 'discord.js';
 import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#utils/constants';
 
@@ -46,7 +45,7 @@ import { Colors } from '#utils/constants';
 	preconditions: ['OwnerOnly']
 })
 export class EvalCommand extends GoblinCommand {
-	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
+	public override async chatInputRun(interaction: ChatInputCommandInteraction<'cached'>) {
 		const code = interaction.options.getString('code', true);
 		const depth = interaction.options.getInteger('depth');
 		const isAsync = interaction.options.getBoolean('async');
@@ -58,7 +57,7 @@ export class EvalCommand extends GoblinCommand {
 		const output = success ? codeBlock('js', result) : codeBlock('bash', result);
 
 		const embedLimitReached = output.length > 4096;
-		const embed = new MessageEmbed()
+		const embed = new EmbedBuilder()
 			.setTitle('Info')
 			.setDescription(embedLimitReached ? 'Output was too long! The result has been sent as a file.' : output)
 			.setColor(success ? Colors.Green : Colors.Red);
@@ -75,7 +74,7 @@ export class EvalCommand extends GoblinCommand {
 	}
 
 	protected async eval(
-		interaction: CommandInteraction<'cached'>,
+		interaction: ChatInputCommandInteraction<'cached'>,
 		code: string,
 		{ isAsync, depth }: { depth: number | null; isAsync: boolean | null }
 	) {

@@ -21,8 +21,8 @@ export class BotListener extends Listener<typeof Events.Error> {
 	}
 
 	private errorSummary(error: DiscordAPIError | HTTPError, prefix: string) {
-		return `${red(`[${prefix}]`)} ${yellow(`[CODE: ${error.code}]`)} ${blueBright(error.message)}\n\t\t\t\t${blue(
-			`[PATH: ${error.method} ${error.path}]`
+		return `${red(`[${prefix}]`)} ${yellow(`[CODE: ${error.status}]`)} ${blueBright(error.message)}\n\t\t\t\t${blue(
+			`[PATH: ${error.method} ${error.url}]`
 		)}`;
 	}
 }

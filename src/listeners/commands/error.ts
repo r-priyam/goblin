@@ -1,6 +1,7 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { ChatInputCommandErrorPayload, Events, Listener } from '@sapphire/framework';
 import { ChatInputSubcommandErrorPayload, SubcommandPluginEvents } from '@sapphire/plugin-subcommands';
+import type { ChatInputCommandInteraction } from 'discord.js';
 import { commandErrorHandler } from '#utils/functions/errorHandler';
 
 @ApplyOptions<Listener.Options>({
@@ -9,7 +10,7 @@ import { commandErrorHandler } from '#utils/functions/errorHandler';
 })
 export class UserListener extends Listener<typeof Events.ChatInputCommandError> {
 	public run(error: Error, { interaction }: ChatInputCommandErrorPayload) {
-		return commandErrorHandler(error, interaction);
+		return commandErrorHandler(error, interaction as ChatInputCommandInteraction<'cached'>);
 	}
 }
 
@@ -19,6 +20,6 @@ export class UserListener extends Listener<typeof Events.ChatInputCommandError> 
 })
 export class SubUserListener extends Listener<typeof SubcommandPluginEvents.ChatInputSubcommandError> {
 	public run(error: Error, { interaction }: ChatInputSubcommandErrorPayload) {
-		return commandErrorHandler(error, interaction);
+		return commandErrorHandler(error, interaction as ChatInputCommandInteraction<'cached'>);
 	}
 }

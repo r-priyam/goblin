@@ -1,8 +1,7 @@
-import { roleMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { inlineCodeBlock } from '@sapphire/utilities';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
-import { CommandInteraction, MessageEmbed } from 'discord.js';
+import { ChatInputCommandInteraction, EmbedBuilder, roleMention } from 'discord.js';
 import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#root/lib/util/constants';
 
@@ -21,7 +20,7 @@ import { Colors } from '#root/lib/util/constants';
 	commandMetaOptions: { idHints: ['997227514726461490', '997373722178617405'] }
 })
 export class WithRoleCommand extends GoblinCommand {
-	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
+	public override async chatInputRun(interaction: ChatInputCommandInteraction<'cached'>) {
 		await interaction.deferReply();
 		const role = interaction.options.getRole('role', true);
 
@@ -34,7 +33,7 @@ export class WithRoleCommand extends GoblinCommand {
 		if (members.length === 0) return interaction.editReply({ content: `No member has ${roleMention(role.id)}` });
 
 		while (members.length !== 0) {
-			const namesEmbed = new MessageEmbed()
+			const namesEmbed = new EmbedBuilder()
 				.setTitle(`Showing members for ${role.name}`)
 				.setDescription(
 					members
@@ -44,7 +43,7 @@ export class WithRoleCommand extends GoblinCommand {
 				)
 				.setFooter({
 					text: `Requested by ${interaction.member.displayName}`,
-					iconURL: interaction.member.displayAvatarURL({ size: 32, format: 'png', dynamic: true })
+					iconURL: interaction.member.displayAvatarURL({ size: 32, extension: 'png', forceStatic: true })
 				})
 				.setColor(Colors.BlueGrey);
 

@@ -1,7 +1,7 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { Precondition } from '@sapphire/framework';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
-import type { CommandInteraction } from 'discord.js';
+import type { ChatInputCommandInteraction } from 'discord.js';
 import { Emotes } from '#utils/constants';
 
 @ApplyOptions<Precondition.Options>({
@@ -17,7 +17,7 @@ export class UserPrecondition extends Precondition {
 		PermissionFlagsBits.EmbedLinks
 	];
 
-	public override async chatInputRun(interaction: CommandInteraction) {
+	public override async chatInputRun(interaction: ChatInputCommandInteraction) {
 		const missingPerms = interaction.appPermissions?.missing(this.#requiredPermissions);
 
 		return missingPerms?.length ? this.error({ message: this.formatMissingPerms(missingPerms) }) : this.ok();
