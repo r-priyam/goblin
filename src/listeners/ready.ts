@@ -1,11 +1,11 @@
 /* eslint-disable n/no-sync */
-// TODO: Look for ASCII alternative package or use raw
 
 import { readFile } from 'node:fs/promises';
 import { URL } from 'node:url';
 import { ApplyOptions } from '@sapphire/decorators';
 import { Events, Listener, Store } from '@sapphire/framework';
 import { envParseString } from '@skyra/env-utilities';
+import { createBanner } from '@skyra/start-banner';
 import { blue, gray, green, magenta, magentaBright, white, yellow } from 'colorette';
 import figlet from 'figlet';
 import gradient from 'gradient-string';
@@ -47,26 +47,19 @@ export class Ready extends Listener {
 
 		const llc = envParseString('NODE_ENV') === 'development' ? magentaBright : white;
 		const blc = envParseString('NODE_ENV') === 'development' ? magenta : blue;
-
-		const line01 = llc('');
-		const line02 = llc('');
-		const line03 = llc('');
-
-		// Offset Pad
-		const pad = ' '.repeat(7);
 		const { version } = JSON.parse(await readFile(new URL('../../package.json', import.meta.url), 'utf8'));
 
 		console.log(
-			String.raw`
-${gradient.atlas.multiline(figlet.textSync('Goblin'))}
-${line01} ${pad}${blc(version)}
-${line02} ${pad}[${success}] Gateway
-${line03}${
-				envParseString('NODE_ENV') === 'development'
-					? ` ${pad}${blc('<')}${llc('/')}${blc('>')} ${llc('DEVELOPMENT MODE')}`
-					: ''
-			}
-		`.trim()
+			createBanner({
+				name: [gradient.pastel.multiline(figlet.textSync('Goblin'))],
+				extra: [
+					`       ${blc(version)}`,
+					`       [${success}] Gateway`,
+					envParseString('NODE_ENV') === 'development'
+						? `       ${blc('<')}${llc('/')}${blc('>')} ${llc('DEVELOPMENT MODE')}`
+						: ''
+				]
+			})
 		);
 	}
 }
