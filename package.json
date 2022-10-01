@@ -45,7 +45,6 @@
 		"minimist": "^1.2.6"
 	},
 	"dependencies": {
-		"@discordjs/rest": "^1.2.0",
 		"@sapphire/cron": "^1.0.0",
 		"@sapphire/decorators": "pr-434",
 		"@sapphire/discord.js-utilities": "pr-434",
