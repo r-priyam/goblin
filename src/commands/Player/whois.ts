@@ -57,19 +57,7 @@ export class WhoIsCommand extends GoblinCommand {
 				} Attacks: ${overall.attacks}\n${MiscEmotes.Shield} Defenses: ${overall.defenses}`
 			);
 
-			const {
-				units,
-				townHallLevel,
-				name,
-				tag,
-				clan,
-				role,
-				expLevel,
-				trophies,
-				warStars,
-				shareLink,
-				townHallWeaponLevel
-			} = player;
+			const { units, townHallLevel, name, tag, clan, role, expLevel, trophies, warStars, shareLink } = player;
 			firstPage.addFields({
 				name: `<:dot:958824443445116960> ${TownHallEmotes[townHallLevel]} ${name} (${tag})`,
 				value: `${MiscEmotes.Clan} ${
@@ -84,11 +72,7 @@ export class WhoIsCommand extends GoblinCommand {
 				.setDescription(
 					`${MiscEmotes.Exp} ${expLevel} ${MiscEmotes.HomeTrophy} ${trophies} ${MiscEmotes.WarStars} ${warStars}`
 				)
-				.setThumbnail(
-					`https://clash-assets.vercel.app/townhalls/${
-						townHallWeaponLevel ? `${townHallLevel}.${townHallWeaponLevel}` : `${townHallLevel}`
-					}.png`
-				);
+				.setThumbnail(player.townHallImage);
 			pages.push(infoEmbed);
 		}
 

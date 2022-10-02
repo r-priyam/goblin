@@ -2,7 +2,7 @@ import { bold } from '@discordjs/builders';
 import { Time } from '@sapphire/cron';
 import { ApplyOptions } from '@sapphire/decorators';
 import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
-import type { Achievement, Player } from 'clashofclans.js';
+import type { Achievement } from 'clashofclans.js';
 import { CommandInteraction, MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
 import { GoblinPlayer, LabelEmotes, MiscEmotes, RawPosition } from '#lib/coc';
 import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
@@ -101,13 +101,7 @@ export class PlayerCommand extends GoblinCommand {
 			]);
 	}
 
-	private static infoEmbed(player: Player) {
-		const townHallThumbnail = `https://clash-assets.vercel.app/townhalls/${
-			player.townHallWeaponLevel
-				? `${player.townHallLevel}.${player.townHallWeaponLevel}`
-				: `${player.townHallLevel}`
-		}.png`;
-
+	private static infoEmbed(player: GoblinPlayer) {
 		let description = '';
 
 		description += `${MiscEmotes.Exp} ${player.expLevel} ${MiscEmotes.HomeTrophy} ${player.trophies} ${MiscEmotes.WarStars} ${player.warStars}`;
@@ -132,7 +126,7 @@ export class PlayerCommand extends GoblinCommand {
 				{ name: '\u200B', value: seasonStats, inline: false },
 				{ name: '\u200B', value: PlayerCommand.getAchievementsValue(player.achievements), inline: false }
 			)
-			.setThumbnail(townHallThumbnail)
+			.setThumbnail(player.townHallImage)
 			.setFooter({ text: player.league.name, iconURL: player.league.icon.url })
 			.setColor(Colors.Indigo);
 	}
