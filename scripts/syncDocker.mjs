@@ -1,5 +1,6 @@
 import { execSync } from 'node:child_process';
-import { exit } from 'node:process';
+import { process, exit } from 'node:process';
+
 import { Result } from '@sapphire/framework';
 import { cyanBright, greenBright, redBright } from 'colorette';
 
@@ -17,8 +18,11 @@ function executeCommand(operation, action) {
 		exit(1);
 	}
 
-	return result.unwrap();
+	result.unwrap();
 }
+
+executeCommand('Git fetch origin', () => execSync('git fetch origin'));
+executeCommand('Git reset to origin', () => execSync('git reset --hard origin/main'));
 executeCommand('Git pull', () => execSync('git pull'));
 executeCommand('Stop bot service', () => execSync('docker-compose -f .docker/docker-compose.yml stop bot'));
 executeCommand('Pull bot latest image', () => execSync('docker-compose -f .docker/docker-compose.yml pull bot'));
