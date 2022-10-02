@@ -1,7 +1,10 @@
 import { userMention } from '@discordjs/builders';
 import { container, Result, UserError } from '@sapphire/framework';
-import { Clan, HTTPError, Util } from 'clashofclans.js';
+import { HTTPError, Util } from 'clashofclans.js';
 import { MessageEmbed } from 'discord.js';
+
+import type { Clan } from 'clashofclans.js';
+
 import {
 	BlueNumberEmotes,
 	ErrorMessages,

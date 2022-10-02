@@ -1,12 +1,16 @@
 import { inspect } from 'node:util';
+
 import { codeBlock } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { Stopwatch } from '@sapphire/stopwatch';
 import { inlineCodeBlock, isNullishOrEmpty } from '@sapphire/utilities';
 import { envParseString } from '@skyra/env-utilities';
-import type { CommandInteraction } from 'discord.js';
 import { markdownTable } from 'markdown-table';
-import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
+
+import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
+import type { CommandInteraction } from 'discord.js';
+
+import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 
 @ApplyOptions<GoblinCommandOptions>({
 	command: (builder) =>

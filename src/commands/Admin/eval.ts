@@ -1,13 +1,18 @@
 import { Buffer } from 'node:buffer';
 import { inspect } from 'node:util';
+
 import { codeBlock } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { Stopwatch } from '@sapphire/stopwatch';
 import { Type } from '@sapphire/type';
 import { isThenable } from '@sapphire/utilities';
 import { envParseString } from '@skyra/env-utilities';
-import { CommandInteraction, MessageEmbed } from 'discord.js';
-import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
+import { MessageEmbed } from 'discord.js';
+
+import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
+import type { CommandInteraction } from 'discord.js';
+
+import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#utils/constants';
 
 @ApplyOptions<GoblinCommandOptions>({

@@ -1,10 +1,15 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
-import { Clan, SuperTroops } from 'clashofclans.js';
-import { CommandInteraction, MessageActionRow, MessageEmbed, MessageSelectMenu } from 'discord.js';
-import { SuperTroopEmotes } from '#lib/coc';
-import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
+import { SuperTroops } from 'clashofclans.js';
+import { MessageActionRow, MessageEmbed, MessageSelectMenu } from 'discord.js';
+
+import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import type { ClanOrPlayer } from '#lib/redis-cache/RedisCacheClient';
+import type { Clan } from 'clashofclans.js';
+import type { CommandInteraction } from 'discord.js';
+
+import { SuperTroopEmotes } from '#lib/coc';
+import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#utils/constants';
 import { clanTagOption } from '#utils/functions/commandOptions';
 

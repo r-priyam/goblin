@@ -3,9 +3,14 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { UserError } from '@sapphire/framework';
 import { envParseArray, envParseString } from '@skyra/env-utilities';
 import { Util } from 'clashofclans.js';
-import { CommandInteraction, GuildMember, MessageEmbed } from 'discord.js';
-import { GoblinSubCommand, GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
-import { ClanAlias, RedisMethods } from '#lib/redis-cache/RedisCacheClient';
+import { MessageEmbed } from 'discord.js';
+
+import type { GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
+import type { ClanAlias } from '#lib/redis-cache/RedisCacheClient';
+import type { CommandInteraction, GuildMember } from 'discord.js';
+
+import { GoblinSubCommand } from '#lib/extensions/GoblinSubCommand';
+import { RedisMethods } from '#lib/redis-cache/RedisCacheClient';
 import { Colors, ErrorIdentifiers } from '#utils/constants';
 import { addTagOption } from '#utils/functions/commandOptions';
 

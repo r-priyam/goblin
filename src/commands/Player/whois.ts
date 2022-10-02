@@ -3,9 +3,13 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { PaginatedMessage } from '@sapphire/discord.js-utilities';
 import { isNullish } from '@sapphire/utilities';
 import { Util } from 'clashofclans.js';
-import { CommandInteraction, MessageEmbed } from 'discord.js';
+import { MessageEmbed } from 'discord.js';
+
+import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
+import type { CommandInteraction } from 'discord.js';
+
 import { MiscEmotes, RawPosition, TownHallEmotes } from '#lib/coc';
-import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
+import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { PlayerCommand } from '#root/commands/Player/player';
 import { Colors } from '#root/lib/util/constants';
 

@@ -1,6 +1,8 @@
 import { ApplyOptions } from '@sapphire/decorators';
-import { Listener, Logger, LogLevel } from '@sapphire/framework';
+import { Listener, LogLevel } from '@sapphire/framework';
 import { ScheduledTaskEvents } from '@sapphire/plugin-scheduled-tasks';
+
+import type { Logger } from '@sapphire/framework';
 
 @ApplyOptions<Listener.Options>({
 	name: 'ScheduledTaskSuccess',

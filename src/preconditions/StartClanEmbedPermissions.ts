@@ -1,7 +1,9 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { Precondition } from '@sapphire/framework';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
+
 import type { CommandInteraction } from 'discord.js';
+
 import { Emotes } from '#utils/constants';
 
 @ApplyOptions<Precondition.Options>({

@@ -3,7 +3,9 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { ScheduledTask } from '@sapphire/plugin-scheduled-tasks';
 import { isNullish } from '@sapphire/utilities';
 import { envParseString } from '@skyra/env-utilities';
-import { MessageActionRow, MessageButton, TextChannel } from 'discord.js';
+import { MessageActionRow, MessageButton } from 'discord.js';
+
+import type { TextChannel } from 'discord.js';
 
 @ApplyOptions<ScheduledTask.Options>({
 	name: 'interviewWaitTimer',

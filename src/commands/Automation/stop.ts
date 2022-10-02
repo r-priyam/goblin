@@ -1,10 +1,15 @@
 import { ApplyOptions } from '@sapphire/decorators';
-import { ChatInputCommand, UserError } from '@sapphire/framework';
+import { UserError } from '@sapphire/framework';
 import { Util } from 'clashofclans.js';
 import { bold } from 'colorette';
 import { PermissionFlagsBits } from 'discord-api-types/v9';
-import { CommandInteraction, MessageEmbed } from 'discord.js';
-import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
+import { MessageEmbed } from 'discord.js';
+
+import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
+import type { ChatInputCommand } from '@sapphire/framework';
+import type { CommandInteraction } from 'discord.js';
+
+import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors, ErrorIdentifiers } from '#utils/constants';
 import { automationMemberCheck } from '#utils/functions/automationMemberCheck';
 import { addTagOption } from '#utils/functions/commandOptions';

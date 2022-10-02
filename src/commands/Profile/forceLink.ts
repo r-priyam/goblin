@@ -3,9 +3,12 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { Result, UserError } from '@sapphire/framework';
 import { isNullishOrEmpty } from '@sapphire/utilities';
 import { PermissionFlagsBits } from 'discord-api-types/v9';
-import type { CommandInteraction } from 'discord.js';
 import { MessageEmbed } from 'discord.js';
-import { GoblinSubCommand, GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
+
+import type { GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
+import type { CommandInteraction } from 'discord.js';
+
+import { GoblinSubCommand } from '#lib/extensions/GoblinSubCommand';
 import { RedisMethods } from '#lib/redis-cache/RedisCacheClient';
 import { Colors, ErrorIdentifiers } from '#utils/constants';
 import { clanTagOption, playerTagOption } from '#utils/functions/commandOptions';

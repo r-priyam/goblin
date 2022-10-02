@@ -2,11 +2,16 @@ import { bold } from '@discordjs/builders';
 import { Time } from '@sapphire/cron';
 import { ApplyOptions } from '@sapphire/decorators';
 import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
-import type { Achievement } from 'clashofclans.js';
-import { CommandInteraction, MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
-import { GoblinPlayer, LabelEmotes, MiscEmotes, RawPosition } from '#lib/coc';
-import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
+import { MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
+
+import type { GoblinPlayer } from '#lib/coc';
+import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import type { ClanOrPlayer } from '#lib/redis-cache/RedisCacheClient';
+import type { Achievement } from 'clashofclans.js';
+import type { CommandInteraction } from 'discord.js';
+
+import { LabelEmotes, MiscEmotes, RawPosition } from '#lib/coc';
+import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { collectorFiler } from '#utils/InteractionHelpers';
 import { Colors } from '#utils/constants';
 import { playerTagOption } from '#utils/functions/commandOptions';

@@ -1,14 +1,10 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes } from '@sapphire/framework';
 import { envParseString } from '@skyra/env-utilities';
-import {
-	ButtonInteraction,
-	GuildMember,
-	MessageActionRow,
-	Modal,
-	ModalActionRowComponent,
-	TextInputComponent
-} from 'discord.js';
+import { MessageActionRow, Modal, TextInputComponent } from 'discord.js';
+
+import type { ButtonInteraction, GuildMember, ModalActionRowComponent } from 'discord.js';
+
 import { ButtonCustomIds, ModalCustomIds, ModalInputCustomIds } from '#utils/constants';
 import { automationMemberCheck } from '#utils/functions/automationMemberCheck';
 

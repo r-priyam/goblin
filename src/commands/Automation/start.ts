@@ -2,8 +2,12 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { UserError } from '@sapphire/framework';
 import { Util } from 'clashofclans.js';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
-import { CommandInteraction, MessageActionRow, Modal, ModalActionRowComponent, TextInputComponent } from 'discord.js';
-import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
+import { MessageActionRow, Modal, TextInputComponent } from 'discord.js';
+
+import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
+import type { CommandInteraction, ModalActionRowComponent } from 'discord.js';
+
+import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { ErrorIdentifiers, ModalCustomIds, ModalInputCustomIds } from '#utils/constants';
 import { automationMemberCheck } from '#utils/functions/automationMemberCheck';
 import { addTagOption } from '#utils/functions/commandOptions';

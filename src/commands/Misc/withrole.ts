@@ -2,8 +2,12 @@ import { roleMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { inlineCodeBlock } from '@sapphire/utilities';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
-import { CommandInteraction, MessageEmbed } from 'discord.js';
-import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
+import { MessageEmbed } from 'discord.js';
+
+import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
+import type { CommandInteraction } from 'discord.js';
+
+import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#root/lib/util/constants';
 
 @ApplyOptions<GoblinCommandOptions>({

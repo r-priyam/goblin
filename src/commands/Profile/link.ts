@@ -1,7 +1,11 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { UserError } from '@sapphire/framework';
-import { CommandInteraction, MessageEmbed } from 'discord.js';
-import { GoblinSubCommand, GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
+import { MessageEmbed } from 'discord.js';
+
+import type { GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
+import type { CommandInteraction } from 'discord.js';
+
+import { GoblinSubCommand } from '#lib/extensions/GoblinSubCommand';
 import { RedisMethods } from '#lib/redis-cache/RedisCacheClient';
 import { Colors, ErrorIdentifiers } from '#utils/constants';
 import { clanTagOption, playerTagOption } from '#utils/functions/commandOptions';

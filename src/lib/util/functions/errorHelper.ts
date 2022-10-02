@@ -1,8 +1,11 @@
 import { userMention } from '@discordjs/builders';
-import type { UserError } from '@sapphire/framework';
 import { codeBlock } from '@sapphire/utilities';
 import { RESTJSONErrorCodes } from 'discord-api-types/v9';
-import { CommandInteraction, DiscordAPIError, HTTPError, Interaction, MessageEmbed } from 'discord.js';
+import { MessageEmbed } from 'discord.js';
+
+import type { UserError } from '@sapphire/framework';
+import type { CommandInteraction, DiscordAPIError, HTTPError, Interaction } from 'discord.js';
+
 import { Colors, Emotes } from '#utils/constants';
 
 export const IgnoredCodes = new Set([RESTJSONErrorCodes.UnknownChannel, RESTJSONErrorCodes.UnknownMessage]);

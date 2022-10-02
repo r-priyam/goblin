@@ -3,7 +3,9 @@ import { Time } from '@sapphire/cron';
 import { ApplyOptions } from '@sapphire/decorators';
 import { Events, Listener } from '@sapphire/framework';
 import { envParseString } from '@skyra/env-utilities';
+
 import type { Message } from 'discord.js';
+
 import { seconds } from '#utils/functions/time';
 
 @ApplyOptions<Listener.Options>({

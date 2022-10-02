@@ -1,5 +1,8 @@
 import { ApplyOptions } from '@sapphire/decorators';
-import { Events, InteractionHandlerError, Listener } from '@sapphire/framework';
+import { Events, Listener } from '@sapphire/framework';
+
+import type { InteractionHandlerError } from '@sapphire/framework';
+
 import { interactionErrorHandler } from '#utils/functions/errorHandler';
 
 @ApplyOptions<Listener.Options>({

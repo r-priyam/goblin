@@ -1,7 +1,8 @@
 import { ApplyOptions } from '@sapphire/decorators';
-import type { ChatInputCommand, ChatInputCommandSuccessPayload } from '@sapphire/framework';
 import { Events, Listener } from '@sapphire/framework';
 import { blue, cyan, yellow } from 'colorette';
+
+import type { ChatInputCommand, ChatInputCommandSuccessPayload } from '@sapphire/framework';
 import type { Guild, User } from 'discord.js';
 
 @ApplyOptions<Listener.Options>({

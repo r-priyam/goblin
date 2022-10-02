@@ -1,14 +1,12 @@
 /* eslint-disable consistent-return */
 // TODO: Get a better error handler
 
-import {
-	container,
-	Events,
-	InteractionHandlerError,
-	InteractionHandlerParseError,
-	UserError
-} from '@sapphire/framework';
-import { CommandInteraction, DiscordAPIError, HTTPError } from 'discord.js';
+import { container, Events, UserError } from '@sapphire/framework';
+import { DiscordAPIError, HTTPError } from 'discord.js';
+
+import type { InteractionHandlerError, InteractionHandlerParseError } from '@sapphire/framework';
+import type { CommandInteraction } from 'discord.js';
+
 import {
 	errorEmbedUser,
 	getWarnError,

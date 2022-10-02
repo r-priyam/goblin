@@ -2,8 +2,12 @@ import { userMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { SnowflakeRegex } from '@sapphire/discord.js-utilities';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
-import { CommandInteraction, DiscordAPIError, MessageEmbed, User } from 'discord.js';
-import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
+import { DiscordAPIError, MessageEmbed } from 'discord.js';
+
+import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
+import type { CommandInteraction, User } from 'discord.js';
+
+import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#utils/constants';
 
 @ApplyOptions<GoblinCommandOptions>({

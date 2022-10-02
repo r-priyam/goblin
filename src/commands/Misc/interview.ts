@@ -3,10 +3,14 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { UserError } from '@sapphire/framework';
 import { envParseString } from '@skyra/env-utilities';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
-import { CommandInteraction, MessageEmbed, TextChannel } from 'discord.js';
+import { CommandInteraction, MessageEmbed } from 'discord.js';
 import { fetch } from 'undici';
+
+import type { GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
+import type { TextChannel } from 'discord.js';
+
 import { EygInterviewCheck } from '#lib/decorators/EygInterviewCheck';
-import { GoblinSubCommand, GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
+import { GoblinSubCommand } from '#lib/extensions/GoblinSubCommand';
 import { Colors, ErrorIdentifiers } from '#utils/constants';
 
 @ApplyOptions<GoblinSubCommandOptions>({

@@ -10,7 +10,17 @@
 		"unicorn/number-literal-case": "off",
 		"unicorn/new-for-builtins": "off",
 		"unicorn/numeric-separators-style": "off",
-		"@typescript-eslint/consistent-type-imports": "off"
+		"import/order": [
+			2,
+			{
+				"alphabetize": {
+					"caseInsensitive": false,
+					"order": "asc"
+				},
+				"groups": ["builtin", "external", "internal", "parent", "sibling", "index", "type"],
+				"newlines-between": "always"
+			}
+		]
 	},
 	"env": {
 		"jest": true

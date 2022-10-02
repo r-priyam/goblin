@@ -2,8 +2,11 @@ import { inlineCode } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { SnowflakeRegex } from '@sapphire/discord.js-utilities';
 import { InteractionHandler, InteractionHandlerTypes, UserError } from '@sapphire/framework';
+import { MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
+
 import type { Clan } from 'clashofclans.js';
-import { MessageActionRow, MessageButton, MessageEmbed, ModalSubmitInteraction } from 'discord.js';
+import type { ModalSubmitInteraction } from 'discord.js';
+
 import { ButtonCustomIds, Colors, ErrorIdentifiers, ModalCustomIds, ModalInputCustomIds } from '#utils/constants';
 
 @ApplyOptions<InteractionHandler.Options>({

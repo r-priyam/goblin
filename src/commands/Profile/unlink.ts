@@ -1,7 +1,11 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { Util } from 'clashofclans.js';
-import { CommandInteraction, MessageEmbed } from 'discord.js';
-import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
+import { MessageEmbed } from 'discord.js';
+
+import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
+import type { CommandInteraction } from 'discord.js';
+
+import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { RedisMethods } from '#lib/redis-cache/RedisCacheClient';
 import { Colors } from '#utils/constants';
 import { addTagOption } from '#utils/functions/commandOptions';

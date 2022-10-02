@@ -4,6 +4,7 @@ import { ScheduledTaskRedisStrategy } from '@sapphire/plugin-scheduled-tasks/reg
 import { envParseBoolean, envParseInteger, envParseString } from '@skyra/env-utilities';
 import { GatewayIntentBits } from 'discord-api-types/v10';
 import postgres from 'postgres';
+
 import { GoblinClashClient } from '#lib/coc';
 import { GoblinRedisClient } from '#lib/redis-cache/RedisCacheClient';
 import { logSuccess } from '#utils/functions/logging';

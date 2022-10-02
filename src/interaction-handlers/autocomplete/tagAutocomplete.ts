@@ -1,8 +1,10 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes } from '@sapphire/framework';
 import { isNullishOrEmpty } from '@sapphire/utilities';
-import type { AutocompleteInteraction } from 'discord.js';
 import Fuse from 'fuse.js';
+
+import type { AutocompleteInteraction } from 'discord.js';
+
 import { getFuzzyTagSuggestions, handleNoFuzzyMatch, handleNoValue } from '#lib/coc';
 
 @ApplyOptions<InteractionHandler.Options>({

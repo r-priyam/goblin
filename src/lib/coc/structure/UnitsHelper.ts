@@ -1,5 +1,8 @@
 import { inlineCode } from '@discordjs/builders';
-import { DarkElixirTroops, ElixirTroops, Player } from 'clashofclans.js';
+import { DarkElixirTroops, ElixirTroops } from 'clashofclans.js';
+
+import type { Player } from 'clashofclans.js';
+
 import {
 	BuilderBaseTroopEmotes,
 	HeroEmotes,

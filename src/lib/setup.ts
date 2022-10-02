@@ -4,9 +4,11 @@ import '@sapphire/plugin-logger/register';
 import process from 'node:process';
 import { URL } from 'node:url';
 import { inspect } from 'node:util';
+
 import { container, Piece } from '@sapphire/framework';
 import { setup } from '@skyra/env-utilities';
 import { createColors } from 'colorette';
+
 import { GoblinRedisClient } from '#lib/redis-cache/RedisCacheClient';
 import { SrcDir } from '#utils/constants';
 import { logSuccess, logWarning } from '#utils/functions/logging';

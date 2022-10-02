@@ -1,10 +1,13 @@
 import { bold } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { Events, Listener, Result } from '@sapphire/framework';
-import type { Clan } from 'clashofclans.js';
-import { Message, MessageEmbed } from 'discord.js';
-import { MiscEmotes } from '#lib/coc';
+import { MessageEmbed } from 'discord.js';
+
 import type { ClanAlias } from '#lib/redis-cache/RedisCacheClient';
+import type { Clan } from 'clashofclans.js';
+import type { Message } from 'discord.js';
+
+import { MiscEmotes } from '#lib/coc';
 import { Colors } from '#utils/constants';
 
 @ApplyOptions<Listener.Options>({

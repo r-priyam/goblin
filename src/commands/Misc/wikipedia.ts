@@ -1,9 +1,13 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { PaginatedMessage } from '@sapphire/discord.js-utilities';
-import { CommandInteraction, MessageEmbed } from 'discord.js';
+import { MessageEmbed } from 'discord.js';
 import { stripHtml } from 'string-strip-html';
 import { fetch } from 'undici';
-import { GoblinCommand, GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
+
+import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
+import type { CommandInteraction } from 'discord.js';
+
+import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#root/lib/util/constants';
 
 @ApplyOptions<GoblinCommandOptions>({

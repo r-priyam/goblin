@@ -2,7 +2,10 @@ import { bold, inlineCode, userMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { ScheduledTask } from '@sapphire/plugin-scheduled-tasks';
 import { envParseString } from '@skyra/env-utilities';
-import { Constants, MessageEmbed, TextChannel } from 'discord.js';
+import { Constants, MessageEmbed } from 'discord.js';
+
+import type { TextChannel } from 'discord.js';
+
 import { Colors } from '#utils/constants';
 
 @ApplyOptions<ScheduledTask.Options>({

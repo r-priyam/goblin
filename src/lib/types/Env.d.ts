@@ -1,4 +1,4 @@
-import { ArrayString, BooleanString, IntegerString } from '@skyra/env-utilities';
+import type { ArrayString, BooleanString, IntegerString } from '@skyra/env-utilities';
 
 declare module '@skyra/env-utilities' {
 	// eslint-disable-next-line @typescript-eslint/consistent-type-definitions

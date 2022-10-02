@@ -1,4 +1,5 @@
 import { Util } from 'clashofclans.js';
+
 import type Fuse from 'fuse.js';
 
 export function handleNoValue(cachedData: { name: string; tag: string }[]) {
