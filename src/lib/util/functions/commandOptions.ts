@@ -38,7 +38,7 @@ export const clanTagOption = (optionInstance: SlashCommandStringOption, options:
 export const playerTagOption = (optionInstance: SlashCommandStringOption, options: TagProperties) =>
 	addTagOption(optionInstance, { description: 'Tag of the player', ...options });
 
-type TagProperties = {
+interface TagProperties {
 	/**
 	 * Whether this option supports autocomplete
 	 */
@@ -51,4 +51,4 @@ type TagProperties = {
 	 * Whether this option is required
 	 */
 	required?: boolean;
-};
+}

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/consistent-type-definitions */
 import type { GoblinClashClient } from '#lib/coc';
 import type { GoblinClient } from '#lib/extensions/GoblinClient';
 import type { GoblinRedisClient } from '#lib/redis-cache/RedisCacheClient';

@@ -56,7 +56,7 @@ export class WikipediaCommand extends GoblinCommand {
 	}
 }
 
-type WikipediaData = {
+interface WikipediaData {
 	batchcomplete: string;
 	continue: {
 		continue: string;
@@ -78,4 +78,4 @@ type WikipediaData = {
 			totalhits: number;
 		};
 	};
-};
+}

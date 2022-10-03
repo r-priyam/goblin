@@ -1,7 +1,6 @@
 import type { ArrayString, BooleanString, IntegerString } from '@skyra/env-utilities';
 
 declare module '@skyra/env-utilities' {
-	// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 	interface Env {
 		CLASH_EMAIL: string;
 		CLASH_KEY_COUNT: IntegerString;

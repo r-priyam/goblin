@@ -4,24 +4,7 @@
 		"project": "./tsconfig.eslint.json"
 	},
 	"ignorePatterns": ["./dist/*"],
-	"extends": ["neon/common", "neon/node", "neon/typescript", "neon/prettier"],
-	"rules": {
-		"import/extensions": "off",
-		"unicorn/number-literal-case": "off",
-		"unicorn/new-for-builtins": "off",
-		"unicorn/numeric-separators-style": "off",
-		"import/order": [
-			2,
-			{
-				"alphabetize": {
-					"caseInsensitive": false,
-					"order": "asc"
-				},
-				"groups": ["builtin", "external", "internal", "parent", "sibling", "index", "type"],
-				"newlines-between": "always"
-			}
-		]
-	},
+	"extends": ["snail/common", "snail/node", "snail/typescript", "snail/prettier"],
 	"env": {
 		"jest": true
 	}

@@ -91,7 +91,7 @@
 		"@typescript-eslint/parser": "^5.38.1",
 		"cz-conventional-changelog": "^3.3.0",
 		"eslint": "^8.24.0",
-		"eslint-config-neon": "^0.1.33",
+		"eslint-config-snail": "^1.1.0",
 		"husky": "^8.0.1",
 		"lint-staged": "^13.0.3",
 		"prettier": "^2.7.1",

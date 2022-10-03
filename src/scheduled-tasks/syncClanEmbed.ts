@@ -112,11 +112,11 @@ export class SyncClanEmbedTask extends ScheduledTask {
 	}
 }
 
-type ClanEmbedSyncData = {
+interface ClanEmbedSyncData {
 	channelId: string;
 	clanTag: string;
 	color: string;
 	leaderDiscordId: string;
 	messageId: string;
 	requirements: Record<string, number>;
-};
+}

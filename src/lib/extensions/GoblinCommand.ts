@@ -25,9 +25,9 @@ export abstract class GoblinCommand extends Command {
 	}
 }
 
-export type GoblinCommandOptions = Command.Options & {
+export interface GoblinCommandOptions extends Command.Options {
 	canRunInDm?: boolean;
 	command(builder: SlashCommandBuilder): unknown;
 	commandMetaOptions?: ApplicationCommandRegistryRegisterOptions;
 	requiredMemberPermissions?: bigint | number | string | null | undefined;
-};
+}

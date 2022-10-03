@@ -2,14 +2,14 @@ import { isNullish } from '@sapphire/utilities';
 import { envParseInteger, envParseString } from '@skyra/env-utilities';
 import Redis from 'ioredis';
 
-export type ClanOrPlayer = {
+export interface ClanOrPlayer {
 	name: string;
 	tag: string;
-};
+}
 
-export type ClanAlias = ClanOrPlayer & {
+export interface ClanAlias extends ClanOrPlayer {
 	alias: string;
-};
+}
 
 export const enum RedisMethods {
 	Delete = 'DELETE',
