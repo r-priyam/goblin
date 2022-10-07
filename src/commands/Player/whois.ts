@@ -44,7 +44,7 @@ export class WhoIsCommand extends GoblinCommand {
 			.setThumbnail(member.displayAvatarURL({ size: 96, format: 'png', dynamic: true }))
 			.setColor(Colors.Indigo)
 			.setTimestamp();
-		const pages = [];
+		const playersData: Record<string, MessageEmbed> = {};
 
 		for (const player of players) {
 			overall.stars += player.warStars;
@@ -77,12 +77,18 @@ export class WhoIsCommand extends GoblinCommand {
 					`${MiscEmotes.Exp} ${expLevel} ${MiscEmotes.HomeTrophy} ${trophies} ${MiscEmotes.WarStars} ${warStars}`
 				)
 				.setThumbnail(player.townHallImage);
-			pages.push(infoEmbed);
+			playersData[`${player.name} (${player.tag})`] = infoEmbed;
 		}
 
 		const paginator = new PaginatedMessage({ template: new MessageEmbed().setColor(Colors.Indigo) });
 		paginator.addPageEmbed(firstPage);
-		for (const page of pages) paginator.addPageEmbed(page);
+		for (const page of Object.values(playersData)) paginator.addPageEmbed(page);
+
+		paginator.setSelectMenuOptions((pageIndex) => {
+			if (pageIndex === 1) return { label: 'Accounts Summary' };
+			return { label: Object.keys(playersData)[pageIndex - 2] };
+		});
+
 		return paginator.run(interaction);
 	}
 }
