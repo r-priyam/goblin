@@ -3,7 +3,7 @@
 	"version": "1.7.0",
 	"private": true,
 	"license": "MPL-2.0",
-	"author": "r-priyam",
+	"author": "r-priyam <roy_priyam@outlook.com>",
 	"type": "module",
 	"imports": {
 		"#root/*": "./dist/*.js",
