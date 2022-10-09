@@ -1013,6 +1013,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sapphire/discord.js-utilities@npm:^5.1.0":
+  version: 5.1.0
+  resolution: "@sapphire/discord.js-utilities@npm:5.1.0"
+  dependencies:
+    "@sapphire/discord-utilities": ^2.11.6
+    "@sapphire/duration": ^1.0.0
+    "@sapphire/utilities": ^3.11.0
+    tslib: ^2.4.0
+  checksum: 0c5a1545278cd7092fc1e6692be6c7f95f8e0f73a39d663bd419a005e004df94b989bf0b900acd7d133c930105fe4467c30f89429db20c08dbb08bc770471434
+  languageName: node
+  linkType: hard
+
 "@sapphire/duration@npm:^1.0.0":
   version: 1.0.0
   resolution: "@sapphire/duration@npm:1.0.0"
@@ -1080,13 +1092,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sapphire/plugin-subcommands@npm:3.2.2":
-  version: 3.2.2
-  resolution: "@sapphire/plugin-subcommands@npm:3.2.2"
+"@sapphire/plugin-subcommands@npm:3.2.3":
+  version: 3.2.3
+  resolution: "@sapphire/plugin-subcommands@npm:3.2.3"
   dependencies:
-    "@sapphire/utilities": ^3.10.0
+    "@sapphire/utilities": ^3.11.0
     tslib: ^2.4.0
-  checksum: 11bf79c1e410d7abdbafe02ac9d9bbc16ce4dcf4fbaafaf9068135c9d990a3308a0a1b0fa018b5b4f381084a98c8d4dcd0b62a0b261b7d29c22f197a12363a59
+  checksum: 29d7b660eca2af9304b9a432253398a253b960c1b6dfcc547468ddaed2e9baa5f81bfc24534bb4d7d7d9a4b3c24e272c287b8910652641bf38f7ea83ba8bff39
   languageName: node
   linkType: hard
 
@@ -1176,10 +1188,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sapphire/utilities@npm:^3.10.0, @sapphire/utilities@npm:^3.10.1":
+"@sapphire/utilities@npm:^3.10.0":
   version: 3.10.1
   resolution: "@sapphire/utilities@npm:3.10.1"
   checksum: f7e56b44817f7078325be5478baff44b6fc3cf6995092d3793f3e48ac56269a6ebb2c65243118f4a93dcaf3c2172964b57bcf3cabe1c20d87b629ddac0cf57dc
+  languageName: node
+  linkType: hard
+
+"@sapphire/utilities@npm:^3.11.0":
+  version: 3.11.0
+  resolution: "@sapphire/utilities@npm:3.11.0"
+  checksum: 3c8521038b8879524e8114f39eefc8b3b06cf825995f709684238b5cb14bd7df06d232a26a88f79160df290a66f9aa3133f5ce4ff8e2398033db9f301ad31e0d
   languageName: node
   linkType: hard
 
@@ -4922,16 +4941,16 @@ __metadata:
     "@favware/cliff-jumper": ^1.8.8
     "@sapphire/cron": ^1.0.0
     "@sapphire/decorators": ^5.0.0
-    "@sapphire/discord.js-utilities": ^5.0.1
+    "@sapphire/discord.js-utilities": ^5.1.0
     "@sapphire/framework": 3.1.3
     "@sapphire/plugin-logger": 3.0.1
     "@sapphire/plugin-scheduled-tasks": 5.0.1
-    "@sapphire/plugin-subcommands": 3.2.2
+    "@sapphire/plugin-subcommands": 3.2.3
     "@sapphire/prettier-config": ^1.4.4
     "@sapphire/stopwatch": ^1.5.0
     "@sapphire/ts-config": ^3.3.4
     "@sapphire/type": ^2.2.4
-    "@sapphire/utilities": ^3.10.1
+    "@sapphire/utilities": ^3.11.0
     "@skyra/env-utilities": ^1.1.0
     "@swc/core": ^1.3.6
     "@types/figlet": ^1.5.5
