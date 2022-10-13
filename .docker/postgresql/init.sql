@@ -58,6 +58,7 @@ CREATE TABLE public.clan_embeds
     clan_tag          TEXT        NOT NULL,
     leader_discord_id TEXT        NOT NULL,
     requirements      JSONB                    DEFAULT '{
+	  "15": 0,
       "14": 0,
       "13": 0,
       "12": 0,
