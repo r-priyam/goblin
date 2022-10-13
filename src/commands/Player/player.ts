@@ -79,7 +79,7 @@ export class PlayerCommand extends GoblinCommand {
 		];
 
 		const embed = new MessageEmbed() //
-			.setTitle(`Units for ${player.name}`)
+			.setAuthor({ name: `Units for ${player.name}`, iconURL: player.townHallImage, url: player.shareLink })
 			.setColor(Colors.Indigo);
 
 		for (const field of possibleFields) {
