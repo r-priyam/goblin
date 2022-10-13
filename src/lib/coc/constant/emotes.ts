@@ -88,6 +88,7 @@ export const HomeBaseTroopEmotes: { [key: string]: string } = {
 	'Electro Dragon': '<:ElectroDragon:701626910735728672>',
 	'Yeti': '<:Yeti:701626914816655431>',
 	'Dragon Rider': '<:DragonRider:854373772412977152>',
+	'Electro Titan': '<:ElectroTitan:1029589837679964281>',
 	'Minion': '<:Minion:701626915311583294>',
 	'Hog Rider': '<:HogRider:701626914506276895>',
 	'Valkyrie': '<:Valkyrie:701626915680681994>',
@@ -125,7 +126,8 @@ export const SpellEmotes: { [key: string]: string } = {
 	'Earthquake Spell': '<:EarthquakeSpell:701613918396612629>',
 	'Haste Spell': '<:HasteSpell:701613920045236316>',
 	'Skeleton Spell': '<:SkeletonSpell:701613919948636282>',
-	'Bat Spell': '<:BatSpell:701613916198797402>'
+	'Bat Spell': '<:BatSpell:701613916198797402>',
+	'Recall Spell': '<:RecallSpell:1029589376373633085>'
 };
 
 export const HeroEmotes: { [key: string]: string } = {
@@ -140,7 +142,11 @@ export const HeroPetEmotes: { [key: string]: string } = {
 	'L.A.S.S.I': '<:LASSI:830510531168829521>',
 	'Electro Owl': '<:ElectroOwl:830511434269982790>',
 	'Mighty Yak': '<:MightyYak:830510531222962278>',
-	'Unicorn': '<:Unicorn:830510531483795516>'
+	'Unicorn': '<:Unicorn:830510531483795516>',
+	'Frosty': '<:Frosty:1029589369532719226>',
+	'Diggy': '<:Diggy:1029589353934098522>',
+	'Poison Lizard': '<:PoisonLizard:1029589359302807662>',
+	'Phoenix': '<:Phoenix:1029589364164005968>'
 };
 
 export const SiegeMachineEmotes: { [key: string]: string } = {
@@ -149,7 +155,8 @@ export const SiegeMachineEmotes: { [key: string]: string } = {
 	'Stone Slammer': '<:StoneSlammer:701628824688918588>',
 	'Siege Barracks': '<:SiegeBarracks:701628824651169913>',
 	'Log Launcher': '<:LogLauncher:785540240358113312>',
-	'Flame Flinger': '<:FlameFlinger:918875579904847873>'
+	'Flame Flinger': '<:FlameFlinger:918875579904847873>',
+	'Battle Drill': '<:BattleDrill:1029589373039157471>'
 };
 
 export const SuperTroopEmotes: { [key: string]: string } = {
@@ -216,7 +223,8 @@ export const TownHallEmotes: { [key: number | string]: string } = {
 	11: '<:11:836305114858913852>',
 	12: '<:12:836305178075988030>',
 	13: '<:13:836305329737170985>',
-	14: '<:14:836305386603675658>'
+	14: '<:14:836305386603675658>',
+	15: '<:15:1029589379238346833>'
 };
 
 export const BlueNumberEmotes: { [key: number]: string } = {

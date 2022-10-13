@@ -15,6 +15,7 @@ export const Troops: { [key: number]: string } = {
 	53: 'Yeti',
 	59: 'Electro Dragon',
 	65: 'Dragon Rider',
+	95: 'Electro Titan',
 
 	// dark troops
 	10: 'Minion',
@@ -52,7 +53,8 @@ export const Troops: { [key: number]: string } = {
 	62: 'Stone Slammer',
 	75: 'Siege Barracks',
 	87: 'Log Launcher',
-	91: 'Flame Flinger'
+	91: 'Flame Flinger',
+	92: 'Battle Drill'
 };
 
 export const Spells: { [key: number]: string } = {
@@ -67,7 +69,8 @@ export const Spells: { [key: number]: string } = {
 	16: 'Clone Spell',
 	17: 'Skeleton Spell',
 	28: 'Bat Spell',
-	35: 'Invisibility Spell'
+	35: 'Invisibility Spell',
+	53: 'Recall Spell'
 };
 
 export const ErrorMessages: { [key: string]: string } = {
