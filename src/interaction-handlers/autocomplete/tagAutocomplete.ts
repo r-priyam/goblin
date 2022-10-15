@@ -3,6 +3,7 @@ import { InteractionHandler, InteractionHandlerTypes } from '@sapphire/framework
 import { isNullishOrEmpty } from '@sapphire/utilities';
 import Fuse from 'fuse.js';
 
+import type { ClanOrPlayer } from '#lib/redis-cache/RedisCacheClient';
 import type { AutocompleteInteraction } from 'discord.js';
 
 import { getFuzzyTagSuggestions, handleNoFuzzyMatch, handleNoValue } from '#lib/coc';
@@ -25,6 +26,23 @@ export class AutocompleteHandler extends InteractionHandler {
 
 		if (isNullishOrEmpty(focused.value)) {
 			if (isNullishOrEmpty(cachedData)) {
+				let data = null;
+
+				if (shortType === 'p-') {
+					data = await this.sql`SELECT player_name AS "name", player_tag AS "tag"
+				                              FROM players
+										     WHERE user_id = ${interaction.user.id}`;
+				} else {
+					data = await this.sql`SELECT clan_name AS "name", clan_tag AS "tag"
+				                              FROM clans
+										     WHERE user_id = ${interaction.user.id}`;
+				}
+
+				if (data) {
+					await this.redis.insert(`${shortType}${interaction.user.id}`, data);
+					return this.some(handleNoValue(data as unknown as ClanOrPlayer[]));
+				}
+
 				return this.none();
 			}
 
