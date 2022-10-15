@@ -79,13 +79,7 @@ export class ForceLinkCommand extends GoblinSubCommand {
 			}
 		}
 
-		await this.redis.handleClanOrPlayerCache(
-			'CLAN',
-			RedisMethods.Insert,
-			interaction.member.id,
-			clan.tag,
-			clan.name
-		);
+		await this.redis.handleClanOrPlayerCache('CLAN', RedisMethods.Insert, user.id, clan.tag, clan.name);
 		return interaction.editReply({
 			embeds: [
 				new MessageEmbed()
@@ -137,13 +131,7 @@ export class ForceLinkCommand extends GoblinSubCommand {
 			}
 		}
 
-		await this.redis.handleClanOrPlayerCache(
-			'PLAYER',
-			RedisMethods.Insert,
-			interaction.member.id,
-			player.tag,
-			player.name
-		);
+		await this.redis.handleClanOrPlayerCache('PLAYER', RedisMethods.Insert, user.id, player.tag, player.name);
 		return interaction.editReply({
 			embeds: [
 				new MessageEmbed()
