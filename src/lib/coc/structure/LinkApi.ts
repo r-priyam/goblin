@@ -37,7 +37,7 @@ export class LinkApi {
 			if (isNullishOrEmpty(data)) return null;
 
 			const linkApiTags = data.map((linkData) => linkData.playerTag);
-			const cachedTags = ((await container.redis.fetch<ClanOrPlayer[]>(`p-${tagOrId}}`)) ?? []).map(
+			const cachedTags = ((await container.redis.fetch<ClanOrPlayer[]>(`p-${tagOrId}`)) ?? []).map(
 				(data) => data?.tag
 			);
 
