@@ -80,7 +80,7 @@ export class GoblinRedisClient extends Redis {
 
 		if (isNullish(cachedData)) return;
 
-		const updated = cachedData.filter((data) => data.tag === tag);
+		const updated = cachedData.filter((data) => data.tag !== tag);
 		return updated.length === 0
 			? this.delete(`${initial}-${userId}`)
 			: this.set(`${initial}-${userId}`, JSON.stringify(updated));

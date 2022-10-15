@@ -76,8 +76,9 @@ export class LinkApi {
 		return this.request('/links', { method: 'POST', body: JSON.stringify({ playerTag, discordId }) });
 	}
 
-	public async deleteLink(tag: string) {
-		return this.request(`/links/${tag}`, { method: 'DELETE' });
+	public async deleteLink(tag: string, userId: string) {
+		await this.request(`/links/${encodeURIComponent(tag)}`, { method: 'DELETE' });
+		return container.redis.delete(`links-${userId}`);
 	}
 
 	private async request<T>(path: string, options: RequestOptions = {}): Promise<T> {

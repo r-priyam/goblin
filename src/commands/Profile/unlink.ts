@@ -79,8 +79,7 @@ export class UnlinkCommand extends GoblinCommand {
 		}
 
 		await this.redis.handleClanOrPlayerCache('PLAYER', RedisMethods.Delete, interaction.member.id, tag);
-		await this.coc.linkApi.deleteLink(tag);
-		await this.redis.delete(`links-${interaction.member.id}`);
+		await this.coc.linkApi.deleteLink(tag, interaction.member.id);
 
 		return interaction.editReply({
 			embeds: [
