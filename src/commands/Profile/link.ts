@@ -104,6 +104,7 @@ export class LinkCommand extends GoblinSubCommand {
 			player.tag,
 			player.name
 		);
+		await this.coc.linkApi.createLink(player.tag, interaction.member.id);
 		return interaction.editReply({
 			embeds: [
 				new MessageEmbed()

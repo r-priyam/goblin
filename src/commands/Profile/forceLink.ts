@@ -132,6 +132,7 @@ export class ForceLinkCommand extends GoblinSubCommand {
 		}
 
 		await this.redis.handleClanOrPlayerCache('PLAYER', RedisMethods.Insert, user.id, player.tag, player.name);
+		await this.coc.linkApi.createLink(player.tag, user.id);
 		return interaction.editReply({
 			embeds: [
 				new MessageEmbed()

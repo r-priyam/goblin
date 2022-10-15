@@ -2,7 +2,6 @@ import { bold } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { PaginatedMessage } from '@sapphire/discord.js-utilities';
 import { isNullish } from '@sapphire/utilities';
-import { Util } from 'clashofclans.js';
 import { MessageEmbed } from 'discord.js';
 
 import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
@@ -31,13 +30,12 @@ export class WhoIsCommand extends GoblinCommand {
 		await interaction.deferReply();
 		const member = interaction.options.getMember('user') ?? interaction.member;
 
-		const data = await this.coc.linkApi.getLinks(member.id);
-		if (isNullish(data)) {
+		const players = await this.coc.linkApi.getLinks(member.id);
+		if (isNullish(players)) {
 			return interaction.editReply({ content: "Can't find any account linked for your profile." });
 		}
 
 		const overall = { stars: 0, donations: 0, received: 0, attacks: 0, defenses: 0 };
-		const players = await Util.allSettled(data.splice(0, 5).map((tag) => this.coc.getPlayer(tag)));
 
 		const firstPage = new MessageEmbed()
 			.setAuthor({ name: `${member.user.username} (${member.id})` })
