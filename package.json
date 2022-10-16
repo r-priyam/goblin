@@ -2,6 +2,7 @@
 	"name": "goblin",
 	"version": "1.8.0",
 	"private": true,
+	"description": "A custom Clash of Clans bot for EYG Family of Clans",
 	"license": "MPL-2.0",
 	"author": "r-priyam <roy_priyam@outlook.com>",
 	"type": "module",
