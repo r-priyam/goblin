@@ -11,7 +11,7 @@ import type { TextChannel } from 'discord.js';
 
 import { EygInterviewCheck } from '#lib/decorators/EygInterviewCheck';
 import { GoblinSubCommand } from '#lib/extensions/GoblinSubCommand';
-import { Colors, ErrorIdentifiers } from '#utils/constants';
+import { Colors, Emotes, ErrorIdentifiers } from '#utils/constants';
 
 @ApplyOptions<GoblinSubCommandOptions>({
 	command: (builder) =>
@@ -107,7 +107,7 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 		return interaction.editReply({
 			embeds: [
 				new MessageEmbed()
-					.setTitle('Success')
+					.setTitle(`${Emotes.Success} Success`)
 					.setDescription(`Successfully created ${channelMention(channel.id)}`)
 					.setColor(Colors.Green)
 			]

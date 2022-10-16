@@ -1,13 +1,15 @@
+import { inlineCode } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
+import { UserError } from '@sapphire/framework';
 import { Util } from 'clashofclans.js';
-import { MessageEmbed } from 'discord.js';
+import { MessageEmbed, CommandInteraction } from 'discord.js';
 
 import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
-import type { CommandInteraction } from 'discord.js';
 
+import { ValidateTag } from '#lib/decorators/ValidateTag';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { RedisMethods } from '#lib/redis-cache/RedisCacheClient';
-import { Colors } from '#utils/constants';
+import { Colors, Emotes, ErrorIdentifiers } from '#utils/constants';
 import { addTagOption } from '#utils/functions/commandOptions';
 
 @ApplyOptions<GoblinCommandOptions>({
@@ -33,12 +35,9 @@ export class UnlinkCommand extends GoblinCommand {
 		return type === 'clan' ? this.removeClan(interaction) : this.removePlayer(interaction);
 	}
 
+	@ValidateTag({ prefix: 'clan' })
 	private async removeClan(interaction: CommandInteraction<'cached'>) {
 		const tag = Util.formatTag(interaction.options.getString('tag', true));
-
-		if (!Util.isValidTag(tag)) {
-			return interaction.editReply({ content: 'No clan found for the provided tag!' });
-		}
 
 		const [result] = await this.sql<[{ clanName?: string }]>`DELETE
                                                                  FROM clans
@@ -47,26 +46,26 @@ export class UnlinkCommand extends GoblinCommand {
                                                                  RETURNING clan_name`;
 
 		if (!result) {
-			return interaction.editReply({ content: `**${tag}** isn't linked to your profile` });
+			throw new UserError({
+				identifier: ErrorIdentifiers.DatabaseError,
+				message: `Clan tag: **${inlineCode(tag)}** isn't linked to your profile`
+			});
 		}
 
 		await this.redis.handleClanOrPlayerCache('CLAN', RedisMethods.Delete, interaction.member.id, tag);
 		return interaction.editReply({
 			embeds: [
 				new MessageEmbed()
-					.setTitle('Success')
+					.setTitle(`${Emotes.Success} Success`)
 					.setDescription(`Removed **${result.clanName} (${tag})** from your discord account`)
 					.setColor(Colors.Green)
 			]
 		});
 	}
 
+	@ValidateTag({ prefix: 'player' })
 	private async removePlayer(interaction: CommandInteraction<'cached'>) {
 		const tag = Util.formatTag(interaction.options.getString('tag', true));
-
-		if (!Util.isValidTag(tag)) {
-			return interaction.editReply({ content: 'No player found for the provided tag!' });
-		}
 
 		const [result] = await this.sql<[{ playerName?: string }]>`DELETE
                                                                    FROM players
@@ -75,7 +74,10 @@ export class UnlinkCommand extends GoblinCommand {
                                                                    RETURNING player_name`;
 
 		if (!result) {
-			return interaction.editReply({ content: `**${tag}** isn't linked to your profile` });
+			throw new UserError({
+				identifier: ErrorIdentifiers.DatabaseError,
+				message: `Player tag: **${inlineCode(tag)}** isn't linked to your profile`
+			});
 		}
 
 		await this.redis.handleClanOrPlayerCache('PLAYER', RedisMethods.Delete, interaction.member.id, tag);
@@ -84,7 +86,7 @@ export class UnlinkCommand extends GoblinCommand {
 		return interaction.editReply({
 			embeds: [
 				new MessageEmbed()
-					.setTitle('Success')
+					.setTitle(`${Emotes.Success} Success`)
 					.setDescription(`Removed **${result.playerName} (${tag})** from your discord account`)
 					.setColor(Colors.Green)
 			]

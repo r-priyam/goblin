@@ -7,7 +7,14 @@ import { MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
 import type { Clan } from 'clashofclans.js';
 import type { ModalSubmitInteraction } from 'discord.js';
 
-import { ButtonCustomIds, Colors, ErrorIdentifiers, ModalCustomIds, ModalInputCustomIds } from '#utils/constants';
+import {
+	ButtonCustomIds,
+	Colors,
+	Emotes,
+	ErrorIdentifiers,
+	ModalCustomIds,
+	ModalInputCustomIds
+} from '#utils/constants';
 
 @ApplyOptions<InteractionHandler.Options>({
 	interactionHandlerType: InteractionHandlerTypes.ModalSubmit
@@ -42,24 +49,25 @@ export class StartClanEmbedModal extends InteractionHandler {
 
 		if (!SnowflakeRegex.test(leaderId)) {
 			throw new UserError({
-				identifier: ErrorIdentifiers.FalseParameter,
+				identifier: ErrorIdentifiers.BadParameter,
 				message: 'Leader discord id appears to be wrong, please double check it'
 			});
 		}
 
 		if (!/^#?[\da-f]{6}$/i.test(embedColor)) {
 			throw new UserError({
-				identifier: ErrorIdentifiers.FalseParameter,
+				identifier: ErrorIdentifiers.BadParameter,
 				message: 'Clan embed color appears to be wrong, please double check it'
 			});
 		}
 
-		const clan = await this.coc.clanHelper.info(clanTag);
+		// @ts-expect-error Is handled by optional chain
+		const clan = await this.coc.clanHelper.info(interaction, clanTag);
 		await this.handleClanEmbedBoardGeneration(interaction, clan, leaderId, embedColor);
 
 		return this.some({
 			embed: new MessageEmbed()
-				.setTitle('Success')
+				.setTitle(`${Emotes.Success} Success`)
 				.setDescription(`Successfully started Clan Embed automation for ${inlineCode(clan.name)}`)
 				.setColor(Colors.Green)
 		});

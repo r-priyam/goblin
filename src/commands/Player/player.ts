@@ -1,12 +1,11 @@
 import { bold } from '@discordjs/builders';
 import { Time } from '@sapphire/cron';
 import { ApplyOptions } from '@sapphire/decorators';
-import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
+import { isNullishOrEmpty } from '@sapphire/utilities';
 import { MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
 
 import type { GoblinPlayer } from '#lib/coc';
 import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
-import type { ClanOrPlayer } from '#lib/redis-cache/RedisCacheClient';
 import type { Achievement } from 'clashofclans.js';
 import type { CommandInteraction } from 'discord.js';
 
@@ -28,22 +27,10 @@ import { humanizeNumber } from '#utils/utils';
 export class PlayerCommand extends GoblinCommand {
 	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
 		const message = await interaction.deferReply({ fetchReply: true });
-		let playerTag = interaction.options.getString('tag');
 
-		if (isNullish(playerTag)) {
-			const cachedPlayers = await this.redis.fetch<ClanOrPlayer[]>(`p-${interaction.user.id}`);
-			if (isNullish(cachedPlayers)) {
-				await interaction.editReply({
-					content:
-						'You have no player linked into your profile. Please link any player or provide the tag as 2nd argument!'
-				});
-				return;
-			}
+		const playerTag = await this.coc.playerHelper.dynamicTag(interaction);
+		const player = await this.coc.playerHelper.info(interaction, playerTag);
 
-			playerTag = cachedPlayers[0].tag;
-		}
-
-		const player = await this.coc.playerHelper.info(playerTag);
 		const infoEmbed = PlayerCommand.infoEmbed(player);
 		const unitsEmbed = PlayerCommand.unitsEmbed(player);
 		await interaction.editReply({ embeds: [infoEmbed], components: [PlayerCommand.components] });

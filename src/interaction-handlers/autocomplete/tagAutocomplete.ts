@@ -26,16 +26,16 @@ export class AutocompleteHandler extends InteractionHandler {
 
 		if (isNullishOrEmpty(focused.value)) {
 			if (isNullishOrEmpty(cachedData)) {
-				let data = null;
+				let data: any;
 
 				if (shortType === 'p-') {
 					data = await this.sql`SELECT player_name AS "name", player_tag AS "tag"
-				                              FROM players
-										     WHERE user_id = ${interaction.user.id}`;
+                                          FROM players
+                                          WHERE user_id = ${interaction.user.id}`;
 				} else {
 					data = await this.sql`SELECT clan_name AS "name", clan_tag AS "tag"
-				                              FROM clans
-										     WHERE user_id = ${interaction.user.id}`;
+                                          FROM clans
+                                          WHERE user_id = ${interaction.user.id}`;
 				}
 
 				if (data) {

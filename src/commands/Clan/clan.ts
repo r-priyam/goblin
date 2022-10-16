@@ -1,15 +1,14 @@
 import { ApplyOptions } from '@sapphire/decorators';
-import { isNullish } from '@sapphire/utilities';
+import { UserError } from '@sapphire/framework';
 import { MessageEmbed } from 'discord.js';
 
 import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
-import type { ClanOrPlayer } from '#lib/redis-cache/RedisCacheClient';
 import type { Clan } from 'clashofclans.js';
 import type { CommandInteraction } from 'discord.js';
 
 import { LabelEmotes, MiscEmotes, RawClanType, RawWarFrequency, TownHallEmotes, WarLeagueEmotes } from '#lib/coc';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
-import { Colors, Emotes } from '#utils/constants';
+import { Colors, Emotes, ErrorIdentifiers } from '#utils/constants';
 import { clanTagOption } from '#utils/functions/commandOptions';
 
 @ApplyOptions<GoblinCommandOptions>({
@@ -23,30 +22,14 @@ import { clanTagOption } from '#utils/functions/commandOptions';
 export class ClanCommand extends GoblinCommand {
 	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply();
-		let clanTag = interaction.options.getString('tag');
 
-		if (isNullish(clanTag)) {
-			const cachedClans = await this.redis.fetch<ClanOrPlayer[]>(`c-${interaction.user.id}`);
-			if (isNullish(cachedClans)) {
-				return interaction.editReply({
-					content:
-						'You have no clan linked into your profile. Please link any clan or provide the tag as 2nd argument!'
-				});
-			}
-
-			clanTag = cachedClans[0].tag;
-		}
-
-		const clan = await this.coc.clanHelper.info(clanTag);
+		const clanTag = await this.coc.clanHelper.dynamicTag(interaction);
+		const clan = await this.coc.clanHelper.info(interaction, clanTag);
 
 		if (clan.memberCount === 0) {
-			return interaction.editReply({
-				embeds: [
-					new MessageEmbed()
-						.setTitle('Error')
-						.setDescription('Clan has 0 members, failed to collect the required data')
-						.setColor(Colors.Red)
-				]
+			throw new UserError({
+				identifier: ErrorIdentifiers.ClanHelper,
+				message: 'Clan has 0 members, failed to collect the required data'
 			});
 		}
 

@@ -11,6 +11,6 @@ try {
 	client.logger.info(logSuccess('CORE', 'Logged In'));
 } catch (error) {
 	client.logger.error(error);
-	client.destroy();
+	void client.destroy();
 	exit(1);
 }

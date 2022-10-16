@@ -7,7 +7,7 @@ import type { CommandInteraction } from 'discord.js';
 
 import { GoblinSubCommand } from '#lib/extensions/GoblinSubCommand';
 import { RedisMethods } from '#lib/redis-cache/RedisCacheClient';
-import { Colors, ErrorIdentifiers } from '#utils/constants';
+import { Colors, Emotes, ErrorIdentifiers } from '#utils/constants';
 import { clanTagOption, playerTagOption } from '#utils/functions/commandOptions';
 
 @ApplyOptions<GoblinSubCommandOptions>({
@@ -46,7 +46,7 @@ export class LinkCommand extends GoblinSubCommand {
 	public async clanLink(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply({ ephemeral: true });
 
-		const clan = await this.coc.clanHelper.info(interaction.options.getString('tag', true));
+		const clan = await this.coc.clanHelper.info(interaction, interaction.options.getString('tag', true));
 
 		try {
 			await this.sql`INSERT INTO clans (user_id, clan_name, clan_tag)
@@ -70,7 +70,7 @@ export class LinkCommand extends GoblinSubCommand {
 		return interaction.editReply({
 			embeds: [
 				new MessageEmbed()
-					.setTitle('Success')
+					.setTitle(`${Emotes.Success} Success`)
 					.setDescription(`Linked **${clan.name} (${clan.tag})** to your discord account`)
 					.setColor(Colors.Green)
 			]
@@ -81,6 +81,7 @@ export class LinkCommand extends GoblinSubCommand {
 		await interaction.deferReply({ ephemeral: true });
 
 		const player = await this.coc.playerHelper.verifyPlayer(
+			interaction,
 			interaction.options.getString('tag', true),
 			interaction.options.getString('token', true)
 		);
@@ -108,7 +109,7 @@ export class LinkCommand extends GoblinSubCommand {
 		return interaction.editReply({
 			embeds: [
 				new MessageEmbed()
-					.setTitle('Success')
+					.setTitle(`${Emotes.Success} Success`)
 					.setDescription(`Linked **${player.name} (${player.tag})** to your discord account`)
 					.setColor(Colors.Green)
 			]

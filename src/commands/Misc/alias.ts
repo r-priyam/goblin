@@ -3,15 +3,16 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { UserError } from '@sapphire/framework';
 import { envParseArray, envParseString } from '@skyra/env-utilities';
 import { Util } from 'clashofclans.js';
-import { MessageEmbed } from 'discord.js';
+import { MessageEmbed, CommandInteraction } from 'discord.js';
 
 import type { GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
 import type { ClanAlias } from '#lib/redis-cache/RedisCacheClient';
-import type { CommandInteraction, GuildMember } from 'discord.js';
+import type { GuildMember } from 'discord.js';
 
+import { ValidateTag } from '#lib/decorators/ValidateTag';
 import { GoblinSubCommand } from '#lib/extensions/GoblinSubCommand';
 import { RedisMethods } from '#lib/redis-cache/RedisCacheClient';
-import { Colors, ErrorIdentifiers } from '#utils/constants';
+import { Colors, Emotes, ErrorIdentifiers } from '#utils/constants';
 import { addTagOption } from '#utils/functions/commandOptions';
 
 @ApplyOptions<GoblinSubCommandOptions>({
@@ -68,12 +69,12 @@ export class AliasCommand extends GoblinSubCommand {
 
 		if (alias.length <= 1 || alias.length > 5) {
 			throw new UserError({
-				identifier: ErrorIdentifiers.FalseParameter,
+				identifier: ErrorIdentifiers.BadParameter,
 				message: 'Alias length must be greater than 1 and less than 6'
 			});
 		}
 
-		const clan = await this.coc.clanHelper.info(clanTag);
+		const clan = await this.coc.clanHelper.info(interaction, clanTag);
 
 		try {
 			await this.sql`INSERT INTO aliases (alias, clan_name, clan_tag)
@@ -91,6 +92,7 @@ export class AliasCommand extends GoblinSubCommand {
 		return interaction.editReply({
 			embeds: [
 				new MessageEmbed() //
+					.setTitle(`${Emotes.Success} Success`)
 					.setDescription(
 						`Successfully created alias **${alias.toUpperCase()}** for ${clan.name} (${clan.tag})`
 					)
@@ -99,13 +101,12 @@ export class AliasCommand extends GoblinSubCommand {
 		});
 	}
 
+	@ValidateTag({ prefix: 'clan' })
 	public async removeAlias(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply();
 		this.canPerformAliasOperations(interaction.member);
 
 		const tag = Util.formatTag(interaction.options.getString('tag', true));
-
-		if (!Util.isValidTag(tag)) return interaction.editReply({ content: 'No clan found for the provided tag!' });
 
 		const [result] = await this.sql<[{ alias?: string; clanName?: string }]>`DELETE
                                                                                  FROM aliases
@@ -118,6 +119,7 @@ export class AliasCommand extends GoblinSubCommand {
 		return interaction.editReply({
 			embeds: [
 				new MessageEmbed() //
+					.setTitle(`${Emotes.Success} Success`)
 					.setDescription(`Successfully deleted alias **${result.alias}** for ${result.clanName}`)
 					.setColor(Colors.Green)
 			]
@@ -144,7 +146,7 @@ export class AliasCommand extends GoblinSubCommand {
 		) {
 			throw new UserError({
 				identifier: ErrorIdentifiers.MissingPermissions,
-				message: "You aren't allowed to use this command"
+				message: "I am sorry, but unfortunately you aren't allowed to perform this action"
 			});
 		}
 	}

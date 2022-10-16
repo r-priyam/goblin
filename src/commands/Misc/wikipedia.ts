@@ -1,5 +1,6 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { PaginatedMessage } from '@sapphire/discord.js-utilities';
+import { UserError } from '@sapphire/framework';
 import { MessageEmbed } from 'discord.js';
 import { stripHtml } from 'string-strip-html';
 import { fetch } from 'undici';
@@ -8,7 +9,7 @@ import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import type { CommandInteraction } from 'discord.js';
 
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
-import { Colors } from '#root/lib/util/constants';
+import { Colors, ErrorIdentifiers } from '#root/lib/util/constants';
 
 @ApplyOptions<GoblinCommandOptions>({
 	command: (builder) =>
@@ -34,7 +35,12 @@ export class WikipediaCommand extends GoblinCommand {
 
 		const data = (await response?.json().catch(() => null)) as WikipediaData;
 
-		if (response?.status !== 200) return interaction.editReply({ content: 'Something went wrong, try again!' });
+		if (response?.status !== 200) {
+			throw new UserError({
+				identifier: ErrorIdentifiers.HttpError,
+				message: 'Uh-oh, It looks like something went wrong! Can you please run the command again for me?'
+			});
+		}
 
 		if (data.query.searchinfo.totalhits === 0) return interaction.editReply({ content: 'No result found' });
 

@@ -4,7 +4,7 @@ import { MessageEmbed } from 'discord.js';
 
 import type { ModalSubmitInteraction } from 'discord.js';
 
-import { Colors, ErrorIdentifiers, ModalCustomIds, ModalInputCustomIds } from '#utils/constants';
+import { Colors, Emotes, ErrorIdentifiers, ModalCustomIds, ModalInputCustomIds } from '#utils/constants';
 
 @ApplyOptions<InteractionHandler.Options>({
 	interactionHandlerType: InteractionHandlerTypes.ModalSubmit
@@ -39,6 +39,7 @@ export class StartClanEmbedModal extends InteractionHandler {
 		await this.handleClanRequirementUpdate(interaction.guildId!, clanTag, requirements);
 		return this.some({
 			embed: new MessageEmbed()
+				.setTitle(`${Emotes.Success} Success`)
 				.setDescription('Clan requirements updated successfully, changes will reflect soon in the embed')
 				.setColor(Colors.Green)
 		});

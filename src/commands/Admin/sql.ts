@@ -46,7 +46,7 @@ export class SQLCommand extends GoblinCommand {
 			});
 
 		const columns = Object.keys(result[0]);
-		// @ts-expect-error result will be array of objects always
+		// @ts-expect-error result will be arrayed of objects always
 		const rows: string[][] = result.map((row) => Object.values(row));
 
 		const toSend = markdownTable([columns, ...rows.splice(0, 12)]);

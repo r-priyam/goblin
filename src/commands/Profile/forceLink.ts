@@ -10,7 +10,7 @@ import type { CommandInteraction } from 'discord.js';
 
 import { GoblinSubCommand } from '#lib/extensions/GoblinSubCommand';
 import { RedisMethods } from '#lib/redis-cache/RedisCacheClient';
-import { Colors, ErrorIdentifiers } from '#utils/constants';
+import { Colors, Emotes, ErrorIdentifiers } from '#utils/constants';
 import { clanTagOption, playerTagOption } from '#utils/functions/commandOptions';
 
 @ApplyOptions<GoblinSubCommandOptions>({
@@ -59,7 +59,7 @@ export class ForceLinkCommand extends GoblinSubCommand {
 	public async forceLinkClan(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply();
 
-		const clan = await this.coc.clanHelper.info(interaction.options.getString('tag', true));
+		const clan = await this.coc.clanHelper.info(interaction, interaction.options.getString('tag', true));
 		const user = interaction.options.getUser('user', true);
 
 		const result = await Result.fromAsync(
@@ -83,7 +83,7 @@ export class ForceLinkCommand extends GoblinSubCommand {
 		return interaction.editReply({
 			embeds: [
 				new MessageEmbed()
-					.setTitle('Success')
+					.setTitle(`${Emotes.Success} Success`)
 					.setDescription(
 						`Forcibly linked **${clan.name} (${clan.tag})** to ${userMention(user.id)} discord account`
 					)
@@ -95,7 +95,7 @@ export class ForceLinkCommand extends GoblinSubCommand {
 	public async forceLinkPlayer(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply();
 
-		const player = await this.coc.playerHelper.info(interaction.options.getString('tag', true));
+		const player = await this.coc.playerHelper.info(interaction, interaction.options.getString('tag', true));
 		const user = interaction.options.getUser('user', true);
 
 		const check = await Result.fromAsync(
@@ -136,7 +136,7 @@ export class ForceLinkCommand extends GoblinSubCommand {
 		return interaction.editReply({
 			embeds: [
 				new MessageEmbed()
-					.setTitle('Success')
+					.setTitle(`${Emotes.Success} Success`)
 					.setDescription(`Forcibly linked **${player.name} (${player.tag})** to ${user.id} discord account`)
 					.setColor(Colors.DeepOrange)
 			]

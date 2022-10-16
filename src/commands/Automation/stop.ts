@@ -1,16 +1,15 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { UserError } from '@sapphire/framework';
-import { Util } from 'clashofclans.js';
 import { bold } from 'colorette';
 import { PermissionFlagsBits } from 'discord-api-types/v9';
-import { MessageEmbed } from 'discord.js';
+import { MessageEmbed, CommandInteraction } from 'discord.js';
 
 import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import type { ChatInputCommand } from '@sapphire/framework';
-import type { CommandInteraction } from 'discord.js';
 
+import { ValidateTag } from '#lib/decorators/ValidateTag';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
-import { Colors, ErrorIdentifiers } from '#utils/constants';
+import { Colors, Emotes, ErrorIdentifiers } from '#utils/constants';
 import { automationMemberCheck } from '#utils/functions/automationMemberCheck';
 import { addTagOption } from '#utils/functions/commandOptions';
 
@@ -34,6 +33,7 @@ import { addTagOption } from '#utils/functions/commandOptions';
 	preconditions: ['OwnerOnly']
 })
 export class StopCommand extends GoblinCommand {
+	@ValidateTag({ prefix: 'clan' })
 	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
 		automationMemberCheck(interaction.guildId, interaction.member);
 
@@ -43,12 +43,6 @@ export class StopCommand extends GoblinCommand {
 
 	private async clanEmbed(interaction: ChatInputCommand.Interaction) {
 		const clanTag = interaction.options.getString('tag', true);
-		if (!Util.isValidTag(Util.formatTag(clanTag))) {
-			throw new UserError({
-				identifier: ErrorIdentifiers.WrongTag,
-				message: 'No clan found for the requested tag!'
-			});
-		}
 
 		const [result] = await this.sql<[{ clanName?: string }]>`DELETE
                                                                  FROM clan_embeds
@@ -56,15 +50,17 @@ export class StopCommand extends GoblinCommand {
                                                                    AND guild_id = ${interaction.guildId}
                                                                  RETURNING clan_name`;
 
-		if (!result)
-			return interaction.editReply({
-				content: `Can't find any Clan Embed running for ${bold(clanTag)} in this server`
+		if (!result) {
+			throw new UserError({
+				identifier: ErrorIdentifiers.DatabaseError,
+				message: `Can't find any Clan Embed running for ${bold(clanTag)} in this server`
 			});
+		}
 
 		return interaction.editReply({
 			embeds: [
 				new MessageEmbed()
-					.setTitle('Success')
+					.setTitle(`${Emotes.Success} Success`)
 					.setDescription(
 						`Successfully stopped ${bold(result.clanName!)}(${bold(clanTag)}) Clan Embed in this server`
 					)

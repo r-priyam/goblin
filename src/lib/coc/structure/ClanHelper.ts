@@ -1,7 +1,8 @@
-import { userMention } from '@discordjs/builders';
+import { bold, userMention } from '@discordjs/builders';
 import { container, Result, UserError } from '@sapphire/framework';
-import { HTTPError, Util } from 'clashofclans.js';
-import { MessageEmbed } from 'discord.js';
+import { isNullishOrEmpty } from '@sapphire/utilities';
+import { HTTPError } from 'clashofclans.js';
+import { MessageEmbed, CommandInteraction } from 'discord.js';
 
 import type { Clan } from 'clashofclans.js';
 
@@ -14,19 +15,15 @@ import {
 	TownHallEmotes,
 	WarLeagueEmotes
 } from '#lib/coc';
+import { ValidateTag } from '#lib/decorators/ValidateTag';
 import { ErrorIdentifiers } from '#utils/constants';
 
 export class ClanHelper {
-	public async info(tag: string) {
-		if (!Util.isValidTag(Util.formatTag(tag))) {
-			throw new UserError({
-				identifier: ErrorIdentifiers.WrongTag,
-				message: 'No clan found for the requested tag!'
-			});
-		}
-
-		const clan = await Result.fromAsync(() => container.coc.getClan(tag));
-		return clan.unwrapOrElse((error) => {
+	@ValidateTag({ prefix: 'clan', isDynamic: true })
+	public async info(_interaction: CommandInteraction<'cached'>, tag: string) {
+		const result = await Result.fromAsync(() => container.coc.getClan(tag));
+		if (result.isErr()) {
+			const error = result.unwrapErr();
 			if (error instanceof HTTPError) {
 				throw new UserError({
 					identifier: ErrorIdentifiers.ClanHelper,
@@ -35,7 +32,9 @@ export class ClanHelper {
 			}
 
 			throw error;
-		});
+		}
+
+		return result.unwrap();
 	}
 
 	public async getClanComposition(clan: Clan, formatComposition = false) {
@@ -119,5 +118,27 @@ ${WarLeagueEmotes[clan.warLeague!.name]} ${clan.warLeague!.name}`,
 			.setTimestamp()
 			.setColor(Number.parseInt(color.replace(/^#/, ''), 16))
 			.setFooter({ text: 'Last Synced' });
+	}
+
+	public async dynamicTag(interaction: CommandInteraction<'cached'>) {
+		const playerTag = interaction.options.getString('tag');
+
+		if (playerTag) {
+			return playerTag;
+		} else {
+			const [data] = await container.sql<[{ clanTag: string }]>`SELECT clan_tag
+                                                                        FROM clans
+                                                                        WHERE user_id = ${interaction.user.id} LIMIT 1`;
+			if (isNullishOrEmpty(data)) {
+				throw new UserError({
+					identifier: ErrorIdentifiers.DatabaseError,
+					message: bold(
+						"My poor eyes can't find any clan linked to your account. Please link any or provide the tag while running the command!"
+					)
+				});
+			}
+
+			return data.clanTag;
+		}
 	}
 }

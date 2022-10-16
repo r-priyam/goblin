@@ -1,6 +1,7 @@
 import { userMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { SnowflakeRegex } from '@sapphire/discord.js-utilities';
+import { UserError } from '@sapphire/framework';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
 import { DiscordAPIError, MessageEmbed } from 'discord.js';
 
@@ -8,7 +9,7 @@ import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import type { CommandInteraction, User } from 'discord.js';
 
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
-import { Colors } from '#utils/constants';
+import { Colors, Emotes, ErrorIdentifiers } from '#utils/constants';
 
 @ApplyOptions<GoblinCommandOptions>({
 	requiredMemberPermissions: PermissionFlagsBits.BanMembers,
@@ -39,12 +40,9 @@ export class HackBanCommand extends GoblinCommand {
 			user = await this.client.users.fetch(userId);
 		} catch (error) {
 			if (error instanceof DiscordAPIError && error.httpStatus === 404) {
-				return interaction.editReply({
-					embeds: [
-						new MessageEmbed()
-							.setDescription("User with the provided id doesn't exist")
-							.setColor(Colors.Red)
-					]
+				throw new UserError({
+					identifier: ErrorIdentifiers.DiscordAPIError,
+					message: "User with the provided id doesn't exist"
 				});
 			}
 
@@ -59,7 +57,12 @@ export class HackBanCommand extends GoblinCommand {
 			reason: `Forced ban ${user.username}. Action carried out by ${interaction.user.username}`
 		});
 		return interaction.editReply({
-			embeds: [new MessageEmbed().setDescription(`Successfully banned ${user.username}`).setColor(Colors.Green)]
+			embeds: [
+				new MessageEmbed()
+					.setTitle(`${Emotes.Success} Success`)
+					.setDescription(`Successfully banned ${user.username}`)
+					.setColor(Colors.Green)
+			]
 		});
 	}
 }
