@@ -68,7 +68,7 @@ export class AliasCommand extends GoblinSubCommand {
 
 		if (alias.length <= 1 || alias.length > 5) {
 			throw new UserError({
-				identifier: ErrorIdentifiers.FalseParameter,
+				identifier: ErrorIdentifiers.BadParameter,
 				message: 'Alias length must be greater than 1 and less than 6'
 			});
 		}
@@ -144,7 +144,7 @@ export class AliasCommand extends GoblinSubCommand {
 		) {
 			throw new UserError({
 				identifier: ErrorIdentifiers.MissingPermissions,
-				message: "You aren't allowed to use this command"
+				message: "I am sorry, but unfortunately you aren't allowed to perform this action"
 			});
 		}
 	}

@@ -42,14 +42,14 @@ export class StartClanEmbedModal extends InteractionHandler {
 
 		if (!SnowflakeRegex.test(leaderId)) {
 			throw new UserError({
-				identifier: ErrorIdentifiers.FalseParameter,
+				identifier: ErrorIdentifiers.BadParameter,
 				message: 'Leader discord id appears to be wrong, please double check it'
 			});
 		}
 
 		if (!/^#?[\da-f]{6}$/i.test(embedColor)) {
 			throw new UserError({
-				identifier: ErrorIdentifiers.FalseParameter,
+				identifier: ErrorIdentifiers.BadParameter,
 				message: 'Clan embed color appears to be wrong, please double check it'
 			});
 		}

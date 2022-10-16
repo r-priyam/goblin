@@ -16,7 +16,7 @@ export const EygInterviewCheck = (): MethodDecorator => {
 		if (!roleCheck) {
 			throw new UserError({
 				identifier: ErrorIdentifiers.MissingPermissions,
-				message: "You aren't allowed to run interview command"
+				message: "I am sorry, but unfortunately you aren't allowed to perform this action"
 			});
 		}
 

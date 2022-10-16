@@ -52,9 +52,10 @@ export const enum ButtonCustomIds {
 }
 
 export const enum ErrorIdentifiers {
+	BadParameter = 'BadParameter',
 	ClanHelper = 'ClanHelper',
 	DatabaseError = 'DatabaseError',
-	FalseParameter = 'FalseParameter',
+	DiscordAPIError = 'DiscordAPIError',
 	HttpError = 'HTTPError',
 	MissingPermissions = 'UserMissingPermission',
 	PlayerHelper = 'PlayerHelper',

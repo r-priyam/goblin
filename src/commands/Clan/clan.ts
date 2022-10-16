@@ -1,4 +1,5 @@
 import { ApplyOptions } from '@sapphire/decorators';
+import { UserError } from '@sapphire/framework';
 import { isNullish } from '@sapphire/utilities';
 import { MessageEmbed } from 'discord.js';
 
@@ -9,7 +10,7 @@ import type { CommandInteraction } from 'discord.js';
 
 import { LabelEmotes, MiscEmotes, RawClanType, RawWarFrequency, TownHallEmotes, WarLeagueEmotes } from '#lib/coc';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
-import { Colors, Emotes } from '#utils/constants';
+import { Colors, Emotes, ErrorIdentifiers } from '#utils/constants';
 import { clanTagOption } from '#utils/functions/commandOptions';
 
 @ApplyOptions<GoblinCommandOptions>({
@@ -40,13 +41,9 @@ export class ClanCommand extends GoblinCommand {
 		const clan = await this.coc.clanHelper.info(clanTag);
 
 		if (clan.memberCount === 0) {
-			return interaction.editReply({
-				embeds: [
-					new MessageEmbed()
-						.setTitle('Error')
-						.setDescription('Clan has 0 members, failed to collect the required data')
-						.setColor(Colors.Red)
-				]
+			throw new UserError({
+				identifier: ErrorIdentifiers.ClanHelper,
+				message: 'Clan has 0 members, failed to collect the required data'
 			});
 		}
 

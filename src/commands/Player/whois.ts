@@ -1,6 +1,7 @@
-import { bold } from '@discordjs/builders';
+import { bold, userMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { PaginatedMessage } from '@sapphire/discord.js-utilities';
+import { UserError } from '@sapphire/framework';
 import { isNullish } from '@sapphire/utilities';
 import { MessageEmbed } from 'discord.js';
 
@@ -10,7 +11,7 @@ import type { CommandInteraction } from 'discord.js';
 import { MiscEmotes, RawPosition, TownHallEmotes } from '#lib/coc';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { PlayerCommand } from '#root/commands/Player/player';
-import { Colors } from '#root/lib/util/constants';
+import { Colors, ErrorIdentifiers } from '#root/lib/util/constants';
 
 @ApplyOptions<GoblinCommandOptions>({
 	command: (builder) =>
@@ -32,7 +33,10 @@ export class WhoIsCommand extends GoblinCommand {
 
 		const players = await this.coc.linkApi.getLinks(member.id);
 		if (isNullish(players)) {
-			return interaction.editReply({ content: "Can't find any account linked for your profile." });
+			throw new UserError({
+				identifier: ErrorIdentifiers.PlayerHelper,
+				message: `Can't find any account linked to ${userMention(member.id)} profile.`
+			});
 		}
 
 		const overall = { stars: 0, donations: 0, received: 0, attacks: 0, defenses: 0 };

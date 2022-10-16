@@ -56,10 +56,12 @@ export class StopCommand extends GoblinCommand {
                                                                    AND guild_id = ${interaction.guildId}
                                                                  RETURNING clan_name`;
 
-		if (!result)
-			return interaction.editReply({
-				content: `Can't find any Clan Embed running for ${bold(clanTag)} in this server`
+		if (!result) {
+			throw new UserError({
+				identifier: ErrorIdentifiers.DatabaseError,
+				message: `Can't find any Clan Embed running for ${bold(clanTag)} in this server`
 			});
+		}
 
 		return interaction.editReply({
 			embeds: [

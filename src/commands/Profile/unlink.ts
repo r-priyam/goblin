@@ -1,4 +1,6 @@
+import { inlineCode } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
+import { UserError } from '@sapphire/framework';
 import { Util } from 'clashofclans.js';
 import { MessageEmbed } from 'discord.js';
 
@@ -7,7 +9,7 @@ import type { CommandInteraction } from 'discord.js';
 
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { RedisMethods } from '#lib/redis-cache/RedisCacheClient';
-import { Colors } from '#utils/constants';
+import { Colors, ErrorIdentifiers } from '#utils/constants';
 import { addTagOption } from '#utils/functions/commandOptions';
 
 @ApplyOptions<GoblinCommandOptions>({
@@ -47,7 +49,10 @@ export class UnlinkCommand extends GoblinCommand {
                                                                  RETURNING clan_name`;
 
 		if (!result) {
-			return interaction.editReply({ content: `**${tag}** isn't linked to your profile` });
+			throw new UserError({
+				identifier: ErrorIdentifiers.DatabaseError,
+				message: `Clan tag: **${inlineCode(tag)}** isn't linked to your profile`
+			});
 		}
 
 		await this.redis.handleClanOrPlayerCache('CLAN', RedisMethods.Delete, interaction.member.id, tag);
@@ -75,7 +80,10 @@ export class UnlinkCommand extends GoblinCommand {
                                                                    RETURNING player_name`;
 
 		if (!result) {
-			return interaction.editReply({ content: `**${tag}** isn't linked to your profile` });
+			throw new UserError({
+				identifier: ErrorIdentifiers.DatabaseError,
+				message: `Player tag: **${inlineCode(tag)}** isn't linked to your profile`
+			});
 		}
 
 		await this.redis.handleClanOrPlayerCache('PLAYER', RedisMethods.Delete, interaction.member.id, tag);
