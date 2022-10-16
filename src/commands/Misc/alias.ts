@@ -12,7 +12,7 @@ import type { GuildMember } from 'discord.js';
 import { ValidateTag } from '#lib/decorators/ValidateTag';
 import { GoblinSubCommand } from '#lib/extensions/GoblinSubCommand';
 import { RedisMethods } from '#lib/redis-cache/RedisCacheClient';
-import { Colors, ErrorIdentifiers } from '#utils/constants';
+import { Colors, Emotes, ErrorIdentifiers } from '#utils/constants';
 import { addTagOption } from '#utils/functions/commandOptions';
 
 @ApplyOptions<GoblinSubCommandOptions>({
@@ -92,6 +92,7 @@ export class AliasCommand extends GoblinSubCommand {
 		return interaction.editReply({
 			embeds: [
 				new MessageEmbed() //
+					.setTitle(`${Emotes.Success} Success`)
 					.setDescription(
 						`Successfully created alias **${alias.toUpperCase()}** for ${clan.name} (${clan.tag})`
 					)
@@ -118,6 +119,7 @@ export class AliasCommand extends GoblinSubCommand {
 		return interaction.editReply({
 			embeds: [
 				new MessageEmbed() //
+					.setTitle(`${Emotes.Success} Success`)
 					.setDescription(`Successfully deleted alias **${result.alias}** for ${result.clanName}`)
 					.setColor(Colors.Green)
 			]

@@ -9,7 +9,7 @@ import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import type { CommandInteraction, User } from 'discord.js';
 
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
-import { Colors, ErrorIdentifiers } from '#utils/constants';
+import { Colors, Emotes, ErrorIdentifiers } from '#utils/constants';
 
 @ApplyOptions<GoblinCommandOptions>({
 	requiredMemberPermissions: PermissionFlagsBits.BanMembers,
@@ -57,7 +57,12 @@ export class HackBanCommand extends GoblinCommand {
 			reason: `Forced ban ${user.username}. Action carried out by ${interaction.user.username}`
 		});
 		return interaction.editReply({
-			embeds: [new MessageEmbed().setDescription(`Successfully banned ${user.username}`).setColor(Colors.Green)]
+			embeds: [
+				new MessageEmbed()
+					.setTitle(`${Emotes.Success} Success`)
+					.setDescription(`Successfully banned ${user.username}`)
+					.setColor(Colors.Green)
+			]
 		});
 	}
 }
