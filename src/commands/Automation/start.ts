@@ -1,14 +1,14 @@
 import { ApplyOptions } from '@sapphire/decorators';
-import { UserError } from '@sapphire/framework';
 import { Util } from 'clashofclans.js';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
-import { MessageActionRow, Modal, TextInputComponent } from 'discord.js';
+import { MessageActionRow, Modal, TextInputComponent, CommandInteraction } from 'discord.js';
 
 import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
-import type { CommandInteraction, ModalActionRowComponent } from 'discord.js';
+import type { ModalActionRowComponent } from 'discord.js';
 
+import { VerifyTag } from '#lib/decorators/VerifyTag';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
-import { ErrorIdentifiers, ModalCustomIds, ModalInputCustomIds } from '#utils/constants';
+import { ModalCustomIds, ModalInputCustomIds } from '#utils/constants';
 import { automationMemberCheck } from '#utils/functions/automationMemberCheck';
 import { addTagOption } from '#utils/functions/commandOptions';
 
@@ -32,6 +32,7 @@ import { addTagOption } from '#utils/functions/commandOptions';
 	preconditions: ['StartRequiredPermissions']
 })
 export class StartCommand extends GoblinCommand {
+	@VerifyTag('Clan')
 	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
 		automationMemberCheck(interaction.guildId, interaction.member);
 
@@ -41,12 +42,6 @@ export class StartCommand extends GoblinCommand {
 
 	private async clanEmbed(interaction: CommandInteraction<'cached'>) {
 		const clanTag = interaction.options.getString('tag', true);
-		if (!Util.isValidTag(Util.formatTag(clanTag))) {
-			throw new UserError({
-				identifier: ErrorIdentifiers.WrongTag,
-				message: 'No clan found for the requested tag!'
-			});
-		}
 
 		const embedModal = new Modal()
 			.setTitle('Clan Embed Start Form')

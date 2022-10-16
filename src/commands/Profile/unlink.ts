@@ -2,11 +2,11 @@ import { inlineCode } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { UserError } from '@sapphire/framework';
 import { Util } from 'clashofclans.js';
-import { MessageEmbed } from 'discord.js';
+import { MessageEmbed, CommandInteraction } from 'discord.js';
 
 import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
-import type { CommandInteraction } from 'discord.js';
 
+import { VerifyTag } from '#lib/decorators/VerifyTag';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { RedisMethods } from '#lib/redis-cache/RedisCacheClient';
 import { Colors, ErrorIdentifiers } from '#utils/constants';
@@ -35,12 +35,9 @@ export class UnlinkCommand extends GoblinCommand {
 		return type === 'clan' ? this.removeClan(interaction) : this.removePlayer(interaction);
 	}
 
+	@VerifyTag('Clan')
 	private async removeClan(interaction: CommandInteraction<'cached'>) {
 		const tag = Util.formatTag(interaction.options.getString('tag', true));
-
-		if (!Util.isValidTag(tag)) {
-			return interaction.editReply({ content: 'No clan found for the provided tag!' });
-		}
 
 		const [result] = await this.sql<[{ clanName?: string }]>`DELETE
                                                                  FROM clans
@@ -66,12 +63,9 @@ export class UnlinkCommand extends GoblinCommand {
 		});
 	}
 
+	@VerifyTag('Player')
 	private async removePlayer(interaction: CommandInteraction<'cached'>) {
 		const tag = Util.formatTag(interaction.options.getString('tag', true));
-
-		if (!Util.isValidTag(tag)) {
-			return interaction.editReply({ content: 'No player found for the provided tag!' });
-		}
 
 		const [result] = await this.sql<[{ playerName?: string }]>`DELETE
                                                                    FROM players

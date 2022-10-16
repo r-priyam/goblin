@@ -1,14 +1,13 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { UserError } from '@sapphire/framework';
-import { Util } from 'clashofclans.js';
 import { bold } from 'colorette';
 import { PermissionFlagsBits } from 'discord-api-types/v9';
-import { MessageEmbed } from 'discord.js';
+import { MessageEmbed, CommandInteraction } from 'discord.js';
 
 import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import type { ChatInputCommand } from '@sapphire/framework';
-import type { CommandInteraction } from 'discord.js';
 
+import { VerifyTag } from '#lib/decorators/VerifyTag';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors, ErrorIdentifiers } from '#utils/constants';
 import { automationMemberCheck } from '#utils/functions/automationMemberCheck';
@@ -34,6 +33,7 @@ import { addTagOption } from '#utils/functions/commandOptions';
 	preconditions: ['OwnerOnly']
 })
 export class StopCommand extends GoblinCommand {
+	@VerifyTag('Clan')
 	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
 		automationMemberCheck(interaction.guildId, interaction.member);
 
@@ -43,12 +43,6 @@ export class StopCommand extends GoblinCommand {
 
 	private async clanEmbed(interaction: ChatInputCommand.Interaction) {
 		const clanTag = interaction.options.getString('tag', true);
-		if (!Util.isValidTag(Util.formatTag(clanTag))) {
-			throw new UserError({
-				identifier: ErrorIdentifiers.WrongTag,
-				message: 'No clan found for the requested tag!'
-			});
-		}
 
 		const [result] = await this.sql<[{ clanName?: string }]>`DELETE
                                                                  FROM clan_embeds
