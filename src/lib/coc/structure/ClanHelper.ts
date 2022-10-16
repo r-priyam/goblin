@@ -1,9 +1,11 @@
-import { userMention } from '@discordjs/builders';
+import { bold, userMention } from '@discordjs/builders';
 import { container, Result, UserError } from '@sapphire/framework';
+import { isNullishOrEmpty } from '@sapphire/utilities';
 import { HTTPError, Util } from 'clashofclans.js';
 import { MessageEmbed } from 'discord.js';
 
 import type { Clan } from 'clashofclans.js';
+import type { CommandInteraction } from 'discord.js';
 
 import {
 	BlueNumberEmotes,
@@ -119,5 +121,27 @@ ${WarLeagueEmotes[clan.warLeague!.name]} ${clan.warLeague!.name}`,
 			.setTimestamp()
 			.setColor(Number.parseInt(color.replace(/^#/, ''), 16))
 			.setFooter({ text: 'Last Synced' });
+	}
+
+	public async dynamicTag(interaction: CommandInteraction<'cached'>) {
+		const playerTag = interaction.options.getString('tag');
+
+		if (playerTag) {
+			return playerTag;
+		} else {
+			const [data] = await container.sql<[{ clanTag: string }]>`SELECT clan_tag
+                                                                        FROM clans
+                                                                        WHERE user_id = ${interaction.user.id} LIMIT 1`;
+			if (isNullishOrEmpty(data)) {
+				throw new UserError({
+					identifier: ErrorIdentifiers.DatabaseError,
+					message: bold(
+						"My poor eyes can't find any clan linked to your account. Please link any or provide the tag while running the command!"
+					)
+				});
+			}
+
+			return data.clanTag;
+		}
 	}
 }

@@ -1,10 +1,9 @@
 import { ApplyOptions } from '@sapphire/decorators';
-import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
+import { isNullishOrEmpty } from '@sapphire/utilities';
 import { SuperTroops } from 'clashofclans.js';
 import { MessageActionRow, MessageEmbed, MessageSelectMenu } from 'discord.js';
 
 import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
-import type { ClanOrPlayer } from '#lib/redis-cache/RedisCacheClient';
 import type { Clan } from 'clashofclans.js';
 import type { CommandInteraction } from 'discord.js';
 
@@ -24,21 +23,10 @@ import { clanTagOption } from '#utils/functions/commandOptions';
 export class SuperTroopsCommand extends GoblinCommand {
 	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply();
-		let clanTag = interaction.options.getString('tag');
 
-		if (isNullish(clanTag)) {
-			const cachedClans = await this.redis.fetch<ClanOrPlayer[]>(`c-${interaction.user.id}`);
-			if (isNullish(cachedClans)) {
-				return interaction.editReply({
-					content:
-						'You have no clan linked into your profile. Please link any clan or provide the tag as 2nd argument!'
-				});
-			}
-
-			clanTag = cachedClans[0].tag;
-		}
-
+		const clanTag = await this.coc.clanHelper.dynamicTag(interaction);
 		const clan = await this.coc.clanHelper.info(clanTag);
+
 		const embed = await SuperTroopsCommand.getSuperTroops(clan);
 		return interaction.editReply({ embeds: [embed], components: [this.menuOptions(clan.tag)] });
 	}
