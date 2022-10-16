@@ -14,7 +14,7 @@ import { Colors, Emotes, SelectMenuCustomIds } from '#utils/constants';
 })
 export class NicknameMenu extends InteractionHandler {
 	public override async run(interaction: SelectMenuInteraction, result: InteractionHandler.ParseResult<this>) {
-		return interaction.editReply({ content: '\u200B', embeds: [result.embed], components: [] });
+		return interaction.editReply({ content: null, embeds: [result.embed], components: [] });
 	}
 
 	public override async parse(interaction: SelectMenuInteraction) {
