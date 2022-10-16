@@ -48,15 +48,15 @@ export class SQLCommand extends GoblinCommand {
 		const columns = Object.keys(result[0]);
 		// @ts-expect-error result will be arrayed of objects always
 		const rows: string[][] = result.map((row) => Object.values(row));
-
 		const toSend = markdownTable([columns, ...rows.splice(0, 12)]);
-		await interaction.editReply(
-			rows.length === 0
-				? `${codeBlock('ts', toSend)}\nReturned \`${result.length}\` rows. Executed in: \`${inlineCodeBlock(
-						executionTime
-				  )}\``
-				: `${codeBlock('ts', toSend)}`
-		);
+
+		if (rows.length === 0) {
+			return interaction.editReply({
+				content: `${codeBlock('ts', toSend)}\nReturned \`${
+					result.length
+				}\` rows. Executed in: \`${inlineCodeBlock(executionTime)}\``
+			});
+		}
 
 		while (rows.length > 0) {
 			const toSend = markdownTable([columns, ...rows.splice(0, 12)]);
@@ -64,9 +64,7 @@ export class SQLCommand extends GoblinCommand {
 		}
 
 		return interaction.followUp({
-			content: `${codeBlock('ts', toSend)}\nReturned \`${result.length}\` rows. Executed in: \`${inlineCodeBlock(
-				executionTime
-			)}\``
+			content: `Returned \`${result.length}\` rows. Executed in: \`${inlineCodeBlock(executionTime)}\``
 		});
 	}
 
