@@ -27,8 +27,9 @@ export class ClanHelper {
 			});
 		}
 
-		const clan = await Result.fromAsync(() => container.coc.getClan(tag));
-		return clan.unwrapOrElse((error) => {
+		const result = await Result.fromAsync(() => container.coc.getClan(tag));
+		if (result.isErr()) {
+			const error = result.unwrapErr();
 			if (error instanceof HTTPError) {
 				throw new UserError({
 					identifier: ErrorIdentifiers.ClanHelper,
@@ -37,7 +38,9 @@ export class ClanHelper {
 			}
 
 			throw error;
-		});
+		}
+
+		return result.unwrap();
 	}
 
 	public async getClanComposition(clan: Clan, formatComposition = false) {
