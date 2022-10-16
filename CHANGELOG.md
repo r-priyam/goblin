@@ -2,6 +2,44 @@
 
 All notable changes to this project will be documented in this file.
 
+# [1.8.0](https://github.com/r-priyam/goblin/compare/v1.7.0...v1.8.0) - (2022-10-16)
+
+## 🏠 Refactor
+
+- Cleanup/enhancement (#76) ([eaed25c](https://github.com/r-priyam/goblin/commit/eaed25ca791b7e2dd36736da35d8429d46ba4954))
+- Use post/delete routes for link-api ([ce08f2d](https://github.com/r-priyam/goblin/commit/ce08f2d960dfd3be292429d0a39cdcc38f9be87a))
+- Fetch db to initialize cache ([0200c8e](https://github.com/r-priyam/goblin/commit/0200c8e767ba9f3f7162d0216165ae369d2165d5))
+- Attempt to fetch tags when no cache ([b9cab1b](https://github.com/r-priyam/goblin/commit/b9cab1b0613f2094ca1a0e601a30ba427b718bae))
+- Inject townhall image in troops embed ([c47eac0](https://github.com/r-priyam/goblin/commit/c47eac0bbb3c1a6dfa6adc7800c3bbdd5cd38276))
+- Update for townhall 15 ([a9fa54f](https://github.com/r-priyam/goblin/commit/a9fa54f959b32ff730202c5d5f36c5a0dd027064))
+- Add detailed menu labels in whois paginator ([7b68b07](https://github.com/r-priyam/goblin/commit/7b68b070d67b0836fe51522a77965eaeb3ab5cc9))
+- Inject townhall image in player class [skip cd] ([533f65b](https://github.com/r-priyam/goblin/commit/533f65b94b5a11c87ee326fca1ccea76817bf9b3))
+- Upgrade to clashofclans v3 dev ([c9259c6](https://github.com/r-priyam/goblin/commit/c9259c62b38391b3d84724978414a29b799756b4))
+- Use undici ([28b9c0b](https://github.com/r-priyam/goblin/commit/28b9c0bb72d81a6b6e570974139c0bbf7da6c89f))
+- Move code to client [skip cd] ([54bebfc](https://github.com/r-priyam/goblin/commit/54bebfcb2072a8c582960ebe583b9c76b3876629))
+- Use ioredis [skip cd] ([d6ceded](https://github.com/r-priyam/goblin/commit/d6ceded3bd616eb197eff3f4e020ab15ede8c233))
+- Remove `result` callbacks ([9995c41](https://github.com/r-priyam/goblin/commit/9995c410ae28fc8a237952685aea5629043eba3c))
+
+## 🐛 Bug Fixes
+
+- **deps:** Update all non-major dependencies (#74) [skip cd] ([d087d69](https://github.com/r-priyam/goblin/commit/d087d699019a0208da2e68d0564c1e86a1288068))
+- Sync data correctly ([0aa0aea](https://github.com/r-priyam/goblin/commit/0aa0aea02e4d6880104fd8f5848f90620fbacb40))
+- Why this happens with me ([a96dbb7](https://github.com/r-priyam/goblin/commit/a96dbb72ce58d151215725821c6f0570f9078238))
+- Cache the correct ID ([7ae253f](https://github.com/r-priyam/goblin/commit/7ae253fb8799a42958c6f92d862812cdf11c0dd8))
+- **deps:** Update sapphire dependencies ([ff3218c](https://github.com/r-priyam/goblin/commit/ff3218cf5e32f22457df580e1c9978e6f102ca3b))
+- **deps:** Update all non-major dependencies (#70) ([398481a](https://github.com/r-priyam/goblin/commit/398481ae76340936f0593a9c8849a17d50a84495))
+- **deps:** Update all non-major dependencies ([aa2a9e2](https://github.com/r-priyam/goblin/commit/aa2a9e233c6e43a6ff416368549cd3ae71f6cb98))
+- Remove top `JSON.stringify` ([a0b1738](https://github.com/r-priyam/goblin/commit/a0b1738d7362c15637bc2678ffe503f1c01194cd))
+- **deps:** Update dependency bullmq to v2 (#64) ([8960626](https://github.com/r-priyam/goblin/commit/8960626f8eb2fea837236dc81d167a598edbde65))
+- Send message to user in command error ([e1496ef](https://github.com/r-priyam/goblin/commit/e1496efb15888c2ef97842a20479a696cc7418c3))
+
+## 🚀 Features
+
+- **commands:** Add `nickname` command ([c52da3c](https://github.com/r-priyam/goblin/commit/c52da3ceda6a6dce28e118822a60c22d513ddd86))
+- **events:** Add interview wait handler ([f442adc](https://github.com/r-priyam/goblin/commit/f442adc92b6164e66e28217249af4a3f898f5146))
+- Use decorators for command registry (#60) ([70ba6b5](https://github.com/r-priyam/goblin/commit/70ba6b54038dbd7a162784e36de4ae5e99151298))
+- **commands:** Add `forcelink` command ([0977ded](https://github.com/r-priyam/goblin/commit/0977dedff7baccf7bf2e233a2b03c59d804ae323))
+
 # [1.7.0](https://github.com/r-priyam/goblin/compare/v1.6.0...v1.7.0) - (2022-09-06)
 
 ## 🏠 Refactor
