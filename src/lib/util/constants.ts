@@ -51,6 +51,11 @@ export const enum ButtonCustomIds {
 	ClanEmbedRequirement = 'add-clan-requirement-button'
 }
 
+export const enum SelectMenuCustomIds {
+	Nickname = 'nickname-menu',
+	SuperTroop = 'super-troop-menu'
+}
+
 export const enum ErrorIdentifiers {
 	BadParameter = 'BadParameter',
 	ClanHelper = 'ClanHelper',

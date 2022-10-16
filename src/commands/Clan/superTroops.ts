@@ -9,7 +9,7 @@ import type { CommandInteraction } from 'discord.js';
 
 import { SuperTroopEmotes } from '#lib/coc';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
-import { Colors } from '#utils/constants';
+import { Colors, SelectMenuCustomIds } from '#utils/constants';
 import { clanTagOption } from '#utils/functions/commandOptions';
 
 @ApplyOptions<GoblinCommandOptions>({
@@ -34,7 +34,7 @@ export class SuperTroopsCommand extends GoblinCommand {
 	private menuOptions(clanTag: string) {
 		const superTroopsMenu = new MessageSelectMenu()
 			.setPlaceholder('Select a troop')
-			.setCustomId(`SUPER_TROOP_MENU_${clanTag}`)
+			.setCustomId(`${SelectMenuCustomIds.SuperTroop}-${clanTag}`)
 			.addOptions(SuperTroops.map((troop) => ({ label: troop, emoji: SuperTroopEmotes[troop], value: troop })));
 
 		return new MessageActionRow().addComponents(superTroopsMenu);
