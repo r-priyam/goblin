@@ -26,7 +26,7 @@ export class AutocompleteHandler extends InteractionHandler {
 
 		if (isNullishOrEmpty(focused.value)) {
 			if (isNullishOrEmpty(cachedData)) {
-				let data = null;
+				let data: any;
 
 				if (shortType === 'p-') {
 					data = await this.sql`SELECT player_name AS "name", player_tag AS "tag"

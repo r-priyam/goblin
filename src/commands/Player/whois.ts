@@ -72,14 +72,16 @@ export class WhoIsCommand extends GoblinCommand {
 				inline: false
 			});
 
-			const infoEmbed = PlayerCommand.unitsEmbed(player, ['Builder Troops', 'Heroes'])
+			playersData[`${player.name} (${player.tag})`] = PlayerCommand.unitsEmbed(player, [
+				'Builder Troops',
+				'Heroes'
+			])
 				.setTitle(`${name} (${tag})`)
 				.setURL(shareLink)
 				.setDescription(
 					`${MiscEmotes.Exp} ${expLevel} ${MiscEmotes.HomeTrophy} ${trophies} ${MiscEmotes.WarStars} ${warStars}`
 				)
 				.setThumbnail(player.townHallImage);
-			playersData[`${player.name} (${player.tag})`] = infoEmbed;
 		}
 
 		const paginator = new PaginatedMessage({ template: new MessageEmbed().setColor(Colors.Indigo) });
