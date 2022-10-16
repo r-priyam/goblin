@@ -7,7 +7,7 @@ import { MessageEmbed, CommandInteraction } from 'discord.js';
 import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import type { ChatInputCommand } from '@sapphire/framework';
 
-import { VerifyTag } from '#lib/decorators/VerifyTag';
+import { ValidateTag } from '#lib/decorators/ValidateTag';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors, ErrorIdentifiers } from '#utils/constants';
 import { automationMemberCheck } from '#utils/functions/automationMemberCheck';
@@ -33,7 +33,7 @@ import { addTagOption } from '#utils/functions/commandOptions';
 	preconditions: ['OwnerOnly']
 })
 export class StopCommand extends GoblinCommand {
-	@VerifyTag('Clan')
+	@ValidateTag({ prefix: 'clan' })
 	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
 		automationMemberCheck(interaction.guildId, interaction.member);
 

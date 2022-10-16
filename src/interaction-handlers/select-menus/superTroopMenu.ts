@@ -20,7 +20,8 @@ export class SuperTroopMenu extends InteractionHandler {
 
 		const superTroop = interaction.values[0];
 
-		const clan = await this.coc.clanHelper.info(interaction.customId.split('_').pop()!);
+		// @ts-expect-error Is handled by optional chain
+		const clan = await this.coc.clanHelper.info(interaction, interaction.customId.split('_').pop()!);
 		const data = await SuperTroopsCommand.getSuperTroops(clan, superTroop);
 		return this.some({ data });
 	}

@@ -54,7 +54,8 @@ export class StartClanEmbedModal extends InteractionHandler {
 			});
 		}
 
-		const clan = await this.coc.clanHelper.info(clanTag);
+		// @ts-expect-error Is handled by optional chain
+		const clan = await this.coc.clanHelper.info(interaction, clanTag);
 		await this.handleClanEmbedBoardGeneration(interaction, clan, leaderId, embedColor);
 
 		return this.some({

@@ -24,7 +24,7 @@ export class ClanCommand extends GoblinCommand {
 		await interaction.deferReply();
 
 		const clanTag = await this.coc.clanHelper.dynamicTag(interaction);
-		const clan = await this.coc.clanHelper.info(clanTag);
+		const clan = await this.coc.clanHelper.info(interaction, clanTag);
 
 		if (clan.memberCount === 0) {
 			throw new UserError({

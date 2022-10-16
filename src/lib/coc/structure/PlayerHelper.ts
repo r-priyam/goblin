@@ -1,24 +1,18 @@
 import { bold } from '@discordjs/builders';
 import { container, Result, UserError } from '@sapphire/framework';
 import { isNullishOrEmpty } from '@sapphire/utilities';
-import { Util } from 'clashofclans.js';
+import { CommandInteraction } from 'discord.js';
 
 import type { GoblinPlayer } from '#lib/coc';
 import type { HTTPError } from 'clashofclans.js';
-import type { CommandInteraction } from 'discord.js';
 
 import { ErrorMessages } from '#lib/coc';
+import { ValidateTag } from '#lib/decorators/ValidateTag';
 import { ErrorIdentifiers } from '#utils/constants';
 
 export class PlayerHelper {
-	public async info(tag: string): Promise<GoblinPlayer> {
-		if (!Util.isValidTag(Util.formatTag(tag))) {
-			throw new UserError({
-				identifier: ErrorIdentifiers.WrongTag,
-				message: 'No player found for the requested tag!'
-			});
-		}
-
+	@ValidateTag({ prefix: 'player', isDynamic: true })
+	public async info(_interaction: CommandInteraction<'cached'>, tag: string): Promise<GoblinPlayer> {
 		const result = await Result.fromAsync<GoblinPlayer, HTTPError>(() => container.coc.getPlayer(tag));
 
 		if (result.isErr()) {
@@ -32,7 +26,7 @@ export class PlayerHelper {
 		return result.unwrap();
 	}
 
-	public async verifyPlayer(tag: string, token: string) {
+	public async verifyPlayer(interaction: CommandInteraction<'cached'>, tag: string, token: string) {
 		const result = await Result.fromAsync<boolean, HTTPError>(async () =>
 			container.coc.verifyPlayerToken(tag, token)
 		);
@@ -49,7 +43,7 @@ export class PlayerHelper {
 			throw new UserError({ identifier: ErrorIdentifiers.PlayerHelper, message: 'Invalid API token!' });
 		}
 
-		return this.info(tag);
+		return this.info(interaction, tag);
 	}
 
 	public async dynamicTag(interaction: CommandInteraction<'cached'>) {

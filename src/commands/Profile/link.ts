@@ -46,7 +46,7 @@ export class LinkCommand extends GoblinSubCommand {
 	public async clanLink(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply({ ephemeral: true });
 
-		const clan = await this.coc.clanHelper.info(interaction.options.getString('tag', true));
+		const clan = await this.coc.clanHelper.info(interaction, interaction.options.getString('tag', true));
 
 		try {
 			await this.sql`INSERT INTO clans (user_id, clan_name, clan_tag)
@@ -81,6 +81,7 @@ export class LinkCommand extends GoblinSubCommand {
 		await interaction.deferReply({ ephemeral: true });
 
 		const player = await this.coc.playerHelper.verifyPlayer(
+			interaction,
 			interaction.options.getString('tag', true),
 			interaction.options.getString('token', true)
 		);

@@ -25,7 +25,7 @@ export class SuperTroopsCommand extends GoblinCommand {
 		await interaction.deferReply();
 
 		const clanTag = await this.coc.clanHelper.dynamicTag(interaction);
-		const clan = await this.coc.clanHelper.info(clanTag);
+		const clan = await this.coc.clanHelper.info(interaction, clanTag);
 
 		const embed = await SuperTroopsCommand.getSuperTroops(clan);
 		return interaction.editReply({ embeds: [embed], components: [this.menuOptions(clan.tag)] });

@@ -9,7 +9,7 @@ import type { GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
 import type { ClanAlias } from '#lib/redis-cache/RedisCacheClient';
 import type { GuildMember } from 'discord.js';
 
-import { VerifyTag } from '#lib/decorators/VerifyTag';
+import { ValidateTag } from '#lib/decorators/ValidateTag';
 import { GoblinSubCommand } from '#lib/extensions/GoblinSubCommand';
 import { RedisMethods } from '#lib/redis-cache/RedisCacheClient';
 import { Colors, ErrorIdentifiers } from '#utils/constants';
@@ -74,7 +74,7 @@ export class AliasCommand extends GoblinSubCommand {
 			});
 		}
 
-		const clan = await this.coc.clanHelper.info(clanTag);
+		const clan = await this.coc.clanHelper.info(interaction, clanTag);
 
 		try {
 			await this.sql`INSERT INTO aliases (alias, clan_name, clan_tag)
@@ -100,7 +100,7 @@ export class AliasCommand extends GoblinSubCommand {
 		});
 	}
 
-	@VerifyTag('Clan')
+	@ValidateTag({ prefix: 'clan' })
 	public async removeAlias(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply();
 		this.canPerformAliasOperations(interaction.member);

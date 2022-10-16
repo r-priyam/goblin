@@ -29,7 +29,7 @@ export class PlayerCommand extends GoblinCommand {
 		const message = await interaction.deferReply({ fetchReply: true });
 
 		const playerTag = await this.coc.playerHelper.dynamicTag(interaction);
-		const player = await this.coc.playerHelper.info(playerTag);
+		const player = await this.coc.playerHelper.info(interaction, playerTag);
 
 		const infoEmbed = PlayerCommand.infoEmbed(player);
 		const unitsEmbed = PlayerCommand.unitsEmbed(player);

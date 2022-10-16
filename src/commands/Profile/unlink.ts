@@ -6,7 +6,7 @@ import { MessageEmbed, CommandInteraction } from 'discord.js';
 
 import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 
-import { VerifyTag } from '#lib/decorators/VerifyTag';
+import { ValidateTag } from '#lib/decorators/ValidateTag';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { RedisMethods } from '#lib/redis-cache/RedisCacheClient';
 import { Colors, ErrorIdentifiers } from '#utils/constants';
@@ -35,7 +35,7 @@ export class UnlinkCommand extends GoblinCommand {
 		return type === 'clan' ? this.removeClan(interaction) : this.removePlayer(interaction);
 	}
 
-	@VerifyTag('Clan')
+	@ValidateTag({ prefix: 'clan' })
 	private async removeClan(interaction: CommandInteraction<'cached'>) {
 		const tag = Util.formatTag(interaction.options.getString('tag', true));
 
@@ -63,7 +63,7 @@ export class UnlinkCommand extends GoblinCommand {
 		});
 	}
 
-	@VerifyTag('Player')
+	@ValidateTag({ prefix: 'player' })
 	private async removePlayer(interaction: CommandInteraction<'cached'>) {
 		const tag = Util.formatTag(interaction.options.getString('tag', true));
 

@@ -1,11 +1,10 @@
 import { bold, userMention } from '@discordjs/builders';
 import { container, Result, UserError } from '@sapphire/framework';
 import { isNullishOrEmpty } from '@sapphire/utilities';
-import { HTTPError, Util } from 'clashofclans.js';
-import { MessageEmbed } from 'discord.js';
+import { HTTPError } from 'clashofclans.js';
+import { MessageEmbed, CommandInteraction } from 'discord.js';
 
 import type { Clan } from 'clashofclans.js';
-import type { CommandInteraction } from 'discord.js';
 
 import {
 	BlueNumberEmotes,
@@ -16,17 +15,12 @@ import {
 	TownHallEmotes,
 	WarLeagueEmotes
 } from '#lib/coc';
+import { ValidateTag } from '#lib/decorators/ValidateTag';
 import { ErrorIdentifiers } from '#utils/constants';
 
 export class ClanHelper {
-	public async info(tag: string) {
-		if (!Util.isValidTag(Util.formatTag(tag))) {
-			throw new UserError({
-				identifier: ErrorIdentifiers.WrongTag,
-				message: 'No clan found for the requested tag!'
-			});
-		}
-
+	@ValidateTag({ prefix: 'clan', isDynamic: true })
+	public async info(_interaction: CommandInteraction<'cached'>, tag: string) {
 		const result = await Result.fromAsync(() => container.coc.getClan(tag));
 		if (result.isErr()) {
 			const error = result.unwrapErr();

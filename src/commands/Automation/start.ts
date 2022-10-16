@@ -6,7 +6,7 @@ import { MessageActionRow, Modal, TextInputComponent, CommandInteraction } from 
 import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import type { ModalActionRowComponent } from 'discord.js';
 
-import { VerifyTag } from '#lib/decorators/VerifyTag';
+import { ValidateTag } from '#lib/decorators/ValidateTag';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { ModalCustomIds, ModalInputCustomIds } from '#utils/constants';
 import { automationMemberCheck } from '#utils/functions/automationMemberCheck';
@@ -32,7 +32,7 @@ import { addTagOption } from '#utils/functions/commandOptions';
 	preconditions: ['StartRequiredPermissions']
 })
 export class StartCommand extends GoblinCommand {
-	@VerifyTag('Clan')
+	@ValidateTag({ prefix: 'clan' })
 	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
 		automationMemberCheck(interaction.guildId, interaction.member);
 

@@ -59,7 +59,7 @@ export class ForceLinkCommand extends GoblinSubCommand {
 	public async forceLinkClan(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply();
 
-		const clan = await this.coc.clanHelper.info(interaction.options.getString('tag', true));
+		const clan = await this.coc.clanHelper.info(interaction, interaction.options.getString('tag', true));
 		const user = interaction.options.getUser('user', true);
 
 		const result = await Result.fromAsync(
@@ -95,7 +95,7 @@ export class ForceLinkCommand extends GoblinSubCommand {
 	public async forceLinkPlayer(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply();
 
-		const player = await this.coc.playerHelper.info(interaction.options.getString('tag', true));
+		const player = await this.coc.playerHelper.info(interaction, interaction.options.getString('tag', true));
 		const user = interaction.options.getUser('user', true);
 
 		const check = await Result.fromAsync(
