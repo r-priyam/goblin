@@ -9,7 +9,7 @@ import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import { ValidateTag } from '#lib/decorators/ValidateTag';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { RedisMethods } from '#lib/redis-cache/RedisCacheClient';
-import { Colors, ErrorIdentifiers } from '#utils/constants';
+import { Colors, Emotes, ErrorIdentifiers } from '#utils/constants';
 import { addTagOption } from '#utils/functions/commandOptions';
 
 @ApplyOptions<GoblinCommandOptions>({
@@ -56,7 +56,7 @@ export class UnlinkCommand extends GoblinCommand {
 		return interaction.editReply({
 			embeds: [
 				new MessageEmbed()
-					.setTitle('Success')
+					.setTitle(`${Emotes.Success} Success`)
 					.setDescription(`Removed **${result.clanName} (${tag})** from your discord account`)
 					.setColor(Colors.Green)
 			]
@@ -86,7 +86,7 @@ export class UnlinkCommand extends GoblinCommand {
 		return interaction.editReply({
 			embeds: [
 				new MessageEmbed()
-					.setTitle('Success')
+					.setTitle(`${Emotes.Success} Success`)
 					.setDescription(`Removed **${result.playerName} (${tag})** from your discord account`)
 					.setColor(Colors.Green)
 			]

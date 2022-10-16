@@ -7,7 +7,14 @@ import { MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
 import type { Clan } from 'clashofclans.js';
 import type { ModalSubmitInteraction } from 'discord.js';
 
-import { ButtonCustomIds, Colors, ErrorIdentifiers, ModalCustomIds, ModalInputCustomIds } from '#utils/constants';
+import {
+	ButtonCustomIds,
+	Colors,
+	Emotes,
+	ErrorIdentifiers,
+	ModalCustomIds,
+	ModalInputCustomIds
+} from '#utils/constants';
 
 @ApplyOptions<InteractionHandler.Options>({
 	interactionHandlerType: InteractionHandlerTypes.ModalSubmit
@@ -60,7 +67,7 @@ export class StartClanEmbedModal extends InteractionHandler {
 
 		return this.some({
 			embed: new MessageEmbed()
-				.setTitle('Success')
+				.setTitle(`${Emotes.Success} Success`)
 				.setDescription(`Successfully started Clan Embed automation for ${inlineCode(clan.name)}`)
 				.setColor(Colors.Green)
 		});

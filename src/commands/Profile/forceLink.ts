@@ -10,7 +10,7 @@ import type { CommandInteraction } from 'discord.js';
 
 import { GoblinSubCommand } from '#lib/extensions/GoblinSubCommand';
 import { RedisMethods } from '#lib/redis-cache/RedisCacheClient';
-import { Colors, ErrorIdentifiers } from '#utils/constants';
+import { Colors, Emotes, ErrorIdentifiers } from '#utils/constants';
 import { clanTagOption, playerTagOption } from '#utils/functions/commandOptions';
 
 @ApplyOptions<GoblinSubCommandOptions>({
@@ -83,7 +83,7 @@ export class ForceLinkCommand extends GoblinSubCommand {
 		return interaction.editReply({
 			embeds: [
 				new MessageEmbed()
-					.setTitle('Success')
+					.setTitle(`${Emotes.Success} Success`)
 					.setDescription(
 						`Forcibly linked **${clan.name} (${clan.tag})** to ${userMention(user.id)} discord account`
 					)
@@ -136,7 +136,7 @@ export class ForceLinkCommand extends GoblinSubCommand {
 		return interaction.editReply({
 			embeds: [
 				new MessageEmbed()
-					.setTitle('Success')
+					.setTitle(`${Emotes.Success} Success`)
 					.setDescription(`Forcibly linked **${player.name} (${player.tag})** to ${user.id} discord account`)
 					.setColor(Colors.DeepOrange)
 			]

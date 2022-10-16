@@ -9,7 +9,7 @@ import type { ChatInputCommand } from '@sapphire/framework';
 
 import { ValidateTag } from '#lib/decorators/ValidateTag';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
-import { Colors, ErrorIdentifiers } from '#utils/constants';
+import { Colors, Emotes, ErrorIdentifiers } from '#utils/constants';
 import { automationMemberCheck } from '#utils/functions/automationMemberCheck';
 import { addTagOption } from '#utils/functions/commandOptions';
 
@@ -60,7 +60,7 @@ export class StopCommand extends GoblinCommand {
 		return interaction.editReply({
 			embeds: [
 				new MessageEmbed()
-					.setTitle('Success')
+					.setTitle(`${Emotes.Success} Success`)
 					.setDescription(
 						`Successfully stopped ${bold(result.clanName!)}(${bold(clanTag)}) Clan Embed in this server`
 					)
