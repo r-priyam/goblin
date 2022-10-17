@@ -70,7 +70,7 @@ export const enum ErrorIdentifiers {
 
 export const enum CacheIdentifiers {
 	Clan = 'c',
-	ClanAliases = 'clan-aliases',
+	ClanAliasCachees = 'clan-aliases',
 	Links = 'links',
 	Player = 'p'
 }

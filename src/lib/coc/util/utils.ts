@@ -1,8 +1,9 @@
 import { Util } from 'clashofclans.js';
 
+import type { ClanOrPlayerCache } from '#lib/redis-cache/RedisCacheClient';
 import type Fuse from 'fuse.js';
 
-export function handleNoValue(cachedData: { name: string; tag: string }[]) {
+export function handleNoValue(cachedData: ClanOrPlayerCache[]) {
 	return cachedData
 		.map((data) => ({
 			name: `✅ ${data.name} (${data.tag})`,
@@ -20,7 +21,7 @@ export function handleNoFuzzyMatch(tag: string) {
 		: [{ name: `❌ ${formattedTag || tag} isn't a valid tag ❌`, value: tag }];
 }
 
-export function getFuzzyTagSuggestions(rawTag: string, matches: Fuse.FuseResult<{ name: string; tag: string }>[]) {
+export function getFuzzyTagSuggestions(rawTag: string, matches: Fuse.FuseResult<ClanOrPlayerCache>[]) {
 	const formattedTag = Util.formatTag(rawTag);
 	const validateTag = Util.isValidTag(formattedTag);
 

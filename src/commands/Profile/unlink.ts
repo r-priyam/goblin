@@ -52,7 +52,7 @@ export class UnlinkCommand extends GoblinCommand {
 			});
 		}
 
-		await this.redis.handleClanOrPlayerCache('CLAN', RedisMethods.Delete, interaction.member.id, tag);
+		await this.redis.handleClanOrPlayerCacheCache('CLAN', RedisMethods.Delete, interaction.member.id, tag);
 		return interaction.editReply({
 			embeds: [
 				new MessageEmbed()
@@ -80,7 +80,7 @@ export class UnlinkCommand extends GoblinCommand {
 			});
 		}
 
-		await this.redis.handleClanOrPlayerCache('PLAYER', RedisMethods.Delete, interaction.member.id, tag);
+		await this.redis.handleClanOrPlayerCacheCache('PLAYER', RedisMethods.Delete, interaction.member.id, tag);
 		await this.coc.linkApi.deleteLink(tag, interaction.member.id);
 
 		return interaction.editReply({

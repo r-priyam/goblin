@@ -3,7 +3,7 @@ import { InteractionHandler, InteractionHandlerTypes } from '@sapphire/framework
 import { isNullishOrEmpty } from '@sapphire/utilities';
 import Fuse from 'fuse.js';
 
-import type { ClanOrPlayer } from '#lib/redis-cache/RedisCacheClient';
+import type { ClanOrPlayerCache } from '#lib/redis-cache/RedisCacheClient';
 import type { AutocompleteInteraction } from 'discord.js';
 
 import { getFuzzyTagSuggestions, handleNoFuzzyMatch, handleNoValue } from '#lib/coc';
@@ -20,9 +20,7 @@ export class AutocompleteHandler extends InteractionHandler {
 	public override async parse(interaction: AutocompleteInteraction) {
 		// use array when there are more player specific commands
 		const shortType = interaction.commandName === 'player' ? CacheIdentifiers.Player : CacheIdentifiers.Clan;
-		const cachedData = await this.redis.fetch<{ name: string; tag: string }[]>(
-			`${shortType}${interaction.user.id}`
-		);
+		const cachedData = await this.redis.fetch<ClanOrPlayerCache[]>(`${shortType}${interaction.user.id}`);
 		const focused = interaction.options.getFocused(true);
 
 		if (isNullishOrEmpty(focused.value)) {
@@ -41,7 +39,7 @@ export class AutocompleteHandler extends InteractionHandler {
 
 				if (data) {
 					await this.redis.insert(`${shortType}${interaction.user.id}`, data);
-					return this.some(handleNoValue(data as unknown as ClanOrPlayer[]));
+					return this.some(handleNoValue(data as unknown as ClanOrPlayerCache[]));
 				}
 
 				return this.none();

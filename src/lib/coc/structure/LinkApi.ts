@@ -6,7 +6,7 @@ import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
 import { Util } from 'clashofclans.js';
 import { fetch } from 'undici';
 
-import type { ClanOrPlayer } from '#lib/redis-cache/RedisCacheClient';
+import type { ClanOrPlayerCache } from '#lib/redis-cache/RedisCacheClient';
 import type { RequestOptions } from 'clashofclans.js';
 
 import { CacheIdentifiers } from '#utils/constants';
@@ -38,7 +38,7 @@ export class LinkApi {
 			if (isNullishOrEmpty(data)) return null;
 
 			const linkApiTags = data.map((linkData) => linkData.playerTag);
-			const cachedTags = ((await container.redis.fetch<ClanOrPlayer[]>(`p-${tagOrId}`)) ?? []).map(
+			const cachedTags = ((await container.redis.fetch<ClanOrPlayerCache[]>(`p-${tagOrId}`)) ?? []).map(
 				(data) => data?.tag
 			);
 

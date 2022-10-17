@@ -60,7 +60,7 @@ export class LinkCommand extends GoblinSubCommand {
 			}
 		}
 
-		await this.redis.handleClanOrPlayerCache(
+		await this.redis.handleClanOrPlayerCacheCache(
 			'CLAN',
 			RedisMethods.Insert,
 			interaction.member.id,
@@ -98,7 +98,7 @@ export class LinkCommand extends GoblinSubCommand {
 			}
 		}
 
-		await this.redis.handleClanOrPlayerCache(
+		await this.redis.handleClanOrPlayerCacheCache(
 			'PLAYER',
 			RedisMethods.Insert,
 			interaction.member.id,

@@ -5,12 +5,12 @@ import Redis from 'ioredis';
 
 import { CacheIdentifiers } from '#utils/constants';
 
-export interface ClanOrPlayer {
+export interface ClanOrPlayerCache {
 	name: string;
 	tag: string;
 }
 
-export interface ClanAlias extends ClanOrPlayer {
+export interface ClanAliasCache extends ClanOrPlayerCache {
 	alias: string;
 }
 
@@ -64,9 +64,15 @@ export class GoblinRedisClient extends Redis {
 		return this.del(key);
 	}
 
-	public async handleClanOrPlayerCache(type: string, method: string, userId: string, tag: string, name?: string) {
+	public async handleClanOrPlayerCacheCache(
+		type: string,
+		method: string,
+		userId: string,
+		tag: string,
+		name?: string
+	) {
 		const initial = type === 'CLAN' ? CacheIdentifiers.Clan : CacheIdentifiers.Player;
-		const cachedData = await this.fetch<ClanOrPlayer[]>(`${initial}-${userId}`);
+		const cachedData = await this.fetch<ClanOrPlayerCache[]>(`${initial}-${userId}`);
 
 		if (method === RedisMethods.Insert) {
 			if (isNullish(cachedData)) {
@@ -89,20 +95,21 @@ export class GoblinRedisClient extends Redis {
 	}
 
 	public async handleAliasOperations(method: string, tag: string, alias: string, name?: string) {
-		const cachedAlias = await this.fetch<ClanAlias[]>(CacheIdentifiers.ClanAliases);
+		const cachedAlias = await this.fetch<ClanAliasCache[]>(CacheIdentifiers.ClanAliasCachees);
 
 		if (method === RedisMethods.Insert) {
-			if (isNullish(cachedAlias)) return this.insert(CacheIdentifiers.ClanAliases, [{ name: name!, tag, alias }]);
+			if (isNullish(cachedAlias))
+				return this.insert(CacheIdentifiers.ClanAliasCachees, [{ name: name!, tag, alias }]);
 
 			cachedAlias.push({ name: name!, tag, alias });
-			return this.insert(CacheIdentifiers.ClanAliases, cachedAlias);
+			return this.insert(CacheIdentifiers.ClanAliasCachees, cachedAlias);
 		}
 
 		if (isNullish(cachedAlias)) return;
 
 		const updated = cachedAlias.filter((data) => data.tag === tag);
 		return updated.length === 0
-			? this.delete(CacheIdentifiers.ClanAliases)
-			: this.insert(CacheIdentifiers.ClanAliases, updated);
+			? this.delete(CacheIdentifiers.ClanAliasCachees)
+			: this.insert(CacheIdentifiers.ClanAliasCachees, updated);
 	}
 }

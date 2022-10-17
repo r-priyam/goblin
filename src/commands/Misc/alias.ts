@@ -6,7 +6,7 @@ import { Util } from 'clashofclans.js';
 import { MessageEmbed, CommandInteraction } from 'discord.js';
 
 import type { GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
-import type { ClanAlias } from '#lib/redis-cache/RedisCacheClient';
+import type { ClanAliasCache } from '#lib/redis-cache/RedisCacheClient';
 import type { GuildMember } from 'discord.js';
 
 import { ValidateTag } from '#lib/decorators/ValidateTag';
@@ -129,7 +129,7 @@ export class AliasCommand extends GoblinSubCommand {
 	public async listAlias(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply();
 
-		const aliases = await this.redis.fetch<ClanAlias[]>('clan-aliases');
+		const aliases = await this.redis.fetch<ClanAliasCache[]>('clan-aliases');
 		let aliasList = 'Clan Name         Tag          Alias\n';
 
 		for (const { name, tag, alias } of aliases!) {
