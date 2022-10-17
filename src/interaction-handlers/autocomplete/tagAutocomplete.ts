@@ -1,12 +1,12 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes } from '@sapphire/framework';
 import { isNullishOrEmpty } from '@sapphire/utilities';
+import { Util } from 'clashofclans.js';
 import Fuse from 'fuse.js';
 
 import type { ClanOrPlayerCache } from '#lib/redis-cache/RedisCacheClient';
 import type { AutocompleteInteraction } from 'discord.js';
 
-import { getFuzzyTagSuggestions, handleNoFuzzyMatch, handleNoValue } from '#lib/coc';
 import { CacheIdentifiers } from '#utils/constants';
 
 @ApplyOptions<InteractionHandler.Options>({
@@ -18,48 +18,76 @@ export class AutocompleteHandler extends InteractionHandler {
 	}
 
 	public override async parse(interaction: AutocompleteInteraction) {
-		// use array when there are more player specific commands
-		const shortType = interaction.commandName === 'player' ? CacheIdentifiers.Player : CacheIdentifiers.Clan;
-		const cachedData = await this.redis.fetch<ClanOrPlayerCache[]>(`${shortType}${interaction.user.id}`);
-		const focused = interaction.options.getFocused(true);
+		const identifier = interaction.commandName === 'player' ? CacheIdentifiers.Player : CacheIdentifiers.Clan;
+		const cachedData = (await this.redis.fetch<ClanOrPlayerCache[]>(`${identifier}-${interaction.user.id}`)) ?? [];
 
-		if (isNullishOrEmpty(focused.value)) {
-			if (isNullishOrEmpty(cachedData)) {
-				let data: any;
+		const tag = interaction.options.getFocused(true).value;
 
-				if (shortType === CacheIdentifiers.Player) {
-					data = await this.sql`SELECT player_name AS "name", player_tag AS "tag"
-                                          FROM players
-                                          WHERE user_id = ${interaction.user.id}`;
-				} else {
-					data = await this.sql`SELECT clan_name AS "name", clan_tag AS "tag"
-                                          FROM clans
-                                          WHERE user_id = ${interaction.user.id}`;
-				}
-
-				if (data) {
-					await this.redis.insert(`${shortType}${interaction.user.id}`, data);
-					return this.some(handleNoValue(data as unknown as ClanOrPlayerCache[]));
-				}
-
-				return this.none();
-			}
-
-			return this.some(handleNoValue(cachedData));
-		}
-
-		const tag = String(focused.value);
-		if (isNullishOrEmpty(cachedData)) {
-			return this.some(handleNoFuzzyMatch(tag));
+		if (isNullishOrEmpty(tag)) {
+			// here just cross check when there's no redis cache, who knows
+			if (isNullishOrEmpty(cachedData)) return this.handleNoRedisCache(interaction.user.id, identifier);
+			return this.some(this.handleNoFocusedValue(cachedData));
 		}
 
 		const fuse = new Fuse(cachedData, { includeScore: true, keys: ['name', 'tag'] });
 		const matches = fuse.search(tag);
 
-		if (isNullishOrEmpty(matches)) {
-			return this.some(handleNoFuzzyMatch(tag));
+		// When the user don't have any account linked and the tag value is there
+		// so show if it's a valid tag or not
+		if (isNullishOrEmpty(cachedData) || isNullishOrEmpty(matches)) {
+			return this.some(this.handleNoMatch(tag));
 		}
 
-		return this.some(getFuzzyTagSuggestions(tag, matches));
+		return this.some(this.getFuzzyMatches(tag, matches));
+	}
+
+	private async handleNoRedisCache(userId: string, identifier: 'c' | 'p') {
+		let data: any;
+
+		if (identifier === CacheIdentifiers.Player) {
+			data = await this.sql`SELECT player_name AS "name", player_tag AS "tag"
+                                          FROM players
+                                          WHERE user_id = ${userId}`;
+		} else {
+			data = await this.sql`SELECT clan_name AS "name", clan_tag AS "tag"
+                                          FROM clans
+                                          WHERE user_id = ${userId}`;
+		}
+
+		if (isNullishOrEmpty(data)) return this.none();
+		await this.redis.insert(`${identifier}-${userId}`, data);
+		return this.some(this.handleNoFocusedValue(data as unknown as ClanOrPlayerCache[]));
+	}
+
+	private handleNoFocusedValue(cachedData: ClanOrPlayerCache[]) {
+		return cachedData
+			.map((data) => ({
+				name: `✅ ${data.name} (${data.tag})`,
+				value: data.tag
+			}))
+			.slice(0, 14);
+	}
+
+	private handleNoMatch(tag: string) {
+		const formattedTag = Util.formatTag(String(tag));
+		const validateTag = Util.isValidTag(formattedTag);
+
+		return validateTag
+			? [{ name: `✅ ${formattedTag} is a valid tag`, value: formattedTag }]
+			: [{ name: `❌ ${formattedTag || tag} isn't a valid tag ❌`, value: tag }];
+	}
+
+	private getFuzzyMatches(rawTag: string, matches: Fuse.FuseResult<ClanOrPlayerCache>[]) {
+		const result = matches
+			.map((fuzzy) => ({
+				name: `✅ ${fuzzy.item.name} (${fuzzy.item.tag})`,
+				value: fuzzy.item.tag
+			}))
+			.slice(0, 14);
+
+		if (result[0].value.toLowerCase() === rawTag.toLowerCase()) return result;
+
+		result.unshift(...this.handleNoMatch(rawTag));
+		return result;
 	}
 }
