@@ -9,6 +9,7 @@ import { fetch } from 'undici';
 import type { ClanOrPlayer } from '#lib/redis-cache/RedisCacheClient';
 import type { RequestOptions } from 'clashofclans.js';
 
+import { CacheIdentifiers } from '#utils/constants';
 import { seconds } from '#utils/functions/time';
 
 export class LinkApi {
@@ -57,7 +58,7 @@ export class LinkApi {
                            ON CONFLICT DO NOTHING`;
 
 			await container.redis.insert(
-				`p-${tagOrId}`,
+				`${CacheIdentifiers.Player}-${tagOrId}`,
 				playersData.map((player) => ({ name: player.name, tag: player.tag }))
 			);
 

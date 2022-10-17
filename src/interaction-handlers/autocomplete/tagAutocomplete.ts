@@ -7,6 +7,7 @@ import type { ClanOrPlayer } from '#lib/redis-cache/RedisCacheClient';
 import type { AutocompleteInteraction } from 'discord.js';
 
 import { getFuzzyTagSuggestions, handleNoFuzzyMatch, handleNoValue } from '#lib/coc';
+import { CacheIdentifiers } from '#utils/constants';
 
 @ApplyOptions<InteractionHandler.Options>({
 	interactionHandlerType: InteractionHandlerTypes.Autocomplete
@@ -18,7 +19,7 @@ export class AutocompleteHandler extends InteractionHandler {
 
 	public override async parse(interaction: AutocompleteInteraction) {
 		// use array when there are more player specific commands
-		const shortType = interaction.commandName === 'player' ? 'p-' : 'c-';
+		const shortType = interaction.commandName === 'player' ? CacheIdentifiers.Player : CacheIdentifiers.Clan;
 		const cachedData = await this.redis.fetch<{ name: string; tag: string }[]>(
 			`${shortType}${interaction.user.id}`
 		);
@@ -28,7 +29,7 @@ export class AutocompleteHandler extends InteractionHandler {
 			if (isNullishOrEmpty(cachedData)) {
 				let data: any;
 
-				if (shortType === 'p-') {
+				if (shortType === CacheIdentifiers.Player) {
 					data = await this.sql`SELECT player_name AS "name", player_tag AS "tag"
                                           FROM players
                                           WHERE user_id = ${interaction.user.id}`;

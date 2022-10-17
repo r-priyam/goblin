@@ -3,6 +3,8 @@ import { isNullish } from '@sapphire/utilities';
 import { envParseInteger, envParseString } from '@skyra/env-utilities';
 import Redis from 'ioredis';
 
+import { CacheIdentifiers } from '#utils/constants';
+
 export interface ClanOrPlayer {
 	name: string;
 	tag: string;
@@ -63,7 +65,7 @@ export class GoblinRedisClient extends Redis {
 	}
 
 	public async handleClanOrPlayerCache(type: string, method: string, userId: string, tag: string, name?: string) {
-		const initial = type === 'CLAN' ? 'c' : 'p';
+		const initial = type === 'CLAN' ? CacheIdentifiers.Clan : CacheIdentifiers.Player;
 		const cachedData = await this.fetch<ClanOrPlayer[]>(`${initial}-${userId}`);
 
 		if (method === RedisMethods.Insert) {
@@ -87,18 +89,20 @@ export class GoblinRedisClient extends Redis {
 	}
 
 	public async handleAliasOperations(method: string, tag: string, alias: string, name?: string) {
-		const cachedAlias = await this.fetch<ClanAlias[]>('clan-aliases');
+		const cachedAlias = await this.fetch<ClanAlias[]>(CacheIdentifiers.ClanAliases);
 
 		if (method === RedisMethods.Insert) {
-			if (isNullish(cachedAlias)) return this.insert(`clan-aliases`, [{ name: name!, tag, alias }]);
+			if (isNullish(cachedAlias)) return this.insert(CacheIdentifiers.ClanAliases, [{ name: name!, tag, alias }]);
 
 			cachedAlias.push({ name: name!, tag, alias });
-			return this.insert('clan-aliases', cachedAlias);
+			return this.insert(CacheIdentifiers.ClanAliases, cachedAlias);
 		}
 
 		if (isNullish(cachedAlias)) return;
 
 		const updated = cachedAlias.filter((data) => data.tag === tag);
-		return updated.length === 0 ? this.delete('clan-aliases') : this.insert('clan-aliases', updated);
+		return updated.length === 0
+			? this.delete(CacheIdentifiers.ClanAliases)
+			: this.insert(CacheIdentifiers.ClanAliases, updated);
 	}
 }

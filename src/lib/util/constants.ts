@@ -67,3 +67,10 @@ export const enum ErrorIdentifiers {
 	Unknown = 'UNKNOWN',
 	WrongTag = 'WrongTag'
 }
+
+export const enum CacheIdentifiers {
+	Clan = 'c',
+	ClanAliases = 'clan-aliases',
+	Links = 'links',
+	Player = 'p'
+}
