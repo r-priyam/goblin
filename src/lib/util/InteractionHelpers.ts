@@ -6,6 +6,7 @@ export async function collectorFiler(interaction: MessageComponentInteraction, u
 	}
 
 	if (interaction.user.id !== userId) {
+		await interaction.deferReply({ ephemeral: true });
 		await interaction.followUp({
 			content: "These buttons can't be controlled by you, sorry!",
 			ephemeral: true

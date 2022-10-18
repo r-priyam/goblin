@@ -35,9 +35,10 @@ export class PlayerCommand extends GoblinCommand {
 		const unitsEmbed = PlayerCommand.unitsEmbed(player);
 		await interaction.editReply({ embeds: [infoEmbed], components: [PlayerCommand.components] });
 
+		const authorId = interaction.user.id;
 		const collector = message.channel.createMessageComponentCollector({
 			componentType: 'BUTTON',
-			filter: (interaction) => collectorFiler(interaction, interaction.user.id, message.id),
+			filter: (interaction) => collectorFiler(interaction, authorId, message.id),
 			time: Time.Minute * 2
 		});
 
