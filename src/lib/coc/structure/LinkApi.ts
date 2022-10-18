@@ -29,7 +29,7 @@ export class LinkApi {
 	}
 
 	public async getLinks(tagOrId: string) {
-		const cachedData = await container.redis.fetch<string[]>(`links-${tagOrId}`);
+		const cachedData = await container.redis.fetch<string[]>(`${CacheIdentifiers.Links}-${tagOrId}`);
 
 		if (isNullish(cachedData)) {
 			const data = await this.request<{ discordId: string; playerTag: string }[]>(`/links/${tagOrId}`, {
@@ -65,7 +65,7 @@ export class LinkApi {
 			);
 
 			await container.redis.insertWithExpiry(
-				`links-${tagOrId}`,
+				`${CacheIdentifiers.Links}-${tagOrId}`,
 				tagsToFetch,
 				seconds.fromMilliseconds(Time.Minute * 5)
 			);
