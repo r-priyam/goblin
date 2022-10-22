@@ -21,7 +21,7 @@ export class AutocompleteHandler extends InteractionHandler {
 		const identifier = interaction.commandName === 'player' ? CacheIdentifiers.Player : CacheIdentifiers.Clan;
 		const cachedData = (await this.redis.fetch<ClanOrPlayerCache[]>(`${identifier}-${interaction.user.id}`)) ?? [];
 
-		const tag = interaction.options.getFocused(true).value;
+		const tag = interaction.options.getFocused(true).value.trim();
 
 		if (isNullishOrEmpty(tag)) {
 			// here just cross check when there's no redis cache, who knows
