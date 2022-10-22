@@ -1,9 +1,10 @@
-[player-tag]
-keywords = ["player tag"]
+[api-token]
+keywords = ["api token"]
 content = """
-To get your account **Player Tag** follow these steps -
-• Click on the **Experience (XP)** icon in the top left corner.
-• Click on the **Share** icon and copy the player tag.
+To get your **Player API Token** follow these steps -
+• Go in the game **Settings** by clicking on the icon right above the shop icon.
+• Click on **More Settings** button in bottom right corener of the settings menu.
+• Scroll to bottom and you will see **API Token** section. Click on **Show Token** button and copy it.
 
 ***If these steps aren't clear then please see the attached image***
 """
@@ -19,14 +20,12 @@ To get the **Clan Tag** of your current clan follow these steps -
 ***If these steps aren't clear then please see the attached image***
 """
 
-
-[api-token]
-keywords = ["api token"]
+[player-tag]
+keywords = ["player tag"]
 content = """
-To get your **Player* api token follow these steps -
-• Go in the game **Settings** by clicking on the icon right above the shop icon.
-• Click on **More Settings** button in bottom right corener of the settings menu.
-• Scroll to bottom and you will see **API Token** section. Click on **Show Token** button and copy it.
+To get your account **Player Tag** follow these steps -
+• Click on the **Experience (XP)** icon in the top left corner.
+• Click on the **Share** icon and copy the player tag.
 
 ***If these steps aren't clear then please see the attached image***
 """

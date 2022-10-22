@@ -7,6 +7,7 @@ import postgres from 'postgres';
 
 import { GoblinClashClient } from '#lib/coc';
 import { GoblinRedisClient } from '#lib/redis-cache/RedisCacheClient';
+import { loadFAQs } from '#utils/faq';
 import { logSuccess } from '#utils/functions/logging';
 
 export class GoblinClient extends SapphireClient {
@@ -62,7 +63,10 @@ export class GoblinClient extends SapphireClient {
 			keyCount: envParseInteger('CLASH_KEY_COUNT'),
 			keyName: envParseString('CLASH_KEY_NAME')
 		});
-		this.logger.info(logSuccess('COC', 'Logged In!'));
+		this.logger.info(logSuccess('COC', 'Logged In'));
+
+		await loadFAQs();
+		this.logger.info(logSuccess('FAQs', 'Loaded FAQs Cache'));
 
 		return super.login();
 	}
