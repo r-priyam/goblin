@@ -60,7 +60,6 @@
 		"@sapphire/type": "^2.2.4",
 		"@sapphire/utilities": "^3.11.0",
 		"@skyra/env-utilities": "^1.1.0",
-		"@skyra/jaro-winkler": "^1.1.0",
 		"bufferutil": "^4.0.7",
 		"bullmq": "^2.3.2",
 		"clashofclans.js": "3.0.0-dev.5d2e14a",
