@@ -6,10 +6,12 @@ import { Collection } from 'discord.js';
 
 import type { FAQ } from '#lib/types/Faqs';
 
+import { RootDir } from '#utils/constants';
+
 export const faqsCache = new Collection<string, FAQ>();
 
 export async function loadFAQs() {
-	const file = await readFile(new URL('../../../meta/faqs.toml', import.meta.url), 'utf8');
+	const file = await readFile(new URL('meta/faqs.toml', RootDir), 'utf8');
 	const data = parseToml(file, 1, '\n');
 
 	for (const [key, value] of Object.entries(data)) {

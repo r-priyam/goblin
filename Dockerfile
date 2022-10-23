@@ -17,6 +17,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* && \
     apt-get autoremove
 
+COPY --chown=node:none meta/ meta/
 COPY --chown=node:node yarn.lock .
 COPY --chown=node:node package.json .
 COPY --chown=node:node .yarnrc.yml .
