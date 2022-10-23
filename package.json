@@ -62,7 +62,7 @@
 		"@skyra/env-utilities": "^1.1.0",
 		"bufferutil": "^4.0.7",
 		"bullmq": "^2.3.2",
-		"clashofclans.js": "3.0.0-dev.f6ce42f",
+		"clashofclans.js": "3.0.0-dev.70cb1c7",
 		"colorette": "^2.0.19",
 		"discord-api-types": "^0.33.5",
 		"discord.js": "^13.12.0",
