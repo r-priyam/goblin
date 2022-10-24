@@ -8,6 +8,8 @@ import ley from 'ley';
 
 setup(new URL('../src/.env', import.meta.url));
 
+process.env.PGHOST = 'localhost';
+
 const result = await ley.up({ dir: 'migrations', driver: 'postgres' });
 
 if (isNullishOrEmpty(result)) {
