@@ -1,5 +1,5 @@
 import { execSync } from 'node:child_process';
-import { exit } from 'node:process';
+import process, { exit } from 'node:process';
 
 import { Result } from '@sapphire/framework';
 import { cyanBright, greenBright, redBright } from 'colorette';
