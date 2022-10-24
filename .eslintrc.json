@@ -4,5 +4,8 @@
 		"project": "./tsconfig.eslint.json"
 	},
 	"ignorePatterns": ["./dist/*"],
-	"extends": ["snail/common", "snail/node", "snail/typescript", "snail/prettier"]
+	"extends": ["snail/common", "snail/node", "snail/typescript", "snail/prettier"],
+	"rules": {
+		"tsdoc/syntax": 0
+	}
 }
