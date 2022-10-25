@@ -45,6 +45,7 @@ $$ language 'plpgsql';
             type               event_types NOT NULL,
             guild_id           TEXT        NOT NULL,
             channel_id         TEXT        NOT NULL,
+			message_id         TEXT        NOT NULL,
             start_role_ping_id TEXT,
             end_role_ping_id   TEXT,
             author_id          TEXT        NOT NULL,
@@ -64,6 +65,7 @@ $$ language 'plpgsql';
         COMMENT ON COLUMN events.type IS 'The type of event';
         COMMENT ON COLUMN events.guild_id IS 'The id of guild to which this event belongs to';
         COMMENT ON COLUMN events.channel_id IS 'The channel id where users can apply for event';
+		COMMENT ON COLUMN events.message_id IS 'The message id that contains the registration board';
 		COMMENT ON COLUMN events.start_role_ping_id IS 'The role id to ping when the event starts';
 		COMMENT ON COLUMN events.end_role_ping_id IS 'The role id to ping when the event ends';
         COMMENT ON COLUMN events.author_id IS 'The id of the author that created this event';
