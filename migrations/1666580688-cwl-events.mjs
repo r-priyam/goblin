@@ -12,26 +12,30 @@ export async function up(sql) {
 	await sql.unsafe(`
         CREATE TABLE events
         (
-            id         SERIAL PRIMARY KEY,
-            name       TEXT        NOT NULL,
-            type       event_types NOT NULL,
-            guild_id   TEXT        NOT NULL,
-            channel_id TEXT        NOT NULL,
-            author_id  TEXT        NOT NULL,
-            is_active  BOOLEAN                  DEFAULT FALSE,
-            started_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-            ends_at    TIMESTAMP WITH TIME ZONE DEFAULT NOW() + '7 DAYS':: INTERVAL
+            id                 SERIAL PRIMARY KEY,
+            name               TEXT        NOT NULL,
+            type               event_types NOT NULL,
+            guild_id           TEXT        NOT NULL,
+            channel_id         TEXT        NOT NULL,
+            start_role_ping_id TEXT,
+            end_role_ping_id   TEXT,
+            author_id          TEXT        NOT NULL,
+            is_active          BOOLEAN                  DEFAULT FALSE,
+            started_at         TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+            ends_at            TIMESTAMP WITH TIME ZONE DEFAULT NOW() + '7 DAYS':: INTERVAL
         );
 
         COMMENT ON COLUMN events.id IS 'The event unique id';
         COMMENT ON COLUMN events.name IS 'The event name';
         COMMENT ON COLUMN events.type IS 'The type of event';
         COMMENT ON COLUMN events.guild_id IS 'The id of guild to which this event belongs to';
-        COMMENT ON COLUMN events.channel_id IS 'The id of channel where users can apply for event';
+        COMMENT ON COLUMN events.channel_id IS 'The channel id where users can apply for event';
+		COMMENT ON COLUMN events.start_role_ping_id IS 'The role id to ping when the event starts';
+		COMMENT ON COLUMN events.end_role_ping_id IS 'The role id to ping when the event ends';
         COMMENT ON COLUMN events.author_id IS 'The id of the author that created this event';
         COMMENT ON COLUMN events.is_active IS 'The boolean value to indicate whether this event is active or not';
         COMMENT ON COLUMN events.started_at IS 'The time the event was created at';
-        COMMENT ON COLUMN events.ends_at IS 'The time when the event will end';
+        COMMENT    ON COLUMN events.ends_at IS 'The time when the event will end';
     `);
 
 	// CWL applications table
@@ -83,7 +87,7 @@ export async function up(sql) {
         COMMENT ON COLUMN cwl_applications.opt_in_day_five IS 'Whether user is opted in day five or not';
         COMMENT ON COLUMN cwl_applications.opt_in_day_six IS 'Whether user is opted in day six or not';
         COMMENT ON COLUMN cwl_applications.opt_in_day_seven IS 'Whether user is opted in day seven or not';
-        COMMENT ON COLUMN cwl_applications.registered_at IS 'The time when applicant registered for a player';
+        COMMENT    ON COLUMN cwl_applications.registered_at IS 'The time when applicant registered for a player';
     `);
 
 	// Helper function to get database export for a cwl event
