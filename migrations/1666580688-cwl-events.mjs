@@ -20,7 +20,7 @@ export async function up(sql) {
             start_role_ping_id TEXT,
             end_role_ping_id   TEXT,
             author_id          TEXT        NOT NULL,
-            is_active          BOOLEAN                  DEFAULT FALSE,
+            is_active          BOOLEAN                  DEFAULT TRUE,
             started_at         TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
             ends_at            TIMESTAMP WITH TIME ZONE DEFAULT NOW() + '7 DAYS':: INTERVAL
         );
