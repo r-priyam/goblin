@@ -2,6 +2,34 @@
  * @param {import('postgres').Sql} sql
  */
 export async function up(sql) {
+	await sql.unsafe(`CREATE EXTENSION IF NOT EXISTS "pgcrypto";`);
+
+	// Function to generate unique ID's
+	await sql.unsafe(`
+    CREATE OR REPLACE FUNCTION unique_short_id()
+    RETURNS TRIGGER AS
+$$
+DECLARE
+    key   TEXT;
+    qry   TEXT;
+    found TEXT;
+BEGIN
+    qry := 'SELECT id FROM ' || quote_ident(TG_TABLE_NAME) || ' WHERE id=';
+    LOOP
+        key := encode(gen_random_bytes(10), 'base64');
+        key := replace(key, '/', '_');
+        key := replace(key, '+', '-');
+        EXECUTE qry || quote_literal(key) INTO found;
+        IF found IS NULL THEN
+            EXIT;
+        END IF;
+    END LOOP;
+    NEW.id = key;
+    RETURN NEW;
+END;
+$$ language 'plpgsql';
+`);
+
 	// Event types enum
 	await sql.unsafe(`
         CREATE TYPE event_types
@@ -12,7 +40,7 @@ export async function up(sql) {
 	await sql.unsafe(`
         CREATE TABLE events
         (
-            id                 SERIAL PRIMARY KEY,
+            id                 TEXT PRIMARY KEY,
             name               TEXT        NOT NULL,
             type               event_types NOT NULL,
             guild_id           TEXT        NOT NULL,
@@ -25,6 +53,12 @@ export async function up(sql) {
             ends_at            TIMESTAMP WITH TIME ZONE DEFAULT NOW() + '7 DAYS':: INTERVAL
         );
 
+        CREATE TRIGGER set_events_id
+            BEFORE INSERT
+            ON events
+            FOR EACH ROW EXECUTE PROCEDURE unique_short_id();
+        COMMENT ON TRIGGER set_events_id ON events IS 'Sets the id field for each event'
+
         COMMENT ON COLUMN events.id IS 'The event unique id';
         COMMENT ON COLUMN events.name IS 'The event name';
         COMMENT ON COLUMN events.type IS 'The type of event';
@@ -35,7 +69,7 @@ export async function up(sql) {
         COMMENT ON COLUMN events.author_id IS 'The id of the author that created this event';
         COMMENT ON COLUMN events.is_active IS 'The boolean value to indicate whether this event is active or not';
         COMMENT ON COLUMN events.started_at IS 'The time the event was created at';
-        COMMENT    ON COLUMN events.ends_at IS 'The time when the event will end';
+        COMMENT ON COLUMN events.ends_at IS 'The time when the event will end';
     `);
 
 	// CWL applications table
@@ -87,7 +121,7 @@ export async function up(sql) {
         COMMENT ON COLUMN cwl_applications.opt_in_day_five IS 'Whether user is opted in day five or not';
         COMMENT ON COLUMN cwl_applications.opt_in_day_six IS 'Whether user is opted in day six or not';
         COMMENT ON COLUMN cwl_applications.opt_in_day_seven IS 'Whether user is opted in day seven or not';
-        COMMENT    ON COLUMN cwl_applications.registered_at IS 'The time when applicant registered for a player';
+        COMMENT ON COLUMN cwl_applications.registered_at IS 'The time when applicant registered for a player';
     `);
 
 	// Helper function to get database export for a cwl event
