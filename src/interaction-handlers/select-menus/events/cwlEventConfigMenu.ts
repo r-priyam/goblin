@@ -4,7 +4,13 @@ import { MessageActionRow, Modal, TextInputComponent } from 'discord.js';
 
 import type { ModalActionRowComponent, SelectMenuInteraction } from 'discord.js';
 
-import { ErrorIdentifiers, ModalCustomIds, ModalInputCustomIds, SelectMenuCustomIds, SelectMenuOptionsValue } from '#utils/constants';
+import {
+	ErrorIdentifiers,
+	ModalCustomIds,
+	ModalInputCustomIds,
+	SelectMenuCustomIds,
+	SelectMenuOptionsValue
+} from '#utils/constants';
 import { checkUser } from '#utils/functions/eventHelpers';
 
 @ApplyOptions<InteractionHandler.Options>({
