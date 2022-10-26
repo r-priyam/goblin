@@ -45,7 +45,11 @@ export async function handleUserError(interaction: Interaction, error: UserError
 
 	if (interaction.isCommand())
 		await sendCommandErrorToUser(interaction, errorEmbedUser(error.message ?? UnidentifiedErrorMessage));
-	await sendErrorToUser(interaction, errorEmbedUser(error.message ?? UnidentifiedErrorMessage));
+	await sendErrorToUser(
+		interaction,
+		errorEmbedUser(error.message ?? UnidentifiedErrorMessage),
+		Reflect.get(Object(error.context), 'followUp')
+	);
 }
 
 export async function sendCommandErrorToUser(interaction: CommandInteraction, embed: MessageEmbed) {
@@ -56,14 +60,18 @@ export async function sendCommandErrorToUser(interaction: CommandInteraction, em
 	return interaction.reply({ embeds: [embed], ephemeral: true });
 }
 
-export async function sendErrorToUser(interaction: Interaction, embed: MessageEmbed) {
+export async function sendErrorToUser(interaction: Interaction, embed: MessageEmbed, followUp = false) {
 	if (!interaction.isSelectMenu() && !interaction.isButton() && !interaction.isModalSubmit()) return;
 
-	if (interaction.replied || interaction.deferred) {
-		await interaction.editReply({ embeds: [embed] });
+	if (followUp) {
+		return interaction.followUp({ embeds: [embed], ephemeral: true });
 	}
 
-	await interaction.reply({ embeds: [embed], ephemeral: true });
+	if (interaction.replied || interaction.deferred) {
+		return interaction.editReply({ embeds: [embed] });
+	}
+
+	return interaction.reply({ embeds: [embed], ephemeral: true });
 }
 
 export function errorEmbedUser(message: string) {

@@ -33,12 +33,17 @@ export const enum Emotes {
 }
 
 export const enum ModalCustomIds {
+	CWLEvent = 'cwl-event-config-modal',
 	ClanEmbedRequirements = 'clan-embed-requirements',
 	StartClanEmbed = 'start-clan-embed-modal'
 }
 
 export const enum ModalInputCustomIds {
 	ElevenRequirements = 'eleven-requirements-input',
+	EventEndRolePing = 'event-end-role-ping',
+	EventName = 'event-name',
+	EventRegistrationChannel = 'event-registration-channel',
+	EventStartRolePing = 'event-start-role-ping',
 	FourteenRequirements = 'fourteen-requirements-input',
 	StartClanEmbedColor = 'start-clan-embed-color-input',
 	StartClanEmbedLeader = 'start-clan-embed-leader-input',
@@ -48,7 +53,17 @@ export const enum ModalInputCustomIds {
 }
 
 export const enum ButtonCustomIds {
-	ClanEmbedRequirement = 'add-clan-requirement-button'
+	CWLEventCreate = 'cwl-event-create',
+	CWLEventRegister = 'cwl-event-register',
+	CWLEventUnregister = 'cwl-event-unregister',
+	ClanEmbedRequirement = 'add-clan-requirement-button',
+	CustomEventCreate = 'custom-event-create',
+	EventCancel = 'event-cancel',
+	EventEndRolePing = 'event-end-role-ping',
+	EventName = 'event-name',
+	EventRegistrationChannel = 'event-registration-channel',
+	EventStartRolePing = 'event-start-role-ping',
+	EventSubmit = 'event-submit'
 }
 
 export const enum SelectMenuCustomIds {
@@ -58,6 +73,7 @@ export const enum SelectMenuCustomIds {
 
 export const enum ErrorIdentifiers {
 	BadParameter = 'BadParameter',
+	CWLEventProcess = 'CwlEventProcess',
 	ClanHelper = 'ClanHelper',
 	DatabaseError = 'DatabaseError',
 	DiscordAPIError = 'DiscordAPIError',
@@ -73,4 +89,9 @@ export const enum RedisKeys {
 	ClanAlias = 'clan-aliases',
 	Links = 'links',
 	Player = 'p'
+}
+
+export const enum EventConfigDefaultValues {
+	NotRequired = '_Not Configured_',
+	Required = '_Not Configured (Required)_'
 }
