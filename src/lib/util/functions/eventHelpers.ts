@@ -15,8 +15,6 @@ export function eventConfigMessage({
 	startRolePing?: string;
 }) {
 	return `
-Please click on the respective buttons to configure.
-
 ${bold('Configuration')}
 ${bold('Name:')} ${eventName ?? italic('Not Configured (Required)')}
 ${bold('Registration Channel:')} ${
@@ -32,9 +30,8 @@ ${bold('Configuaration Fields Information')}
 ● End Role Ping - The role to ping when the event will end
 
 ${bold('FAQs')}
-1. Red colour button means that it's not configured yet.
-2. Green colour button means that the specific field is now set.
-3. You can click on the buttons again to change the value if you want to.
+1. Please select the applicable option from the select menu to configure the config values.
+2. You can select the option from select menu again if you want to change the set value.
 
 ${bold(italic('Once you are satisfied with the above displayed values then click on Submit to create the event'))}
 `;

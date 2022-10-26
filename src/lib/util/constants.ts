@@ -59,16 +59,20 @@ export const enum ButtonCustomIds {
 	ClanEmbedRequirement = 'add-clan-requirement-button',
 	CustomEventCreate = 'custom-event-create',
 	EventCancel = 'event-cancel',
-	EventEndRolePing = 'event-end-role-ping',
-	EventName = 'event-name',
-	EventRegistrationChannel = 'event-registration-channel',
-	EventStartRolePing = 'event-start-role-ping',
 	EventSubmit = 'event-submit'
 }
 
 export const enum SelectMenuCustomIds {
+	CWLEventConfig = 'cwl-event-config-menu',
 	Nickname = 'nickname-menu',
 	SuperTroop = 'super-troop-menu'
+}
+
+export const enum SelectMenuOptionsValue {
+	EventEndRolePing = 'event-end-role-ping',
+	EventName = 'event-name',
+	EventRegistrationChannel = 'event-registration-channel',
+	EventStartRolePing = 'event-start-role-ping'
 }
 
 export const enum ErrorIdentifiers {

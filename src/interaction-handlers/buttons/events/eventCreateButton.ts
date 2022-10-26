@@ -1,10 +1,10 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes } from '@sapphire/framework';
-import { MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
+import { MessageActionRow, MessageButton, MessageEmbed, MessageSelectMenu } from 'discord.js';
 
 import type { ButtonInteraction } from 'discord.js';
 
-import { ButtonCustomIds, Colors, Emotes } from '#utils/constants';
+import { ButtonCustomIds, Colors, Emotes, SelectMenuCustomIds, SelectMenuOptionsValue } from '#utils/constants';
 import { checkUser, eventConfigMessage } from '#utils/functions/eventHelpers';
 
 @ApplyOptions<InteractionHandler.Options>({
@@ -59,19 +59,15 @@ export class ButtonHandler extends InteractionHandler {
 
 		const components = [
 			new MessageActionRow().addComponents(
-				new MessageButton().setLabel('Event Name').setStyle('DANGER').setCustomId(ButtonCustomIds.EventName),
-				new MessageButton()
-					.setLabel('Registration Channel')
-					.setStyle('DANGER')
-					.setCustomId(ButtonCustomIds.EventRegistrationChannel),
-				new MessageButton()
-					.setLabel('Event Start Role Ping')
-					.setStyle('DANGER')
-					.setCustomId(ButtonCustomIds.EventStartRolePing),
-				new MessageButton()
-					.setLabel('Event End Role Ping')
-					.setStyle('DANGER')
-					.setCustomId(ButtonCustomIds.EventEndRolePing)
+				new MessageSelectMenu()
+					.setCustomId(SelectMenuCustomIds.CWLEventConfig)
+					.setPlaceholder('Select a config to set')
+					.addOptions([
+						{ label: '✍🏻 Event Name', value: SelectMenuOptionsValue.EventName },
+						{ label: '#️⃣ Registration Channel', value: SelectMenuOptionsValue.EventRegistrationChannel },
+						{ label: '＠ Event Start Role Ping', value: SelectMenuOptionsValue.EventStartRolePing },
+						{ label: '＠ Event End Role Ping', value: SelectMenuOptionsValue.EventEndRolePing }
+					])
 			),
 			new MessageActionRow().addComponents(
 				new MessageButton()
