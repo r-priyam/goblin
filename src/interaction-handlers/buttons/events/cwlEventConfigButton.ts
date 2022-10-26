@@ -29,7 +29,6 @@ export class ButtonHandler extends InteractionHandler {
 			return this.none();
 		}
 
-		await interaction.deferUpdate();
 		checkUser(interaction.message.interaction!.user.id, interaction.user.id);
 
 		if (interaction.customId.startsWith(ButtonCustomIds.EventName)) {

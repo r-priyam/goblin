@@ -77,6 +77,8 @@ export function extractConfigsFromValues(values: string[], isSubmit = false) {
 				val = null;
 			}
 
+			// Remove all the special characters to be easily parsed
+			val = val?.replace(/[^\d A-Za-z]/g, '') ?? null;
 			switch (index) {
 				case 0:
 					valuesToReturn.eventName = val;

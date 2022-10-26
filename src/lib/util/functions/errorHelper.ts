@@ -64,6 +64,10 @@ export async function sendErrorToUser(interaction: Interaction, embed: MessageEm
 	if (!interaction.isSelectMenu() && !interaction.isButton() && !interaction.isModalSubmit()) return;
 
 	if (followUp) {
+		if (!interaction.deferred) {
+			await interaction.deferUpdate();
+		}
+
 		return interaction.followUp({ embeds: [embed], ephemeral: true });
 	}
 

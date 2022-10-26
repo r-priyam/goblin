@@ -14,8 +14,6 @@ import { seconds } from '#utils/functions/time';
 	interactionHandlerType: InteractionHandlerTypes.Button
 })
 export class ButtonHandler extends InteractionHandler {
-	#keepNumbesRegex = /[^\d A-Za-z]/g;
-
 	public override async run(interaction: ButtonInteraction, result: InteractionHandler.ParseResult<this>) {
 		if (result.type === 'followup') {
 			return interaction.followUp({ embeds: [result.embed], ephemeral: true });
@@ -44,14 +42,13 @@ export class ButtonHandler extends InteractionHandler {
 		}
 
 		const rawConfigValues = interaction.message.embeds[0].description?.split('\n').slice(3, 7);
-		const parsedData = extractConfigsFromValues(rawConfigValues!, true);
-
-		const registrationChannel = parsedData.registrationChannel!.replace(this.#keepNumbesRegex, '');
-		const startRolePing = parsedData.startRolePing?.replace(this.#keepNumbesRegex, '') ?? null;
-		const endRolePing = parsedData.endRolePing?.replace(this.#keepNumbesRegex, '') ?? null;
+		const { eventName, registrationChannel, startRolePing, endRolePing } = extractConfigsFromValues(
+			rawConfigValues!,
+			true
+		);
 
 		const messageId = await this.sendEventStartMessage(
-			parsedData.eventName!,
+			eventName!,
 			registrationChannel!,
 			interaction.user.id,
 			startRolePing
@@ -66,7 +63,7 @@ export class ButtonHandler extends InteractionHandler {
 			                    start_role_ping_id,
 			                    end_role_ping_id,
 			                    author_id)
-			VALUES (${parsedData.eventName},
+			VALUES (${eventName},
 			        'cwl',
 			        ${interaction.guildId},
 			        ${registrationChannel},
@@ -77,16 +74,14 @@ export class ButtonHandler extends InteractionHandler {
 			RETURNING id`;
 
 		const messageUrl = `https://discord.com/channels/${interaction.guildId}/${interaction.channelId}/${messageId}`;
-		await this.sendSuccessToAuthor(interaction.user, id, parsedData.eventName!, messageUrl);
+		await this.sendSuccessToAuthor(interaction.user, id, eventName!, messageUrl);
 
 		return this.some({
 			type: 'edit',
 			embed: new MessageEmbed()
 				.setTitle(`${Emotes.Success} Success`)
 				.setDescription(
-					`Created ${
-						parsedData.eventName
-					} successfully. I have attempted to send you the important information of event in DM. Event registation message link - [${bold(
+					`Created ${eventName} successfully. I have attempted to send you the important information of event in DM. Event registation message link - [${bold(
 						'Click me'
 					)}](${messageUrl})`
 				)
