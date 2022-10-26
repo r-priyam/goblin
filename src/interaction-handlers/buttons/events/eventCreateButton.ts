@@ -4,7 +4,7 @@ import { MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
 
 import type { ButtonInteraction } from 'discord.js';
 
-import { ButtonCustomIds, Colors } from '#utils/constants';
+import { ButtonCustomIds, Colors, Emotes } from '#utils/constants';
 import { checkUser, eventConfigMessage } from '#utils/functions/eventHelpers';
 
 @ApplyOptions<InteractionHandler.Options>({
@@ -76,13 +76,13 @@ export class ButtonHandler extends InteractionHandler {
 			new MessageActionRow().addComponents(
 				new MessageButton()
 					.setLabel('Submit')
-					.setStyle('PRIMARY')
-					.setEmoji('✅')
+					.setStyle('SECONDARY')
+					.setEmoji(Emotes.Success)
 					.setCustomId(ButtonCustomIds.EventSubmit),
 				new MessageButton()
 					.setLabel('Cancel')
-					.setStyle('PRIMARY')
-					.setEmoji('❌')
+					.setStyle('SECONDARY')
+					.setEmoji(Emotes.Error)
 					.setCustomId(ButtonCustomIds.EventCancel)
 			)
 		];
