@@ -24,6 +24,7 @@
 		"start": "node --enable-source-maps dist/goblin.js",
 		"sync-docker": "node scripts/syncDocker.mjs",
 		"typecheck": "tsc -b src",
+		"update": "yarn upgrade-interactive",
 		"watch": "tsup --watch"
 	},
 	"commitlint": {
