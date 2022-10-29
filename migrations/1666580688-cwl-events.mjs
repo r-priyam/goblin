@@ -89,7 +89,7 @@ $$ language 'plpgsql';
             FOR EACH ROW
         EXECUTE PROCEDURE unique_short_id();
 
-        COMMENT ON TRIGGER set_events_whitelist_id ON events IS 'Sets the id field for each whitelisted user';
+        COMMENT ON TRIGGER set_events_whitelist_id ON events_whitelist IS 'Sets the id field for each whitelisted user';
         COMMENT ON COLUMN events_whitelist.id IS 'The user unique whitelist id';
         COMMENT ON COLUMN events_whitelist.user_id IS 'The whitelisted user id';
     `);
