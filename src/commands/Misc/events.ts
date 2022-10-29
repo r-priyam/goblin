@@ -1,11 +1,14 @@
+import { bold } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
+import { UserError } from '@sapphire/framework';
 import { MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
 
 import type { GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
 import type { CommandInteraction } from 'discord.js';
 
 import { GoblinSubCommand } from '#lib/extensions/GoblinSubCommand';
-import { ButtonCustomIds, Colors } from '#utils/constants';
+import { Prompter } from '#utils/classes/prompter';
+import { ButtonCustomIds, Colors, ErrorIdentifiers } from '#utils/constants';
 
 @ApplyOptions<GoblinSubCommandOptions>({
 	command: (builder) =>
@@ -59,5 +62,45 @@ export class EventCommands extends GoblinSubCommand {
 		});
 	}
 
-	public async deleteEvent(interaction: CommandInteraction<'cached'>) {}
+	public async deleteEvent(interaction: CommandInteraction<'cached'>) {
+		await interaction.deferReply();
+
+		const eventId = interaction.options.getString('id', true).trim();
+
+		const [{ exists }] = await this.sql<[{ exists: boolean }]>`SELECT EXISTS
+                                                                            (SELECT *
+                                                                             FROM events
+                                                                             WHERE id = ${eventId}
+                                                                               AND guild_id = ${interaction.guildId})`;
+
+		if (!exists) {
+			throw new UserError({
+				identifier: ErrorIdentifiers.DatabaseError,
+				message: `No event exist with the ${bold(`ID: ${eventId}`)} in this server, please cross check the id`
+			});
+		}
+
+		const prompter = new Prompter(
+			interaction,
+			`Are you sure that you want to delete the event? ${bold(
+				'Be aware that, it will delete all data related to event.'
+			)}`
+		);
+		const response = await prompter.prompt();
+
+		if (!response) return;
+
+		await this.sql`DELETE
+                       FROM events
+                       WHERE id = ${eventId}`;
+
+		return interaction.editReply({
+			embeds: [
+				new MessageEmbed()
+					.setTitle('Success')
+					.setDescription('Event and all releated data deleted successfully! Hoping to serve you again soon.')
+					.setColor(Colors.Green)
+			]
+		});
+	}
 }
