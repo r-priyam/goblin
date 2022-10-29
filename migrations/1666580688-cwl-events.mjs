@@ -99,11 +99,14 @@ $$ language 'plpgsql';
         CREATE TABLE cwl_applications
         (
             id               SERIAL PRIMARY KEY,
-            tournament_id    BIGINT NOT NULL,
-            discord_id       TEXT   NOT NULL,
-            discord_name     TEXT   NOT NULL,
-            player_name      TEXT   NOT NULL,
-            player_tag       TEXT   NOT NULL,
+            event_id         TEXT NOT NULL
+                CONSTRAINT cwl_applications_events_id_fk
+                    REFERENCES events (id)
+                    ON DELETE CASCADE,
+            discord_id       TEXT NOT NULL,
+            discord_name     TEXT NOT NULL,
+            player_name      TEXT NOT NULL,
+            player_tag       TEXT NOT NULL,
             town_hall        INTEGER                  DEFAULT 0,
             barbarian_king   INTEGER                  DEFAULT 0,
             archer_queen     INTEGER                  DEFAULT 0,
@@ -121,10 +124,10 @@ $$ language 'plpgsql';
             registered_at    TIMESTAMP WITH TIME ZONE DEFAULT NOW()
         );
 
-        CREATE UNIQUE INDEX idx_user_applications ON cwl_applications (tournament_id, player_tag);
+        CREATE UNIQUE INDEX idx_user_applications ON cwl_applications (event_id, player_tag);
 
         COMMENT ON COLUMN cwl_applications.id IS 'The application unique id';
-        COMMENT ON COLUMN cwl_applications.tournament_id IS 'The tournament id to which this application belongs to';
+        COMMENT ON COLUMN cwl_applications.event_id IS 'The event id to which this application belongs to';
         COMMENT ON COLUMN cwl_applications.discord_id IS 'The applicant discord id';
         COMMENT ON COLUMN cwl_applications.discord_name IS 'The applicant discord user name';
         COMMENT ON COLUMN cwl_applications.player_name IS 'The applicant player name';
@@ -199,7 +202,7 @@ BEGIN
                opt_in_day_seven,
                registered_at
         FROM cwl_applications
-        WHERE tournament_id = $1
+        WHERE event_id = $1
         ORDER BY town_hall DESC,
                  barbarian_king DESC,
                  archer_queen DESC,
