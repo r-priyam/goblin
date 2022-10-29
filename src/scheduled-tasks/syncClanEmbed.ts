@@ -11,7 +11,7 @@ import { BlueNumberEmotes, TownHallEmotes } from '#lib/coc';
 import { logInfo, logWarning } from '#utils/functions/logging';
 
 @ApplyOptions<ScheduledTask.Options>({
-	cron: '00 */2 * * *',
+	pattern: '00 */2 * * *',
 	bullJobsOptions: {
 		removeOnComplete: true
 	}

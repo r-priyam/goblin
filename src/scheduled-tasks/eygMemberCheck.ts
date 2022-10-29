@@ -9,7 +9,7 @@ import type { TextChannel } from 'discord.js';
 import { Colors } from '#utils/constants';
 
 @ApplyOptions<ScheduledTask.Options>({
-	cron: '*/01 * * * *',
+	pattern: '*/01 * * * *',
 	bullJobsOptions: {
 		removeOnComplete: true
 	}
