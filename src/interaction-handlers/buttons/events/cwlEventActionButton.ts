@@ -3,6 +3,7 @@ import { Time } from '@sapphire/cron';
 import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes, Result, UserError } from '@sapphire/framework';
 import { MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
+import { nanoid } from 'nanoid';
 
 import type { ButtonInteraction, TextChannel, User } from 'discord.js';
 
@@ -47,34 +48,39 @@ export class ButtonHandler extends InteractionHandler {
 			true
 		);
 
+		const eventId = nanoid(16).replace('-', '');
+
 		const messageId = await this.sendEventStartMessage(
 			eventName!,
 			registrationChannel!,
 			interaction.user.id,
+			eventId,
 			startRolePing
 		);
 
-		const [{ id }] = await this.sql<[{ id: string }]>`
-			INSERT INTO events (name,
-			                    type,
-			                    guild_id,
-			                    channel_id,
-								message_id,
-			                    start_role_ping_id,
-			                    end_role_ping_id,
-			                    author_id)
-			VALUES (${eventName},
-			        'cwl',
-			        ${interaction.guildId},
-			        ${registrationChannel},
-					${messageId},
-			        ${startRolePing},
-			        ${endRolePing},
-			        ${interaction.user.id})
-			RETURNING id`;
+		await this.sql`
+            INSERT INTO events (id,
+                                name,
+                                type,
+                                guild_id,
+                                channel_id,
+                                message_id,
+                                start_role_ping_id,
+                                end_role_ping_id,
+                                author_id)
+            VALUES (${eventId},
+                    ${eventName},
+                    'cwl',
+                    ${interaction.guildId},
+                    ${registrationChannel},
+                    ${messageId},
+                    ${startRolePing},
+                    ${endRolePing},
+                    ${interaction.user.id})
+        `;
 
 		const messageUrl = `https://discord.com/channels/${interaction.guildId}/${interaction.channelId}/${messageId}`;
-		await this.sendSuccessToAuthor(interaction.user, id, eventName!, messageUrl);
+		await this.sendSuccessToAuthor(interaction.user, eventId, eventName!, messageUrl);
 
 		return this.some({
 			type: 'edit',
@@ -89,7 +95,13 @@ export class ButtonHandler extends InteractionHandler {
 		});
 	}
 
-	private async sendEventStartMessage(name: string, channelId: string, authorId: string, pingToRole: string | null) {
+	private async sendEventStartMessage(
+		name: string,
+		channelId: string,
+		authorId: string,
+		eventId: string,
+		pingToRole: string | null
+	) {
 		const channel = await this.client.channels.fetch(channelId);
 		if (!channel) {
 			throw new UserError({
@@ -121,11 +133,11 @@ ${bold('Tip')} Click on buttons to see what they can do? 🤪😉`
 						new MessageButton()
 							.setLabel('Register')
 							.setStyle('SUCCESS')
-							.setCustomId(ButtonCustomIds.CWLEventRegister),
+							.setCustomId(`${ButtonCustomIds.CWLEventRegister}-${eventId}`),
 						new MessageButton()
 							.setLabel('Unregister')
 							.setStyle('DANGER')
-							.setCustomId(ButtonCustomIds.CWLEventUnregister)
+							.setCustomId(`${ButtonCustomIds.CWLEventUnregister}-${eventId}`)
 					)
 				]
 			})

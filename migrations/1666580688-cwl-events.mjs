@@ -54,13 +54,6 @@ $$ language 'plpgsql';
             ends_at            TIMESTAMP WITH TIME ZONE DEFAULT NOW() + '7 DAYS':: INTERVAL
         );
 
-        CREATE TRIGGER set_events_id
-            BEFORE INSERT
-            ON events
-            FOR EACH ROW
-        EXECUTE PROCEDURE unique_short_id();
-
-        COMMENT ON TRIGGER set_events_id ON events IS 'Sets the id field for each event';
         COMMENT ON COLUMN events.id IS 'The event unique id';
         COMMENT ON COLUMN events.name IS 'The event name';
         COMMENT ON COLUMN events.type IS 'The type of event';
