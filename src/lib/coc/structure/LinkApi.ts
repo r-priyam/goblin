@@ -6,10 +6,9 @@ import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
 import { Util } from 'clashofclans.js';
 import { fetch } from 'undici';
 
-import type { ClanOrPlayerCache } from '#lib/redis-cache/RedisCacheClient';
 import type { RequestOptions } from 'clashofclans.js';
 
-import { CacheIdentifiers } from '#utils/constants';
+import { RedisKeys } from '#utils/constants';
 import { seconds } from '#utils/functions/time';
 
 export class LinkApi {
@@ -29,7 +28,7 @@ export class LinkApi {
 	}
 
 	public async getLinks(tagOrId: string) {
-		const cachedData = await container.redis.fetch<string[]>(`${CacheIdentifiers.Links}-${tagOrId}`);
+		const cachedData = await container.redis.fetch(RedisKeys.Links, tagOrId);
 
 		if (isNullish(cachedData)) {
 			const data = await this.request<{ discordId: string; playerTag: string }[]>(`/links/${tagOrId}`, {
@@ -38,7 +37,7 @@ export class LinkApi {
 			if (isNullishOrEmpty(data)) return null;
 
 			const linkApiTags = data.map((linkData) => linkData.playerTag);
-			const cachedTags = ((await container.redis.fetch<ClanOrPlayerCache[]>(`p-${tagOrId}`)) ?? []).map(
+			const cachedTags = ((await container.redis.fetch(RedisKeys.Player, tagOrId)) ?? []).map(
 				(data) => data?.tag
 			);
 
@@ -60,12 +59,14 @@ export class LinkApi {
                            ON CONFLICT DO NOTHING`;
 
 			await container.redis.insert(
-				`${CacheIdentifiers.Player}-${tagOrId}`,
+				RedisKeys.Player,
+				tagOrId,
 				playersData.map((player) => ({ name: player.name, tag: player.tag }))
 			);
 
 			await container.redis.insertWithExpiry(
-				`${CacheIdentifiers.Links}-${tagOrId}`,
+				RedisKeys.Links,
+				tagOrId,
 				tagsToFetch,
 				seconds.fromMilliseconds(Time.Minute * 5)
 			);
@@ -81,7 +82,7 @@ export class LinkApi {
 
 	public async deleteLink(tag: string, userId: string) {
 		await this.request(`/links/${encodeURIComponent(tag)}`, { method: 'DELETE' });
-		return container.redis.delete(`links-${userId}`);
+		return container.redis.delete(RedisKeys.Links, userId);
 	}
 
 	private async request<T>(path: string, options: RequestOptions = {}): Promise<T> {

@@ -68,9 +68,9 @@ export const enum ErrorIdentifiers {
 	WrongTag = 'WrongTag'
 }
 
-export const enum CacheIdentifiers {
+export const enum RedisKeys {
 	Clan = 'c',
-	ClanAliasCachees = 'clan-aliases',
+	ClanAlias = 'clan-aliases',
 	Links = 'links',
 	Player = 'p'
 }

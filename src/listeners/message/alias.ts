@@ -3,12 +3,11 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { Events, Listener, Result } from '@sapphire/framework';
 import { MessageEmbed } from 'discord.js';
 
-import type { ClanAliasCache } from '#lib/redis-cache/RedisCacheClient';
 import type { Clan } from 'clashofclans.js';
 import type { Message } from 'discord.js';
 
 import { MiscEmotes } from '#lib/coc';
-import { Colors } from '#utils/constants';
+import { Colors, RedisKeys } from '#utils/constants';
 
 @ApplyOptions<Listener.Options>({
 	name: 'AliasMessageCreate',
@@ -18,7 +17,7 @@ export class BotListener extends Listener<typeof Events.MessageCreate> {
 	public async run(message: Message) {
 		if (message.author.bot || message.content.length > 6) return;
 
-		const cachedAlias = await this.redis.fetch<ClanAliasCache[]>('clan-aliases');
+		const cachedAlias = await this.redis.fetch(RedisKeys.ClanAlias, undefined);
 		const parsedMessage = message.content.toUpperCase().split(' ', 1)[0];
 
 		if (!cachedAlias) return;

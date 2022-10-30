@@ -6,13 +6,12 @@ import { Util } from 'clashofclans.js';
 import { MessageEmbed, CommandInteraction } from 'discord.js';
 
 import type { GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
-import type { ClanAliasCache } from '#lib/redis-cache/RedisCacheClient';
 import type { GuildMember } from 'discord.js';
 
 import { ValidateTag } from '#lib/decorators/ValidateTag';
 import { GoblinSubCommand } from '#lib/extensions/GoblinSubCommand';
 import { RedisMethods } from '#lib/redis-cache/RedisCacheClient';
-import { Colors, Emotes, ErrorIdentifiers } from '#utils/constants';
+import { Colors, Emotes, ErrorIdentifiers, RedisKeys } from '#utils/constants';
 import { addTagOption } from '#utils/functions/commandOptions';
 
 @ApplyOptions<GoblinSubCommandOptions>({
@@ -129,7 +128,7 @@ export class AliasCommand extends GoblinSubCommand {
 	public async listAlias(interaction: CommandInteraction<'cached'>) {
 		await interaction.deferReply();
 
-		const aliases = await this.redis.fetch<ClanAliasCache[]>('clan-aliases');
+		const aliases = await this.redis.fetch(RedisKeys.ClanAlias, undefined);
 		let aliasList = 'Clan Name         Tag          Alias\n';
 
 		for (const { name, tag, alias } of aliases!) {

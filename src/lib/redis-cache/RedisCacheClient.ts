@@ -1,9 +1,9 @@
-import { container } from '@sapphire/framework';
+import { container, Result } from '@sapphire/framework';
 import { isNullish } from '@sapphire/utilities';
 import { envParseInteger, envParseString } from '@skyra/env-utilities';
 import Redis from 'ioredis';
 
-import { CacheIdentifiers } from '#utils/constants';
+import { RedisKeys } from '#utils/constants';
 
 export interface ClanOrPlayerCache {
 	name: string;
@@ -28,40 +28,36 @@ export class GoblinRedisClient extends Redis {
 		});
 	}
 
-	/**
-	 *
-	 * @param key - Key to set in the cache
-	 * @param value - Value to set against the passed key
-	 */
-	public async insert(key: string, value: any) {
-		return this.set(key, JSON.stringify(value));
+	public async insert<K extends RedisKeys>(key: K, query: RedisKeyQuery<K>, data: RedisData<K>) {
+		return this.set(query ? `${key}-${query}` : key, JSON.stringify(data));
 	}
 
-	/**
-	 *
-	 * @param key - Key to set in the cache
-	 * @param value - Value to set against the passed key
-	 * @param expiry - Number of seconds after which key should expire
-	 */
-	public async insertWithExpiry(key: string, value: any, expiry: number) {
-		return this.set(key, JSON.stringify(value), 'EX', expiry);
+	public async insertWithExpiry<K extends RedisKeys>(
+		key: K,
+		query: RedisKeyQuery<K>,
+		data: RedisData<K>,
+		expiry: number
+	) {
+		return this.set(query ? `${key}-${query}` : key, JSON.stringify(data), 'EX', expiry);
 	}
 
-	/**
-	 *
-	 * @param key - Cache key to fetch data for
-	 */
-	public async fetch<k>(key: string): Promise<k | null> {
-		const data = await this.get(key);
-		return isNullish(data) ? null : JSON.parse(data);
+	public async fetch<K extends RedisKeys>(key: K, query: RedisKeyQuery<K>) {
+		const result = await Result.fromAsync(async () => {
+			const raw = await this.get(query ? `${key}-${query}` : key);
+
+			if (isNullish(raw)) return raw;
+
+			return JSON.parse(raw) as RedisData<K>;
+		});
+
+		return result.match({
+			ok: (data) => data,
+			err: () => null
+		});
 	}
 
-	/**
-	 *
-	 * @param key - Cache key to delete
-	 */
-	public async delete(key: string) {
-		return this.del(key);
+	public async delete<K extends RedisKeys>(key: K, query: RedisKeyQuery<K>) {
+		return this.del(query ? `${key}-${query}` : key);
 	}
 
 	public async handleClanOrPlayerCacheCache(
@@ -71,45 +67,65 @@ export class GoblinRedisClient extends Redis {
 		tag: string,
 		name?: string
 	) {
-		const initial = type === 'CLAN' ? CacheIdentifiers.Clan : CacheIdentifiers.Player;
-		const cachedData = await this.fetch<ClanOrPlayerCache[]>(`${initial}-${userId}`);
+		const initial = type === 'CLAN' ? RedisKeys.Clan : RedisKeys.Player;
+		const cachedData = await this.fetch(initial, userId);
 
 		if (method === RedisMethods.Insert) {
 			if (isNullish(cachedData)) {
-				const data = await container.sql`SELECT player_name AS "name", player_tag AS "tag"
+				const data = await container.sql<ClanOrPlayerCache[]>`SELECT player_name AS "name", player_tag AS "tag"
 				                                  FROM players
 										        WHERE user_id = ${userId}`;
-				return this.insert(`${initial}-${userId}`, data);
+				return this.insert(initial, userId, data);
 			}
 
 			cachedData.push({ name: name!, tag });
-			return this.insert(`${initial}-${userId}`, cachedData);
+			return this.insert(initial, userId, cachedData);
 		}
 
 		if (isNullish(cachedData)) return;
 
 		const updated = cachedData.filter((data) => data.tag !== tag);
 		return updated.length === 0
-			? this.delete(`${initial}-${userId}`)
+			? this.delete(initial, userId)
 			: this.set(`${initial}-${userId}`, JSON.stringify(updated));
 	}
 
 	public async handleAliasOperations(method: string, tag: string, alias: string, name?: string) {
-		const cachedAlias = await this.fetch<ClanAliasCache[]>(CacheIdentifiers.ClanAliasCachees);
+		const cachedAlias = await this.fetch(RedisKeys.ClanAlias, undefined);
 
 		if (method === RedisMethods.Insert) {
 			if (isNullish(cachedAlias))
-				return this.insert(CacheIdentifiers.ClanAliasCachees, [{ name: name!, tag, alias }]);
+				return this.insert(RedisKeys.ClanAlias, undefined, [{ name: name!, tag, alias }]);
 
 			cachedAlias.push({ name: name!, tag, alias });
-			return this.insert(CacheIdentifiers.ClanAliasCachees, cachedAlias);
+			return this.insert(RedisKeys.ClanAlias, undefined, cachedAlias);
 		}
 
 		if (isNullish(cachedAlias)) return;
 
 		const updated = cachedAlias.filter((data) => data.tag === tag);
 		return updated.length === 0
-			? this.delete(CacheIdentifiers.ClanAliasCachees)
-			: this.insert(CacheIdentifiers.ClanAliasCachees, updated);
+			? this.delete(RedisKeys.ClanAlias, undefined)
+			: this.insert(RedisKeys.ClanAlias, undefined, updated);
 	}
 }
+
+type RedisKeyQuery<K extends RedisKeys> = K extends 'p'
+	? string
+	: K extends 'c'
+	? string
+	: K extends 'links'
+	? string
+	: K extends 'clan-aliases'
+	? undefined
+	: never;
+
+type RedisData<K extends RedisKeys> = K extends 'p'
+	? ClanOrPlayerCache[]
+	: K extends 'c'
+	? ClanOrPlayerCache[]
+	: K extends 'links'
+	? string[]
+	: K extends 'clan-aliases'
+	? ClanAliasCache[]
+	: never;

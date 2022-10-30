@@ -7,7 +7,7 @@ import Fuse from 'fuse.js';
 import type { ClanOrPlayerCache } from '#lib/redis-cache/RedisCacheClient';
 import type { AutocompleteInteraction } from 'discord.js';
 
-import { CacheIdentifiers } from '#utils/constants';
+import { RedisKeys } from '#utils/constants';
 
 @ApplyOptions<InteractionHandler.Options>({
 	interactionHandlerType: InteractionHandlerTypes.Autocomplete
@@ -18,8 +18,8 @@ export class AutocompleteHandler extends InteractionHandler {
 	}
 
 	public override async parse(interaction: AutocompleteInteraction) {
-		const identifier = interaction.commandName === 'player' ? CacheIdentifiers.Player : CacheIdentifiers.Clan;
-		const cachedData = (await this.redis.fetch<ClanOrPlayerCache[]>(`${identifier}-${interaction.user.id}`)) ?? [];
+		const identifier = interaction.commandName === 'player' ? RedisKeys.Player : RedisKeys.Clan;
+		const cachedData = (await this.redis.fetch(identifier, interaction.user.id)) ?? [];
 
 		const tag = interaction.options.getFocused(true).value.trim();
 
@@ -41,10 +41,10 @@ export class AutocompleteHandler extends InteractionHandler {
 		return this.some(this.getFuzzyMatches(tag, matches));
 	}
 
-	private async handleNoRedisCache(userId: string, identifier: 'c' | 'p') {
-		let data: any;
+	private async handleNoRedisCache(userId: string, identifier: RedisKeys.Clan | RedisKeys.Player) {
+		let data: ClanOrPlayerCache[];
 
-		if (identifier === CacheIdentifiers.Player) {
+		if (identifier === RedisKeys.Player) {
 			data = await this.sql`SELECT player_name AS "name", player_tag AS "tag"
                                           FROM players
                                           WHERE user_id = ${userId}`;
@@ -55,7 +55,8 @@ export class AutocompleteHandler extends InteractionHandler {
 		}
 
 		if (isNullishOrEmpty(data)) return this.none();
-		await this.redis.insert(`${identifier}-${userId}`, data);
+
+		await this.redis.insert(identifier, userId, data);
 		return this.some(this.handleNoFocusedValue(data as unknown as ClanOrPlayerCache[]));
 	}
 
