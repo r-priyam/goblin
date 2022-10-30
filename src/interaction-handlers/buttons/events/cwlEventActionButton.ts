@@ -42,7 +42,7 @@ export class ButtonHandler extends InteractionHandler {
 			});
 		}
 
-		const rawConfigValues = interaction.message.embeds[0].description?.split('\n').slice(3, 7);
+		const rawConfigValues = interaction.message.embeds[0].description?.split('\n').slice(1, 5);
 		const { eventName, registrationChannel, startRolePing, endRolePing } = extractConfigsFromValues(
 			rawConfigValues!,
 			true

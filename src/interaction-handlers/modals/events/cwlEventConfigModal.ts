@@ -28,7 +28,7 @@ export class StartClanEmbedModal extends InteractionHandler {
 		await interaction.deferUpdate();
 		checkUser(interaction.message!.interaction!.user.id, interaction.user.id);
 
-		const rawConfigValues = interaction.message?.embeds[0].description?.split('\n').slice(3, 7);
+		const rawConfigValues = interaction.message?.embeds[0].description?.split('\n').slice(1, 5);
 		const parsedData = extractConfigsFromValues(rawConfigValues!);
 
 		const eventName = this.getConfigValue(interaction.fields, ModalInputCustomIds.EventName);
