@@ -1291,10 +1291,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^18.11.8":
-  version: 18.11.8
-  resolution: "@types/node@npm:18.11.8"
-  checksum: 60b358f97c1a029722dc785811b217615ef20249c3fbde60a65869cfd7a5cd5b1872ee95c79c187ef70e5a078f4ac7670d2129803985268b1f021ad6e8040af8
+"@types/node@npm:^18.11.9":
+  version: 18.11.9
+  resolution: "@types/node@npm:18.11.9"
+  checksum: cc0aae109e9b7adefc32eecb838d6fad931663bb06484b5e9cbbbf74865c721b03d16fd8d74ad90e31dbe093d956a7c2c306ba5429ba0c00f3f7505103d7a496
   languageName: node
   linkType: hard
 
@@ -4607,7 +4607,7 @@ __metadata:
     "@swc/core": ^1.3.11
     "@types/figlet": ^1.5.5
     "@types/gradient-string": ^1.1.2
-    "@types/node": ^18.11.8
+    "@types/node": ^18.11.9
     "@typescript-eslint/eslint-plugin": ^5.42.0
     "@typescript-eslint/parser": ^5.42.0
     bufferutil: ^4.0.7
@@ -4624,14 +4624,14 @@ __metadata:
     fuse.js: ^6.6.2
     gradient-string: ^2.0.2
     husky: ^8.0.1
-    ioredis: ^5.2.3
+    ioredis: ^5.2.4
     lint-staged: ^13.0.3
     markdown-table: ^3.0.2
     postgres: ^3.3.1
     prettier: ^2.7.1
     pretty-quick: ^3.1.3
     reflect-metadata: ^0.1.13
-    string-strip-html: ^11.6.17
+    string-strip-html: ^11.6.19
     tsup: ^6.3.0
     typescript: ^4.8.4
     undici: ^5.12.0
@@ -4953,7 +4953,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ioredis@npm:^5.2.2, ioredis@npm:^5.2.3":
+"ioredis@npm:^5.2.2":
   version: 5.2.3
   resolution: "ioredis@npm:5.2.3"
   dependencies:
@@ -4967,6 +4967,23 @@ __metadata:
     redis-parser: ^3.0.0
     standard-as-callback: ^2.1.0
   checksum: 2cb7f0f4217e6774accad3620af1b7114722721c1d1824be2c9f0c2a77ab9629f2e0848d18b1a7208bc37796ae1207cb3e0898fce61900cfe797da0382724ad1
+  languageName: node
+  linkType: hard
+
+"ioredis@npm:^5.2.4":
+  version: 5.2.4
+  resolution: "ioredis@npm:5.2.4"
+  dependencies:
+    "@ioredis/commands": ^1.1.1
+    cluster-key-slot: ^1.1.0
+    debug: ^4.3.4
+    denque: ^2.0.1
+    lodash.defaults: ^4.2.0
+    lodash.isarguments: ^3.1.0
+    redis-errors: ^1.2.0
+    redis-parser: ^3.0.0
+    standard-as-callback: ^2.1.0
+  checksum: c3a7df407a41ae516bede8b6db853c568198b13fe4a4785f66be5cd541087121b9d45fb9a6b1b6a5fb668c29ce52ab4685642b994803bdfa0a35f794ea8ef7ae
   languageName: node
   linkType: hard
 
@@ -6652,40 +6669,40 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ranges-apply@npm:^6.2.9":
-  version: 6.2.9
-  resolution: "ranges-apply@npm:6.2.9"
+"ranges-apply@npm:^6.2.11":
+  version: 6.2.11
+  resolution: "ranges-apply@npm:6.2.11"
   dependencies:
-    ranges-merge: ^8.2.4
+    ranges-merge: ^8.2.6
     tiny-invariant: ^1.3.1
-  checksum: 087a93097e2fa931b8417064c2ac5b139dae99f53ab7925d85e98de3678585783f87aa7c53b53ee01a1a431ccd07d9a2b6458be3f9f8eb5c79b900ff5dd61685
+  checksum: 453a7c54523a0cd9c3ea0a26546f60251846fdd5d45408433078866241ed5e091f76f4c942faa535ac7bfd930bcf9388b09a00e137652d9a64cbce88b147637a
   languageName: node
   linkType: hard
 
-"ranges-merge@npm:^8.2.4":
-  version: 8.2.4
-  resolution: "ranges-merge@npm:8.2.4"
+"ranges-merge@npm:^8.2.6":
+  version: 8.2.6
+  resolution: "ranges-merge@npm:8.2.6"
   dependencies:
-    ranges-push: ^6.2.4
-    ranges-sort: ^5.1.3
-  checksum: 30c7833c64a868eae942ae51bd912f55b3b34874c2013b64480eb35dcab02bbf1d03a4367cb8fddaca972ee8510705ec8da788ab1081d57fa8fa1b68f6557ebe
+    ranges-push: ^6.2.6
+    ranges-sort: ^5.1.5
+  checksum: c0b318b50a6ddf28cb2a5be1b89544b427591a88bd88f4ab7eefac6c89b0fc05de4166d06a12eb250914ac256c8f2026989d130f3c6aebe7ae2c9f7db1cfaae4
   languageName: node
   linkType: hard
 
-"ranges-push@npm:^6.2.4":
-  version: 6.2.4
-  resolution: "ranges-push@npm:6.2.4"
+"ranges-push@npm:^6.2.6":
+  version: 6.2.6
+  resolution: "ranges-push@npm:6.2.6"
   dependencies:
-    string-collapse-leading-whitespace: ^6.1.4
-    string-trim-spaces-only: ^4.1.3
-  checksum: 98282d833aaff96704a1adbacc8edccfb15a2fe5f7b60346412556c35cb0f5a67c9f9ead22a40e09de6f2b770be12a150688b2efbe8fb64255cfd55a5749b34d
+    string-collapse-leading-whitespace: ^6.1.6
+    string-trim-spaces-only: ^4.1.5
+  checksum: 3bca5350918a004e5b0ccbd6122cd8942307533953f963d39e85a6d8e35fc5c44972e23200b451fe457d4c06aaebe6b1276860df85fa5834450a91720f7ab642
   languageName: node
   linkType: hard
 
-"ranges-sort@npm:^5.1.3":
-  version: 5.1.3
-  resolution: "ranges-sort@npm:5.1.3"
-  checksum: 9e9ac2377f21375b5ef8d6f7ccb44f1a02c96b328ff9b31fe7a69f9d9367ffd443a6b03caaa40e20c1873c5ef6956d6c57478e6bcdd37c496827cbc9d16cfc09
+"ranges-sort@npm:^5.1.5":
+  version: 5.1.5
+  resolution: "ranges-sort@npm:5.1.5"
+  checksum: 33ed38eb05ad92a0dd2756759e58db8aa6997b40c99c9a1661685689cd1959d0fd6fff03050ae19bf918acbf49d17e8db3b7362312ed86303cdd25424ccae7d1
   languageName: node
   linkType: hard
 
@@ -7288,42 +7305,42 @@ __metadata:
   languageName: node
   linkType: hard
 
-"string-collapse-leading-whitespace@npm:^6.1.4":
-  version: 6.1.4
-  resolution: "string-collapse-leading-whitespace@npm:6.1.4"
-  checksum: c76fe9f7df47f97d1601bfea85562044859bc38802260046b8066364c1c81a8cec198f6f7784ca7e4014657e11961ed680167ea7c4f3ed2fe64f7a04e350ce15
+"string-collapse-leading-whitespace@npm:^6.1.6":
+  version: 6.1.6
+  resolution: "string-collapse-leading-whitespace@npm:6.1.6"
+  checksum: e12a996d0e6d9861d7326fdb2bbd32caed45392c17cff87a509cc6a0c9ff1fe26ca388b240dbfeb60bb8482eaf472e1921116042c230118e02ef6d62be402ce5
   languageName: node
   linkType: hard
 
-"string-left-right@npm:^5.1.4":
-  version: 5.1.4
-  resolution: "string-left-right@npm:5.1.4"
+"string-left-right@npm:^5.1.6":
+  version: 5.1.6
+  resolution: "string-left-right@npm:5.1.6"
   dependencies:
     lodash.clonedeep: ^4.5.0
     lodash.isplainobject: ^4.0.6
-  checksum: d24e0709407ac40f726c5d111bd93d099ab7e3578d8236463657db7a7b6882b1028a2740db94a075796f2a4865493cdc60d82d2f64a5323573eee7a3836b1850
+  checksum: 6ebbd6a0abf4c4b1b3e3f6e0da0af9afed9643374717b8b26ee20ad63e27b100a48e03850a4b70fa68805ba4fecbdb0dff4e4770cb0a0777fbe429e232df9699
   languageName: node
   linkType: hard
 
-"string-strip-html@npm:^11.6.17":
-  version: 11.6.17
-  resolution: "string-strip-html@npm:11.6.17"
+"string-strip-html@npm:^11.6.19":
+  version: 11.6.19
+  resolution: "string-strip-html@npm:11.6.19"
   dependencies:
     html-entities: ^2.3.3
     lodash.isplainobject: ^4.0.6
     lodash.trim: ^4.5.1
     lodash.without: ^4.4.0
-    ranges-apply: ^6.2.9
-    ranges-push: ^6.2.4
-    string-left-right: ^5.1.4
-  checksum: c72074bf3d098dd5b17f1de8ef2c145985a6c7e685acf37f0d5fe8db96ab3919e0dd64f5f82533681b6afe3d4bf2c6872923aed1cee51629fe7e5fe58c9e8cb1
+    ranges-apply: ^6.2.11
+    ranges-push: ^6.2.6
+    string-left-right: ^5.1.6
+  checksum: f966f32034175e5e238e783f1bbbf6a3697a7ca303c8e406cb088dd4dbb8b158da1fb529461f217ff599c02a52bcc7ba6a2b45cc52d8f5e9528c6bb59e946f1e
   languageName: node
   linkType: hard
 
-"string-trim-spaces-only@npm:^4.1.3":
-  version: 4.1.3
-  resolution: "string-trim-spaces-only@npm:4.1.3"
-  checksum: e158cae3272d3ff03d483cff9c16902033c29241c51fc9070a07271a15bb68a9d1a375b012043b2832874db66c7912683e2db4790b34d03275f87d4efc775fb7
+"string-trim-spaces-only@npm:^4.1.5":
+  version: 4.1.5
+  resolution: "string-trim-spaces-only@npm:4.1.5"
+  checksum: b181c798a828921d8699dc62eae9460d5dc08de3955b23255b067f3cd54c7c644a70d55a2c91a2c276da8eee7115957ee309bb18655cf22d86a4ea55bb683b78
   languageName: node
   linkType: hard
 
