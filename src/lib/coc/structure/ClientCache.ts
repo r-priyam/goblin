@@ -1,4 +1,4 @@
-import { container, Result } from '@sapphire/framework';
+import { container } from '@sapphire/framework';
 import { isNullish } from '@sapphire/utilities';
 
 export class ClientCache {
@@ -7,18 +7,8 @@ export class ClientCache {
 	}
 
 	public async get(key: string) {
-		const result: any = await Result.fromAsync(async () => {
-			const raw = await this.get(key);
-
-			if (isNullish(raw)) return raw;
-
-			return JSON.parse(raw);
-		});
-
-		return result.match({
-			ok: (data: any) => data,
-			err: () => null
-		});
+		const data = await container.redis.get(key);
+		return isNullish(data) ? null : JSON.parse(data);
 	}
 
 	public async delete(key: string) {
