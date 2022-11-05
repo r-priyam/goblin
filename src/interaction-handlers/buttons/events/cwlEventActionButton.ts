@@ -36,7 +36,7 @@ export class ButtonHandler extends InteractionHandler {
 				type: 'edit',
 				embed: new MessageEmbed()
 					.setDescription(
-						"Cancelling the new CWL event proceess, I hope that I haven't offended you and you will choose me for your service again 🙂"
+						"Cancelling the new CWL event process, I hope that I haven't offended you and you will choose me for your service again 🙂"
 					)
 					.setColor(Colors.Lime)
 			});
@@ -87,7 +87,7 @@ export class ButtonHandler extends InteractionHandler {
 			embed: new MessageEmbed()
 				.setTitle(`${Emotes.Success} Success`)
 				.setDescription(
-					`Created ${eventName} successfully. I have attempted to send you the important information of event in DM. Event registation message link - [${bold(
+					`Created ${eventName} successfully. I have attempted to send you the important information of event in DM. Event registration message link - [${bold(
 						'Click me'
 					)}](${messageUrl})`
 				)
