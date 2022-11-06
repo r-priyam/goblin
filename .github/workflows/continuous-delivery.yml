@@ -36,6 +36,4 @@ jobs:
           context: ./
           file: Dockerfile
           push: true
-          cache-from: type=registry,ref=ghcr.io/r-priyam/goblin:latest
-          cache-to: type=inline
           tags: ghcr.io/r-priyam/goblin:latest
