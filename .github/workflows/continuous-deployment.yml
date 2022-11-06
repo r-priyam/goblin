@@ -18,7 +18,6 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           user: ${{ secrets.VPS_USER }}
           pass: ${{ secrets.VPS_PASSWORD }}
-          script_stop: true
-          script: |
+          command: |
             cd goblin
             npm run sync-docker
