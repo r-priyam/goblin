@@ -24,8 +24,9 @@ function executeCommand(operation, action) {
 executeCommand('Git fetch origin', () => execSync('git fetch origin'));
 executeCommand('Git reset to origin', () => execSync('git reset --hard origin/main'));
 executeCommand('Git pull', () => execSync('git pull'));
-executeCommand('Stop bot service', () => execSync('docker-compose -f .docker/docker-compose.yml stop bot'));
-executeCommand('Pull bot latest image', () => execSync('docker-compose -f .docker/docker-compose.yml pull bot'));
+executeCommand('Stop bot service', () => execSync('docker compose -f .docker/docker-compose.yml stop bot'));
+executeCommand('Pull bot latest image', () => execSync('docker compose -f .docker/docker-compose.yml pull bot'));
 executeCommand('Run database migration', () => execSync('yarn migrate'));
 executeCommand('Start bot', () => execSync('docker-compose -f .docker/docker-compose.yml up -d bot'));
+executeCommand('Prune images', () => execSync('docker image prune -af'));
 exit(0);
