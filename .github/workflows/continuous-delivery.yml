@@ -33,7 +33,9 @@ jobs:
       - name: Build and Push Docker image
         uses: docker/build-push-action@c56af957549030174b10d6867f20e78cfd7debc5 # tag=v3.2.0
         with:
-          push: true
           context: ./
           file: Dockerfile
+          push: true
+          cache-from: type=registry,ref=ghcr.io/r-priyam/goblin:latest
+          cache-to: type=inline
           tags: ghcr.io/r-priyam/goblin:latest
