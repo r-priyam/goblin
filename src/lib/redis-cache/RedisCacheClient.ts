@@ -103,7 +103,7 @@ export class GoblinRedisClient extends Redis {
 	}
 }
 
-interface ClanOrPlayerCache {
+export interface ClanOrPlayerCache {
 	name: string;
 	tag: string;
 }
