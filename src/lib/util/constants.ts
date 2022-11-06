@@ -56,6 +56,17 @@ export const enum ButtonCustomIds {
 	CWLEventCreate = 'cwl-event-create',
 	CWLEventRegister = 'cwl-event-register',
 	CWLEventUnregister = 'cwl-event-unregister',
+	CWLEventUserRegisterCancel = 'cwl-event-u-register-cancel',
+	CWLEventUserRegisterSubmit = 'cwl-event--u-register-submit',
+	CWLOptInDayFive = 'cwl-opt-in-day-five',
+	CWLOptInDayFour = 'cwl-opt-in-day-four',
+	CWLOptInDayOne = 'cwl-opt-in-day-one',
+	CWLOptInDaySeven = 'cwl-opt-in-day-seven',
+	CWLOptInDaySix = 'cwl-opt-in-day-six',
+	CWLOptInDayThree = 'cwl-opt-in-day-three',
+	CWLOptInDayTwo = 'cwl-opt-in-day-two',
+	CWLWarCasual = 'cwl-war-casual',
+	CWLWarSerious = 'cwl-war-serious',
 	ClanEmbedRequirement = 'add-clan-requirement-button',
 	CustomEventCreate = 'custom-event-create',
 	EventCancel = 'event-cancel',
@@ -64,6 +75,7 @@ export const enum ButtonCustomIds {
 
 export const enum SelectMenuCustomIds {
 	CWLEventConfig = 'cwl-event-config-menu',
+	CWLEventRegister = 'cwl-event-register',
 	Nickname = 'nickname-menu',
 	SuperTroop = 'super-troop-menu'
 }
@@ -89,6 +101,7 @@ export const enum ErrorIdentifiers {
 }
 
 export const enum RedisKeys {
+	CWLEventRegistration = 'cwl-event-registration',
 	Clan = 'c',
 	ClanAlias = 'clan-aliases',
 	Links = 'links',

@@ -2,26 +2,26 @@ import { bold, time, TimestampStyles } from '@discordjs/builders';
 import { Time } from '@sapphire/cron';
 import { MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
 
-import type { CommandInteraction } from 'discord.js';
+import type { CommandInteraction, ButtonInteraction } from 'discord.js';
 
 import { Colors, Emotes } from '#utils/constants';
 import { seconds } from '#utils/functions/time';
 
 export class Prompter {
-	private readonly interaction: CommandInteraction;
+	private readonly interaction: ButtonInteraction | CommandInteraction;
 
 	private readonly message: string;
 
 	private readonly timeout: number;
 
-	public constructor(interaction: CommandInteraction, message: string, timeout?: number) {
+	public constructor(interaction: ButtonInteraction | CommandInteraction, message: string, timeout?: number) {
 		this.interaction = interaction;
 		this.message = message;
 		this.timeout = timeout ?? Time.Minute * 2;
 	}
 
 	public async prompt() {
-		if (this.interaction.replied) {
+		if (this.interaction.replied || this.interaction.deferred) {
 			await this.interaction.editReply({ embeds: [this.prompterEmbed], components: [this.prompterComponent] });
 		} else {
 			await this.interaction.reply({ embeds: [this.prompterEmbed], components: [this.prompterComponent] });

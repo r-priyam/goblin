@@ -3,16 +3,9 @@ import { isNullish } from '@sapphire/utilities';
 import { envParseInteger, envParseString } from '@skyra/env-utilities';
 import Redis from 'ioredis';
 
+import type { MessageSelectOptionData } from 'discord.js';
+
 import { RedisKeys } from '#utils/constants';
-
-export interface ClanOrPlayerCache {
-	name: string;
-	tag: string;
-}
-
-export interface ClanAliasCache extends ClanOrPlayerCache {
-	alias: string;
-}
 
 export const enum RedisMethods {
 	Delete = 'DELETE',
@@ -110,22 +103,35 @@ export class GoblinRedisClient extends Redis {
 	}
 }
 
-type RedisKeyQuery<K extends RedisKeys> = K extends 'p'
+interface ClanOrPlayerCache {
+	name: string;
+	tag: string;
+}
+
+interface ClanAliasCache extends ClanOrPlayerCache {
+	alias: string;
+}
+
+type RedisKeyQuery<K extends RedisKeys> = K extends RedisKeys.Player
 	? string
-	: K extends 'c'
+	: K extends RedisKeys.Clan
 	? string
-	: K extends 'links'
+	: K extends RedisKeys.Links
 	? string
-	: K extends 'clan-aliases'
+	: K extends RedisKeys.ClanAlias
 	? undefined
+	: K extends RedisKeys.CWLEventRegistration
+	? string
 	: never;
 
-type RedisData<K extends RedisKeys> = K extends 'p'
+type RedisData<K extends RedisKeys> = K extends RedisKeys.Player
 	? ClanOrPlayerCache[]
-	: K extends 'c'
+	: K extends RedisKeys.Clan
 	? ClanOrPlayerCache[]
-	: K extends 'links'
+	: K extends RedisKeys.Links
 	? string[]
-	: K extends 'clan-aliases'
+	: K extends RedisKeys.ClanAlias
 	? ClanAliasCache[]
+	: K extends RedisKeys.CWLEventRegistration
+	? MessageSelectOptionData[]
 	: never;

@@ -1,5 +1,8 @@
 import { bold, channelMention, italic, roleMention } from '@discordjs/builders';
 import { UserError } from '@sapphire/framework';
+import { MessageButton } from 'discord.js';
+
+import type { MessageButtonStyleResolvable } from 'discord.js';
 
 import { ErrorIdentifiers, EventConfigDefaultValues } from '#utils/constants';
 
@@ -110,4 +113,17 @@ export function checkUser(originalAuthorId: string, userId: string) {
 			context: { followUp: true }
 		});
 	}
+}
+
+export function makeButton(
+	label: string,
+	customId: string,
+	style: MessageButtonStyleResolvable,
+	enabled = true,
+	emoji?: string
+) {
+	const button = new MessageButton().setLabel(label).setCustomId(customId).setStyle(style);
+	if (!enabled) button.setDisabled(true);
+	if (emoji) button.setEmoji(emoji);
+	return button;
 }
