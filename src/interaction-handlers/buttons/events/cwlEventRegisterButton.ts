@@ -18,7 +18,7 @@ import { seconds } from '#utils/functions/time';
 })
 export class ButtonHandler extends InteractionHandler {
 	public override async run(interaction: ButtonInteraction, result: InteractionHandler.ParseResult<this>) {
-		return interaction.editReply({ components: result.components });
+		return interaction.editReply({ embeds: result.embeds, components: result.components });
 	}
 
 	public override async parse(interaction: ButtonInteraction) {
@@ -39,6 +39,7 @@ export class ButtonHandler extends InteractionHandler {
 		const registerMenuOptions = await this.handleRegister(interaction.user.id, eventId);
 
 		return this.some({
+			embeds: [],
 			components: [
 				new MessageActionRow().addComponents(
 					new MessageSelectMenu()
@@ -136,6 +137,8 @@ export class ButtonHandler extends InteractionHandler {
 		const result = await this.sql`DELETE
                                       FROM cwl_applications
                                       WHERE discord_id = ${interaction.user.id}`;
+		await this.redis.delete(RedisKeys.CWLEventRegistration, interaction.user.id);
+
 		if (isNullishOrEmpty(result)) {
 			return this.some({
 				content:
