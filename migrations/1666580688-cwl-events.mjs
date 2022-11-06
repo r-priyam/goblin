@@ -144,7 +144,7 @@ $$ language 'plpgsql';
 
 	// Helper function to get database export for a cwl event
 	await sql.unsafe(`
-    CREATE FUNCTION get_cwl_applications(BIGINT)
+    CREATE FUNCTION get_cwl_applications(TEXT)
     RETURNS TABLE
             (
                 "registrationId" INTEGER,
