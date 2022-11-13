@@ -10,14 +10,14 @@ jobs:
   deploy:
     name: Deploy bot image
     runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[skip cd]')"
     steps:
       - name: Log In
-        uses: appleboy/ssh-action@f9010ff7f1bbd7db1a0b4bab661437550cea20c0
+        uses: fifsky/ssh-action@master
         with:
           host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          password: ${{ secrets.VPS_PASSWORD }}
-          script_stop: true
-          script: |
+          user: ${{ secrets.VPS_USER }}
+          pass: ${{ secrets.VPS_PASSWORD }}
+          command: |
             cd goblin
             npm run sync-docker
