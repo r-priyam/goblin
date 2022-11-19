@@ -54,6 +54,7 @@ export const enum ModalInputCustomIds {
 
 export const enum ButtonCustomIds {
 	CWLEventCreate = 'cwl-event-create',
+	CWLEventEndExport = 'cwl-event-end-export',
 	CWLEventRegister = 'cwl-event-register',
 	CWLEventUnregister = 'cwl-event-unregister',
 	CWLEventUserRegisterCancel = 'cwl-event-u-register-cancel',
