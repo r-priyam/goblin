@@ -1,6 +1,8 @@
 import '#lib/setup';
 import { exit } from 'node:process';
 
+import Sentry from '@sentry/node';
+
 import { GoblinClient } from '#lib/extensions/GoblinClient';
 import { logSuccess } from '#utils/functions/logging';
 
@@ -10,6 +12,7 @@ try {
 	await client.login();
 	client.logger.info(logSuccess('CORE', 'Logged In'));
 } catch (error) {
+	Sentry.captureException(error);
 	client.logger.error(error);
 	void client.destroy();
 	exit(1);

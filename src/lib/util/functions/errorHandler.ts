@@ -1,7 +1,6 @@
 /* eslint-disable consistent-return */
-// TODO: Get a better error handler
-
 import { container, Events, UserError } from '@sapphire/framework';
+import Sentry from '@sentry/node';
 import { DiscordAPIError, HTTPError } from 'discord.js';
 
 import type { InteractionHandlerError, InteractionHandlerParseError } from '@sapphire/framework';
@@ -38,6 +37,7 @@ export async function commandErrorHandler(error: Error, interaction: CommandInte
 		logger.warn(`${getWarnError(interaction)} (${interaction.user.id}) | ${error.constructor.name}`);
 	}
 
+	Sentry.captureException(error);
 	logger.error(error);
 	return sendCommandErrorToUser(
 		interaction,
@@ -70,6 +70,7 @@ export function interactionErrorHandler(
 		logger.warn(`${getWarnError(interaction)} (${interaction.user.id}) | ${error.constructor.name}`);
 	}
 
+	Sentry.captureException(error);
 	logger.error(error);
 	return sendErrorToUser(interaction, errorEmbedUser('Something went wrong. I have reported it to my developer'));
 }

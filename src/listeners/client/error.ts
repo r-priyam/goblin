@@ -1,5 +1,6 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { Events, Listener } from '@sapphire/framework';
+import Sentry from '@sentry/node';
 import { blue, blueBright, red, yellow } from 'colorette';
 import { DiscordAPIError, HTTPError } from 'discord.js';
 
@@ -9,6 +10,7 @@ import { DiscordAPIError, HTTPError } from 'discord.js';
 })
 export class BotListener extends Listener<typeof Events.Error> {
 	public override run(error: Error) {
+		Sentry.captureException(error);
 		if (error instanceof DiscordAPIError) {
 			this.logger.warn(this.errorSummary(error, 'API ERROR'));
 			this.logger.fatal(error.stack);
