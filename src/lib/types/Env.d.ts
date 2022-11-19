@@ -9,7 +9,6 @@ declare module '@skyra/env-utilities' {
 		CLASH_LINK_USER_NAME: string;
 		CLASH_PASSWORD: string;
 		DEBUG: BooleanString;
-
 		DEVELOPMENT_GUILD: string;
 
 		DISCORD_TOKEN: string;
@@ -17,6 +16,7 @@ declare module '@skyra/env-utilities' {
 		ERROR_LOGS_WEBHOOK: string;
 
 		EYG_ADMINISTRATOR_ROLE: string;
+
 		EYG_CLAN_REP_ROLE: string;
 		EYG_FRESH_SPAWN_ROLE: string;
 		EYG_GATEWAY_CHANNEL: string;
@@ -25,23 +25,24 @@ declare module '@skyra/env-utilities' {
 		EYG_INTERVIEW_REPORTING_CHANNEL: string;
 		EYG_RECRUITER_ROLE: string;
 		EYG_RECRUIT_ROLE: string;
-
 		GITHUB_TOKEN: string;
 
 		GUILD_LOGS_WEBHOOK: string;
 
 		NODE_ENV: 'development' | 'production' | 'test';
-		OWNERS: ArrayString;
 
+		OWNERS: ArrayString;
 		PGDATABASE: string;
+
 		PGHOST: string;
 		PGPASSWORD: string;
 		PGPORT: IntegerString;
 		PGUSER: string;
-
 		REDIS_CACHE_DB: IntegerString;
+
 		REDIS_HOST: string;
 		REDIS_PORT: IntegerString;
 		REDIS_TASK_DB: IntegerString;
+		SENTRY: string;
 	}
 }
