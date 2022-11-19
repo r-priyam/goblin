@@ -1,6 +1,7 @@
 import { bold } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { UserError } from '@sapphire/framework';
+import { PermissionFlagsBits } from 'discord-api-types/v10';
 import { MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
 
 import type { GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
@@ -27,7 +28,8 @@ import { ButtonCustomIds, Colors, ErrorIdentifiers } from '#utils/constants';
 							.setRequired(true)
 					)
 			),
-	commandMetaOptions: { idHints: ['1034307161024647198'] },
+	requiredUserPermissions: PermissionFlagsBits.Administrator,
+	commandMetaOptions: { idHints: ['1034307161024647198', '1043558434194341969'] },
 	subcommands: [
 		{
 			name: 'create',
