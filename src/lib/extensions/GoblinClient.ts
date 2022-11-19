@@ -50,7 +50,7 @@ export class GoblinClient extends SapphireClient {
 					to: 1184,
 					from: [1082, 1083, 1114, 1184],
 					serialize: (date: Date) => date.toISOString(),
-					parse: (isoString) => isoString
+					parse: (isoString: any) => isoString
 				}
 			}
 		});
