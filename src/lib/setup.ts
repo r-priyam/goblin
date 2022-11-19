@@ -30,8 +30,7 @@ if (envParseString('NODE_ENV') === 'production') {
 	Sentry.init({
 		dsn: envParseString('SENTRY'),
 		serverName: 'goblin',
-		environment: envParseString('NODE_ENV'),
-		release: execSync('git rev-parse HEAD').toString().trim()
+		environment: envParseString('NODE_ENV')
 	});
 }
 
