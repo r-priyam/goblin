@@ -33,12 +33,17 @@ export const enum Emotes {
 }
 
 export const enum ModalCustomIds {
+	CWLEvent = 'cwl-event-config-modal',
 	ClanEmbedRequirements = 'clan-embed-requirements',
 	StartClanEmbed = 'start-clan-embed-modal'
 }
 
 export const enum ModalInputCustomIds {
 	ElevenRequirements = 'eleven-requirements-input',
+	EventEndRolePing = 'event-end-role-ping',
+	EventName = 'event-name',
+	EventRegistrationChannel = 'event-registration-channel',
+	EventStartRolePing = 'event-start-role-ping',
 	FourteenRequirements = 'fourteen-requirements-input',
 	StartClanEmbedColor = 'start-clan-embed-color-input',
 	StartClanEmbedLeader = 'start-clan-embed-leader-input',
@@ -48,16 +53,44 @@ export const enum ModalInputCustomIds {
 }
 
 export const enum ButtonCustomIds {
-	ClanEmbedRequirement = 'add-clan-requirement-button'
+	CWLEventCreate = 'cwl-event-create',
+	CWLEventEndExport = 'cwl-event-end-export',
+	CWLEventRegister = 'cwl-event-register',
+	CWLEventUnregister = 'cwl-event-unregister',
+	CWLEventUserRegisterCancel = 'cwl-event-u-register-cancel',
+	CWLEventUserRegisterSubmit = 'cwl-event--u-register-submit',
+	CWLOptInDayFive = 'cwl-opt-in-day-five',
+	CWLOptInDayFour = 'cwl-opt-in-day-four',
+	CWLOptInDayOne = 'cwl-opt-in-day-one',
+	CWLOptInDaySeven = 'cwl-opt-in-day-seven',
+	CWLOptInDaySix = 'cwl-opt-in-day-six',
+	CWLOptInDayThree = 'cwl-opt-in-day-three',
+	CWLOptInDayTwo = 'cwl-opt-in-day-two',
+	CWLWarCasual = 'cwl-war-casual',
+	CWLWarSerious = 'cwl-war-serious',
+	ClanEmbedRequirement = 'add-clan-requirement-button',
+	CustomEventCreate = 'custom-event-create',
+	EventCancel = 'event-cancel',
+	EventSubmit = 'event-submit'
 }
 
 export const enum SelectMenuCustomIds {
+	CWLEventConfig = 'cwl-event-config-menu',
+	CWLEventRegister = 'cwl-event-register',
 	Nickname = 'nickname-menu',
 	SuperTroop = 'super-troop-menu'
 }
 
+export const enum SelectMenuOptionsValue {
+	EventEndRolePing = 'event-end-role-ping',
+	EventName = 'event-name',
+	EventRegistrationChannel = 'event-registration-channel',
+	EventStartRolePing = 'event-start-role-ping'
+}
+
 export const enum ErrorIdentifiers {
 	BadParameter = 'BadParameter',
+	CWLEventProcess = 'CwlEventProcess',
 	ClanHelper = 'ClanHelper',
 	DatabaseError = 'DatabaseError',
 	DiscordAPIError = 'DiscordAPIError',
@@ -69,8 +102,14 @@ export const enum ErrorIdentifiers {
 }
 
 export const enum RedisKeys {
+	CWLEventRegistration = 'cwl-event-registration',
 	Clan = 'c',
 	ClanAlias = 'clan-aliases',
 	Links = 'links',
 	Player = 'p'
+}
+
+export const enum EventConfigDefaultValues {
+	NotRequired = '_Not Configured_',
+	Required = '_Not Configured (Required)_'
 }

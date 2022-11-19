@@ -19,7 +19,7 @@ import {
 @ApplyOptions<InteractionHandler.Options>({
 	interactionHandlerType: InteractionHandlerTypes.ModalSubmit
 })
-export class StartClanEmbedModal extends InteractionHandler {
+export class ModalHandler extends InteractionHandler {
 	public override async run(interaction: ModalSubmitInteraction, result: InteractionHandler.ParseResult<this>) {
 		return interaction.editReply({ embeds: [result.embed] });
 	}

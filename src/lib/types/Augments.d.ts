@@ -34,6 +34,7 @@ declare module '@sapphire/framework' {
 
 declare module '@sapphire/plugin-scheduled-tasks' {
 	interface ScheduledTasks {
+		cwlEventEnd: never;
 		interviewWaitTimer: never;
 		syncPlayerLinks: never;
 	}

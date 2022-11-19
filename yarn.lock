@@ -4627,8 +4627,10 @@ __metadata:
     gradient-string: ^2.0.2
     husky: ^8.0.2
     ioredis: ^5.2.4
+    ley: ^0.8.1
     lint-staged: ^13.0.3
     markdown-table: ^3.0.2
+    nanoid: ^4.0.0
     postgres: ^3.3.2
     prettier: ^2.7.1
     pretty-quick: ^3.1.3
@@ -5391,6 +5393,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"kleur@npm:^4.1.0":
+  version: 4.1.5
+  resolution: "kleur@npm:4.1.5"
+  checksum: 1dc476e32741acf0b1b5b0627ffd0d722e342c1b0da14de3e8ae97821327ca08f9fb944542fb3c126d90ac5f27f9d804edbe7c585bf7d12ef495d115e0f22c12
+  languageName: node
+  linkType: hard
+
 "language-subtag-registry@npm:~0.3.2":
   version: 0.3.22
   resolution: "language-subtag-registry@npm:0.3.22"
@@ -5414,6 +5423,20 @@ __metadata:
     prelude-ls: ^1.2.1
     type-check: ~0.4.0
   checksum: 12c5021c859bd0f5248561bf139121f0358285ec545ebf48bb3d346820d5c61a4309535c7f387ed7d84361cf821e124ce346c6b7cef8ee09a67c1473b46d0fc4
+  languageName: node
+  linkType: hard
+
+"ley@npm:^0.8.1":
+  version: 0.8.1
+  resolution: "ley@npm:0.8.1"
+  dependencies:
+    kleur: ^4.1.0
+    mk-dirs: ^3.0.0
+    sade: ^1.7.0
+    totalist: ^2.0.0
+  bin:
+    ley: bin.js
+  checksum: 0271ac627c042e5c7dc9e724cb65ec32d1bf35a5460cafc555caaaf909d4726acd58ce4389c861dc2e28c4ed5c8a914270a799a8f92ccc2ec0a50b8c0a6ae375
   languageName: node
   linkType: hard
 
@@ -5915,6 +5938,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mk-dirs@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "mk-dirs@npm:3.0.0"
+  checksum: aba678d9c3c0616045cb2db730d935522d801f6bb32b69d50a586dfedad748252c52a7db45f76d4523d0eedddc4f31f4180958da2f935201d10d00ba9f9fca00
+  languageName: node
+  linkType: hard
+
 "mkdirp@npm:^1.0.3, mkdirp@npm:^1.0.4":
   version: 1.0.4
   resolution: "mkdirp@npm:1.0.4"
@@ -5931,7 +5961,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mri@npm:^1.1.5":
+"mri@npm:^1.1.0, mri@npm:^1.1.5":
   version: 1.2.0
   resolution: "mri@npm:1.2.0"
   checksum: 83f515abbcff60150873e424894a2f65d68037e5a7fcde8a9e2b285ee9c13ac581b63cfc1e6826c4732de3aeb84902f7c1e16b7aff46cd3f897a0f757a894e85
@@ -6048,6 +6078,15 @@ __metadata:
   dependencies:
     node-gyp: latest
   checksum: ec609aeaf7e68b76592a3ba96b372aa7f5df5b056c1e37410b0f1deefbab5a57a922061e2c5b369bae9c7c6b5e6eecf4ad2dac8833a1a7d3a751e0a7c7f849ed
+  languageName: node
+  linkType: hard
+
+"nanoid@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "nanoid@npm:4.0.0"
+  bin:
+    nanoid: bin/nanoid.js
+  checksum: 7d5946df5c6d383694195b781ae7b5067c149d164ec71e910d6b06676309c3459b68af570b944fb5ecd5065d19df464f05700d141d70bb712ff8ca06642fd8df
   languageName: node
   linkType: hard
 
@@ -7074,6 +7113,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"sade@npm:^1.7.0":
+  version: 1.8.1
+  resolution: "sade@npm:1.8.1"
+  dependencies:
+    mri: ^1.1.0
+  checksum: 0756e5b04c51ccdc8221ebffd1548d0ce5a783a44a0fa9017a026659b97d632913e78f7dca59f2496aa996a0be0b0c322afd87ca72ccd909406f49dbffa0f45d
+  languageName: node
+  linkType: hard
+
 "safe-buffer@npm:~5.2.0":
   version: 5.2.1
   resolution: "safe-buffer@npm:5.2.1"
@@ -7677,6 +7725,13 @@ __metadata:
     "@tokenizer/token": ^0.3.0
     ieee754: ^1.2.1
   checksum: 32780123bc6ce8b6a2231d860445c994a02a720abf38df5583ea957aa6626873cd1c4dd8af62314da4cf16ede00c379a765707a3b06f04b8808c38efdae1c785
+  languageName: node
+  linkType: hard
+
+"totalist@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "totalist@npm:2.0.0"
+  checksum: 9cc5aa15c78374e50ea90a93fd0137dfec68c2139db6767f0707951681fa931343ae9a71ed257da80bc5deb994cf841f14a1512cb6708c4806617eb4513cd965
   languageName: node
   linkType: hard
 
