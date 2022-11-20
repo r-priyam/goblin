@@ -76,7 +76,6 @@ export class SyncClanEmbedTask extends ScheduledTask {
 		let result = '';
 		for (const [key, value] of Object.entries(requirements)) {
 			if (value === 0) continue;
-			// TODO: change with other color number emote
 			result += `${TownHallEmotes[key]}: ${BlueNumberEmotes[value]} `;
 		}
 

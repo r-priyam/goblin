@@ -79,7 +79,6 @@ export class ModalHandler extends InteractionHandler {
 		leaderId: string,
 		color: string
 	) {
-		// TODO: Error handling of any any kind? and use Result?
 		const automationMessage = await interaction.channel!.send({
 			embeds: [
 				await this.coc.clanHelper.generateAutomationClanEmbed(clan, {
