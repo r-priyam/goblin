@@ -1,7 +1,6 @@
 import 'reflect-metadata';
 import '@sapphire/plugin-logger/register';
 
-import { execSync } from 'node:child_process';
 import process from 'node:process';
 import { URL } from 'node:url';
 import { inspect } from 'node:util';
