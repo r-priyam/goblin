@@ -65,7 +65,7 @@
 		"@sentry/node": "^7.23.0",
 		"@skyra/env-utilities": "^1.1.0",
 		"bufferutil": "^4.0.7",
-		"bullmq": "^3.2.4",
+		"bullmq": "^3.2.5",
 		"clashofclans.js": "3.0.0-dev.70cb1c7",
 		"colorette": "^2.0.19",
 		"discord-api-types": "^0.33.5",
