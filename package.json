@@ -78,7 +78,7 @@
 		"nanoid": "^4.0.0",
 		"postgres": "^3.3.2",
 		"reflect-metadata": "^0.1.13",
-		"string-strip-html": "^12.0.0",
+		"string-strip-html": "^13.0.0",
 		"undici": "^5.13.0",
 		"utf-8-validate": "^5.0.10",
 		"zlib-sync": "^0.1.7"
