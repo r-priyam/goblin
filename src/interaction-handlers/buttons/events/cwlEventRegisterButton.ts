@@ -59,16 +59,12 @@ export class ButtonHandler extends InteractionHandler {
 
 		if (!menuOptions) {
 			const linkedPlayers = await this.sql<{ playerTag: string; registered: boolean }[]>`
-                SELECT p.player_tag,
-                       CASE
-                           WHEN ca.id IS NULL
-                               THEN FALSE
-                           ELSE TRUE
-                           END registered
+                SELECT p.player_tag, (ca.id IS NOT NULL) as registered
                 FROM players p
-                         FULL OUTER JOIN cwl_applications ca on p.player_tag = ca.player_tag
+                         LEFT JOIN cwl_applications ca
+                                   on p.player_tag = ca.player_tag AND
+                                      (ca.event_id = ${eventId} OR ca.event_id IS NULL)
                 WHERE p.user_id = ${userId}
-                  AND (ca.event_id = ${eventId} OR ca.event_id IS NULL)
                 LIMIT 25`;
 
 			if (isNullishOrEmpty(linkedPlayers)) {
