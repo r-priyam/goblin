@@ -1,7 +1,7 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { SnowflakeRegex } from '@sapphire/discord.js-utilities';
 import { InteractionHandler, InteractionHandlerTypes, UserError } from '@sapphire/framework';
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder } from 'discord.js';
 
 import type { ModalSubmitInteraction } from 'discord.js';
 
@@ -59,7 +59,7 @@ export class ModalHandler extends InteractionHandler {
 		else color = Colors.Indigo;
 
 		return this.some({
-			embed: new MessageEmbed()
+			embed: new EmbedBuilder()
 				.setTitle('New Event Configuration')
 				.setDescription(eventConfigMessage({ ...valueToSend }))
 				.setColor(color)

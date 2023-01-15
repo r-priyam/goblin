@@ -1,11 +1,11 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { isNullishOrEmpty } from '@sapphire/utilities';
 import { SuperTroops } from 'clashofclans.js';
-import { MessageActionRow, MessageEmbed, MessageSelectMenu } from 'discord.js';
+import { ActionRowBuilder, EmbedBuilder, StringSelectMenuBuilder } from 'discord.js';
 
 import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import type { Clan } from 'clashofclans.js';
-import type { CommandInteraction } from 'discord.js';
+import type { ChatInputCommandInteraction } from 'discord.js';
 
 import { SuperTroopEmotes } from '#lib/coc';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
@@ -21,7 +21,7 @@ import { clanTagOption } from '#utils/functions/commandOptions';
 	commandMetaOptions: { idHints: ['991987141259309067', '992380615884296213'] }
 })
 export class SuperTroopsCommand extends GoblinCommand {
-	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
+	public override async chatInputRun(interaction: ChatInputCommandInteraction<'cached'>) {
 		await interaction.deferReply();
 
 		const clanTag = await this.coc.clanHelper.dynamicTag(interaction);
@@ -32,12 +32,12 @@ export class SuperTroopsCommand extends GoblinCommand {
 	}
 
 	private menuOptions(clanTag: string) {
-		const superTroopsMenu = new MessageSelectMenu()
+		const superTroopsMenu = new StringSelectMenuBuilder()
 			.setPlaceholder('Select a troop')
 			.setCustomId(`${SelectMenuCustomIds.SuperTroop}-${clanTag}`)
 			.addOptions(SuperTroops.map((troop) => ({ label: troop, emoji: SuperTroopEmotes[troop], value: troop })));
 
-		return new MessageActionRow().addComponents(superTroopsMenu);
+		return new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(superTroopsMenu);
 	}
 
 	public static async getSuperTroops(clan: Clan, filterTroop?: string) {
@@ -52,7 +52,7 @@ export class SuperTroopsCommand extends GoblinCommand {
 			}
 		}
 
-		const superTroopsEmbed = new MessageEmbed() //
+		const superTroopsEmbed = new EmbedBuilder() //
 			.setColor(Colors.Indigo)
 			.setAuthor({ iconURL: clan.badge.url, name: clan.name })
 			.setTimestamp();
@@ -60,7 +60,7 @@ export class SuperTroopsCommand extends GoblinCommand {
 		if (filterTroop) {
 			const data = superTroops[`${SuperTroopEmotes[filterTroop]} ${filterTroop}`];
 			if (isNullishOrEmpty(data)) {
-				superTroopsEmbed.description = `No one has boosted ${filterTroop} 🥲`;
+				superTroopsEmbed.setDescription(`No one has boosted ${filterTroop} 🥲`);
 				return superTroopsEmbed;
 			}
 
@@ -73,8 +73,8 @@ export class SuperTroopsCommand extends GoblinCommand {
 			superTroopsEmbed.addFields({ name: troop, value: data.join('\n'), inline: false });
 		}
 
-		if (superTroopsEmbed.fields.length === 0)
-			superTroopsEmbed.description = 'No one has boosted any super troop 🥲';
+		if (superTroopsEmbed.data.fields?.length === 0)
+			superTroopsEmbed.setDescription('No one has boosted any super troop 🥲');
 		return superTroopsEmbed;
 	}
 }

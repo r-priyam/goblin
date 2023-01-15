@@ -1,9 +1,9 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes } from '@sapphire/framework';
 import { envParseString } from '@skyra/env-utilities';
-import { MessageActionRow, Modal, TextInputComponent } from 'discord.js';
+import { ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } from 'discord.js';
 
-import type { ButtonInteraction, GuildMember, ModalActionRowComponent } from 'discord.js';
+import type { ButtonInteraction, GuildMember } from 'discord.js';
 
 import { ButtonCustomIds, ModalCustomIds, ModalInputCustomIds } from '#utils/constants';
 import { automationMemberCheck } from '#utils/functions/automationMemberCheck';
@@ -29,33 +29,33 @@ export class ButtonHandler extends InteractionHandler {
 	}
 
 	private requirementsModel(clanTag: string) {
-		return new Modal()
+		return new ModalBuilder()
 			.setTitle(`Edit Clan Requirements Form`)
 			.setCustomId(`${ModalCustomIds.ClanEmbedRequirements}-${clanTag}`)
 			.addComponents(
-				new MessageActionRow<ModalActionRowComponent>().addComponents(
+				new ActionRowBuilder<TextInputBuilder>().addComponents(
 					this.requirementsModelInput(14, ModalInputCustomIds.FourteenRequirements)
 				),
-				new MessageActionRow<ModalActionRowComponent>().addComponents(
+				new ActionRowBuilder<TextInputBuilder>().addComponents(
 					this.requirementsModelInput(13, ModalInputCustomIds.ThirteenRequirements)
 				),
-				new MessageActionRow<ModalActionRowComponent>().addComponents(
+				new ActionRowBuilder<TextInputBuilder>().addComponents(
 					this.requirementsModelInput(12, ModalInputCustomIds.TwelveRequirements)
 				),
-				new MessageActionRow<ModalActionRowComponent>().addComponents(
+				new ActionRowBuilder<TextInputBuilder>().addComponents(
 					this.requirementsModelInput(11, ModalInputCustomIds.ElevenRequirements)
 				),
-				new MessageActionRow<ModalActionRowComponent>().addComponents(
+				new ActionRowBuilder<TextInputBuilder>().addComponents(
 					this.requirementsModelInput(10, ModalInputCustomIds.TenRequirements)
 				)
 			);
 	}
 
 	private requirementsModelInput(townHallLevel: number, customId: string) {
-		return new TextInputComponent()
+		return new TextInputBuilder()
 			.setCustomId(customId)
 			.setLabel(`How many ${townHallLevel} you need?`)
-			.setStyle('SHORT')
+			.setStyle(TextInputStyle.Short)
 			.setMinLength(1)
 			.setMaxLength(2)
 			.setValue('0')

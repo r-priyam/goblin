@@ -1,8 +1,7 @@
-import { inlineCode } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { UserError } from '@sapphire/framework';
 import { Util } from 'clashofclans.js';
-import { MessageEmbed, CommandInteraction } from 'discord.js';
+import { EmbedBuilder, ChatInputCommandInteraction, inlineCode } from 'discord.js';
 
 import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 
@@ -28,7 +27,7 @@ import { addTagOption } from '#utils/functions/commandOptions';
 	commandMetaOptions: { idHints: ['975442552134197248', '980131949911883847'] }
 })
 export class UnlinkCommand extends GoblinCommand {
-	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
+	public override async chatInputRun(interaction: ChatInputCommandInteraction<'cached'>) {
 		await interaction.deferReply({ ephemeral: true });
 
 		const type = interaction.options.getString('choice', true);
@@ -36,7 +35,7 @@ export class UnlinkCommand extends GoblinCommand {
 	}
 
 	@ValidateTag({ prefix: 'clan' })
-	private async removeClan(interaction: CommandInteraction<'cached'>) {
+	private async removeClan(interaction: ChatInputCommandInteraction<'cached'>) {
 		const tag = Util.formatTag(interaction.options.getString('tag', true));
 
 		const [result] = await this.sql<[{ clanName?: string }]>`DELETE
@@ -55,7 +54,7 @@ export class UnlinkCommand extends GoblinCommand {
 		await this.redis.handleClanOrPlayerCacheCache('CLAN', RedisMethods.Delete, interaction.member.id, tag);
 		return interaction.editReply({
 			embeds: [
-				new MessageEmbed()
+				new EmbedBuilder()
 					.setTitle(`${Emotes.Success} Success`)
 					.setDescription(`Removed **${result.clanName} (${tag})** from your discord account`)
 					.setColor(Colors.Green)
@@ -64,7 +63,7 @@ export class UnlinkCommand extends GoblinCommand {
 	}
 
 	@ValidateTag({ prefix: 'player' })
-	private async removePlayer(interaction: CommandInteraction<'cached'>) {
+	private async removePlayer(interaction: ChatInputCommandInteraction<'cached'>) {
 		const tag = Util.formatTag(interaction.options.getString('tag', true));
 
 		const [result] = await this.sql<[{ playerName?: string }]>`DELETE
@@ -85,7 +84,7 @@ export class UnlinkCommand extends GoblinCommand {
 
 		return interaction.editReply({
 			embeds: [
-				new MessageEmbed()
+				new EmbedBuilder()
 					.setTitle(`${Emotes.Success} Success`)
 					.setDescription(`Removed **${result.playerName} (${tag})** from your discord account`)
 					.setColor(Colors.Green)

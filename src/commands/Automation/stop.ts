@@ -2,7 +2,7 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { UserError } from '@sapphire/framework';
 import { bold } from 'colorette';
 import { PermissionFlagsBits } from 'discord-api-types/v9';
-import { MessageEmbed, CommandInteraction } from 'discord.js';
+import { EmbedBuilder, ChatInputCommandInteraction } from 'discord.js';
 
 import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import type { ChatInputCommand } from '@sapphire/framework';
@@ -34,7 +34,7 @@ import { addTagOption } from '#utils/functions/commandOptions';
 })
 export class StopCommand extends GoblinCommand {
 	@ValidateTag({ prefix: 'clan' })
-	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
+	public override async chatInputRun(interaction: ChatInputCommandInteraction<'cached'>) {
 		automationMemberCheck(interaction.guildId, interaction.member);
 
 		const stopType = interaction.options.getString('type', true) as 'clanEmbed';
@@ -59,7 +59,7 @@ export class StopCommand extends GoblinCommand {
 
 		return interaction.editReply({
 			embeds: [
-				new MessageEmbed()
+				new EmbedBuilder()
 					.setTitle(`${Emotes.Success} Success`)
 					.setDescription(
 						`Successfully stopped ${bold(result.clanName!)}(${bold(clanTag)}) Clan Embed in this server`

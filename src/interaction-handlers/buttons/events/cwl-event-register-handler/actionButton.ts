@@ -1,10 +1,9 @@
-import { bold } from '@discordjs/builders';
 import { Time } from '@sapphire/cron';
 import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes, UserError } from '@sapphire/framework';
-import { MessageActionRow, MessageEmbed, MessageSelectMenu } from 'discord.js';
+import { ActionRowBuilder, EmbedBuilder, StringSelectMenuBuilder, bold } from 'discord.js';
 
-import type { APISelectMenuComponent } from 'discord-api-types/v9';
+import type { APISelectMenuComponent } from 'discord-api-types/v10';
 import type { ButtonInteraction, MessageButton } from 'discord.js';
 
 import { ButtonCustomIds, Colors, ErrorIdentifiers, RedisKeys } from '#utils/constants';
@@ -90,7 +89,9 @@ export class ButtonHandler extends InteractionHandler {
 			});
 		}
 
-		const menu = new MessageSelectMenu(interaction.message.components[0].components[0] as APISelectMenuComponent);
+		const menu = new StringSelectMenuBuilder(
+			interaction.message.components[0].components[0] as APISelectMenuComponent
+		);
 
 		for (const option of menu.options) {
 			if (option.value.includes(playerTag)) {
@@ -111,7 +112,7 @@ export class ButtonHandler extends InteractionHandler {
 
 		return this.some({
 			embeds: [
-				new MessageEmbed()
+				new EmbedBuilder()
 					.setTitle('Success')
 					.setDescription(
 						`Successfully registered ${bold(
@@ -124,7 +125,7 @@ export class ButtonHandler extends InteractionHandler {
 					)
 					.setColor(Colors.Green)
 			],
-			components: [new MessageActionRow().addComponents(menu)]
+			components: [new ActionRowBuilder().addComponents(menu)]
 		});
 	}
 }

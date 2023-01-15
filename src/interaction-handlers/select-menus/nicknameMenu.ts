@@ -1,10 +1,9 @@
-import { userMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes } from '@sapphire/framework';
 import { PermissionFlagsBits } from 'discord-api-types/v9';
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder, userMention } from 'discord.js';
 
-import type { SelectMenuInteraction } from 'discord.js';
+import type { StringSelectMenuInteraction } from 'discord.js';
 
 import { NicknameCommand } from '#root/commands/Profile/nickname';
 import { Colors, Emotes, SelectMenuCustomIds } from '#utils/constants';
@@ -13,11 +12,11 @@ import { Colors, Emotes, SelectMenuCustomIds } from '#utils/constants';
 	interactionHandlerType: InteractionHandlerTypes.SelectMenu
 })
 export class NicknameMenu extends InteractionHandler {
-	public override async run(interaction: SelectMenuInteraction, result: InteractionHandler.ParseResult<this>) {
+	public override async run(interaction: StringSelectMenuInteraction, result: InteractionHandler.ParseResult<this>) {
 		return interaction.editReply({ content: null, embeds: [result.embed], components: [] });
 	}
 
-	public override async parse(interaction: SelectMenuInteraction) {
+	public override async parse(interaction: StringSelectMenuInteraction) {
 		if (!interaction.customId.startsWith(SelectMenuCustomIds.Nickname)) return this.none();
 		if (!interaction.memberPermissions?.any(PermissionFlagsBits.BanMembers | PermissionFlagsBits.KickMembers))
 			return this.none();
@@ -34,7 +33,7 @@ export class NicknameMenu extends InteractionHandler {
 		);
 
 		return this.some({
-			embed: new MessageEmbed()
+			embed: new EmbedBuilder()
 				.setTitle(`${Emotes.Success} Success`)
 				.setDescription(`Successfully changed ${userMention(userId)} nickname`)
 				.setColor(Colors.Green)

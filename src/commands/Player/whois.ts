@@ -1,12 +1,11 @@
-import { bold, userMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { PaginatedMessage } from '@sapphire/discord.js-utilities';
 import { UserError } from '@sapphire/framework';
 import { isNullish } from '@sapphire/utilities';
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder, bold, userMention } from 'discord.js';
 
 import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
-import type { CommandInteraction } from 'discord.js';
+import type { ChatInputCommandInteraction } from 'discord.js';
 
 import { MiscEmotes, RawPosition, TownHallEmotes } from '#lib/coc';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
@@ -27,7 +26,7 @@ import { Colors, ErrorIdentifiers } from '#root/lib/util/constants';
 	commandMetaOptions: { idHints: ['974749593696874506', '980131954139734138'] }
 })
 export class WhoIsCommand extends GoblinCommand {
-	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
+	public override async chatInputRun(interaction: ChatInputCommandInteraction<'cached'>) {
 		await interaction.deferReply();
 		const member = interaction.options.getMember('user') ?? interaction.member;
 
@@ -41,12 +40,12 @@ export class WhoIsCommand extends GoblinCommand {
 
 		const overall = { stars: 0, donations: 0, received: 0, attacks: 0, defenses: 0 };
 
-		const firstPage = new MessageEmbed()
+		const firstPage = new EmbedBuilder()
 			.setAuthor({ name: `${member.user.username} (${member.id})` })
-			.setThumbnail(member.displayAvatarURL({ size: 96, format: 'png', dynamic: true }))
+			.setThumbnail(member.displayAvatarURL({ size: 128, extension: 'png', forceStatic: true }))
 			.setColor(Colors.Indigo)
 			.setTimestamp();
-		const playersData: Record<string, MessageEmbed> = {};
+		const playersData: Record<string, EmbedBuilder> = {};
 
 		for (const player of players) {
 			overall.stars += player.warStars;
@@ -84,7 +83,7 @@ export class WhoIsCommand extends GoblinCommand {
 				.setThumbnail(player.townHallImage);
 		}
 
-		const paginator = new PaginatedMessage({ template: new MessageEmbed().setColor(Colors.Indigo) });
+		const paginator = new PaginatedMessage({ template: new EmbedBuilder().setColor(Colors.Indigo) });
 		paginator.addPageEmbed(firstPage);
 		for (const page of Object.values(playersData)) paginator.addPageEmbed(page);
 

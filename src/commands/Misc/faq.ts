@@ -2,10 +2,10 @@ import { readFile } from 'node:fs/promises';
 import { URL } from 'node:url';
 
 import { ApplyOptions } from '@sapphire/decorators';
-import { MessageAttachment } from 'discord.js';
+import { AttachmentBuilder } from 'discord.js';
 
 import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
-import type { CommandInteraction } from 'discord.js';
+import type { ChatInputCommandInteraction } from 'discord.js';
 
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { RootDir } from '#utils/constants';
@@ -30,12 +30,12 @@ import { faqsCache } from '#utils/faq';
 	commandMetaOptions: { idHints: ['1033391911387545661', '1033395793903755294'] }
 })
 export class FAQsCommand extends GoblinCommand {
-	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
+	public override async chatInputRun(interaction: ChatInputCommandInteraction<'cached'>) {
 		await interaction.deferReply();
 
 		const faqKey = interaction.options.getString('key', true);
 
-		const faqImage = new MessageAttachment(await readFile(new URL(`meta/faq-static/${faqKey}.png`, RootDir)));
+		const faqImage = new AttachmentBuilder(await readFile(new URL(`meta/faq-static/${faqKey}.png`, RootDir)));
 		return interaction.editReply({ content: faqsCache.get(faqKey)?.content, files: [faqImage] });
 	}
 }

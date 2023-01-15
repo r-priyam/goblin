@@ -1,8 +1,18 @@
-import { roleMention, time, TimestampStyles, userMention, bold, inlineCode } from '@discordjs/builders';
 import { Time } from '@sapphire/cron';
 import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes, Result, UserError } from '@sapphire/framework';
-import { MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
+import {
+	ActionRowBuilder,
+	ButtonBuilder,
+	EmbedBuilder,
+	roleMention,
+	time,
+	TimestampStyles,
+	userMention,
+	bold,
+	inlineCode,
+	ButtonStyle
+} from 'discord.js';
 import { nanoid } from 'nanoid';
 
 import type { ButtonInteraction, TextChannel, User } from 'discord.js';
@@ -34,7 +44,7 @@ export class ButtonHandler extends InteractionHandler {
 		if (interaction.customId === ButtonCustomIds.EventCancel) {
 			return this.some({
 				type: 'edit',
-				embed: new MessageEmbed()
+				embed: new EmbedBuilder()
 					.setDescription(
 						"Cancelling the new CWL event process, I hope that I haven't offended you and you will choose me for your service again 🙂"
 					)
@@ -89,7 +99,7 @@ export class ButtonHandler extends InteractionHandler {
 
 		return this.some({
 			type: 'edit',
-			embed: new MessageEmbed()
+			embed: new EmbedBuilder()
 				.setTitle(`${Emotes.Success} Success`)
 				.setDescription(
 					`Created ${eventName} successfully. I have attempted to send you the important information of event in DM. Event registration message link - [${bold(
@@ -121,7 +131,7 @@ export class ButtonHandler extends InteractionHandler {
 			(channel as TextChannel).send({
 				content: pingToRole ? roleMention(pingToRole) : null,
 				embeds: [
-					new MessageEmbed()
+					new EmbedBuilder()
 						.setTitle(name)
 						.setDescription(
 							`
@@ -134,14 +144,14 @@ ${bold('Tip')} Click on buttons to see what they can do? 🤪😉`
 						.setTimestamp()
 				],
 				components: [
-					new MessageActionRow().addComponents(
-						new MessageButton()
+					new ActionRowBuilder<ButtonBuilder>().addComponents(
+						new ButtonBuilder()
 							.setLabel('Register')
-							.setStyle('SUCCESS')
+							.setStyle(ButtonStyle.Success)
 							.setCustomId(`${ButtonCustomIds.CWLEventRegister}-${eventId}`),
-						new MessageButton()
+						new ButtonBuilder()
 							.setLabel('Unregister')
-							.setStyle('DANGER')
+							.setStyle(ButtonStyle.Danger)
 							.setCustomId(`${ButtonCustomIds.CWLEventUnregister}-${eventId}`)
 					)
 				]
@@ -161,7 +171,7 @@ ${bold('Tip')} Click on buttons to see what they can do? 🤪😉`
 	}
 
 	private async sendSuccessToAuthor(user: User, id: string, name: string, messageUrl: string) {
-		const embed = new MessageEmbed()
+		const embed = new EmbedBuilder()
 			.setTitle(`${Emotes.Success} Created Event`)
 			.setDescription(
 				`

@@ -1,14 +1,13 @@
-import { bold, inlineCode, userMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { container, Result, UserError } from '@sapphire/framework';
 import { isNullishOrEmpty } from '@sapphire/utilities';
 import { Util } from 'clashofclans.js';
 import { PermissionFlagsBits, RESTJSONErrorCodes, Routes } from 'discord-api-types/v10';
-import { MessageActionRow, MessageEmbed, MessageSelectMenu } from 'discord.js';
+import { ActionRowBuilder, EmbedBuilder, StringSelectMenuBuilder, bold, inlineCode, userMention } from 'discord.js';
 
 import type { GoblinPlayer } from '#lib/coc';
 import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
-import type { CommandInteraction, HTTPError } from 'discord.js';
+import type { ChatInputCommandInteraction, HTTPError } from 'discord.js';
 
 import { TownHallEmotes } from '#lib/coc';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
@@ -29,10 +28,10 @@ import { Colors, Emotes, ErrorIdentifiers, SelectMenuCustomIds } from '#utils/co
 	commandMetaOptions: { idHints: ['1031134398625628210', '1031212344967172217'] }
 })
 export class NicknameCommand extends GoblinCommand {
-	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
+	public override async chatInputRun(interaction: ChatInputCommandInteraction<'cached'>) {
 		await interaction.deferReply();
 
-		const member = interaction.options.getMember('user', true);
+		const member = interaction.options.getMember('user')!;
 		const data = await this.sql<{ playerTag: string }[]>`SELECT player_tag
                                                              FROM players
                                                              WHERE user_id = ${member.id} LIMIT 20`;
@@ -61,7 +60,7 @@ export class NicknameCommand extends GoblinCommand {
 			);
 			return interaction.editReply({
 				embeds: [
-					new MessageEmbed()
+					new EmbedBuilder()
 						.setTitle(`${Emotes.Success} Success`)
 						.setDescription(`Successfully changed ${userMention(member.id)} nickname`)
 						.setColor(Colors.Green)
@@ -69,7 +68,7 @@ export class NicknameCommand extends GoblinCommand {
 			});
 		}
 
-		const nicknameMenu = new MessageSelectMenu()
+		const nicknameMenu = new StringSelectMenuBuilder()
 			.setPlaceholder('Select nickname')
 			.setCustomId(`${SelectMenuCustomIds.Nickname}-${member.id}`)
 			.addOptions(
@@ -82,7 +81,7 @@ export class NicknameCommand extends GoblinCommand {
 
 		return interaction.editReply({
 			content: bold('User has multiple accounts linked, please select which nickname to set'),
-			components: [new MessageActionRow().addComponents(nicknameMenu)]
+			components: [new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(nicknameMenu)]
 		});
 	}
 
@@ -96,7 +95,7 @@ export class NicknameCommand extends GoblinCommand {
 
 		if (result.isErr()) {
 			const error = result.unwrapErr();
-			if (error.code === RESTJSONErrorCodes.MissingPermissions) {
+			if (error.status === RESTJSONErrorCodes.MissingPermissions) {
 				throw new UserError({
 					identifier: ErrorIdentifiers.DiscordAPIError,
 					message: 'I am missing permissions to perform this action'

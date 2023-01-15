@@ -1,15 +1,14 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { PaginatedMessage } from '@sapphire/discord.js-utilities';
-import { UserError } from '@sapphire/framework';
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder } from 'discord.js';
 import { stripHtml } from 'string-strip-html';
 import { fetch } from 'undici';
 
 import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
-import type { CommandInteraction } from 'discord.js';
+import type { ChatInputCommandInteraction } from 'discord.js';
 
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
-import { Colors, ErrorIdentifiers } from '#root/lib/util/constants';
+import { Colors } from '#root/lib/util/constants';
 
 @ApplyOptions<GoblinCommandOptions>({
 	command: (builder) =>
@@ -25,7 +24,7 @@ import { Colors, ErrorIdentifiers } from '#root/lib/util/constants';
 	commandMetaOptions: { idHints: ['987351901655945326', '987409434462519337'] }
 })
 export class WikipediaCommand extends GoblinCommand {
-	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
+	public override async chatInputRun(interaction: ChatInputCommandInteraction<'cached'>) {
 		await interaction.deferReply({ ephemeral: true });
 		const keyword = interaction.options.getString('keyword', true);
 
@@ -35,17 +34,12 @@ export class WikipediaCommand extends GoblinCommand {
 
 		const data = (await response?.json().catch(() => null)) as WikipediaData;
 
-		if (response?.status !== 200) {
-			throw new UserError({
-				identifier: ErrorIdentifiers.HttpError,
-				message: 'Uh-oh, It looks like something went wrong! Can you please run the command again for me?'
-			});
-		}
+		if (response?.status !== 200) return interaction.editReply({ content: 'Something went wrong, try again!' });
 
 		if (data.query.searchinfo.totalhits === 0) return interaction.editReply({ content: 'No result found' });
 
 		const paginatedMessage = new PaginatedMessage({
-			template: new MessageEmbed() //
+			template: new EmbedBuilder() //
 				.setColor(Colors.Blue)
 				.setFooter({ text: ` Showing results for ${keyword}` })
 		});
@@ -62,7 +56,7 @@ export class WikipediaCommand extends GoblinCommand {
 	}
 }
 
-interface WikipediaData {
+type WikipediaData = {
 	batchcomplete: string;
 	continue: {
 		continue: string;
@@ -84,4 +78,4 @@ interface WikipediaData {
 			totalhits: number;
 		};
 	};
-}
+};

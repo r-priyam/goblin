@@ -1,7 +1,7 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes } from '@sapphire/framework';
 
-import type { SelectMenuInteraction } from 'discord.js';
+import type { StringSelectMenuInteraction } from 'discord.js';
 
 import { SuperTroopsCommand } from '#root/commands/Clan/superTroops';
 import { SelectMenuCustomIds } from '#utils/constants';
@@ -10,11 +10,11 @@ import { SelectMenuCustomIds } from '#utils/constants';
 	interactionHandlerType: InteractionHandlerTypes.SelectMenu
 })
 export class SuperTroopMenu extends InteractionHandler {
-	public override async run(interaction: SelectMenuInteraction, result: InteractionHandler.ParseResult<this>) {
+	public override async run(interaction: StringSelectMenuInteraction, result: InteractionHandler.ParseResult<this>) {
 		return interaction.followUp({ embeds: [result.data], ephemeral: true });
 	}
 
-	public override async parse(interaction: SelectMenuInteraction) {
+	public override async parse(interaction: StringSelectMenuInteraction) {
 		if (!interaction.customId.startsWith(SelectMenuCustomIds.SuperTroop)) return this.none();
 
 		await interaction.deferReply({ ephemeral: true });

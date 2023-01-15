@@ -1,12 +1,11 @@
-import { userMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { Result, UserError } from '@sapphire/framework';
 import { isNullishOrEmpty } from '@sapphire/utilities';
 import { PermissionFlagsBits } from 'discord-api-types/v9';
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder, userMention } from 'discord.js';
 
 import type { GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
-import type { CommandInteraction } from 'discord.js';
+import type { ChatInputCommandInteraction } from 'discord.js';
 
 import { GoblinSubCommand } from '#lib/extensions/GoblinSubCommand';
 import { RedisMethods } from '#lib/redis-cache/RedisCacheClient';
@@ -56,7 +55,7 @@ import { clanTagOption, playerTagOption } from '#utils/functions/commandOptions'
 	]
 })
 export class ForceLinkCommand extends GoblinSubCommand {
-	public async forceLinkClan(interaction: CommandInteraction<'cached'>) {
+	public async forceLinkClan(interaction: ChatInputCommandInteraction<'cached'>) {
 		await interaction.deferReply();
 
 		const clan = await this.coc.clanHelper.info(interaction, interaction.options.getString('tag', true));
@@ -82,7 +81,7 @@ export class ForceLinkCommand extends GoblinSubCommand {
 		await this.redis.handleClanOrPlayerCacheCache('CLAN', RedisMethods.Insert, user.id, clan.tag, clan.name);
 		return interaction.editReply({
 			embeds: [
-				new MessageEmbed()
+				new EmbedBuilder()
 					.setTitle(`${Emotes.Success} Success`)
 					.setDescription(
 						`Forcibly linked **${clan.name} (${clan.tag})** to ${userMention(user.id)} discord account`
@@ -92,7 +91,7 @@ export class ForceLinkCommand extends GoblinSubCommand {
 		});
 	}
 
-	public async forceLinkPlayer(interaction: CommandInteraction<'cached'>) {
+	public async forceLinkPlayer(interaction: ChatInputCommandInteraction<'cached'>) {
 		await interaction.deferReply();
 
 		const player = await this.coc.playerHelper.info(interaction, interaction.options.getString('tag', true));
@@ -135,7 +134,7 @@ export class ForceLinkCommand extends GoblinSubCommand {
 		await this.coc.linkApi.createLink(player.tag, user.id);
 		return interaction.editReply({
 			embeds: [
-				new MessageEmbed()
+				new EmbedBuilder()
 					.setTitle(`${Emotes.Success} Success`)
 					.setDescription(`Forcibly linked **${player.name} (${player.tag})** to ${user.id} discord account`)
 					.setColor(Colors.DeepOrange)

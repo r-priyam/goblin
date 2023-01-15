@@ -1,6 +1,6 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes, Result, UserError } from '@sapphire/framework';
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder } from 'discord.js';
 
 import type { ModalSubmitInteraction } from 'discord.js';
 
@@ -38,7 +38,7 @@ export class ModalHandler extends InteractionHandler {
 
 		await this.handleClanRequirementUpdate(interaction.guildId!, clanTag, requirements);
 		return this.some({
-			embed: new MessageEmbed()
+			embed: new EmbedBuilder()
 				.setTitle(`${Emotes.Success} Success`)
 				.setDescription('Clan requirements updated successfully, changes will reflect soon in the embed')
 				.setColor(Colors.Green)

@@ -1,6 +1,6 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes } from '@sapphire/framework';
-import { MessageActionRow, MessageButton } from 'discord.js';
+import { ActionRowBuilder, ButtonBuilder } from 'discord.js';
 
 import type { APIButtonComponent } from 'discord-api-types/v9';
 import type { ButtonInteraction } from 'discord.js';
@@ -30,7 +30,7 @@ export class ButtonHandler extends InteractionHandler {
 
 		await interaction.deferUpdate();
 		const isSerious = interaction.customId === ButtonCustomIds.CWLWarSerious;
-		const typeActionRow = new MessageActionRow();
+		const typeActionRow = new ActionRowBuilder<ButtonBuilder>();
 
 		if (isSerious) {
 			typeActionRow.addComponents(
@@ -44,9 +44,9 @@ export class ButtonHandler extends InteractionHandler {
 			);
 		}
 
-		const actionRow = new MessageActionRow().addComponents(
+		const actionRow = new ActionRowBuilder<ButtonBuilder>().addComponents(
 			// inherit from interaction button only as it contains all the data in custom id
-			new MessageButton(interaction.message.components[4].components[0] as APIButtonComponent).setDisabled(false),
+			new ButtonBuilder(interaction.message.components[4].components[0] as APIButtonComponent).setDisabled(false),
 			makeButton('Cancel', ButtonCustomIds.CWLEventUserRegisterCancel, 'DANGER')
 		);
 

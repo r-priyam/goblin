@@ -1,6 +1,6 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes } from '@sapphire/framework';
-import { MessageActionRow, MessageButton, MessageEmbed, MessageSelectMenu } from 'discord.js';
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, StringSelectMenuBuilder } from 'discord.js';
 
 import type { ButtonInteraction } from 'discord.js';
 
@@ -40,7 +40,7 @@ export class ButtonHandler extends InteractionHandler {
 	private handleCustomEvent() {
 		return {
 			embeds: [
-				new MessageEmbed()
+				new EmbedBuilder()
 					.setTitle('Warning')
 					.setDescription("Creating custom event isn't supported at the moment, soon™️!")
 					.setColor(Colors.Orange)
@@ -51,15 +51,15 @@ export class ButtonHandler extends InteractionHandler {
 
 	private handleCWLEvent() {
 		const embeds = [
-			new MessageEmbed()
+			new EmbedBuilder()
 				.setTitle('New Event Configuration')
 				.setDescription(eventConfigMessage({}))
 				.setColor(Colors.Indigo)
 		];
 
 		const components = [
-			new MessageActionRow().addComponents(
-				new MessageSelectMenu()
+			new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(
+				new StringSelectMenuBuilder()
 					.setCustomId(SelectMenuCustomIds.CWLEventConfig)
 					.setPlaceholder('Select a config to set')
 					.addOptions([
@@ -69,15 +69,15 @@ export class ButtonHandler extends InteractionHandler {
 						{ label: '＠ Event End Role Ping', value: SelectMenuOptionsValue.EventEndRolePing }
 					])
 			),
-			new MessageActionRow().addComponents(
-				new MessageButton()
+			new ActionRowBuilder<ButtonBuilder>().addComponents(
+				new ButtonBuilder()
 					.setLabel('Submit')
-					.setStyle('SECONDARY')
+					.setStyle(ButtonStyle.Secondary)
 					.setEmoji(Emotes.Success)
 					.setCustomId(ButtonCustomIds.EventSubmit),
-				new MessageButton()
+				new ButtonBuilder()
 					.setLabel('Cancel')
-					.setStyle('SECONDARY')
+					.setStyle(ButtonStyle.Secondary)
 					.setEmoji(Emotes.Error)
 					.setCustomId(ButtonCustomIds.EventCancel)
 			)
