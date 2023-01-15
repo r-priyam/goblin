@@ -1,7 +1,8 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes } from '@sapphire/framework';
+import { ButtonStyle } from 'discord.js';
 
-import type { ButtonInteraction, MessageButtonStyleResolvable } from 'discord.js';
+import type { ButtonInteraction } from 'discord.js';
 
 import { ButtonCustomIds } from '#utils/constants';
 import { makeButton } from '#utils/functions/eventHelpers';
@@ -11,7 +12,6 @@ import { makeButton } from '#utils/functions/eventHelpers';
 })
 export class ButtonHandler extends InteractionHandler {
 	public override async run(interaction: ButtonInteraction, result: InteractionHandler.ParseResult<this>) {
-		// @ts-expect-error Data is always what's needed, TS goes brr
 		return interaction.editReply({ components: result.components });
 	}
 
@@ -40,31 +40,38 @@ export class ButtonHandler extends InteractionHandler {
 
 		let tweak;
 		if (optedIn === undefined || optedIn === 'true') {
-			tweak = { style: 'DANGER' as MessageButtonStyleResolvable, customId: `${customId}_false` };
+			tweak = { style: ButtonStyle.Danger, customId: `${customId}_false` };
 		} else {
-			tweak = { style: 'SUCCESS' as MessageButtonStyleResolvable, customId: `${customId}_true` };
+			tweak = { style: ButtonStyle.Success, customId: `${customId}_true` };
 		}
 
 		switch (customId) {
 			case ButtonCustomIds.CWLOptInDayOne:
+				// @ts-expect-error Dynamic
 				interaction.message.components[2].components[0] = makeButton('Day 1', tweak.customId, tweak.style);
 				break;
 			case ButtonCustomIds.CWLOptInDayTwo:
+				// @ts-expect-error Dynamic
 				interaction.message.components[2].components[1] = makeButton('Day 2', tweak.customId, tweak.style);
 				break;
 			case ButtonCustomIds.CWLOptInDayThree:
+				// @ts-expect-error Dynamic
 				interaction.message.components[2].components[2] = makeButton('Day 3', tweak.customId, tweak.style);
 				break;
 			case ButtonCustomIds.CWLOptInDayFour:
+				// @ts-expect-error Dynamic
 				interaction.message.components[2].components[3] = makeButton('Day 4', tweak.customId, tweak.style);
 				break;
 			case ButtonCustomIds.CWLOptInDayFive:
+				// @ts-expect-error Dynamic
 				interaction.message.components[2].components[4] = makeButton('Day 5', tweak.customId, tweak.style);
 				break;
 			case ButtonCustomIds.CWLOptInDaySix:
+				// @ts-expect-error Dynamic
 				interaction.message.components[3].components[0] = makeButton('Day 6', tweak.customId, tweak.style);
 				break;
 			case ButtonCustomIds.CWLOptInDaySeven:
+				// @ts-expect-error Dynamic
 				interaction.message.components[3].components[1] = makeButton('Day 7', tweak.customId, tweak.style);
 				break;
 		}

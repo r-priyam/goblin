@@ -1,4 +1,4 @@
-import type { SlashCommandStringOption } from '@discordjs/builders';
+import type { SlashCommandStringOption } from 'discord.js';
 
 /**
  * Generate ClanTag or PlayerTag SlashCommandString option
@@ -8,7 +8,13 @@ import type { SlashCommandStringOption } from '@discordjs/builders';
  * @defaultValue `required: false` and `autoComplete: false`
  * @returns - {@link SlashCommandStringOption}
  */
-export function addTagOption(optionInstance: SlashCommandStringOption, options: TagProperties) {
+export function addTagOption(
+	optionInstance:
+		| Omit<SlashCommandStringOption, 'addChoices'>
+		| Omit<SlashCommandStringOption, 'setAutocomplete'>
+		| SlashCommandStringOption,
+	options: TagProperties
+) {
 	return optionInstance
 		.setName('tag')
 		.setDescription(options.description!)

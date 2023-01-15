@@ -1,7 +1,7 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { UserError } from '@sapphire/framework';
 import { bold } from 'colorette';
-import { PermissionFlagsBits } from 'discord-api-types/v9';
+import { PermissionFlagsBits } from 'discord-api-types/v10';
 import { EmbedBuilder, ChatInputCommandInteraction } from 'discord.js';
 
 import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';

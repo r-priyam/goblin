@@ -1,8 +1,8 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes } from '@sapphire/framework';
-import { ActionRowBuilder, EmbedBuilder, StringSelectMenuBuilder, bold } from 'discord.js';
+import { ActionRowBuilder, EmbedBuilder, StringSelectMenuBuilder, bold, ButtonStyle } from 'discord.js';
 
-import type { APIStringSelectComponent } from 'discord-api-types/v10';
+import type { APISelectMenuComponent } from 'discord-api-types/v10';
 import type { StringSelectMenuInteraction, ButtonBuilder } from 'discord.js';
 
 import { ButtonCustomIds, Colors, SelectMenuCustomIds } from '#utils/constants';
@@ -23,7 +23,7 @@ export class SelectMenuHandler extends InteractionHandler {
 		await interaction.deferUpdate();
 
 		const menu = new StringSelectMenuBuilder(
-			interaction.message.components[0].components[0] as unknown as APIStringSelectComponent
+			interaction.message.components[0].components[0].toJSON() as unknown as APISelectMenuComponent
 		);
 		const selected = menu.options.find((option) => option.data.value === interaction.values[0])!;
 
@@ -59,19 +59,19 @@ export class SelectMenuHandler extends InteractionHandler {
 			components: [
 				new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(menu),
 				new ActionRowBuilder<ButtonBuilder>().addComponents(
-					makeButton('Serious', ButtonCustomIds.CWLWarSerious, 'PRIMARY'),
-					makeButton('Casual', ButtonCustomIds.CWLWarCasual, 'PRIMARY')
+					makeButton('Serious', ButtonCustomIds.CWLWarSerious, ButtonStyle.Primary),
+					makeButton('Casual', ButtonCustomIds.CWLWarCasual, ButtonStyle.Primary)
 				),
 				new ActionRowBuilder<ButtonBuilder>().addComponents(
-					makeButton('Day 1', ButtonCustomIds.CWLOptInDayOne, 'SUCCESS'),
-					makeButton('Day 2', ButtonCustomIds.CWLOptInDayTwo, 'SUCCESS'),
-					makeButton('Day 3', ButtonCustomIds.CWLOptInDayThree, 'SUCCESS'),
-					makeButton('Day 4', ButtonCustomIds.CWLOptInDayFour, 'SUCCESS'),
-					makeButton('Day 5', ButtonCustomIds.CWLOptInDayFive, 'SUCCESS')
+					makeButton('Day 1', ButtonCustomIds.CWLOptInDayOne, ButtonStyle.Success),
+					makeButton('Day 2', ButtonCustomIds.CWLOptInDayTwo, ButtonStyle.Success),
+					makeButton('Day 3', ButtonCustomIds.CWLOptInDayThree, ButtonStyle.Success),
+					makeButton('Day 4', ButtonCustomIds.CWLOptInDayFour, ButtonStyle.Success),
+					makeButton('Day 5', ButtonCustomIds.CWLOptInDayFive, ButtonStyle.Success)
 				),
 				new ActionRowBuilder<ButtonBuilder>().addComponents(
-					makeButton('Day 6', ButtonCustomIds.CWLOptInDaySix, 'SUCCESS'),
-					makeButton('Day 7', ButtonCustomIds.CWLOptInDaySeven, 'SUCCESS')
+					makeButton('Day 6', ButtonCustomIds.CWLOptInDaySix, ButtonStyle.Success),
+					makeButton('Day 7', ButtonCustomIds.CWLOptInDaySeven, ButtonStyle.Success)
 				),
 				new ActionRowBuilder<ButtonBuilder>().addComponents(
 					makeButton(
@@ -79,10 +79,10 @@ export class SelectMenuHandler extends InteractionHandler {
 						`${ButtonCustomIds.CWLEventUserRegisterSubmit}_${menu.data.custom_id?.split('_').pop()}_${
 							selected.data.value
 						}`,
-						'SUCCESS',
+						ButtonStyle.Success,
 						false
 					),
-					makeButton('Cancel', ButtonCustomIds.CWLEventUserRegisterCancel, 'DANGER')
+					makeButton('Cancel', ButtonCustomIds.CWLEventUserRegisterCancel, ButtonStyle.Danger)
 				)
 			]
 		});

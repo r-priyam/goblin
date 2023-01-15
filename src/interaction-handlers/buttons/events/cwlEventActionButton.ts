@@ -129,7 +129,7 @@ export class ButtonHandler extends InteractionHandler {
 
 		const result = await Result.fromAsync(async () =>
 			(channel as TextChannel).send({
-				content: pingToRole ? roleMention(pingToRole) : null,
+				content: pingToRole ? roleMention(pingToRole) : undefined,
 				embeds: [
 					new EmbedBuilder()
 						.setTitle(name)

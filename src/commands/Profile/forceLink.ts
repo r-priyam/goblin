@@ -1,7 +1,7 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { Result, UserError } from '@sapphire/framework';
 import { isNullishOrEmpty } from '@sapphire/utilities';
-import { PermissionFlagsBits } from 'discord-api-types/v9';
+import { PermissionFlagsBits } from 'discord-api-types/v10';
 import { EmbedBuilder, userMention } from 'discord.js';
 
 import type { GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';

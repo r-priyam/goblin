@@ -1,6 +1,6 @@
 import { userMention } from '@discordjs/builders';
 import { codeBlock } from '@sapphire/utilities';
-import { RESTJSONErrorCodes } from 'discord-api-types/v9';
+import { RESTJSONErrorCodes } from 'discord-api-types/v10';
 import { EmbedBuilder } from 'discord.js';
 
 import type { UserError } from '@sapphire/framework';
@@ -61,7 +61,7 @@ export async function sendCommandErrorToUser(interaction: CommandInteraction, em
 }
 
 export async function sendErrorToUser(interaction: Interaction, embed: EmbedBuilder, followUp = false) {
-	if (!interaction.isSelectMenu() && !interaction.isButton() && !interaction.isModalSubmit()) return;
+	if (!interaction.isStringSelectMenu() && !interaction.isButton() && !interaction.isModalSubmit()) return;
 
 	if (followUp) {
 		if (!interaction.deferred) {
