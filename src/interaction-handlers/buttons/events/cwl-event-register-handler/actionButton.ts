@@ -3,8 +3,7 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes, UserError } from '@sapphire/framework';
 import { ActionRowBuilder, EmbedBuilder, StringSelectMenuBuilder, bold, ButtonStyle } from 'discord.js';
 
-import type { APISelectMenuComponent } from 'discord-api-types/v10';
-import type { ButtonInteraction, ButtonComponent } from 'discord.js';
+import type { ButtonInteraction, ButtonComponent, StringSelectMenuComponentData } from 'discord.js';
 
 import { ButtonCustomIds, Colors, ErrorIdentifiers, RedisKeys } from '#utils/constants';
 import { seconds } from '#utils/functions/time';
@@ -94,7 +93,7 @@ export class ButtonHandler extends InteractionHandler {
 		}
 
 		const menu = new StringSelectMenuBuilder(
-			interaction.message.components[0].components[0] as unknown as APISelectMenuComponent
+			interaction.message.components[0].components[0] as unknown as StringSelectMenuComponentData
 		);
 
 		for (const option of menu.options) {

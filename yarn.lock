@@ -2706,14 +2706,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"discord-api-types@npm:^0.33.5":
-  version: 0.33.5
-  resolution: "discord-api-types@npm:0.33.5"
-  checksum: 6dcaad640c5693a69c9a4f5e444e739dde11ba835164ae6fd3dd5a1ab7b4d7f96cd022ed653eeaff2c8051ead0d998a5d502a2915cfacdde596364b82d9e3b3f
-  languageName: node
-  linkType: hard
-
-"discord-api-types@npm:^0.37.20, discord-api-types@npm:^0.37.23, discord-api-types@npm:^0.37.25":
+"discord-api-types@npm:^0.37.20, discord-api-types@npm:^0.37.23, discord-api-types@npm:^0.37.25, discord-api-types@npm:^0.37.28":
   version: 0.37.28
   resolution: "discord-api-types@npm:0.37.28"
   checksum: c033b9c82d5ecb3f273d563db578e21e982a35d106cc66e7ea42d7ef0a79817ca43badd3aade8a5ddb491bc8679ed08b1bcccc105e64ecd1ea5a53a11c2b1f8b
@@ -4378,7 +4371,7 @@ __metadata:
     clashofclans.js: 3.0.2
     colorette: ^2.0.19
     cz-conventional-changelog: ^3.3.0
-    discord-api-types: ^0.33.5
+    discord-api-types: ^0.37.28
     discord.js: ^14.7.1
     eslint: ^8.32.0
     eslint-config-snail: ^1.4.0

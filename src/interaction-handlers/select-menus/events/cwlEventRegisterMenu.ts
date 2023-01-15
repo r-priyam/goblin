@@ -2,8 +2,7 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes } from '@sapphire/framework';
 import { ActionRowBuilder, EmbedBuilder, StringSelectMenuBuilder, bold, ButtonStyle } from 'discord.js';
 
-import type { APISelectMenuComponent } from 'discord-api-types/v10';
-import type { StringSelectMenuInteraction, ButtonBuilder } from 'discord.js';
+import type { StringSelectMenuInteraction, ButtonBuilder, StringSelectMenuComponentData } from 'discord.js';
 
 import { ButtonCustomIds, Colors, SelectMenuCustomIds } from '#utils/constants';
 import { makeButton } from '#utils/functions/eventHelpers';
@@ -23,7 +22,7 @@ export class SelectMenuHandler extends InteractionHandler {
 		await interaction.deferUpdate();
 
 		const menu = new StringSelectMenuBuilder(
-			interaction.message.components[0].components[0].toJSON() as unknown as APISelectMenuComponent
+			interaction.message.components[0].components[0].toJSON() as unknown as StringSelectMenuComponentData
 		);
 		const selected = menu.options.find((option) => option.data.value === interaction.values[0])!;
 
