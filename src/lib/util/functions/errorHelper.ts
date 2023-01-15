@@ -1,7 +1,6 @@
-import { userMention } from '@discordjs/builders';
 import { codeBlock } from '@sapphire/utilities';
 import { RESTJSONErrorCodes } from 'discord-api-types/v10';
-import { EmbedBuilder } from 'discord.js';
+import { userMention, EmbedBuilder } from 'discord.js';
 
 import type { UserError } from '@sapphire/framework';
 import type { CommandInteraction, DiscordAPIError, HTTPError, Interaction } from 'discord.js';

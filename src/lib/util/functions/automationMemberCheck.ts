@@ -1,7 +1,7 @@
-import { bold, inlineCode, userMention } from '@discordjs/builders';
 import { UserError } from '@sapphire/framework';
 import { envParseArray, envParseString } from '@skyra/env-utilities';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
+import { bold, inlineCode, userMention } from 'discord.js';
 
 import type { GuildMember } from 'discord.js';
 

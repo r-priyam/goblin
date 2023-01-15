@@ -1,9 +1,8 @@
-import { bold } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { Listener, Result } from '@sapphire/framework';
 import { ScheduledTaskEvents } from '@sapphire/plugin-scheduled-tasks';
 import Sentry from '@sentry/node';
-import { DiscordAPIError, HTTPError, EmbedBuilder } from 'discord.js';
+import { bold, DiscordAPIError, HTTPError, EmbedBuilder } from 'discord.js';
 
 import { Colors } from '#utils/constants';
 import { getCodeLine, getErrorLine, getPathLine } from '#utils/functions/errorHelper';

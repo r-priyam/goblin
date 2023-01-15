@@ -1,6 +1,14 @@
-import { bold, time, TimestampStyles } from '@discordjs/builders';
 import { Time } from '@sapphire/cron';
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, EmbedBuilder } from 'discord.js';
+import {
+	bold,
+	time,
+	TimestampStyles,
+	ActionRowBuilder,
+	ButtonBuilder,
+	ButtonStyle,
+	ComponentType,
+	EmbedBuilder
+} from 'discord.js';
 
 import type { CommandInteraction, ButtonInteraction } from 'discord.js';
 

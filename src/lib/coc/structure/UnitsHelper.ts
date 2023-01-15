@@ -1,5 +1,5 @@
-import { inlineCode } from '@discordjs/builders';
 import { DarkElixirTroops, ElixirTroops } from 'clashofclans.js';
+import { inlineCode } from 'discord.js';
 
 import type { Player } from 'clashofclans.js';
 

@@ -1,7 +1,6 @@
-import { bold } from '@discordjs/builders';
 import { container, Result, UserError } from '@sapphire/framework';
 import { isNullishOrEmpty } from '@sapphire/utilities';
-import { ChatInputCommandInteraction } from 'discord.js';
+import { bold, ChatInputCommandInteraction } from 'discord.js';
 
 import type { GoblinPlayer } from '#lib/coc';
 import type { HTTPError } from 'clashofclans.js';

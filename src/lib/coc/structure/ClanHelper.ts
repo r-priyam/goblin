@@ -1,8 +1,7 @@
-import { bold, userMention } from '@discordjs/builders';
 import { container, Result, UserError } from '@sapphire/framework';
 import { isNullishOrEmpty } from '@sapphire/utilities';
 import { HTTPError } from 'clashofclans.js';
-import { EmbedBuilder, ChatInputCommandInteraction } from 'discord.js';
+import { bold, userMention, EmbedBuilder, ChatInputCommandInteraction } from 'discord.js';
 
 import type { Clan } from 'clashofclans.js';
 

@@ -1,8 +1,7 @@
-import { bold, inlineCode, userMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { ScheduledTask } from '@sapphire/plugin-scheduled-tasks';
 import { envParseString } from '@skyra/env-utilities';
-import { EmbedBuilder, Status } from 'discord.js';
+import { bold, inlineCode, userMention, EmbedBuilder, Status } from 'discord.js';
 
 import type { TextChannel } from 'discord.js';
 

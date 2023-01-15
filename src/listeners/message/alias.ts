@@ -1,7 +1,6 @@
-import { bold } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { Events, Listener, Result } from '@sapphire/framework';
-import { EmbedBuilder } from 'discord.js';
+import { bold, EmbedBuilder } from 'discord.js';
 
 import type { Clan } from 'clashofclans.js';
 import type { Message } from 'discord.js';

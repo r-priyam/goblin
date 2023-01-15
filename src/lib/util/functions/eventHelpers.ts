@@ -1,6 +1,5 @@
-import { bold, channelMention, italic, roleMention } from '@discordjs/builders';
 import { UserError } from '@sapphire/framework';
-import { ButtonBuilder } from 'discord.js';
+import { bold, channelMention, italic, roleMention, ButtonBuilder } from 'discord.js';
 
 import type { ButtonStyle } from 'discord.js';
 

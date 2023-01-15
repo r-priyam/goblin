@@ -25,7 +25,7 @@ export class ButtonHandler extends InteractionHandler {
 			return this.none();
 		}
 
-		const expiryTime = interaction.customId.replace(/\D/g, '');
+		const expiryTime = interaction.customId.replaceAll(/\D/g, '');
 		if (Date.now() - Number(expiryTime) >= Time.Minute * 2) {
 			return this.some({
 				message:
