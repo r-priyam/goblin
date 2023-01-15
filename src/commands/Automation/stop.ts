@@ -1,8 +1,8 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { UserError } from '@sapphire/framework';
-import { bold } from 'colorette';
+import { Util } from 'clashofclans.js';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
-import { EmbedBuilder, ChatInputCommandInteraction } from 'discord.js';
+import { bold, EmbedBuilder, ChatInputCommandInteraction } from 'discord.js';
 
 import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import type { ChatInputCommand } from '@sapphire/framework';
@@ -42,8 +42,9 @@ export class StopCommand extends GoblinCommand {
 	}
 
 	private async clanEmbed(interaction: ChatInputCommand.Interaction) {
-		const clanTag = interaction.options.getString('tag', true);
+		const clanTag = Util.formatTag(interaction.options.getString('tag', true));
 
+		console.log(clanTag);
 		const [result] = await this.sql<[{ clanName?: string }]>`DELETE
                                                                  FROM clan_embeds
                                                                  WHERE clan_tag = ${clanTag}
