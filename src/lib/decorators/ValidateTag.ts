@@ -3,7 +3,7 @@ import { createFunctionPrecondition } from '@sapphire/decorators';
 import { UserError } from '@sapphire/framework';
 import { Util } from 'clashofclans.js';
 
-import type { CommandInteraction } from 'discord.js';
+import type { ChatInputCommandInteraction } from 'discord.js';
 
 import { ErrorIdentifiers } from '#utils/constants';
 
@@ -19,7 +19,7 @@ function tagChecker(tag: string, prefix: string) {
 }
 
 export const ValidateTag = ({ prefix, isDynamic }: { isDynamic?: boolean; prefix: string }): MethodDecorator => {
-	return createFunctionPrecondition((interaction: CommandInteraction<'cached'>) => {
+	return createFunctionPrecondition((interaction: ChatInputCommandInteraction<'cached'>) => {
 		const tag = interaction.options?.getString('tag');
 
 		if (isDynamic && !tag) return true;

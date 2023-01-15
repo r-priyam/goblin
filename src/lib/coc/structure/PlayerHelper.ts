@@ -1,7 +1,7 @@
 import { bold } from '@discordjs/builders';
 import { container, Result, UserError } from '@sapphire/framework';
 import { isNullishOrEmpty } from '@sapphire/utilities';
-import { CommandInteraction } from 'discord.js';
+import { ChatInputCommandInteraction } from 'discord.js';
 
 import type { GoblinPlayer } from '#lib/coc';
 import type { HTTPError } from 'clashofclans.js';
@@ -12,7 +12,7 @@ import { ErrorIdentifiers } from '#utils/constants';
 
 export class PlayerHelper {
 	@ValidateTag({ prefix: 'player', isDynamic: true })
-	public async info(_interaction: CommandInteraction<'cached'>, tag: string): Promise<GoblinPlayer> {
+	public async info(_interaction: ChatInputCommandInteraction<'cached'>, tag: string): Promise<GoblinPlayer> {
 		const result = await Result.fromAsync<GoblinPlayer, HTTPError>(() => container.coc.getPlayer(tag));
 
 		if (result.isErr()) {
@@ -26,7 +26,7 @@ export class PlayerHelper {
 		return result.unwrap();
 	}
 
-	public async verifyPlayer(interaction: CommandInteraction<'cached'>, tag: string, token: string) {
+	public async verifyPlayer(interaction: ChatInputCommandInteraction<'cached'>, tag: string, token: string) {
 		const result = await Result.fromAsync<boolean, HTTPError>(async () =>
 			container.coc.verifyPlayerToken(tag, token)
 		);
@@ -46,7 +46,7 @@ export class PlayerHelper {
 		return this.info(interaction, tag);
 	}
 
-	public async dynamicTag(interaction: CommandInteraction<'cached'>) {
+	public async dynamicTag(interaction: ChatInputCommandInteraction<'cached'>) {
 		const playerTag = interaction.options.getString('tag');
 
 		if (playerTag) {

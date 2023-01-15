@@ -3,7 +3,7 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { ScheduledTask } from '@sapphire/plugin-scheduled-tasks';
 import { isNullish } from '@sapphire/utilities';
 import { envParseString } from '@skyra/env-utilities';
-import { MessageActionRow, MessageButton } from 'discord.js';
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
 
 import type { TextChannel } from 'discord.js';
 
@@ -31,11 +31,11 @@ export class BotScheduledTask extends ScheduledTask {
 				'Started at:'
 			)} ${time(new Date(startedAt), TimestampStyles.LongDateTime)}`,
 			components: [
-				new MessageActionRow().addComponents(
-					new MessageButton() //
+				new ActionRowBuilder<ButtonBuilder>().addComponents(
+					new ButtonBuilder() //
 						.setLabel('Reference Message')
 						.setURL(messageUrl)
-						.setStyle('LINK')
+						.setStyle(ButtonStyle.Link)
 				)
 			]
 		});

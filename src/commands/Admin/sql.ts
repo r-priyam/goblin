@@ -1,14 +1,14 @@
 import { inspect } from 'node:util';
 
-import { codeBlock } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { Stopwatch } from '@sapphire/stopwatch';
 import { inlineCodeBlock, isNullishOrEmpty } from '@sapphire/utilities';
 import { envParseString } from '@skyra/env-utilities';
+import { codeBlock } from 'discord.js';
 import { markdownTable } from 'markdown-table';
 
 import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
-import type { CommandInteraction } from 'discord.js';
+import type { ChatInputCommandInteraction } from 'discord.js';
 
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 
@@ -30,7 +30,7 @@ import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 	preconditions: ['OwnerOnly']
 })
 export class SQLCommand extends GoblinCommand {
-	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
+	public override async chatInputRun(interaction: ChatInputCommandInteraction<'cached'>) {
 		await interaction.deferReply();
 
 		const query = interaction.options.getString('query', true);

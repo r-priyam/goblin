@@ -1,10 +1,10 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { UserError } from '@sapphire/framework';
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder } from 'discord.js';
 
 import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import type { Clan } from 'clashofclans.js';
-import type { CommandInteraction } from 'discord.js';
+import type { ChatInputCommandInteraction } from 'discord.js';
 
 import { LabelEmotes, MiscEmotes, RawClanType, RawWarFrequency, TownHallEmotes, WarLeagueEmotes } from '#lib/coc';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
@@ -20,7 +20,7 @@ import { clanTagOption } from '#utils/functions/commandOptions';
 	commandMetaOptions: { idHints: ['975586954982867024', '980132035089809429'] }
 })
 export class ClanCommand extends GoblinCommand {
-	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
+	public override async chatInputRun(interaction: ChatInputCommandInteraction<'cached'>) {
 		await interaction.deferReply();
 
 		const clanTag = await this.coc.clanHelper.dynamicTag(interaction);
@@ -39,7 +39,11 @@ export class ClanCommand extends GoblinCommand {
 		return this.injectClanComposition(interaction, infoEmbed, clan);
 	}
 
-	private async injectClanComposition(interaction: CommandInteraction<'cached'>, embed: MessageEmbed, clan: Clan) {
+	private async injectClanComposition(
+		interaction: ChatInputCommandInteraction<'cached'>,
+		embed: EmbedBuilder,
+		clan: Clan
+	) {
 		const composition = await this.coc.clanHelper.getClanComposition(clan, true);
 		// remove placeholder field for composition fetch
 		embed.spliceFields(2, 1);
@@ -57,7 +61,7 @@ export class ClanCommand extends GoblinCommand {
 				.join('\n')}\n\n`;
 		}
 
-		return new MessageEmbed()
+		return new EmbedBuilder()
 			.setTitle(clan.name)
 			.setURL(clan.shareLink)
 			.setDescription(description)

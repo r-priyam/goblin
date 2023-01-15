@@ -1,12 +1,11 @@
-import { bold } from '@discordjs/builders';
 import { Time } from '@sapphire/cron';
 import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes, UserError } from '@sapphire/framework';
 import { isNullishOrEmpty } from '@sapphire/utilities';
 import { Util } from 'clashofclans.js';
-import { MessageActionRow, MessageEmbed, MessageSelectMenu } from 'discord.js';
+import { ActionRowBuilder, EmbedBuilder, StringSelectMenuBuilder, bold } from 'discord.js';
 
-import type { ButtonInteraction, MessageSelectOptionData } from 'discord.js';
+import type { ButtonInteraction, SelectMenuComponentOptionData } from 'discord.js';
 
 import { TownHallEmotes } from '#lib/coc';
 import { Prompter } from '#utils/classes/prompter';
@@ -42,8 +41,8 @@ export class ButtonHandler extends InteractionHandler {
 			content: null,
 			embeds: [],
 			components: [
-				new MessageActionRow().addComponents(
-					new MessageSelectMenu()
+				new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(
+					new StringSelectMenuBuilder()
 						.setCustomId(`${SelectMenuCustomIds.CWLEventRegister}_${eventId}`)
 						.setPlaceholder('Select a player to register')
 						.addOptions(registerMenuOptions)
@@ -53,7 +52,7 @@ export class ButtonHandler extends InteractionHandler {
 	}
 
 	private async handleRegister(userId: string, eventId: string) {
-		let menuOptions: MessageSelectOptionData[] | null;
+		let menuOptions: SelectMenuComponentOptionData[] | null;
 
 		menuOptions = await this.redis.fetch(RedisKeys.CWLEventRegistration, userId);
 
@@ -149,7 +148,7 @@ export class ButtonHandler extends InteractionHandler {
 		return this.some({
 			content: null,
 			embeds: [
-				new MessageEmbed()
+				new EmbedBuilder()
 					.setTitle('Success')
 					.setDescription(
 						'Successfully deleted your all data which was registered. I still hope that you will play in this event 🙂'

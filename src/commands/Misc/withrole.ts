@@ -1,15 +1,13 @@
-import { roleMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
-import { UserError } from '@sapphire/framework';
 import { inlineCodeBlock } from '@sapphire/utilities';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder, roleMention } from 'discord.js';
 
 import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
-import type { CommandInteraction } from 'discord.js';
+import type { ChatInputCommandInteraction } from 'discord.js';
 
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
-import { Colors, ErrorIdentifiers } from '#root/lib/util/constants';
+import { Colors } from '#root/lib/util/constants';
 
 @ApplyOptions<GoblinCommandOptions>({
 	requiredMemberPermissions: PermissionFlagsBits.BanMembers | PermissionFlagsBits.KickMembers,
@@ -26,7 +24,7 @@ import { Colors, ErrorIdentifiers } from '#root/lib/util/constants';
 	commandMetaOptions: { idHints: ['997227514726461490', '997373722178617405'] }
 })
 export class WithRoleCommand extends GoblinCommand {
-	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
+	public override async chatInputRun(interaction: ChatInputCommandInteraction<'cached'>) {
 		await interaction.deferReply();
 		const role = interaction.options.getRole('role', true);
 
@@ -36,15 +34,10 @@ export class WithRoleCommand extends GoblinCommand {
 		const totalMembers = members.length;
 		let count = 0;
 
-		if (members.length === 0) {
-			throw new UserError({
-				identifier: ErrorIdentifiers.Unknown,
-				message: `No member has ${roleMention(role.id)}`
-			});
-		}
+		if (members.length === 0) return interaction.editReply({ content: `No member has ${roleMention(role.id)}` });
 
 		while (members.length !== 0) {
-			const namesEmbed = new MessageEmbed()
+			const namesEmbed = new EmbedBuilder()
 				.setTitle(`Showing members for ${role.name}`)
 				.setDescription(
 					members
@@ -54,7 +47,7 @@ export class WithRoleCommand extends GoblinCommand {
 				)
 				.setFooter({
 					text: `Requested by ${interaction.member.displayName}`,
-					iconURL: interaction.member.displayAvatarURL({ size: 32, format: 'png', dynamic: true })
+					iconURL: interaction.member.displayAvatarURL({ size: 32, extension: 'png', forceStatic: true })
 				})
 				.setColor(Colors.BlueGrey);
 

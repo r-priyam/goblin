@@ -1,11 +1,10 @@
-import { bold } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { UserError } from '@sapphire/framework';
-import { PermissionFlagsBits } from 'discord-api-types/v10';
-import { MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
+import { ButtonStyle, PermissionFlagsBits } from 'discord-api-types/v10';
+import { ActionRowBuilder, ButtonBuilder, EmbedBuilder, bold } from 'discord.js';
 
 import type { GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
-import type { CommandInteraction } from 'discord.js';
+import type { ChatInputCommandInteraction } from 'discord.js';
 
 import { GoblinSubCommand } from '#lib/extensions/GoblinSubCommand';
 import { Prompter } from '#utils/classes/prompter';
@@ -42,10 +41,10 @@ import { ButtonCustomIds, Colors, ErrorIdentifiers } from '#utils/constants';
 	]
 })
 export class EventCommands extends GoblinSubCommand {
-	public async createEvent(interaction: CommandInteraction<'cached'>) {
+	public async createEvent(interaction: ChatInputCommandInteraction<'cached'>) {
 		return interaction.reply({
 			embeds: [
-				new MessageEmbed()
+				new EmbedBuilder()
 					.setTitle('Create Event')
 					.setDescription(
 						'Woohoo a new event 🥳, but more work for me 🥺. Anyway, my commander asked me to follow your orders so 😒, please select the type of event'
@@ -53,18 +52,21 @@ export class EventCommands extends GoblinSubCommand {
 					.setColor(Colors.Indigo)
 			],
 			components: [
-				new MessageActionRow().addComponents(
-					new MessageButton().setCustomId(ButtonCustomIds.CWLEventCreate).setLabel('CWL').setStyle('PRIMARY'),
-					new MessageButton()
+				new ActionRowBuilder<ButtonBuilder>().addComponents(
+					new ButtonBuilder()
+						.setCustomId(ButtonCustomIds.CWLEventCreate)
+						.setLabel('CWL')
+						.setStyle(ButtonStyle.Primary),
+					new ButtonBuilder()
 						.setCustomId(ButtonCustomIds.CustomEventCreate)
 						.setLabel('Custom')
-						.setStyle('PRIMARY')
+						.setStyle(ButtonStyle.Primary)
 				)
 			]
 		});
 	}
 
-	public async deleteEvent(interaction: CommandInteraction<'cached'>) {
+	public async deleteEvent(interaction: ChatInputCommandInteraction<'cached'>) {
 		await interaction.deferReply();
 
 		const eventId = interaction.options.getString('id', true).trim();
@@ -98,9 +100,9 @@ export class EventCommands extends GoblinSubCommand {
 
 		return interaction.editReply({
 			embeds: [
-				new MessageEmbed()
+				new EmbedBuilder()
 					.setTitle('Success')
-					.setDescription('Event and all releated data deleted successfully! Hoping to serve you again soon.')
+					.setDescription('Event and all related data deleted successfully! Hoping to serve you again soon.')
 					.setColor(Colors.Green)
 			]
 		});

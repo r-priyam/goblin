@@ -1,7 +1,7 @@
 import { userMention } from '@discordjs/builders';
 import { codeBlock } from '@sapphire/utilities';
-import { RESTJSONErrorCodes } from 'discord-api-types/v9';
-import { MessageEmbed } from 'discord.js';
+import { RESTJSONErrorCodes } from 'discord-api-types/v10';
+import { EmbedBuilder } from 'discord.js';
 
 import type { UserError } from '@sapphire/framework';
 import type { CommandInteraction, DiscordAPIError, HTTPError, Interaction } from 'discord.js';
@@ -19,7 +19,7 @@ export const UnidentifiedErrorMessage = `UH OH! Looks like something went wrong 
  * @param error - The error to format.
  */
 export function getPathLine(error: DiscordAPIError | HTTPError): string {
-	return `**Path**: ${error.method.toUpperCase()} ${error.path}`;
+	return `**Path**: ${error.method.toUpperCase()} ${error.url}`;
 }
 
 /**
@@ -28,7 +28,7 @@ export function getPathLine(error: DiscordAPIError | HTTPError): string {
  * @param error - The error to format.
  */
 export function getCodeLine(error: DiscordAPIError | HTTPError): string {
-	return `**Code**: ${error.code}`;
+	return `**Code**: ${error.status}`;
 }
 
 /**
@@ -52,7 +52,7 @@ export async function handleUserError(interaction: Interaction, error: UserError
 	);
 }
 
-export async function sendCommandErrorToUser(interaction: CommandInteraction, embed: MessageEmbed) {
+export async function sendCommandErrorToUser(interaction: CommandInteraction, embed: EmbedBuilder) {
 	if (interaction.replied || interaction.deferred) {
 		return interaction.editReply({ embeds: [embed] });
 	}
@@ -60,8 +60,8 @@ export async function sendCommandErrorToUser(interaction: CommandInteraction, em
 	return interaction.reply({ embeds: [embed], ephemeral: true });
 }
 
-export async function sendErrorToUser(interaction: Interaction, embed: MessageEmbed, followUp = false) {
-	if (!interaction.isSelectMenu() && !interaction.isButton() && !interaction.isModalSubmit()) return;
+export async function sendErrorToUser(interaction: Interaction, embed: EmbedBuilder, followUp = false) {
+	if (!interaction.isStringSelectMenu() && !interaction.isButton() && !interaction.isModalSubmit()) return;
 
 	if (followUp) {
 		if (!interaction.deferred) {
@@ -79,7 +79,7 @@ export async function sendErrorToUser(interaction: Interaction, embed: MessageEm
 }
 
 export function errorEmbedUser(message: string) {
-	return new MessageEmbed().setTitle(`${Emotes.Error} Error`).setDescription(message).setColor(Colors.Red);
+	return new EmbedBuilder().setTitle(`${Emotes.Error} Error`).setDescription(message).setColor(Colors.Red);
 }
 
 export function getWarnError(interaction: Interaction) {

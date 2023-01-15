@@ -1,8 +1,8 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes, UserError } from '@sapphire/framework';
-import { MessageActionRow, Modal, TextInputComponent } from 'discord.js';
+import { ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } from 'discord.js';
 
-import type { ModalActionRowComponent, SelectMenuInteraction } from 'discord.js';
+import type { StringSelectMenuInteraction } from 'discord.js';
 
 import {
 	ErrorIdentifiers,
@@ -17,11 +17,11 @@ import { checkUser } from '#utils/functions/eventHelpers';
 	interactionHandlerType: InteractionHandlerTypes.SelectMenu
 })
 export class SelectMenuHandler extends InteractionHandler {
-	public override async run(interaction: SelectMenuInteraction, result: InteractionHandler.ParseResult<this>) {
+	public override async run(interaction: StringSelectMenuInteraction, result: InteractionHandler.ParseResult<this>) {
 		return interaction.showModal(result.model);
 	}
 
-	public override async parse(interaction: SelectMenuInteraction) {
+	public override async parse(interaction: StringSelectMenuInteraction) {
 		if (!interaction.customId.startsWith(SelectMenuCustomIds.CWLEventConfig)) return this.none();
 
 		checkUser(interaction.message.interaction!.user.id, interaction.user.id);
@@ -55,15 +55,15 @@ export class SelectMenuHandler extends InteractionHandler {
 	}
 
 	private modalGenerator(fieldName: string, customId: string, required = false) {
-		return new Modal()
+		return new ModalBuilder()
 			.setTitle(`${fieldName} Config Form`)
 			.setCustomId(ModalCustomIds.CWLEvent)
 			.addComponents(
-				new MessageActionRow<ModalActionRowComponent>().addComponents(
-					new TextInputComponent()
+				new ActionRowBuilder<TextInputBuilder>().addComponents(
+					new TextInputBuilder()
 						.setLabel(`Enter ${fieldName}`)
 						.setCustomId(customId)
-						.setStyle('SHORT')
+						.setStyle(TextInputStyle.Short)
 						.setMinLength(5)
 						.setMaxLength(22)
 						.setRequired(required)

@@ -4,7 +4,7 @@ import Sentry from '@sentry/node';
 import { DiscordAPIError, HTTPError } from 'discord.js';
 
 import type { InteractionHandlerError, InteractionHandlerParseError } from '@sapphire/framework';
-import type { CommandInteraction } from 'discord.js';
+import type { ChatInputCommandInteraction } from 'discord.js';
 
 import {
 	errorEmbedUser,
@@ -15,7 +15,7 @@ import {
 	sendErrorToUser
 } from '#utils/functions/errorHelper';
 
-export async function commandErrorHandler(error: Error, interaction: CommandInteraction) {
+export async function commandErrorHandler(error: Error, interaction: ChatInputCommandInteraction) {
 	if (typeof error === 'string') return sendCommandErrorToUser(interaction, errorEmbedUser(error));
 	if (error instanceof UserError) return handleUserError(interaction, error);
 
@@ -30,7 +30,7 @@ export async function commandErrorHandler(error: Error, interaction: CommandInte
 	}
 
 	if (error instanceof DiscordAPIError || error instanceof HTTPError) {
-		if (IgnoredCodes.has(error.code)) return;
+		if (IgnoredCodes.has(error.status)) return;
 
 		client.emit(Events.Error, error);
 	} else {
@@ -63,7 +63,7 @@ export function interactionErrorHandler(
 	}
 
 	if (error instanceof DiscordAPIError || error instanceof HTTPError) {
-		if (IgnoredCodes.has(error.code)) return;
+		if (IgnoredCodes.has(error.status)) return;
 
 		client.emit(Events.Error, error);
 	} else {

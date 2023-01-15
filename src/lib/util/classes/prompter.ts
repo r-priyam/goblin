@@ -1,6 +1,6 @@
 import { bold, time, TimestampStyles } from '@discordjs/builders';
 import { Time } from '@sapphire/cron';
-import { MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, EmbedBuilder } from 'discord.js';
 
 import type { CommandInteraction, ButtonInteraction } from 'discord.js';
 
@@ -29,7 +29,7 @@ export class Prompter {
 
 		try {
 			const response = await this.interaction.channel?.awaitMessageComponent({
-				componentType: 'BUTTON',
+				componentType: ComponentType.Button,
 				time: this.timeout,
 				filter: async (interaction) => {
 					await interaction.deferUpdate();
@@ -62,14 +62,22 @@ export class Prompter {
 	}
 
 	private get prompterComponent() {
-		return new MessageActionRow().addComponents(
-			new MessageButton().setLabel('Yes').setEmoji(Emotes.Success).setStyle('SUCCESS').setCustomId('yes'),
-			new MessageButton().setLabel('No').setEmoji(Emotes.Error).setStyle('DANGER').setCustomId('no')
+		return new ActionRowBuilder<ButtonBuilder>().addComponents(
+			new ButtonBuilder()
+				.setLabel('Yes')
+				.setEmoji(Emotes.Success)
+				.setStyle(ButtonStyle.Success)
+				.setCustomId('yes'),
+			new ButtonBuilder() //
+				.setLabel('No')
+				.setEmoji(Emotes.Error)
+				.setStyle(ButtonStyle.Danger)
+				.setCustomId('no')
 		);
 	}
 
 	private get prompterEmbed() {
-		return new MessageEmbed()
+		return new EmbedBuilder()
 			.setTitle('Confirmation Prompt')
 			.setDescription(
 				`${this.message}\n\n${bold(

@@ -1,13 +1,12 @@
-import { bold } from '@discordjs/builders';
 import { Time } from '@sapphire/cron';
 import { ApplyOptions } from '@sapphire/decorators';
 import { isNullishOrEmpty } from '@sapphire/utilities';
-import { MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
+import { ActionRowBuilder, ButtonBuilder, EmbedBuilder, bold, ComponentType, ButtonStyle } from 'discord.js';
 
 import type { GoblinPlayer } from '#lib/coc';
 import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import type { Achievement } from 'clashofclans.js';
-import type { CommandInteraction } from 'discord.js';
+import type { ChatInputCommandInteraction } from 'discord.js';
 
 import { LabelEmotes, MiscEmotes, RawPosition } from '#lib/coc';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
@@ -25,7 +24,7 @@ import { humanizeNumber } from '#utils/utils';
 	commandMetaOptions: { idHints: ['977007152600350761', '980131956241092648'] }
 })
 export class PlayerCommand extends GoblinCommand {
-	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
+	public override async chatInputRun(interaction: ChatInputCommandInteraction<'cached'>) {
 		const message = await interaction.deferReply({ fetchReply: true });
 
 		const playerTag = await this.coc.playerHelper.dynamicTag(interaction);
@@ -37,17 +36,17 @@ export class PlayerCommand extends GoblinCommand {
 
 		const authorId = interaction.user.id;
 		const collector = message.channel.createMessageComponentCollector({
-			componentType: 'BUTTON',
+			componentType: ComponentType.Button,
 			filter: (interaction) => collectorFiler(interaction, authorId, message.id),
 			time: Time.Minute * 2
 		});
 
 		collector.on('collect', async (buttonInteraction) => {
 			if (buttonInteraction.customId.includes('PLAYER_INFO')) {
-				return buttonInteraction.update({ embeds: [infoEmbed] });
+				await buttonInteraction.update({ embeds: [infoEmbed] });
 			}
 
-			return buttonInteraction.update({ embeds: [unitsEmbed] });
+			await buttonInteraction.update({ embeds: [unitsEmbed] });
 		});
 
 		collector.on('end', async () => void (await interaction.editReply({ components: [] }).catch(() => null)));
@@ -66,7 +65,7 @@ export class PlayerCommand extends GoblinCommand {
 			{ name: 'Super Troops', value: units.unit('SUPER') }
 		];
 
-		const embed = new MessageEmbed() //
+		const embed = new EmbedBuilder() //
 			.setAuthor({ name: `Units for ${player.name}`, iconURL: player.townHallImage, url: player.shareLink })
 			.setColor(Colors.Indigo);
 
@@ -79,16 +78,16 @@ export class PlayerCommand extends GoblinCommand {
 	}
 
 	private static get components() {
-		return new MessageActionRow() //
+		return new ActionRowBuilder<ButtonBuilder>() //
 			.addComponents([
-				new MessageButton() //
+				new ButtonBuilder() //
 					.setCustomId(`PLAYER_INFO$_${Date.now()}`)
-					.setStyle('SECONDARY')
+					.setStyle(ButtonStyle.Secondary)
 					.setLabel('Info')
 					.setEmoji(MiscEmotes.Info),
-				new MessageButton() //
+				new ButtonBuilder() //
 					.setCustomId(`PLAYER_UNITS_${Date.now()}`)
-					.setStyle('SECONDARY')
+					.setStyle(ButtonStyle.Secondary)
 					.setLabel('Units')
 					.setEmoji(LabelEmotes.Underdog)
 			]);
@@ -111,7 +110,7 @@ export class PlayerCommand extends GoblinCommand {
 			MiscEmotes.Shield
 		} ${player.defenseWins}`;
 
-		return new MessageEmbed()
+		return new EmbedBuilder()
 			.setTitle(player.name)
 			.setURL(player.shareLink)
 			.setDescription(description)

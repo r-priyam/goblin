@@ -3,7 +3,7 @@ import { isNullish } from '@sapphire/utilities';
 import { envParseInteger, envParseString } from '@skyra/env-utilities';
 import Redis from 'ioredis';
 
-import type { MessageSelectOptionData } from 'discord.js';
+import type { SelectMenuComponentOptionData } from 'discord.js';
 
 import { RedisKeys } from '#utils/constants';
 
@@ -133,5 +133,5 @@ type RedisData<K extends RedisKeys> = K extends RedisKeys.Player
 	: K extends RedisKeys.ClanAlias
 	? ClanAliasCache[]
 	: K extends RedisKeys.CWLEventRegistration
-	? MessageSelectOptionData[]
+	? SelectMenuComponentOptionData[]
 	: never;

@@ -3,14 +3,13 @@ import { cpus, uptime, type CpuInfo } from 'node:os';
 import process from 'node:process';
 import { URL } from 'node:url';
 
-import { hideLinkEmbed, hyperlink, time, TimestampStyles, userMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { version as sapphireVersion } from '@sapphire/framework';
 import { roundNumber } from '@sapphire/utilities';
-import { MessageEmbed, version } from 'discord.js';
+import { EmbedBuilder, version, hideLinkEmbed, hyperlink, time, TimestampStyles, userMention } from 'discord.js';
 
 import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
-import type { CommandInteraction } from 'discord.js';
+import type { ChatInputCommandInteraction } from 'discord.js';
 
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#root/lib/util/constants';
@@ -34,7 +33,7 @@ export class AboutCommand extends GoblinCommand {
 		)} to communicate with the clash api.`
 	].join('\n');
 
-	public override async chatInputRun(interaction: CommandInteraction<'cached'>) {
+	public override async chatInputRun(interaction: ChatInputCommandInteraction<'cached'>) {
 		await interaction.deferReply();
 		return interaction.editReply({ embeds: [await this.embed()] });
 	}
@@ -73,7 +72,7 @@ export class AboutCommand extends GoblinCommand {
 			].join('\n')
 		};
 
-		return new MessageEmbed() //
+		return new EmbedBuilder() //
 			.setColor(Colors.Indigo)
 			.setDescription(this.#descriptionContent)
 			.setFields(

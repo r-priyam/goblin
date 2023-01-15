@@ -1,9 +1,9 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { UserError } from '@sapphire/framework';
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder } from 'discord.js';
 
 import type { GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
-import type { CommandInteraction } from 'discord.js';
+import type { ChatInputCommandInteraction } from 'discord.js';
 
 import { GoblinSubCommand } from '#lib/extensions/GoblinSubCommand';
 import { RedisMethods } from '#lib/redis-cache/RedisCacheClient';
@@ -43,7 +43,7 @@ import { clanTagOption, playerTagOption } from '#utils/functions/commandOptions'
 	]
 })
 export class LinkCommand extends GoblinSubCommand {
-	public async clanLink(interaction: CommandInteraction<'cached'>) {
+	public async clanLink(interaction: ChatInputCommandInteraction<'cached'>) {
 		await interaction.deferReply({ ephemeral: true });
 
 		const clan = await this.coc.clanHelper.info(interaction, interaction.options.getString('tag', true));
@@ -69,7 +69,7 @@ export class LinkCommand extends GoblinSubCommand {
 		);
 		return interaction.editReply({
 			embeds: [
-				new MessageEmbed()
+				new EmbedBuilder()
 					.setTitle(`${Emotes.Success} Success`)
 					.setDescription(`Linked **${clan.name} (${clan.tag})** to your discord account`)
 					.setColor(Colors.Green)
@@ -77,7 +77,7 @@ export class LinkCommand extends GoblinSubCommand {
 		});
 	}
 
-	public async playerLink(interaction: CommandInteraction<'cached'>) {
+	public async playerLink(interaction: ChatInputCommandInteraction<'cached'>) {
 		await interaction.deferReply({ ephemeral: true });
 
 		const player = await this.coc.playerHelper.verifyPlayer(
@@ -108,7 +108,7 @@ export class LinkCommand extends GoblinSubCommand {
 		await this.coc.linkApi.createLink(player.tag, interaction.member.id);
 		return interaction.editReply({
 			embeds: [
-				new MessageEmbed()
+				new EmbedBuilder()
 					.setTitle(`${Emotes.Success} Success`)
 					.setDescription(`Linked **${player.name} (${player.tag})** to your discord account`)
 					.setColor(Colors.Green)

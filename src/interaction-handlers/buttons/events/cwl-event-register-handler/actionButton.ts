@@ -1,11 +1,10 @@
-import { bold } from '@discordjs/builders';
 import { Time } from '@sapphire/cron';
 import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes, UserError } from '@sapphire/framework';
-import { MessageActionRow, MessageEmbed, MessageSelectMenu } from 'discord.js';
+import { ActionRowBuilder, EmbedBuilder, StringSelectMenuBuilder, bold, ButtonStyle } from 'discord.js';
 
-import type { APISelectMenuComponent } from 'discord-api-types/v9';
-import type { ButtonInteraction, MessageButton } from 'discord.js';
+import type { APISelectMenuComponent } from 'discord-api-types/v10';
+import type { ButtonInteraction, ButtonComponent } from 'discord.js';
 
 import { ButtonCustomIds, Colors, ErrorIdentifiers, RedisKeys } from '#utils/constants';
 import { seconds } from '#utils/functions/time';
@@ -30,20 +29,24 @@ export class ButtonHandler extends InteractionHandler {
 		await interaction.deferUpdate();
 
 		if (interaction.customId === ButtonCustomIds.CWLEventUserRegisterCancel) {
-			return this.some({ content: bold('Cancelling the process'), embeds: [], components: [] });
+			return this.some({
+				embeds: [new EmbedBuilder().setDescription(bold('Cancelling the process')).setColor(Colors.DeepOrange)],
+				components: []
+			});
 		}
 
 		const daysValue = [];
 		const playerName = interaction.message.embeds[0].title;
-		const serious = (interaction.message.components[1].components[0] as MessageButton).style === 'SUCCESS';
+		const serious =
+			(interaction.message.components[1].components[0] as ButtonComponent).style === ButtonStyle.Success;
 		const [_, eventId, playerTag, thLevel, bkLevel, aqLevel, gwLevel, rcLevel] = interaction.customId.split('_');
 
-		for (const component of interaction.message.components[2].components as MessageButton[]) {
-			daysValue.push(component.style === 'SUCCESS');
+		for (const component of interaction.message.components[2].components as ButtonComponent[]) {
+			daysValue.push(component.style === ButtonStyle.Success);
 		}
 
-		for (const component of interaction.message.components[3].components as MessageButton[]) {
-			daysValue.push(component.style === 'SUCCESS');
+		for (const component of interaction.message.components[3].components as ButtonComponent[]) {
+			daysValue.push(component.style === ButtonStyle.Success);
 		}
 
 		try {
@@ -90,11 +93,13 @@ export class ButtonHandler extends InteractionHandler {
 			});
 		}
 
-		const menu = new MessageSelectMenu(interaction.message.components[0].components[0] as APISelectMenuComponent);
+		const menu = new StringSelectMenuBuilder(
+			interaction.message.components[0].components[0] as unknown as APISelectMenuComponent
+		);
 
 		for (const option of menu.options) {
-			if (option.value.includes(playerTag)) {
-				option.label = `✅ ${option.label.slice(2)}`;
+			if (option.data.value?.includes(playerTag)) {
+				option.data.label = `✅ ${option.data.label!.slice(2)}`;
 			}
 		}
 
@@ -102,16 +107,16 @@ export class ButtonHandler extends InteractionHandler {
 			RedisKeys.CWLEventRegistration,
 			interaction.user.id,
 			menu.options.map((option) => ({
-				label: option.label,
-				value: option.value,
-				emoji: `<${option.emoji?.name}:${option.emoji?.id}>`
+				label: option.data.label!,
+				value: option.data.value!,
+				emoji: `<${option.data.emoji?.name}:${option.data.emoji?.id}>`
 			})),
 			seconds.fromMilliseconds(Time.Minute * 30)
 		);
 
 		return this.some({
 			embeds: [
-				new MessageEmbed()
+				new EmbedBuilder()
 					.setTitle('Success')
 					.setDescription(
 						`Successfully registered ${bold(
@@ -124,7 +129,7 @@ export class ButtonHandler extends InteractionHandler {
 					)
 					.setColor(Colors.Green)
 			],
-			components: [new MessageActionRow().addComponents(menu)]
+			components: [new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(menu)]
 		});
 	}
 }
