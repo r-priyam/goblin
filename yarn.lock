@@ -2361,12 +2361,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clashofclans.js@npm:3.0.0":
-  version: 3.0.0
-  resolution: "clashofclans.js@npm:3.0.0"
+"clashofclans.js@npm:3.0.2":
+  version: 3.0.2
+  resolution: "clashofclans.js@npm:3.0.2"
   dependencies:
     node-fetch: ^2.6.7
-  checksum: 479cb6debb2bbf5645dfbb99fbc2655baad3adb86b5552274ad0d12aa7e82ff4e9c793810eb8ede684ae2f4f6fbaea8bd00ca08b080a258f4c061e59f9c2dd92
+  checksum: d7f7679bcd3ee2234c47de50f898c8ecb4fc751dfcc268f9187cfc62a029aff2db4762efb8339061ea879fe0377631292e0d4f43f06aaa007129026358e1c1ea
   languageName: node
   linkType: hard
 
@@ -4689,7 +4689,7 @@ __metadata:
     "@typescript-eslint/parser": ^5.48.1
     bufferutil: ^4.0.7
     bullmq: ^3.5.6
-    clashofclans.js: 3.0.0
+    clashofclans.js: 3.0.2
     colorette: ^2.0.19
     cz-conventional-changelog: ^3.3.0
     discord-api-types: ^0.33.5
