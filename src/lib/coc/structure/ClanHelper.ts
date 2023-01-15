@@ -2,7 +2,7 @@ import { bold, userMention } from '@discordjs/builders';
 import { container, Result, UserError } from '@sapphire/framework';
 import { isNullishOrEmpty } from '@sapphire/utilities';
 import { HTTPError } from 'clashofclans.js';
-import { MessageEmbed, CommandInteraction } from 'discord.js';
+import { EmbedBuilder, ChatInputCommandInteraction } from 'discord.js';
 
 import type { Clan } from 'clashofclans.js';
 
@@ -20,7 +20,7 @@ import { ErrorIdentifiers } from '#utils/constants';
 
 export class ClanHelper {
 	@ValidateTag({ prefix: 'clan', isDynamic: true })
-	public async info(_interaction: CommandInteraction<'cached'>, tag: string) {
+	public async info(_interaction: ChatInputCommandInteraction<'cached'>, tag: string) {
 		const result = await Result.fromAsync(() => container.coc.getClan(tag));
 		if (result.isErr()) {
 			const error = result.unwrapErr();
@@ -66,7 +66,7 @@ export class ClanHelper {
 	) {
 		const composition = await this.getClanComposition(clan, true);
 
-		return new MessageEmbed()
+		return new EmbedBuilder()
 			.setTitle(clan.name)
 			.setURL(clan.shareLink)
 			.setDescription(
@@ -120,7 +120,7 @@ ${WarLeagueEmotes[clan.warLeague!.name]} ${clan.warLeague!.name}`,
 			.setFooter({ text: 'Last Synced' });
 	}
 
-	public async dynamicTag(interaction: CommandInteraction<'cached'>) {
+	public async dynamicTag(interaction: ChatInputCommandInteraction<'cached'>) {
 		const playerTag = interaction.options.getString('tag');
 
 		if (playerTag) {

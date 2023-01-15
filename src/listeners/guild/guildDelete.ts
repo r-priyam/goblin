@@ -1,6 +1,6 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { Events, Listener } from '@sapphire/framework';
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder } from 'discord.js';
 
 import type { Guild } from 'discord.js';
 
@@ -16,7 +16,7 @@ export class BotListener extends Listener<typeof Events.GuildDelete> {
 		const webhook = useGuildLogsWebhook();
 
 		const owner = await guild.fetchOwner();
-		const guildDeleteEmbed = new MessageEmbed()
+		const guildDeleteEmbed = new EmbedBuilder()
 			.setTitle('Left Guild')
 			.addFields([
 				{ name: 'Name', value: guild.name },

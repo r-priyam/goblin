@@ -3,6 +3,7 @@ import { container, LogLevel, SapphireClient } from '@sapphire/framework';
 import { ScheduledTaskRedisStrategy } from '@sapphire/plugin-scheduled-tasks/register-redis';
 import { envParseBoolean, envParseInteger, envParseString } from '@skyra/env-utilities';
 import { GatewayIntentBits } from 'discord-api-types/v10';
+import { ActivityType } from 'discord.js';
 import postgres from 'postgres';
 
 import { GoblinClashClient } from '#lib/coc';
@@ -20,7 +21,7 @@ export class GoblinClient extends SapphireClient {
 				activities: [
 					{
 						name: 'Goblin stealing resources!',
-						type: 'PLAYING'
+						type: ActivityType.Playing
 					}
 				]
 			},

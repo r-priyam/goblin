@@ -13,7 +13,6 @@ import { makeButton } from '#utils/functions/eventHelpers';
 })
 export class ButtonHandler extends InteractionHandler {
 	public override async run(interaction: ButtonInteraction, result: InteractionHandler.ParseResult<this>) {
-		// @ts-expect-error Data is correct, I am not caring if TS is happy or not
 		return interaction.editReply({ components: result.components });
 	}
 

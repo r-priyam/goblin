@@ -3,7 +3,7 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { Listener, Result } from '@sapphire/framework';
 import { ScheduledTaskEvents } from '@sapphire/plugin-scheduled-tasks';
 import Sentry from '@sentry/node';
-import { DiscordAPIError, HTTPError, MessageEmbed } from 'discord.js';
+import { DiscordAPIError, HTTPError, EmbedBuilder } from 'discord.js';
 
 import { Colors } from '#utils/constants';
 import { getCodeLine, getErrorLine, getPathLine } from '#utils/functions/errorHelper';
@@ -30,7 +30,7 @@ export class BotListener extends Listener<typeof ScheduledTaskEvents.ScheduledTa
 		await Result.fromAsync(() =>
 			useErrorLogsWebhook().send({
 				embeds: [
-					new MessageEmbed() //
+					new EmbedBuilder() //
 						.setTitle('Scheduled-Task Error')
 						.setDescription(lines.join('\n'))
 						.setColor(Colors.Red)

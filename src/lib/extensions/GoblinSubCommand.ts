@@ -1,7 +1,7 @@
 import { Subcommand } from '@sapphire/plugin-subcommands';
 
-import type { SlashCommandBuilder } from '@discordjs/builders';
 import type { ApplicationCommandRegistry, ApplicationCommandRegistryRegisterOptions } from '@sapphire/framework';
+import type { SlashCommandBuilder } from 'discord.js';
 
 export abstract class GoblinSubCommand extends Subcommand {
 	private readonly commandOptions: GoblinSubCommandOptions;
