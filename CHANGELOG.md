@@ -2,6 +2,57 @@
 
 All notable changes to this project will be documented in this file.
 
+# [2.0.0](https://github.com/r-priyam/goblin/compare/v1.8.0...v2.0.0) - (2023-01-15)
+
+## 🏃 Performance
+
+- Reduce fuzzy search time in tag autocomplete ([cb841bc](https://github.com/r-priyam/goblin/commit/cb841bc633f4334d864c06b5ad183ec849253545))
+
+## 🏠 Refactor
+
+- Support TH15 requirements and drop TH10 ([1658cab](https://github.com/r-priyam/goblin/commit/1658cabe1ee69805256b77893bd830a955beb25e))
+- Remove `@discordjs/builders` ([e78c9fc](https://github.com/r-priyam/goblin/commit/e78c9fc32c0be8dcb704f244b430e050d3c9d7cf))
+- Update new ssh action and cache ([d7332d9](https://github.com/r-priyam/goblin/commit/d7332d93f36204fe95d0eade924c9b96f3de900d))
+- Keep fetch simple for coc cache ([7471136](https://github.com/r-priyam/goblin/commit/74711368eba0096cc908cf1e478eb79458c08365))
+- Update postgres version ([d416ffe](https://github.com/r-priyam/goblin/commit/d416ffef3409381ab1f9cd14fd9eec52cf3adb42))
+- Inject types in redis [skip cd] ([45a0d8b](https://github.com/r-priyam/goblin/commit/45a0d8b43c2672800f65f6dad076d63fb4f10f04))
+
+## 🐛 Bug Fixes
+
+- Invalid docker command ([b25c4f1](https://github.com/r-priyam/goblin/commit/b25c4f16320ae57f166c9b907f3510e19844bbec))
+- Parse tag before database operation ([61f841a](https://github.com/r-priyam/goblin/commit/61f841a9b0298aaf29778c6f301df27076580b6d))
+- **deps:** Update dependency clashofclans.js to v3.0.2 (#116) ([28f03da](https://github.com/r-priyam/goblin/commit/28f03daad9d0237cc25c40300e6f853557f9bbe6))
+- **deps:** Update dependency discord.js to v14 (#111) ([adc5bd4](https://github.com/r-priyam/goblin/commit/adc5bd4c76b2109519d7ab80ee6072f870c16989))
+- **deps:** Update sapphire dependencies (major) (#112) ([7165328](https://github.com/r-priyam/goblin/commit/7165328f658785f9b6570f8f360f5eff739581cb))
+- **deps:** Update dependency utf-8-validate to v6 (#106) ([06b66aa](https://github.com/r-priyam/goblin/commit/06b66aa354a26a4c607e1e4c6c8d004d7b9d15d3))
+- **deps:** Update dependency @sapphire/framework to v3.2.0 ([d514486](https://github.com/r-priyam/goblin/commit/d514486b1d2cac54e81b6b4d95ab1f98a8075f6b))
+- **deps:** Update all non-major dependencies (#103) ([2bb8711](https://github.com/r-priyam/goblin/commit/2bb8711248732716e80747aa4fdc90a40b536e36))
+- **deps:** Update dependency @sapphire/type to ^2.3.0 (#102) ([c61a251](https://github.com/r-priyam/goblin/commit/c61a2514574992acf6a013842612b98cca7423ea))
+- **deps:** Update all non-major dependencies ([7afdb0e](https://github.com/r-priyam/goblin/commit/7afdb0eaec4e2f4adf3d1320076898a81ddea005))
+- Use correct sql query ([dba67f6](https://github.com/r-priyam/goblin/commit/dba67f6e2c262167d49c8f42e83d7a138a57c704))
+- **deps:** Update all non-major dependencies ([7726d41](https://github.com/r-priyam/goblin/commit/7726d41fc5cf6561c5c6ea3a39e2047eb729d170))
+- **deps:** Update dependency @sapphire/plugin-subcommands to v3.2.4 (#98) ([17e3b99](https://github.com/r-priyam/goblin/commit/17e3b994a5e28cfb65d59bd86a6718c42e18066d))
+- **deps:** Update all non-major dependencies (#99) ([e13ea6d](https://github.com/r-priyam/goblin/commit/e13ea6de68fd5c61383d399b63d68bebee616e3f))
+- **deps:** Update dependency bullmq to ^3.2.5 (#97) ([2f3460a](https://github.com/r-priyam/goblin/commit/2f3460a9a62d69f193d7b1e64eb98ebb9da3aff3))
+- **deps:** Update all non-major dependencies (#95) ([0ae86c0](https://github.com/r-priyam/goblin/commit/0ae86c05dd1b074725c586acf46c507129819c31))
+- **deps:** Update dependency string-strip-html to v13 (#96) ([319aae4](https://github.com/r-priyam/goblin/commit/319aae47bdc545d90534e34c69805cadd4e0bc98))
+- **deps:** Update sapphire dependencies (#92) ([b63822c](https://github.com/r-priyam/goblin/commit/b63822c802d106d9f7c95383fef624535c517d34))
+- Typecheck ([3e7529b](https://github.com/r-priyam/goblin/commit/3e7529bab3d3edd7436587ce58ff2b5e207287b2))
+- **deps:** Update dependency @sapphire/type to ^2.2.6 ([af6c63e](https://github.com/r-priyam/goblin/commit/af6c63e861bb9eb3879f27a0684b7f861d00cde1))
+- Cd workflow ([5dccbd7](https://github.com/r-priyam/goblin/commit/5dccbd79540b5dbef39cb77ace48d5f3b8a2036b))
+- **deps:** Update dependency bullmq to ^3.1.3 ([ea6f6f1](https://github.com/r-priyam/goblin/commit/ea6f6f11e746a95ae002de825e401f746ee49c6f))
+- Correctly build the meta directory ([b750bf7](https://github.com/r-priyam/goblin/commit/b750bf7008d91f543251a35c44bcf057fc529ba3))
+- Only fetch 5 accounts ([a28cb43](https://github.com/r-priyam/goblin/commit/a28cb43c7845529f341c94e0ad460a19d0d9e88f))
+- Collector check ([94ae412](https://github.com/r-priyam/goblin/commit/94ae41230e46df237b62abefd84d74e4371b1db2))
+- Double response for limited result ([4a1cdb9](https://github.com/r-priyam/goblin/commit/4a1cdb97c23253f1e2821f4fd3b0b637c090389a))
+
+## 🚀 Features
+
+- Djs v14 (#114) ([c5e5b98](https://github.com/r-priyam/goblin/commit/c5e5b985e8036d2205d8520a62239c2d7adda253))
+- Custom events (#84) ([99162ab](https://github.com/r-priyam/goblin/commit/99162ab322fff158062acc4fcd1ea9b1aa0a110b))
+- Setup sentry ([b066a47](https://github.com/r-priyam/goblin/commit/b066a47c042f8414d04b5e940c118a6d6d14b879))
+- **commands:** Add `/faq` command (#78) ([7b4beb0](https://github.com/r-priyam/goblin/commit/7b4beb0b6aa2b3a13ca32bfbf3b741c1c5d639e5))
+
 # [1.8.0](https://github.com/r-priyam/goblin/compare/v1.7.0...v1.8.0) - (2022-10-16)
 
 ## 🏠 Refactor

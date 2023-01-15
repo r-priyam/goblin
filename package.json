@@ -1,6 +1,6 @@
 {
 	"name": "goblin",
-	"version": "1.8.0",
+	"version": "2.0.0",
 	"private": true,
 	"description": "A custom Clash of Clans bot for EYG Family of Clans",
 	"license": "MPL-2.0",
