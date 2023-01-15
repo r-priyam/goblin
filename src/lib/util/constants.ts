@@ -44,10 +44,10 @@ export const enum ModalInputCustomIds {
 	EventName = 'event-name',
 	EventRegistrationChannel = 'event-registration-channel',
 	EventStartRolePing = 'event-start-role-ping',
+	FifteenRequirements = 'fifteen-requirements-input',
 	FourteenRequirements = 'fourteen-requirements-input',
 	StartClanEmbedColor = 'start-clan-embed-color-input',
 	StartClanEmbedLeader = 'start-clan-embed-leader-input',
-	TenRequirements = 'ten-requirements-input',
 	ThirteenRequirements = 'thirteen-requirements-input',
 	TwelveRequirements = 'twelve-requirements-input'
 }

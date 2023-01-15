@@ -21,6 +21,9 @@ export class ModalHandler extends InteractionHandler {
 
 		const clanTag = interaction.customId.split('-').pop()!;
 		const requirements = {
+			'15': this.validateRequirement(
+				interaction.fields.getTextInputValue(ModalInputCustomIds.FifteenRequirements)
+			),
 			'14': this.validateRequirement(
 				interaction.fields.getTextInputValue(ModalInputCustomIds.FourteenRequirements)
 			),
@@ -30,10 +33,7 @@ export class ModalHandler extends InteractionHandler {
 			'12': this.validateRequirement(
 				interaction.fields.getTextInputValue(ModalInputCustomIds.TwelveRequirements)
 			),
-			'11': this.validateRequirement(
-				interaction.fields.getTextInputValue(ModalInputCustomIds.ElevenRequirements)
-			),
-			'10': this.validateRequirement(interaction.fields.getTextInputValue(ModalInputCustomIds.TenRequirements))
+			'11': this.validateRequirement(interaction.fields.getTextInputValue(ModalInputCustomIds.ElevenRequirements))
 		};
 
 		await this.handleClanRequirementUpdate(interaction.guildId!, clanTag, requirements);

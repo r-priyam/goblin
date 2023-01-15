@@ -34,6 +34,9 @@ export class ButtonHandler extends InteractionHandler {
 			.setCustomId(`${ModalCustomIds.ClanEmbedRequirements}-${clanTag}`)
 			.addComponents(
 				new ActionRowBuilder<TextInputBuilder>().addComponents(
+					this.requirementsModelInput(15, ModalInputCustomIds.FifteenRequirements)
+				),
+				new ActionRowBuilder<TextInputBuilder>().addComponents(
 					this.requirementsModelInput(14, ModalInputCustomIds.FourteenRequirements)
 				),
 				new ActionRowBuilder<TextInputBuilder>().addComponents(
@@ -44,9 +47,6 @@ export class ButtonHandler extends InteractionHandler {
 				),
 				new ActionRowBuilder<TextInputBuilder>().addComponents(
 					this.requirementsModelInput(11, ModalInputCustomIds.ElevenRequirements)
-				),
-				new ActionRowBuilder<TextInputBuilder>().addComponents(
-					this.requirementsModelInput(10, ModalInputCustomIds.TenRequirements)
 				)
 			);
 	}
