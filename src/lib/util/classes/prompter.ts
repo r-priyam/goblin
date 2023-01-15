@@ -1,6 +1,6 @@
 import { bold, time, TimestampStyles } from '@discordjs/builders';
 import { Time } from '@sapphire/cron';
-import { MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
+import { MessageActionRow, MessageButton, EmbedBuilder } from 'discord.js';
 
 import type { CommandInteraction, ButtonInteraction } from 'discord.js';
 
@@ -69,7 +69,7 @@ export class Prompter {
 	}
 
 	private get prompterEmbed() {
-		return new MessageEmbed()
+		return new EmbedBuilder()
 			.setTitle('Confirmation Prompt')
 			.setDescription(
 				`${this.message}\n\n${bold(

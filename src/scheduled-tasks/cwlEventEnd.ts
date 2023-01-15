@@ -2,8 +2,8 @@ import { bold, roleMention } from '@discordjs/builders';
 import { ApplyOptions } from '@sapphire/decorators';
 import { Result } from '@sapphire/framework';
 import { ScheduledTask } from '@sapphire/plugin-scheduled-tasks';
-import { Routes } from 'discord-api-types/v9';
-import { MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
+import { Routes } from 'discord-api-types/v10';
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } from 'discord.js';
 
 import type { HTTPError } from 'discord.js';
 
@@ -30,7 +30,7 @@ export class BotScheduledTask extends ScheduledTask {
 		eventName: string;
 		messageId: string;
 	}) {
-		const embed = new MessageEmbed()
+		const embed = new EmbedBuilder()
 			.setTitle('Event Ended')
 			.setDescription(
 				`Registration ended for Event ${bold(
@@ -40,10 +40,10 @@ export class BotScheduledTask extends ScheduledTask {
 				)} button in this message.`
 			)
 			.setColor(Colors.Indigo);
-		const exportButton = new MessageActionRow().addComponents(
-			new MessageButton()
+		const exportButton = new ActionRowBuilder<ButtonBuilder>().addComponents(
+			new ButtonBuilder()
 				.setLabel('Export')
-				.setStyle('SUCCESS')
+				.setStyle(ButtonStyle.Success)
 				.setCustomId(`${ButtonCustomIds.CWLEventEndExport}_${eventId}`)
 		);
 
@@ -61,11 +61,11 @@ export class BotScheduledTask extends ScheduledTask {
 			const error = result.unwrapErr();
 			await useErrorLogsWebhook().send({
 				embeds: [
-					new MessageEmbed()
+					new EmbedBuilder()
 						.setTitle('Error')
 						.setDescription(
 							`Failed to update the Event End Message.\n${bold(
-								`Event ID: ${eventId}\nError Code: ${error.code}`
+								`Event ID: ${eventId}\nError Code: ${error.status}`
 							)}\nError Message: ${error.message}`
 						)
 						.setColor(Colors.Red)

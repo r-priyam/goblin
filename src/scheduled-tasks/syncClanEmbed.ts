@@ -2,7 +2,7 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { Result } from '@sapphire/framework';
 import { ScheduledTask } from '@sapphire/plugin-scheduled-tasks';
 import { RESTJSONErrorCodes, Routes } from 'discord-api-types/v10';
-import { Constants } from 'discord.js';
+import { Status } from 'discord.js';
 
 import type { Clan, HTTPError as COCHttpError } from 'clashofclans.js';
 import type { HTTPError } from 'discord.js';
@@ -18,7 +18,7 @@ import { logInfo, logWarning } from '#utils/functions/logging';
 })
 export class SyncClanEmbedTask extends ScheduledTask {
 	public override async run() {
-		if (this.container.client.ws.status !== Constants.Status.READY) return;
+		if (this.container.client.ws.status !== Status.Ready) return;
 
 		const data = await this.sql<ClanEmbedSyncData[]>`SELECT clan_tag,
                                                                 leader_discord_id,
@@ -54,7 +54,7 @@ export class SyncClanEmbedTask extends ScheduledTask {
 					RESTJSONErrorCodes.MissingAccess,
 					RESTJSONErrorCodes.MissingPermissions,
 					RESTJSONErrorCodes.UnknownMessage
-				].includes(error.code)
+				].includes(error.status)
 			) {
 				await this.stopClanEmbed(data.clanTag, data.channelId);
 				this.logger.info(
