@@ -93,7 +93,7 @@ export class ButtonHandler extends InteractionHandler {
 		}
 
 		const menu = new StringSelectMenuBuilder(
-			interaction.message.components[0].components[0] as unknown as StringSelectMenuComponentData
+			interaction.message.components[0].components[0].toJSON() as unknown as StringSelectMenuComponentData
 		);
 
 		for (const option of menu.options) {
