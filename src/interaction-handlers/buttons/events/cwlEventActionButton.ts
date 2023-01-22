@@ -58,7 +58,7 @@ export class ButtonHandler extends InteractionHandler {
 			true
 		);
 
-		const eventId = nanoid(16).replace('-', '');
+		const eventId = nanoid(16).replaceAll(/[_-]/gi, '');
 
 		const messageId = await this.sendEventStartMessage(
 			eventName!,
