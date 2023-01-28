@@ -14,7 +14,12 @@ import { logSuccess } from '#utils/functions/logging';
 export class GoblinClient extends SapphireClient {
 	public constructor() {
 		super({
-			intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildMessages],
+			intents: [
+				GatewayIntentBits.Guilds,
+				GatewayIntentBits.GuildMembers,
+				GatewayIntentBits.GuildMessages,
+				GatewayIntentBits.MessageContent
+			],
 			logger: { level: envParseBoolean('DEBUG') ? LogLevel.Debug : LogLevel.Info },
 			loadDefaultErrorListeners: envParseBoolean('DEBUG'),
 			presence: {
