@@ -134,7 +134,15 @@ export class AliasCommand extends GoblinSubCommand {
 			aliasList += `${name.padEnd(18, ' ')}${tag.padEnd(13, ' ')}${alias}\n`;
 		}
 
-		return interaction.editReply({ embeds: [new EmbedBuilder().setDescription(codeBlock(aliasList))] });
+		return interaction.editReply({
+			embeds: [
+				new EmbedBuilder()
+					.setTitle('All Available Aliases')
+					.setDescription(codeBlock(aliasList))
+					.setColor(Colors.Indigo)
+					.setTimestamp()
+			]
+		});
 	}
 
 	private canPerformAliasOperations(member: GuildMember) {
