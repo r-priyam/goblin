@@ -3,6 +3,7 @@ import { UserError } from '@sapphire/framework';
 import { envParseArray, envParseString } from '@skyra/env-utilities';
 import { Util } from 'clashofclans.js';
 import { EmbedBuilder, ChatInputCommandInteraction, codeBlock } from 'discord.js';
+import { markdownTable } from 'markdown-table';
 
 import type { GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
 import type { GuildMember } from 'discord.js';
@@ -134,11 +135,12 @@ export class AliasCommand extends GoblinSubCommand {
 			aliasList += `${name.padEnd(18, ' ')}${tag.padEnd(13, ' ')}${alias}\n`;
 		}
 
+		const data = markdownTable([['Clan Name', 'Tag', 'Alias'], ...aliases!.map((data) => Object.values(data))]);
 		return interaction.editReply({
 			embeds: [
 				new EmbedBuilder()
 					.setTitle('All Available Aliases')
-					.setDescription(codeBlock(aliasList))
+					.setDescription(codeBlock(data))
 					.setColor(Colors.Indigo)
 					.setTimestamp()
 			]
