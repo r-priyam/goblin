@@ -96,7 +96,7 @@ export class GoblinRedisClient extends Redis {
 
 		if (isNullish(cachedAlias)) return;
 
-		const updated = cachedAlias.filter((data) => data.tag === tag);
+		const updated = cachedAlias.filter((data) => data.tag !== tag);
 		return updated.length === 0
 			? this.delete(RedisKeys.ClanAlias, undefined)
 			: this.insert(RedisKeys.ClanAlias, undefined, updated);
