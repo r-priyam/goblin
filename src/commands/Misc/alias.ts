@@ -129,13 +129,8 @@ export class AliasCommand extends GoblinSubCommand {
 		await interaction.deferReply();
 
 		const aliases = await this.redis.fetch(RedisKeys.ClanAlias, undefined);
-		let aliasList = 'Clan Name         Tag          Alias\n';
-
-		for (const { name, tag, alias } of aliases!) {
-			aliasList += `${name.padEnd(18, ' ')}${tag.padEnd(13, ' ')}${alias}\n`;
-		}
-
 		const data = markdownTable([['Clan Name', 'Tag', 'Alias'], ...aliases!.map((data) => Object.values(data))]);
+
 		return interaction.editReply({
 			embeds: [
 				new EmbedBuilder()
