@@ -78,7 +78,7 @@
 		"postgres": "^3.3.3",
 		"reflect-metadata": "^0.1.13",
 		"string-strip-html": "^13.1.0",
-		"undici": "^5.18.0",
+		"undici": "^5.19.1",
 		"utf-8-validate": "^6.0.2",
 		"zlib-sync": "^0.1.8"
 	},
