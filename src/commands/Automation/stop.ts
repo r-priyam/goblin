@@ -42,9 +42,9 @@ export class StopCommand extends GoblinCommand {
 	}
 
 	private async clanEmbed(interaction: ChatInputCommand.Interaction) {
+		await interaction.deferReply();
 		const clanTag = Util.formatTag(interaction.options.getString('tag', true));
 
-		console.log(clanTag);
 		const [result] = await this.sql<[{ clanName?: string }]>`DELETE
                                                                  FROM clan_embeds
                                                                  WHERE clan_tag = ${clanTag}
