@@ -3370,7 +3370,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-snail@npm:^1.5.0":
+"eslint-config-snail@npm:^1.4.0":
   version: 1.5.0
   resolution: "eslint-config-snail@npm:1.5.0"
   dependencies:
@@ -4539,7 +4539,7 @@ __metadata:
     discord-api-types: ^0.37.35
     discord.js: ^14.7.1
     eslint: ^8.34.0
-    eslint-config-snail: ^1.5.0
+    eslint-config-snail: ^1.4.0
     eslint-formatter-pretty: ^4.1.0
     figlet: ^1.5.2
     fuse.js: ^6.6.2
