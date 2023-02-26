@@ -64,7 +64,7 @@
 		"@sentry/node": "^7.38.0",
 		"@skyra/env-utilities": "^1.1.0",
 		"bufferutil": "^4.0.7",
-		"bullmq": "^3.8.0",
+		"bullmq": "^3.9.0",
 		"clashofclans.js": "3.0.2",
 		"colorette": "^2.0.19",
 		"discord-api-types": "^0.37.35",
@@ -79,7 +79,7 @@
 		"reflect-metadata": "^0.1.13",
 		"string-strip-html": "^13.2.0",
 		"undici": "^5.20.0",
-		"utf-8-validate": "^6.0.2",
+		"utf-8-validate": "^6.0.3",
 		"zlib-sync": "^0.1.8"
 	},
 	"devDependencies": {
