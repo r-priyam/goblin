@@ -49,7 +49,7 @@ export class EYGWarEndImagePoster extends ScheduledTask {
 
 	private async postWarImage(data: WarImagePosterData) {
 		const war = await this.getClanWar(data.clanTag, data.channelId);
-		if (!war) return;
+		if (!war || war.state !== 'warEnded') return;
 
 		if (war.status === 'win' && !data.winEnabled) return;
 		if (war.status === 'lose' && !data.loseEnabled) return;
