@@ -78,7 +78,7 @@ export class StartCommand extends GoblinCommand {
 
 	// To-Do: Give users a option to set-up war result types someday?!?!?!?!?!
 	private async warImage(interaction: ChatInputCommandInteraction<'cached'>) {
-		await interaction.deferReply();
+		await interaction.deferReply({ ephemeral: true });
 
 		const clan = await this.coc.clanHelper.info(interaction, interaction.options.getString('tag', true));
 

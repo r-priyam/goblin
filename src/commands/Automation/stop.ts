@@ -71,7 +71,7 @@ export class StopCommand extends GoblinCommand {
 	}
 
 	private async warImage(interaction: ChatInputCommand.Interaction) {
-		await interaction.deferReply();
+		await interaction.deferReply({ ephemeral: true });
 		const clanTag = Util.formatTag(interaction.options.getString('tag', true));
 
 		const [result] = await this.sql<[{ clanName?: string }]>`DELETE
