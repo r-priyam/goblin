@@ -105,9 +105,11 @@ export class EYGWarEndImagePoster extends ScheduledTask {
 	private async getClanWar(clanTag: string, channelId: string) {
 		const result = await Result.fromAsync<ClanWar, COCHttpError>(() => this.coc.getClanWar(clanTag));
 
-		if (result.isErr() && result.unwrapErr().status === 404) {
+		if (result.isErr() && [403, 404].includes(result.unwrapErr().status)) {
 			await this.stopWarImage(clanTag, channelId);
-			this.logger.info(logInfo('WarImagePoster', `Stopping for ${clanTag} with reason Clan not found`));
+			this.logger.info(
+				logInfo('WarImagePoster', `Stopping for ${clanTag} with reason Clan not found or War log is Private`)
+			);
 			return;
 		}
 

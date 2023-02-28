@@ -7,7 +7,8 @@ import {
 	ModalBuilder,
 	TextInputBuilder,
 	ChatInputCommandInteraction,
-	EmbedBuilder
+	EmbedBuilder,
+	bold
 } from 'discord.js';
 
 import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
@@ -81,6 +82,13 @@ export class StartCommand extends GoblinCommand {
 		await interaction.deferReply({ ephemeral: true });
 
 		const clan = await this.coc.clanHelper.info(interaction, interaction.options.getString('tag', true));
+
+		if (!clan.isWarLogPublic) {
+			throw new UserError({
+				identifier: ErrorIdentifiers.ClanHelper,
+				message: `Clan war log should be ${bold('PUBLIC')} in order to enable war image posting`
+			});
+		}
 
 		try {
 			await this.sql`INSERT INTO war_image_poster (clan_tag, guild_id, channel_id)
