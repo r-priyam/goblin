@@ -39,19 +39,35 @@ export class EYGWarEndImagePoster extends ScheduledTask {
                                ON wip.clan_tag = wpr.clan_tag
             ORDER BY wip.clan_tag, wpr.war_end_time DESC
         `;
-		console.log(data);
+
 		for (const value of data) await this.postWarImage(value);
+	}
+
+	public override onLoad() {
+		GlobalFonts.registerFromPath(fileURLToPath(new URL('fonts/SuperCell.tff', MetaDir)), 'SuperCell');
 	}
 
 	private async postWarImage(data: WarImagePosterData) {
 		const war = await this.getClanWar(data.clanTag, data.channelId);
 		if (!war) return;
 
-		console.log(war.endTime);
+		if (war.status === 'win' && !data.winEnabled) return;
+		if (war.status === 'lose' && !data.loseEnabled) return;
+		if (war.status === 'tie' && !data.drawEnabled) return;
+
+		if (
+			data.opponentTag === war.opponent.tag &&
+			data.warEndTime &&
+			new Date(data.warEndTime).getTime() === war.endTime.getTime()
+		) {
+			// We have the same war here
+			return;
+		}
+
 		const image = await this.generateWarImage(war.clan, war.opponent);
 
 		const result = await Result.fromAsync<unknown, HTTPError>(async () =>
-			this.discordRest.post(Routes.channelMessages(data.channelId), {
+			this.client.rest.post(Routes.channelMessages(data.channelId), {
 				files: [{ data: image, name: `${war.clan.name}-result.png` }]
 			})
 		);
@@ -78,6 +94,11 @@ export class EYGWarEndImagePoster extends ScheduledTask {
 					`Failed to send war end image for ${data.clanTag} with reason ${error.message}`
 				)
 			);
+		} else {
+			await this.sql`
+                INSERT INTO war_poster_records (clan_tag, opponent_tag, war_end_time)
+                VALUES (${war.clan.tag}, ${war.opponent.tag}, ${war.endTime})
+            `;
 		}
 	}
 
@@ -155,10 +176,6 @@ export class EYGWarEndImagePoster extends ScheduledTask {
 		context.fillStyle = '#e74c3c';
 		context.fillText(`Attacks - ${opponentClan.attackCount}`, 1600, 1050);
 		context.fillText(`Percentage - ${opponentClan.destruction}`, 1600, 1100);
-	}
-
-	public override onLoad() {
-		GlobalFonts.registerFromPath(fileURLToPath(new URL('fonts/SuperCell.tff', MetaDir)), 'SuperCell');
 	}
 }
 

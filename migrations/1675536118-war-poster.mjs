@@ -33,7 +33,7 @@ export async function up(sql) {
             id           SERIAL PRIMARY KEY,
             clan_tag     TEXT NOT NULL,
             opponent_tag TEXT NOT NULL,
-            war_end_time TIMESTAMP WITHOUT TIME ZONE DEFAULT (NOW() AT TIME ZONE 'utc')
+            war_end_time TIMESTAMP WITH TIME ZONE DEFAULT (NOW() AT TIME ZONE 'utc')
         );
 
         COMMENT ON COLUMN war_poster_records.id IS 'The war poster record unique id';
