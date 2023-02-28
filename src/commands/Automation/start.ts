@@ -3,13 +3,10 @@ import { UserError } from '@sapphire/framework';
 import { Util } from 'clashofclans.js';
 import { PermissionFlagsBits, TextInputStyle } from 'discord-api-types/v10';
 import {
-	ButtonBuilder,
 	ActionRowBuilder,
 	ModalBuilder,
 	TextInputBuilder,
 	ChatInputCommandInteraction,
-	bold,
-	ButtonStyle,
 	EmbedBuilder
 } from 'discord.js';
 
@@ -17,14 +14,7 @@ import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 
 import { ValidateTag } from '#lib/decorators/ValidateTag';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
-import {
-	ButtonCustomIds,
-	Colors,
-	Emotes,
-	ErrorIdentifiers,
-	ModalCustomIds,
-	ModalInputCustomIds
-} from '#utils/constants';
+import { Colors, Emotes, ErrorIdentifiers, ModalCustomIds, ModalInputCustomIds } from '#utils/constants';
 import { automationMemberCheck } from '#utils/functions/automationMemberCheck';
 import { addTagOption } from '#utils/functions/commandOptions';
 
