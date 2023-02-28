@@ -132,6 +132,12 @@ export class EYGWarEndImagePoster extends ScheduledTask {
 	}
 
 	private drawText(context: SKRSContext2D, clan: WarClan, opponentClan: WarClan) {
+		context.font = '100px SuperCell';
+		context.fillStyle = '#E5E8E8 ';
+
+		context.fillText(clan.stars.toString(), 600, 900);
+		context.fillText(opponentClan.stars.toString(), 1700, 900);
+
 		context.font = '55px SuperCell';
 
 		context.fillStyle = '#2ecc71';
