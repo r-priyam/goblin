@@ -2,6 +2,7 @@ import { URL } from 'node:url';
 
 export const RootDir = new URL('../../../', import.meta.url);
 export const SrcDir = new URL('src/', RootDir);
+export const MetaDir = new URL('meta/', RootDir);
 
 export const enum Colors {
 	White = 0xe7e7e8,
@@ -71,7 +72,12 @@ export const enum ButtonCustomIds {
 	ClanEmbedRequirement = 'add-clan-requirement-button',
 	CustomEventCreate = 'custom-event-create',
 	EventCancel = 'event-cancel',
-	EventSubmit = 'event-submit'
+	EventSubmit = 'event-submit',
+	WarImageAbort = 'war-image-abort',
+	WarImageConfirm = 'war-image-confirm',
+	WarImageDraw = 'war-image-draw',
+	WarImageLose = 'war-image-lose',
+	WarImageWin = 'war-image-win'
 }
 
 export const enum SelectMenuCustomIds {
