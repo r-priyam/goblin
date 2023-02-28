@@ -22,7 +22,7 @@ import { addTagOption } from '#utils/functions/commandOptions';
 				option //
 					.setName('type')
 					.setDescription('The type of automation to stop')
-					.addChoices({ name: 'Clan Embed', value: 'clanEmbed' })
+					.addChoices({ name: 'Clan Embed', value: 'clanEmbed' }, { name: 'War Image', value: 'warImage' })
 					.setRequired(true)
 			)
 			.addStringOption((option) =>
@@ -37,7 +37,7 @@ export class StopCommand extends GoblinCommand {
 	public override async chatInputRun(interaction: ChatInputCommandInteraction<'cached'>) {
 		automationMemberCheck(interaction.guildId, interaction.member);
 
-		const stopType = interaction.options.getString('type', true) as 'clanEmbed';
+		const stopType = interaction.options.getString('type', true) as 'clanEmbed' | 'warImage';
 		return this[stopType](interaction);
 	}
 
@@ -65,6 +65,33 @@ export class StopCommand extends GoblinCommand {
 					.setDescription(
 						`Successfully stopped ${bold(result.clanName!)}(${bold(clanTag)}) Clan Embed in this server`
 					)
+					.setColor(Colors.Green)
+			]
+		});
+	}
+
+	private async warImage(interaction: ChatInputCommand.Interaction) {
+		await interaction.deferReply();
+		const clanTag = Util.formatTag(interaction.options.getString('tag', true));
+
+		const [result] = await this.sql<[{ clanName?: string }]>`DELETE
+                                                                 FROM war_image_poster
+                                                                 WHERE clan_tag = ${clanTag}
+                                                                   AND guild_id = ${interaction.guildId}
+                                                                 RETURNING clan_tag`;
+
+		if (!result) {
+			throw new UserError({
+				identifier: ErrorIdentifiers.DatabaseError,
+				message: `Can't find any War Image running for ${bold(clanTag)} in this server`
+			});
+		}
+
+		return interaction.editReply({
+			embeds: [
+				new EmbedBuilder()
+					.setTitle(`${Emotes.Success} Success`)
+					.setDescription(`Successfully stopped ${bold(clanTag)} War Image in this server`)
 					.setColor(Colors.Green)
 			]
 		});
