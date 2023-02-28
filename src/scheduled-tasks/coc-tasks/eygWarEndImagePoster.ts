@@ -64,7 +64,29 @@ export class EYGWarEndImagePoster extends ScheduledTask {
 			return;
 		}
 
-		const image = await this.generateWarImage(war.clan, war.opponent);
+		let clanColor = '';
+		let opponentColor = '';
+
+		switch (war.status) {
+			case 'lose':
+				clanColor = '#e74c3c';
+				opponentColor = '#2ecc71';
+				break;
+			case 'pending':
+				clanColor = '#F4D03F';
+				opponentColor = '#F4D03F';
+				break;
+			case 'tie':
+				clanColor = '#E67E22 ';
+				opponentColor = '#E67E22 ';
+				break;
+			case 'win':
+				clanColor = '#2ecc71';
+				opponentColor = '#e74c3c';
+				break;
+		}
+
+		const image = await this.generateWarImage(war.clan, war.opponent, clanColor, opponentColor);
 
 		const result = await Result.fromAsync<unknown, HTTPError>(async () =>
 			this.client.rest.post(Routes.channelMessages(data.channelId), {
@@ -125,7 +147,7 @@ export class EYGWarEndImagePoster extends ScheduledTask {
         `;
 	}
 
-	private async generateWarImage(clan: WarClan, opponentClan: WarClan) {
+	private async generateWarImage(clan: WarClan, opponentClan: WarClan, clanColor: string, opponentColor: string) {
 		const canvas = createCanvas(2496, 1404);
 		const context = canvas.getContext('2d');
 		const background = await loadImage(new URL('images/WarResultBackground.jpg', MetaDir));
@@ -133,7 +155,7 @@ export class EYGWarEndImagePoster extends ScheduledTask {
 		context.drawImage(background, 0, 0, canvas.width, canvas.height);
 		await this.drawStar(context);
 		await this.drawClanBadge(context, clan.badge.url, opponentClan.badge.url);
-		this.drawText(context, clan, opponentClan);
+		this.drawText(context, clan, opponentClan, clanColor, opponentColor);
 
 		return canvas.encode('png');
 	}
@@ -154,7 +176,13 @@ export class EYGWarEndImagePoster extends ScheduledTask {
 		context.drawImage(await loadImage(opponentBadge), 1990, 450, 400, 400);
 	}
 
-	private drawText(context: SKRSContext2D, clan: WarClan, opponentClan: WarClan) {
+	private drawText(
+		context: SKRSContext2D,
+		clan: WarClan,
+		opponentClan: WarClan,
+		clanColor: string,
+		opponentColor: string
+	) {
 		context.font = '100px SuperCell';
 		context.fillStyle = '#E5E8E8 ';
 
@@ -163,19 +191,19 @@ export class EYGWarEndImagePoster extends ScheduledTask {
 
 		context.font = '55px SuperCell';
 
-		context.fillStyle = '#2ecc71';
+		context.fillStyle = clanColor;
 		context.fillText(clan.name, 600, 600);
 
-		context.fillStyle = '#e74c3c';
+		context.fillStyle = opponentColor;
 		context.fillText(opponentClan.name, 1450, 600);
 
 		context.font = '40px SuperCell';
 
-		context.fillStyle = '#2ecc71';
+		context.fillStyle = clanColor;
 		context.fillText(`Attacks - ${clan.attackCount}`, 500, 1050);
 		context.fillText(`Percentage - ${clan.destruction}%`, 500, 1100);
 
-		context.fillStyle = '#e74c3c';
+		context.fillStyle = opponentColor;
 		context.fillText(`Attacks - ${opponentClan.attackCount}`, 1600, 1050);
 		context.fillText(`Percentage - ${opponentClan.destruction}`, 1600, 1100);
 	}
