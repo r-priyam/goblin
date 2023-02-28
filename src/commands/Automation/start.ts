@@ -1,4 +1,5 @@
 import { ApplyOptions } from '@sapphire/decorators';
+import { UserError } from '@sapphire/framework';
 import { Util } from 'clashofclans.js';
 import { PermissionFlagsBits, TextInputStyle } from 'discord-api-types/v10';
 import {
@@ -16,7 +17,14 @@ import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 
 import { ValidateTag } from '#lib/decorators/ValidateTag';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
-import { ButtonCustomIds, Colors, ModalCustomIds, ModalInputCustomIds } from '#utils/constants';
+import {
+	ButtonCustomIds,
+	Colors,
+	Emotes,
+	ErrorIdentifiers,
+	ModalCustomIds,
+	ModalInputCustomIds
+} from '#utils/constants';
 import { automationMemberCheck } from '#utils/functions/automationMemberCheck';
 import { addTagOption } from '#utils/functions/commandOptions';
 
@@ -78,52 +86,31 @@ export class StartCommand extends GoblinCommand {
 		return interaction.showModal(embedModal);
 	}
 
+	// To-Do: Give users a option to set-up war result types someday?!?!?!?!?!
 	private async warImage(interaction: ChatInputCommandInteraction<'cached'>) {
 		await interaction.deferReply();
 
 		const clan = await this.coc.clanHelper.info(interaction, interaction.options.getString('tag', true));
 
-		const warImagePosterEmbed = new EmbedBuilder()
-			.setTitle(`${clan.name} War Image Setup`)
-			.setDescription(
-				`Please select the war results for which you want me to post the results. You can select it by click on the respective war result type button.\n\n${bold(
-					'If you click on Confirm without selecting any result type, it will be enabled for all result types.'
-				)}\n\nAfter your'e done with the selection then please click on ${bold(
-					'Confirm'
-				)} to Submit else click on ${bold('Abort')} to cancel.`
-			)
-			.setThumbnail(clan.badge.medium)
-			.setColor(Colors.Indigo);
-
-		const warResultTypesRow = new ActionRowBuilder<ButtonBuilder>().addComponents(
-			new ButtonBuilder()
-				.setLabel('Win')
-				.setCustomId(ButtonCustomIds.WarImageWin)
-				.setStyle(ButtonStyle.Secondary),
-			new ButtonBuilder()
-				.setLabel('Lose')
-				.setCustomId(ButtonCustomIds.WarImageLose)
-				.setStyle(ButtonStyle.Secondary),
-			new ButtonBuilder()
-				.setLabel('Draw')
-				.setCustomId(ButtonCustomIds.WarImageDraw)
-				.setStyle(ButtonStyle.Secondary)
-		);
-
-		const warImageActionsRow = new ActionRowBuilder<ButtonBuilder>().addComponents(
-			new ButtonBuilder()
-				.setLabel('Abort')
-				.setStyle(ButtonStyle.Danger)
-				.setCustomId(ButtonCustomIds.WarImageAbort),
-			new ButtonBuilder()
-				.setLabel('Confirm')
-				.setStyle(ButtonStyle.Success)
-				.setCustomId(`${ButtonCustomIds.WarImageConfirm}_${clan.tag}`)
-		);
+		try {
+			await this.sql`INSERT INTO war_image_poster (clan_tag, guild_id, channel_id)
+                           VALUES (${clan.tag}, ${interaction.guildId}, ${interaction.channelId})`;
+		} catch (error) {
+			if (error instanceof this.sql.PostgresError && error.code === '23505') {
+				throw new UserError({
+					identifier: ErrorIdentifiers.DatabaseError,
+					message: `War Image Poster for **${clan.name} (${clan.tag})** is already running in this server`
+				});
+			}
+		}
 
 		return interaction.editReply({
-			components: [warResultTypesRow, warImageActionsRow],
-			embeds: [warImagePosterEmbed]
+			embeds: [
+				new EmbedBuilder() //
+					.setTitle(`${Emotes.Success} Success`)
+					.setDescription(`Successfully started War Image Poster for ${clan.name} (${clan.tag})`)
+					.setColor(Colors.Green)
+			]
 		});
 	}
 }
