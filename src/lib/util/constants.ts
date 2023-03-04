@@ -4,7 +4,7 @@ export const RootDir = new URL('../../../', import.meta.url);
 export const SrcDir = new URL('src/', RootDir);
 export const MetaDir = new URL('meta/', RootDir);
 
-export const enum Colors {
+export enum Colors {
 	White = 0xe7e7e8,
 	Amber = 0xffc107,
 	Blue = 0x2196f3,
@@ -27,19 +27,19 @@ export const enum Colors {
 	Yellow = 0xffeb3b
 }
 
-export const enum Emotes {
+export enum Emotes {
 	Error = '<:Error:1013836216174657576>',
 	Success = '<:Success:1013836120397709432>',
 	Typing = '<a:typing:597589448607399949>'
 }
 
-export const enum ModalCustomIds {
+export enum ModalCustomIds {
 	CWLEvent = 'cwl-event-config-modal',
 	ClanEmbedRequirements = 'clan-embed-requirements',
 	StartClanEmbed = 'start-clan-embed-modal'
 }
 
-export const enum ModalInputCustomIds {
+export enum ModalInputCustomIds {
 	ElevenRequirements = 'eleven-requirements-input',
 	EventEndRolePing = 'event-end-role-ping',
 	EventName = 'event-name',
@@ -53,7 +53,7 @@ export const enum ModalInputCustomIds {
 	TwelveRequirements = 'twelve-requirements-input'
 }
 
-export const enum ButtonCustomIds {
+export enum ButtonCustomIds {
 	CWLEventCreate = 'cwl-event-create',
 	CWLEventEndExport = 'cwl-event-end-export',
 	CWLEventRegister = 'cwl-event-register',
@@ -80,21 +80,21 @@ export const enum ButtonCustomIds {
 	WarImageWin = 'war-image-win'
 }
 
-export const enum SelectMenuCustomIds {
+export enum SelectMenuCustomIds {
 	CWLEventConfig = 'cwl-event-config-menu',
 	CWLEventRegister = 'cwl-event-register',
 	Nickname = 'nickname-menu',
 	SuperTroop = 'super-troop-menu'
 }
 
-export const enum SelectMenuOptionsValue {
+export enum SelectMenuOptionsValue {
 	EventEndRolePing = 'event-end-role-ping',
 	EventName = 'event-name',
 	EventRegistrationChannel = 'event-registration-channel',
 	EventStartRolePing = 'event-start-role-ping'
 }
 
-export const enum ErrorIdentifiers {
+export enum ErrorIdentifiers {
 	BadParameter = 'BadParameter',
 	CWLEventProcess = 'CwlEventProcess',
 	ClanHelper = 'ClanHelper',
@@ -107,7 +107,7 @@ export const enum ErrorIdentifiers {
 	WrongTag = 'WrongTag'
 }
 
-export const enum RedisKeys {
+export enum RedisKeys {
 	CWLEventRegistration = 'cwl-event-registration',
 	Clan = 'c',
 	ClanAlias = 'clan-aliases',
@@ -115,7 +115,7 @@ export const enum RedisKeys {
 	Player = 'p'
 }
 
-export const enum EventConfigDefaultValues {
+export enum EventConfigDefaultValues {
 	NotRequired = '_Not Configured_',
 	Required = '_Not Configured (Required)_'
 }

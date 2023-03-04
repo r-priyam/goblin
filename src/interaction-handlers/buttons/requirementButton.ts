@@ -30,7 +30,7 @@ export class ButtonHandler extends InteractionHandler {
 
 	private requirementsModel(clanTag: string) {
 		return new ModalBuilder()
-			.setTitle(`Edit Clan Requirements Form`)
+			.setTitle('Edit Clan Requirements Form')
 			.setCustomId(`${ModalCustomIds.ClanEmbedRequirements}-${clanTag}`)
 			.addComponents(
 				new ActionRowBuilder<TextInputBuilder>().addComponents(

@@ -7,7 +7,7 @@ import type { SelectMenuComponentOptionData } from 'discord.js';
 
 import { RedisKeys } from '#utils/constants';
 
-export const enum RedisMethods {
+export enum RedisMethods {
 	Delete = 'DELETE',
 	Insert = 'INSERT',
 	Update = 'UPDATE'

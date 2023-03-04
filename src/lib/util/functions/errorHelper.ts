@@ -60,7 +60,7 @@ export async function sendCommandErrorToUser(interaction: CommandInteraction, em
 }
 
 export async function sendErrorToUser(interaction: Interaction, embed: EmbedBuilder, followUp = false) {
-	if (!interaction.isStringSelectMenu() && !interaction.isButton() && !interaction.isModalSubmit()) return;
+	if (!(interaction.isStringSelectMenu() || interaction.isButton() || interaction.isModalSubmit())) return;
 
 	if (followUp) {
 		if (!interaction.deferred) {

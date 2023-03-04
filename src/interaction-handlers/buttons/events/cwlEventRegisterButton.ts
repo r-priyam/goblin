@@ -22,8 +22,10 @@ export class ButtonHandler extends InteractionHandler {
 
 	public override async parse(interaction: ButtonInteraction) {
 		if (
-			!interaction.customId.startsWith(ButtonCustomIds.CWLEventRegister) &&
-			!interaction.customId.startsWith(ButtonCustomIds.CWLEventUnregister)
+			!(
+				interaction.customId.startsWith(ButtonCustomIds.CWLEventRegister) ||
+				interaction.customId.startsWith(ButtonCustomIds.CWLEventUnregister)
+			)
 		) {
 			return this.none();
 		}

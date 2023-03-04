@@ -34,7 +34,7 @@ export class ButtonHandler extends InteractionHandler {
 	}
 
 	public override async parse(interaction: ButtonInteraction) {
-		if (!([ButtonCustomIds.EventSubmit, ButtonCustomIds.EventCancel] as String[]).includes(interaction.customId)) {
+		if (!([ButtonCustomIds.EventSubmit, ButtonCustomIds.EventCancel] as string[]).includes(interaction.customId)) {
 			return this.none();
 		}
 

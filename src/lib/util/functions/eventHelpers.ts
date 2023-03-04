@@ -72,7 +72,7 @@ export function extractConfigsFromValues(values: string[], isSubmit = false) {
 					break;
 			}
 		} else {
-			if (([EventConfigDefaultValues.Required, EventConfigDefaultValues.NotRequired] as String[]).includes(val)) {
+			if (([EventConfigDefaultValues.Required, EventConfigDefaultValues.NotRequired] as string[]).includes(val)) {
 				val = null;
 			}
 

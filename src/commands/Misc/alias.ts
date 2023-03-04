@@ -144,8 +144,10 @@ export class AliasCommand extends GoblinSubCommand {
 
 	private canPerformAliasOperations(member: GuildMember) {
 		if (
-			!member.roles.cache.has(envParseString('EYG_ADMINISTRATOR_ROLE')) &&
-			!envParseArray('OWNERS').includes(member.id)
+			!(
+				member.roles.cache.has(envParseString('EYG_ADMINISTRATOR_ROLE')) ||
+				envParseArray('OWNERS').includes(member.id)
+			)
 		) {
 			throw new UserError({
 				identifier: ErrorIdentifiers.MissingPermissions,

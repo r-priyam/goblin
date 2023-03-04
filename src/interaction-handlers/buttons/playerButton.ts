@@ -21,7 +21,7 @@ export class ButtonHandler extends InteractionHandler {
 	}
 
 	public override parse(interaction: ButtonInteraction) {
-		if (!interaction.customId.includes('PLAYER_INFO') && !interaction.customId.includes('PLAYER_UNITS')) {
+		if (!(interaction.customId.includes('PLAYER_INFO') || interaction.customId.includes('PLAYER_UNITS'))) {
 			return this.none();
 		}
 
