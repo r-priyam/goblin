@@ -5,8 +5,10 @@
 		"formatWithErrors": false,
 		"indentStyle": "tab",
 		"indentSize": 4,
-		"lineWidth": 120,
-		"ignore": ["dist/", "node_modules/", ".yarn/"]
+		"lineWidth": 120
+	},
+	"files": {
+		"ignore": ["dist", "node_modules", ".yarn"]
 	},
 	"javascript": {
 		"formatter": {
