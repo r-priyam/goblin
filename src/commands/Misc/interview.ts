@@ -125,9 +125,7 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 		await channel!.messages.fetch({ limit: 100, cache: false }).then((data) => {
 			for (const message of [...data.values()].sort((a, b) => a.createdTimestamp - b.createdTimestamp)) {
 				if (message.embeds.length) {
-					messages.push(
-						`${message.createdAt} » ${message.author.username} » ${message.embeds[0].description}`
-					);
+					messages.push(`${message.createdAt} » ${message.author.username} » ${message.embeds[0].description}`);
 				}
 
 				if (message.content.length)
@@ -151,9 +149,7 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 		const successData = {
 			embeds: [
 				new EmbedBuilder()
-					.setDescription(
-						`Backup file for ${channel?.name} is saved at https://gist.github.com/robo-goblin/${gistId}`
-					)
+					.setDescription(`Backup file for ${channel?.name} is saved at https://gist.github.com/robo-goblin/${gistId}`)
 					.setColor(Colors.Indigo)
 			]
 		};

@@ -81,11 +81,7 @@ export class Prompter {
 
 	private get prompterComponent() {
 		return new ActionRowBuilder<ButtonBuilder>().addComponents(
-			new ButtonBuilder()
-				.setLabel('Yes')
-				.setEmoji(Emotes.Success)
-				.setStyle(ButtonStyle.Success)
-				.setCustomId('yes'),
+			new ButtonBuilder().setLabel('Yes').setEmoji(Emotes.Success).setStyle(ButtonStyle.Success).setCustomId('yes'),
 			new ButtonBuilder() //
 				.setLabel('No')
 				.setEmoji(Emotes.Error)

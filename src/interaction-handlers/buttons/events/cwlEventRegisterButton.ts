@@ -79,10 +79,7 @@ export class ButtonHandler extends InteractionHandler {
 				});
 			}
 
-			const linkedData = Object.assign(
-				{},
-				...linkedPlayers.map((data) => ({ [data.playerTag]: data.registered }))
-			);
+			const linkedData = Object.assign({}, ...linkedPlayers.map((data) => ({ [data.playerTag]: data.registered })));
 			const playersData = await Util.allSettled(
 				Object.keys(linkedData).map((tag) => this.container.coc.getPlayer(tag))
 			);

@@ -71,9 +71,7 @@ export class ForceLinkCommand extends GoblinSubCommand {
 			if (error instanceof this.sql.PostgresError && error.code === '23505') {
 				throw new UserError({
 					identifier: ErrorIdentifiers.DatabaseError,
-					message: `**${clan.name} (${clan.tag})** is already linked to ${userMention(
-						user.id
-					)} discord account`
+					message: `**${clan.name} (${clan.tag})** is already linked to ${userMention(user.id)} discord account`
 				});
 			}
 		}
@@ -83,9 +81,7 @@ export class ForceLinkCommand extends GoblinSubCommand {
 			embeds: [
 				new EmbedBuilder()
 					.setTitle(`${Emotes.Success} Success`)
-					.setDescription(
-						`Forcibly linked **${clan.name} (${clan.tag})** to ${userMention(user.id)} discord account`
-					)
+					.setDescription(`Forcibly linked **${clan.name} (${clan.tag})** to ${userMention(user.id)} discord account`)
 					.setColor(Colors.DeepOrange)
 			]
 		});

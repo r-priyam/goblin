@@ -53,13 +53,7 @@ export class GoblinRedisClient extends Redis {
 		return this.del(query ? `${key}-${query}` : key);
 	}
 
-	public async handleClanOrPlayerCacheCache(
-		type: string,
-		method: string,
-		userId: string,
-		tag: string,
-		name?: string
-	) {
+	public async handleClanOrPlayerCacheCache(type: string, method: string, userId: string, tag: string, name?: string) {
 		const initial = type === 'CLAN' ? RedisKeys.Clan : RedisKeys.Player;
 		const cachedData = await this.fetch(initial, userId);
 
@@ -87,8 +81,7 @@ export class GoblinRedisClient extends Redis {
 		const cachedAlias = await this.fetch(RedisKeys.ClanAlias, undefined);
 
 		if (method === RedisMethods.Insert) {
-			if (isNullish(cachedAlias))
-				return this.insert(RedisKeys.ClanAlias, undefined, [{ name: name!, tag, alias }]);
+			if (isNullish(cachedAlias)) return this.insert(RedisKeys.ClanAlias, undefined, [{ name: name!, tag, alias }]);
 
 			cachedAlias.push({ name: name!, tag, alias });
 			return this.insert(RedisKeys.ClanAlias, undefined, cachedAlias);

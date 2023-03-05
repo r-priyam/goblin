@@ -140,11 +140,9 @@ export class PlayerCommand extends GoblinCommand {
 		const achievements = [
 			{
 				name: bold('Total Loots'),
-				value: `${MiscEmotes.Gold} ${humanizeNumber(getAchievement('Gold Grab'))} ${
-					MiscEmotes.Elixir
-				} ${humanizeNumber(getAchievement('Elixir Escapade'))} ${MiscEmotes.Dark} ${humanizeNumber(
-					getAchievement('Heroic Heist')
-				)}`
+				value: `${MiscEmotes.Gold} ${humanizeNumber(getAchievement('Gold Grab'))} ${MiscEmotes.Elixir} ${humanizeNumber(
+					getAchievement('Elixir Escapade')
+				)} ${MiscEmotes.Dark} ${humanizeNumber(getAchievement('Heroic Heist'))}`
 			},
 			{
 				name: bold('Troops Donated'),

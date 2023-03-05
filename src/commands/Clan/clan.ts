@@ -60,9 +60,7 @@ export class ClanCommand extends GoblinCommand {
 		description += `${MiscEmotes.HomeTrophy} **${clan.points}** ${MiscEmotes.BuilderTrophy} **${clan.versusPoints}** ${MiscEmotes.Members} **${clan.memberCount}**\n\n`;
 		description += clan.description ? `${clan.description}` : 'No description set';
 		if (clan.labels.length) {
-			description += `\n\n${clan.labels
-				.map((label) => [`${LabelEmotes[label.name]} ${label.name}`])
-				.join('\n')}\n\n`;
+			description += `\n\n${clan.labels.map((label) => [`${LabelEmotes[label.name]} ${label.name}`]).join('\n')}\n\n`;
 		}
 
 		return new EmbedBuilder()
@@ -77,9 +75,7 @@ ${MiscEmotes.Leader} ${clan.members.find((member) => member.role === 'leader')!.
 ${
 	clan.location
 		? `**Location**\n:${
-				clan.location?.countryCode
-					? `flag_${clan.location?.countryCode?.toLowerCase()}`
-					: 'globe_with_meridians'
+				clan.location?.countryCode ? `flag_${clan.location?.countryCode?.toLowerCase()}` : 'globe_with_meridians'
 		  }: ${clan.location.name}`
 		: '`Not set`'
 }

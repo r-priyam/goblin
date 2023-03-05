@@ -94,9 +94,7 @@ export class SyncClanEmbedTask extends ScheduledTask {
 
 		if (result.isErr() && result.unwrapErr().status === 404) {
 			await this.stopClanEmbed(clanTag, channelId);
-			this.logger.info(
-				logInfo('ClanEmbed Syncer', `Stopping clan embed for ${clanTag} with reason Clan not found`)
-			);
+			this.logger.info(logInfo('ClanEmbed Syncer', `Stopping clan embed for ${clanTag} with reason Clan not found`));
 			return;
 		}
 

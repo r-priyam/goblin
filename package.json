@@ -16,9 +16,9 @@
 	"scripts": {
 		"build": "tsup",
 		"dev": "tsup --watch --onSuccess \"yarn start\"",
-		"format": "rome format --write . && eslint src --ext ts --fix --format=pretty",
+		"format": "rome format --write . && rome check src --apply && rome check src --apply-suggested &&  eslint src --ext ts --fix --format=pretty",
 		"postinstall": "husky install .github/husky",
-		"lint": "rome check . && eslint src --ext ts --format=pretty",
+		"lint": "rome format . && rome check src && eslint src --ext ts --format=pretty",
 		"migrate": "node scripts/dbMigration.mjs",
 		"migrate:new": "ley new $0 --timestamp --esm",
 		"start": "node --enable-source-maps dist/goblin.js",
@@ -35,6 +35,7 @@
 	"lint-staged": {
 		"*.{mjs,js,ts}": [
 			"rome format --write \"src/**/*.ts\"",
+			"rome check src",
 			"eslint --fix --ext mjs,js,ts"
 		]
 	},

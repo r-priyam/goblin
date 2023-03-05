@@ -39,6 +39,7 @@ export class Ready extends Listener {
 		logger.info(this.styleStore(last, true));
 	}
 
+	// rome-ignore lint/suspicious/noExplicitAny: <explanation>
 	private styleStore(store: Store<any>, last: boolean) {
 		return gray(`${last ? '└─' : '├─'} Loaded ${this.style(store.size.toString().padEnd(3, ' '))} ${store.name}.`);
 	}
@@ -63,10 +64,10 @@ ${gradient.atlas.multiline(figlet.textSync('Goblin'))}
 ${line01} ${pad}${blc(version)}
 ${line02} ${pad}[${success}] Gateway
 ${line03}${
-				envParseString('NODE_ENV') === 'development'
-					? ` ${pad}${blc('<')}${llc('/')}${blc('>')} ${llc('DEVELOPMENT MODE')}`
-					: ''
-			}
+	envParseString('NODE_ENV') === 'development'
+		? ` ${pad}${blc('<')}${llc('/')}${blc('>')} ${llc('DEVELOPMENT MODE')}`
+		: ''
+}
 		`.trim()
 		);
 	}

@@ -17,9 +17,7 @@ export class ButtonHandler extends InteractionHandler {
 	}
 
 	public override async parse(interaction: ButtonInteraction) {
-		if (
-			!([ButtonCustomIds.CWLWarSerious, ButtonCustomIds.CWLWarCasual] as string[]).includes(interaction.customId)
-		) {
+		if (!([ButtonCustomIds.CWLWarSerious, ButtonCustomIds.CWLWarCasual] as string[]).includes(interaction.customId)) {
 			return this.none();
 		}
 
@@ -45,9 +43,9 @@ export class ButtonHandler extends InteractionHandler {
 
 		const actionRow = new ActionRowBuilder<ButtonBuilder>().addComponents(
 			// inherit from interaction button only as it contains all the data in custom id
-			new ButtonBuilder(
-				interaction.message.components[4].components[0].toJSON() as APIButtonComponent
-			).setDisabled(false),
+			new ButtonBuilder(interaction.message.components[4].components[0].toJSON() as APIButtonComponent).setDisabled(
+				false
+			),
 			makeButton('Cancel', ButtonCustomIds.CWLEventUserRegisterCancel, ButtonStyle.Danger)
 		);
 
