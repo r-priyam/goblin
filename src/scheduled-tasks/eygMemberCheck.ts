@@ -31,9 +31,7 @@ export class EygMemberCheck extends ScheduledTask {
 
 		for (const member of checkRoleMembers) {
 			const minutes = this.getMinutes(member.joinedAt!);
-			const gatewayChannel = (await this.client.channels.fetch(
-				envParseString('EYG_GATEWAY_CHANNEL')
-			)) as TextChannel;
+			const gatewayChannel = (await this.client.channels.fetch(envParseString('EYG_GATEWAY_CHANNEL'))) as TextChannel;
 
 			if (minutes === 60 * 12) {
 				await gatewayChannel.send({
@@ -58,9 +56,9 @@ export class EygMemberCheck extends ScheduledTask {
 						new EmbedBuilder()
 							.setTitle('Info')
 							.setDescription(
-								`Automatically kicked ${inlineCode(
-									member.displayName
-								)} from the server as they've been in ${inlineCode('gateway for more than 24 hours')}`
+								`Automatically kicked ${inlineCode(member.displayName)} from the server as they've been in ${inlineCode(
+									'gateway for more than 24 hours'
+								)}`
 							)
 							.setColor(Colors.Blue)
 					]

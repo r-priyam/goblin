@@ -38,6 +38,8 @@ export class ButtonHandler extends InteractionHandler {
 			data += `${Object.values(registration).join(',')}\n`;
 		}
 
-		return this.some({ exportFile: [{ attachment: Buffer.from(data), name: `${Date.now()}_export.csv` }] });
+		return this.some({
+			exportFile: [{ attachment: Buffer.from(data), name: `${Date.now()}_export.csv` }]
+		});
 	}
 }

@@ -62,9 +62,7 @@ export class StopCommand extends GoblinCommand {
 			embeds: [
 				new EmbedBuilder()
 					.setTitle(`${Emotes.Success} Success`)
-					.setDescription(
-						`Successfully stopped ${bold(result.clanName!)}(${bold(clanTag)}) Clan Embed in this server`
-					)
+					.setDescription(`Successfully stopped ${bold(result.clanName!)}(${bold(clanTag)}) Clan Embed in this server`)
 					.setColor(Colors.Green)
 			]
 		});

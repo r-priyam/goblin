@@ -11,6 +11,7 @@ declare module '@sapphire/pieces' {
 		coc: GoblinClashClient;
 		discordRest: REST;
 		redis: GoblinRedisClient;
+		// rome-ignore lint/suspicious/noExplicitAny: <explanation>
 		sql: Sql<any>;
 	}
 
@@ -20,6 +21,7 @@ declare module '@sapphire/pieces' {
 		discordRest: REST;
 		logger: Logger;
 		redis: GoblinRedisClient;
+		// rome-ignore lint/suspicious/noExplicitAny: <explanation>
 		sql: Sql<any>;
 		tasks: ScheduledTaskHandler;
 	}

@@ -23,8 +23,12 @@ export class GoblinClashClient extends Client {
 		this.clanHelper = new ClanHelper();
 		this.playerHelper = new PlayerHelper();
 		this.linkApi = new LinkApi(envParseString('CLASH_LINK_USER_NAME'), envParseString('CLASH_LINK_PASSWORD'));
-		// @ts-expect-error clear property missing in cache
-		this.rest = new RESTManager({ cache: new ClientCache(), rejectIfNotValid: true });
+
+		this.rest = new RESTManager({
+			// @ts-expect-error clear property missing in cache
+			cache: new ClientCache(),
+			rejectIfNotValid: true
+		});
 	}
 
 	public override async getPlayer(playerTag: string, options?: OverrideOptions) {

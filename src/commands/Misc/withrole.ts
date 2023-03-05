@@ -34,7 +34,10 @@ export class WithRoleCommand extends GoblinCommand {
 		const totalMembers = members.length;
 		let count = 0;
 
-		if (members.length === 0) return interaction.editReply({ content: `No member has ${roleMention(role.id)}` });
+		if (members.length === 0)
+			return interaction.editReply({
+				content: `No member has ${roleMention(role.id)}`
+			});
 
 		while (members.length !== 0) {
 			const namesEmbed = new EmbedBuilder()
@@ -47,7 +50,11 @@ export class WithRoleCommand extends GoblinCommand {
 				)
 				.setFooter({
 					text: `Requested by ${interaction.member.displayName}`,
-					iconURL: interaction.member.displayAvatarURL({ size: 32, extension: 'png', forceStatic: true })
+					iconURL: interaction.member.displayAvatarURL({
+						size: 32,
+						extension: 'png',
+						forceStatic: true
+					})
 				})
 				.setColor(Colors.BlueGrey);
 

@@ -26,9 +26,7 @@ export class PlayerHelper {
 	}
 
 	public async verifyPlayer(interaction: ChatInputCommandInteraction<'cached'>, tag: string, token: string) {
-		const result = await Result.fromAsync<boolean, HTTPError>(async () =>
-			container.coc.verifyPlayerToken(tag, token)
-		);
+		const result = await Result.fromAsync<boolean, HTTPError>(async () => container.coc.verifyPlayerToken(tag, token));
 
 		if (result.isErr()) {
 			const error = result.unwrapErr();
@@ -39,7 +37,10 @@ export class PlayerHelper {
 		}
 
 		if (!result.unwrap()) {
-			throw new UserError({ identifier: ErrorIdentifiers.PlayerHelper, message: 'Invalid API token!' });
+			throw new UserError({
+				identifier: ErrorIdentifiers.PlayerHelper,
+				message: 'Invalid API token!'
+			});
 		}
 
 		return this.info(interaction, tag);

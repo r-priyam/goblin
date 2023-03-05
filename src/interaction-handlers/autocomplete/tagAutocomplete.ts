@@ -29,7 +29,10 @@ export class AutocompleteHandler extends InteractionHandler {
 			return this.some(this.handleNoFocusedValue(cachedData));
 		}
 
-		const fuse = new Fuse(cachedData, { includeScore: true, keys: ['name', 'tag'] });
+		const fuse = new Fuse(cachedData, {
+			includeScore: true,
+			keys: ['name', 'tag']
+		});
 		const matches = fuse.search(tag);
 
 		// When the user don't have any account linked and the tag value is there

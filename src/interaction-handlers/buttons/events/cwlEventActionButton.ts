@@ -93,7 +93,13 @@ export class ButtonHandler extends InteractionHandler {
 		await this.sendSuccessToAuthor(interaction.user, eventId, eventName!, messageUrl);
 		await this.tasks.create(
 			'cwlEventEnd',
-			{ channelId: registrationChannel, messageId, eventId, eventName, endRolePing },
+			{
+				channelId: registrationChannel,
+				messageId,
+				eventId,
+				eventName,
+				endRolePing
+			},
 			Time.Day * 7
 		);
 

@@ -37,14 +37,10 @@ export class LinkApi {
 			if (isNullishOrEmpty(data)) return null;
 
 			const linkApiTags = data.map((linkData) => linkData.playerTag);
-			const cachedTags = ((await container.redis.fetch(RedisKeys.Player, tagOrId)) ?? []).map(
-				(data) => data?.tag
-			);
+			const cachedTags = ((await container.redis.fetch(RedisKeys.Player, tagOrId)) ?? []).map((data) => data?.tag);
 
 			const tagsToFetch = [...new Set([...linkApiTags, ...cachedTags])];
-			const playersData = await Util.allSettled(
-				tagsToFetch.splice(0, 5).map((tag) => container.coc.getPlayer(tag))
-			);
+			const playersData = await Util.allSettled(tagsToFetch.splice(0, 5).map((tag) => container.coc.getPlayer(tag)));
 
 			const sqlData = playersData.map((player) => ({
 				user_id: tagOrId,
@@ -77,11 +73,16 @@ export class LinkApi {
 	}
 
 	public async createLink(playerTag: string, discordId: string) {
-		return this.request('/links', { method: 'POST', body: JSON.stringify({ playerTag, discordId }) });
+		return this.request('/links', {
+			method: 'POST',
+			body: JSON.stringify({ playerTag, discordId })
+		});
 	}
 
 	public async deleteLink(tag: string, userId: string) {
-		await this.request(`/links/${encodeURIComponent(tag)}`, { method: 'DELETE' });
+		await this.request(`/links/${encodeURIComponent(tag)}`, {
+			method: 'DELETE'
+		});
 		return container.redis.delete(RedisKeys.Links, userId);
 	}
 
@@ -93,7 +94,10 @@ export class LinkApi {
 		const response = await fetch(`${this.url}${path}`, {
 			method: options.method,
 			body: options.body,
-			headers: { 'Authorization': `Bearer ${this.apiKey}`, 'Content-Type': 'application/json' }
+			headers: {
+				'Authorization': `Bearer ${this.apiKey}`,
+				'Content-Type': 'application/json'
+			}
 		}).catch(() => null);
 
 		const data = await response?.json().catch(() => null);

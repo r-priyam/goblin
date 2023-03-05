@@ -111,10 +111,7 @@ export class EYGWarEndImagePoster extends ScheduledTask {
 			}
 
 			this.logger.warn(
-				logWarning(
-					'WarImagePoster',
-					`Failed to send war end image for ${data.clanTag} with reason ${error.message}`
-				)
+				logWarning('WarImagePoster', `Failed to send war end image for ${data.clanTag} with reason ${error.message}`)
 			);
 		} else {
 			await this.sql`

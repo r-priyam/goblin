@@ -34,7 +34,10 @@ export class WikipediaCommand extends GoblinCommand {
 
 		const data = (await response?.json().catch(() => null)) as WikipediaData;
 
-		if (response?.status !== 200) return interaction.editReply({ content: 'Something went wrong, try again!' });
+		if (response?.status !== 200)
+			return interaction.editReply({
+				content: 'Something went wrong, try again!'
+			});
 
 		if (data.query.searchinfo.totalhits === 0) return interaction.editReply({ content: 'No result found' });
 

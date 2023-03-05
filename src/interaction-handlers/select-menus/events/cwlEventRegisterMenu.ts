@@ -12,7 +12,10 @@ import { makeButton } from '#utils/functions/eventHelpers';
 })
 export class SelectMenuHandler extends InteractionHandler {
 	public override async run(interaction: StringSelectMenuInteraction, result: InteractionHandler.ParseResult<this>) {
-		return interaction.editReply({ embeds: result.embeds, components: result.components });
+		return interaction.editReply({
+			embeds: result.embeds,
+			components: result.components
+		});
 	}
 
 	public override async parse(interaction: StringSelectMenuInteraction) {

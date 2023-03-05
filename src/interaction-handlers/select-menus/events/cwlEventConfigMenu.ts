@@ -28,14 +28,12 @@ export class SelectMenuHandler extends InteractionHandler {
 
 		switch (interaction.values[0]) {
 			case SelectMenuOptionsValue.EventName:
-				return this.some({ model: this.modalGenerator('Event Name', ModalInputCustomIds.EventName, true) });
+				return this.some({
+					model: this.modalGenerator('Event Name', ModalInputCustomIds.EventName, true)
+				});
 			case SelectMenuOptionsValue.EventRegistrationChannel:
 				return this.some({
-					model: this.modalGenerator(
-						'Event Registration Channel',
-						ModalInputCustomIds.EventRegistrationChannel,
-						true
-					)
+					model: this.modalGenerator('Event Registration Channel', ModalInputCustomIds.EventRegistrationChannel, true)
 				});
 			case SelectMenuOptionsValue.EventStartRolePing:
 				return this.some({

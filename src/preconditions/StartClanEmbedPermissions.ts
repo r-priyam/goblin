@@ -31,10 +31,7 @@ export class UserPrecondition extends Precondition {
 		for (const perm of perms)
 			formatted += `$${Emotes.Error}${perm
 				.replace('_', ' ')
-				.replaceAll(
-					/\w\S*/g,
-					(replace) => replace.charAt(0).toUpperCase() + replace.slice(1).toLowerCase()
-				)}\n`;
+				.replaceAll(/\w\S*/g, (replace) => replace.charAt(0).toUpperCase() + replace.slice(1).toLowerCase())}\n`;
 		return formatted.slice(0, -2);
 	}
 }

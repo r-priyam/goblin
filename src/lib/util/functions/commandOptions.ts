@@ -42,7 +42,10 @@ export const clanTagOption = (optionInstance: SlashCommandStringOption, options:
  * @returns - {@link SlashCommandStringOption}
  */
 export const playerTagOption = (optionInstance: SlashCommandStringOption, options: TagProperties) =>
-	addTagOption(optionInstance, { description: 'Tag of the player', ...options });
+	addTagOption(optionInstance, {
+		description: 'Tag of the player',
+		...options
+	});
 
 interface TagProperties {
 	/**

@@ -32,10 +32,7 @@ export class ModalHandler extends InteractionHandler {
 		const parsedData = extractConfigsFromValues(rawConfigValues!);
 
 		const eventName = this.getConfigValue(interaction.fields, ModalInputCustomIds.EventName);
-		const registrationChannel = this.getConfigValue(
-			interaction.fields,
-			ModalInputCustomIds.EventRegistrationChannel
-		);
+		const registrationChannel = this.getConfigValue(interaction.fields, ModalInputCustomIds.EventRegistrationChannel);
 		const startRolePing = this.getConfigValue(interaction.fields, ModalInputCustomIds.EventStartRolePing);
 		const endRolePing = this.getConfigValue(interaction.fields, ModalInputCustomIds.EventEndRolePing);
 
@@ -66,8 +63,9 @@ export class ModalHandler extends InteractionHandler {
 		});
 	}
 
-	private verifyInput(name: string, value: any) {
-		if ([EventConfigDefaultValues.Required, EventConfigDefaultValues.NotRequired, null].includes(value)) return;
+	private verifyInput(name: string, value: string) {
+		if (([EventConfigDefaultValues.Required, EventConfigDefaultValues.NotRequired, null] as string[]).includes(value))
+			return;
 
 		if (!SnowflakeRegex.test(value)) {
 			throw new UserError({
@@ -78,9 +76,8 @@ export class ModalHandler extends InteractionHandler {
 		}
 	}
 
+	// rome-ignore lint/suspicious/noExplicitAny: <explanation>
 	private getConfigValue(fields: any, customId: string) {
-		return fields.components[0].components[0].customId === customId
-			? fields.components[0].components[0].value
-			: null;
+		return fields.components[0].components[0].customId === customId ? fields.components[0].components[0].value : null;
 	}
 }

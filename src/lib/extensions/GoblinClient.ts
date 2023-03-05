@@ -20,7 +20,9 @@ export class GoblinClient extends SapphireClient {
 				GatewayIntentBits.GuildMessages,
 				GatewayIntentBits.MessageContent
 			],
-			logger: { level: envParseBoolean('DEBUG') ? LogLevel.Debug : LogLevel.Info },
+			logger: {
+				level: envParseBoolean('DEBUG') ? LogLevel.Debug : LogLevel.Info
+			},
 			loadDefaultErrorListeners: envParseBoolean('DEBUG'),
 			presence: {
 				activities: [
@@ -56,7 +58,7 @@ export class GoblinClient extends SapphireClient {
 					to: 1184,
 					from: [1082, 1083, 1114, 1184],
 					serialize: (date: Date) => date.toISOString(),
-					parse: (isoString: any) => isoString
+					parse: (isoString: string) => isoString
 				}
 			}
 		});

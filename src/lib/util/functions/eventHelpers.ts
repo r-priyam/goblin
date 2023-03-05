@@ -58,8 +58,7 @@ export function extractConfigsFromValues(values: string[], isSubmit = false) {
 		if (val === EventConfigDefaultValues.Required && isSubmit) {
 			throw new UserError({
 				identifier: ErrorIdentifiers.CWLEventProcess,
-				message:
-					"You haven't configured one or more required field values, please configure them before submitting.",
+				message: "You haven't configured one or more required field values, please configure them before submitting.",
 				context: { followUp: true }
 			});
 		} else if (val === EventConfigDefaultValues.NotRequired && isSubmit) {

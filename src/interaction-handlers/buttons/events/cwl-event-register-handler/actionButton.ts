@@ -13,7 +13,10 @@ import { seconds } from '#utils/functions/time';
 })
 export class ButtonHandler extends InteractionHandler {
 	public override async run(interaction: ButtonInteraction, result: InteractionHandler.ParseResult<this>) {
-		return interaction.editReply({ embeds: result.embeds, components: result.components });
+		return interaction.editReply({
+			embeds: result.embeds,
+			components: result.components
+		});
 	}
 
 	public override async parse(interaction: ButtonInteraction) {
@@ -38,8 +41,7 @@ export class ButtonHandler extends InteractionHandler {
 
 		const daysValue = [];
 		const playerName = interaction.message.embeds[0].title;
-		const serious =
-			(interaction.message.components[1].components[0] as ButtonComponent).style === ButtonStyle.Success;
+		const serious = (interaction.message.components[1].components[0] as ButtonComponent).style === ButtonStyle.Success;
 		const [_, eventId, playerTag, thLevel, bkLevel, aqLevel, gwLevel, rcLevel] = interaction.customId.split('_');
 
 		for (const component of interaction.message.components[2].components as ButtonComponent[]) {
@@ -73,20 +75,20 @@ export class ButtonHandler extends InteractionHandler {
                                           opt_in_day_seven)
             VALUES
             ${this.sql([
-				eventId,
-				interaction.user.id,
-				interaction.user.username,
-				playerName,
-				playerTag,
-				thLevel,
-				bkLevel ?? 0,
-				aqLevel ?? 0,
-				gwLevel ?? 0,
-				rcLevel ?? 0,
-				serious,
-				!serious,
-				...daysValue
-			])}`;
+							eventId,
+							interaction.user.id,
+							interaction.user.username,
+							playerName,
+							playerTag,
+							thLevel,
+							bkLevel ?? 0,
+							aqLevel ?? 0,
+							gwLevel ?? 0,
+							rcLevel ?? 0,
+							serious,
+							!serious,
+							...daysValue
+						])}`;
 		} catch {
 			throw new UserError({
 				identifier: ErrorIdentifiers.CWLEventProcess,

@@ -17,7 +17,11 @@ import { seconds } from '#utils/functions/time';
 })
 export class ButtonHandler extends InteractionHandler {
 	public override async run(interaction: ButtonInteraction, result: InteractionHandler.ParseResult<this>) {
-		return interaction.editReply({ content: result.content, embeds: result.embeds, components: result.components });
+		return interaction.editReply({
+			content: result.content,
+			embeds: result.embeds,
+			components: result.components
+		});
 	}
 
 	public override async parse(interaction: ButtonInteraction) {
@@ -75,10 +79,7 @@ export class ButtonHandler extends InteractionHandler {
 				});
 			}
 
-			const linkedData = Object.assign(
-				{},
-				...linkedPlayers.map((data) => ({ [data.playerTag]: data.registered }))
-			);
+			const linkedData = Object.assign({}, ...linkedPlayers.map((data) => ({ [data.playerTag]: data.registered })));
 			const playersData = await Util.allSettled(
 				Object.keys(linkedData).map((tag) => this.container.coc.getPlayer(tag))
 			);

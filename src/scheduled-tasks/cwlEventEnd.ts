@@ -34,9 +34,7 @@ export class BotScheduledTask extends ScheduledTask {
 			.setDescription(
 				`Registration ended for Event ${bold(
 					`${eventName} (${eventId})`
-				)}. To export the registration information please click on the ${bold(
-					'Export'
-				)} button in this message.`
+				)}. To export the registration information please click on the ${bold('Export')} button in this message.`
 			)
 			.setColor(Colors.Indigo);
 		const exportButton = new ActionRowBuilder<ButtonBuilder>().addComponents(
