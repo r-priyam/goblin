@@ -22,29 +22,11 @@
 		"enabled": true,
 		"rules": {
 			"recommended": true,
-			"a11y": {
-				"recommended": true
-			},
 			"complexity": {
-				"recommended": true
-			},
-			"correctness": {
-				"recommended": true
-			},
-			"nursery": {
-				"recommended": true
-			},
-			"performance": {
-				"recommended": true
-			},
-			"security": {
-				"recommended": true
+				"useSimplifiedLogicExpression": "error"
 			},
 			"style": {
-				"recommended": true
-			},
-			"suspicious": {
-				"recommended": true
+				"noNegationElse": "error"
 			}
 		}
 	}
