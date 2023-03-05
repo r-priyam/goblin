@@ -13,7 +13,10 @@ import { seconds } from '#utils/functions/time';
 })
 export class ButtonHandler extends InteractionHandler {
 	public override async run(interaction: ButtonInteraction, result: InteractionHandler.ParseResult<this>) {
-		return interaction.editReply({ embeds: result.embeds, components: result.components });
+		return interaction.editReply({
+			embeds: result.embeds,
+			components: result.components
+		});
 	}
 
 	public override async parse(interaction: ButtonInteraction) {

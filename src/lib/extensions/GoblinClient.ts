@@ -20,7 +20,9 @@ export class GoblinClient extends SapphireClient {
 				GatewayIntentBits.GuildMessages,
 				GatewayIntentBits.MessageContent
 			],
-			logger: { level: envParseBoolean('DEBUG') ? LogLevel.Debug : LogLevel.Info },
+			logger: {
+				level: envParseBoolean('DEBUG') ? LogLevel.Debug : LogLevel.Info
+			},
 			loadDefaultErrorListeners: envParseBoolean('DEBUG'),
 			presence: {
 				activities: [

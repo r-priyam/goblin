@@ -30,7 +30,13 @@ export class UserInfoCommand extends GoblinCommand {
 
 		const embed = new EmbedBuilder()
 			.setColor(member.displayColor || Colors.White)
-			.setThumbnail(member.displayAvatarURL({ size: 256, extension: 'png', forceStatic: true }))
+			.setThumbnail(
+				member.displayAvatarURL({
+					size: 256,
+					extension: 'png',
+					forceStatic: true
+				})
+			)
 			.setTitle(member.user.tag)
 			.addFields(
 				{
@@ -61,7 +67,10 @@ export class UserInfoCommand extends GoblinCommand {
 			.setTimestamp();
 		this.addRoles(interaction.guildId, member, embed);
 
-		return interaction.editReply({ embeds: [embed], components: [UserInfoCommand.avatarUrlButton(member)] });
+		return interaction.editReply({
+			embeds: [embed],
+			components: [UserInfoCommand.avatarUrlButton(member)]
+		});
 	}
 
 	private addRoles(guildId: string, member: GuildMember, embed: EmbedBuilder) {
@@ -85,7 +94,13 @@ export class UserInfoCommand extends GoblinCommand {
 			new ButtonBuilder() //
 				.setLabel('🖼️ Avatar')
 				.setStyle(ButtonStyle.Link)
-				.setURL(member.displayAvatarURL({ size: 512, extension: 'png', forceStatic: true }))
+				.setURL(
+					member.displayAvatarURL({
+						size: 512,
+						extension: 'png',
+						forceStatic: true
+					})
+				)
 		]);
 	}
 }

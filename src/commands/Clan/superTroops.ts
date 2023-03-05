@@ -28,14 +28,23 @@ export class SuperTroopsCommand extends GoblinCommand {
 		const clan = await this.coc.clanHelper.info(interaction, clanTag);
 
 		const embed = await SuperTroopsCommand.getSuperTroops(clan);
-		return interaction.editReply({ embeds: [embed], components: [this.menuOptions(clan.tag)] });
+		return interaction.editReply({
+			embeds: [embed],
+			components: [this.menuOptions(clan.tag)]
+		});
 	}
 
 	private menuOptions(clanTag: string) {
 		const superTroopsMenu = new StringSelectMenuBuilder()
 			.setPlaceholder('Select a troop')
 			.setCustomId(`${SelectMenuCustomIds.SuperTroop}-${clanTag}`)
-			.addOptions(SuperTroops.map((troop) => ({ label: troop, emoji: SuperTroopEmotes[troop], value: troop })));
+			.addOptions(
+				SuperTroops.map((troop) => ({
+					label: troop,
+					emoji: SuperTroopEmotes[troop],
+					value: troop
+				}))
+			);
 
 		return new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(superTroopsMenu);
 	}
@@ -64,13 +73,21 @@ export class SuperTroopsCommand extends GoblinCommand {
 				return superTroopsEmbed;
 			}
 
-			superTroopsEmbed.addFields({ name: filterTroop, value: data.join('\n'), inline: false });
+			superTroopsEmbed.addFields({
+				name: filterTroop,
+				value: data.join('\n'),
+				inline: false
+			});
 			return superTroopsEmbed;
 		}
 
 		for (const [troop, data] of Object.entries(superTroops)) {
 			if (isNullishOrEmpty(data)) continue;
-			superTroopsEmbed.addFields({ name: troop, value: data.join('\n'), inline: false });
+			superTroopsEmbed.addFields({
+				name: troop,
+				value: data.join('\n'),
+				inline: false
+			});
 		}
 
 		if (superTroopsEmbed.data.fields?.length === 0)

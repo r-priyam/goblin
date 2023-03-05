@@ -32,7 +32,10 @@ export class PlayerCommand extends GoblinCommand {
 
 		const infoEmbed = PlayerCommand.infoEmbed(player);
 		const unitsEmbed = PlayerCommand.unitsEmbed(player);
-		await interaction.editReply({ embeds: [infoEmbed], components: [PlayerCommand.components] });
+		await interaction.editReply({
+			embeds: [infoEmbed],
+			components: [PlayerCommand.components]
+		});
 
 		const authorId = interaction.user.id;
 		const collector = message.channel.createMessageComponentCollector({
@@ -66,7 +69,11 @@ export class PlayerCommand extends GoblinCommand {
 		];
 
 		const embed = new EmbedBuilder() //
-			.setAuthor({ name: `Units for ${player.name}`, iconURL: player.townHallImage, url: player.shareLink })
+			.setAuthor({
+				name: `Units for ${player.name}`,
+				iconURL: player.townHallImage,
+				url: player.shareLink
+			})
 			.setColor(Colors.Indigo);
 
 		for (const field of possibleFields) {
@@ -116,7 +123,11 @@ export class PlayerCommand extends GoblinCommand {
 			.setDescription(description)
 			.addFields(
 				{ name: '\u200B', value: seasonStats, inline: false },
-				{ name: '\u200B', value: PlayerCommand.getAchievementsValue(player.achievements), inline: false }
+				{
+					name: '\u200B',
+					value: PlayerCommand.getAchievementsValue(player.achievements),
+					inline: false
+				}
 			)
 			.setThumbnail(player.townHallImage)
 			.setFooter({ text: player.league.name, iconURL: player.league.icon.url })
@@ -135,22 +146,34 @@ export class PlayerCommand extends GoblinCommand {
 					getAchievement('Heroic Heist')
 				)}`
 			},
-			{ name: bold('Troops Donated'), value: `${MiscEmotes.TroopDonations} ${getAchievement('Friend in Need')}` },
+			{
+				name: bold('Troops Donated'),
+				value: `${MiscEmotes.TroopDonations} ${getAchievement('Friend in Need')}`
+			},
 			{
 				name: bold('Spells Donated'),
 				value: `${MiscEmotes.SpellDonations} ${getAchievement('Sharing is caring')}`
 			},
-			{ name: bold('Siege Donated'), value: `${MiscEmotes.SiegeDonations} ${getAchievement('Siege Sharer')}` },
+			{
+				name: bold('Siege Donated'),
+				value: `${MiscEmotes.SiegeDonations} ${getAchievement('Siege Sharer')}`
+			},
 			{
 				name: bold('Attacks Won'),
 				value: `${MiscEmotes.Sword} ${getAchievement('Sweet Victory!')}`
 			},
-			{ name: bold('Defense Won'), value: `${MiscEmotes.Shield} ${getAchievement('Unbreakable')}` },
+			{
+				name: bold('Defense Won'),
+				value: `${MiscEmotes.Shield} ${getAchievement('Unbreakable')}`
+			},
 			{
 				name: bold('CWL War Stars'),
 				value: `${MiscEmotes.GoldStar} ${getAchievement('War League Legend')}`
 			},
-			{ name: bold('Clan Games Points'), value: `${MiscEmotes.ClanGames} ${getAchievement('Games Champion')}` },
+			{
+				name: bold('Clan Games Points'),
+				value: `${MiscEmotes.ClanGames} ${getAchievement('Games Champion')}`
+			},
 			{
 				name: bold('Capital Gold Looted'),
 				value: `${MiscEmotes.ClanGold} ${getAchievement('Aggressive Capitalism')}`

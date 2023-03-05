@@ -39,7 +39,10 @@ export class PlayerHelper {
 		}
 
 		if (!result.unwrap()) {
-			throw new UserError({ identifier: ErrorIdentifiers.PlayerHelper, message: 'Invalid API token!' });
+			throw new UserError({
+				identifier: ErrorIdentifiers.PlayerHelper,
+				message: 'Invalid API token!'
+			});
 		}
 
 		return this.info(interaction, tag);

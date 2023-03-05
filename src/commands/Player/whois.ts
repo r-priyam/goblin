@@ -38,11 +38,23 @@ export class WhoIsCommand extends GoblinCommand {
 			});
 		}
 
-		const overall = { stars: 0, donations: 0, received: 0, attacks: 0, defenses: 0 };
+		const overall = {
+			stars: 0,
+			donations: 0,
+			received: 0,
+			attacks: 0,
+			defenses: 0
+		};
 
 		const firstPage = new EmbedBuilder()
 			.setAuthor({ name: `${member.user.username} (${member.id})` })
-			.setThumbnail(member.displayAvatarURL({ size: 128, extension: 'png', forceStatic: true }))
+			.setThumbnail(
+				member.displayAvatarURL({
+					size: 128,
+					extension: 'png',
+					forceStatic: true
+				})
+			)
 			.setColor(Colors.Indigo)
 			.setTimestamp();
 		const playersData: Record<string, EmbedBuilder> = {};
@@ -83,7 +95,9 @@ export class WhoIsCommand extends GoblinCommand {
 				.setThumbnail(player.townHallImage);
 		}
 
-		const paginator = new PaginatedMessage({ template: new EmbedBuilder().setColor(Colors.Indigo) });
+		const paginator = new PaginatedMessage({
+			template: new EmbedBuilder().setColor(Colors.Indigo)
+		});
 		paginator.addPageEmbed(firstPage);
 		for (const page of Object.values(playersData)) paginator.addPageEmbed(page);
 

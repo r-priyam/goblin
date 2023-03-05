@@ -139,7 +139,9 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 		try {
 			gistId = await this.createInterviewGist(channel!.name, messages.join('\n'));
 		} catch {
-			return interaction.editReply({ content: 'Something went wrong, please try again!' });
+			return interaction.editReply({
+				content: 'Something went wrong, please try again!'
+			});
 		}
 
 		const reportingChannel = (await this.client.channels.fetch(

@@ -30,9 +30,15 @@ export class Prompter {
 
 	public async prompt() {
 		if (this.interaction.replied || this.interaction.deferred) {
-			await this.interaction.editReply({ embeds: [this.prompterEmbed], components: [this.prompterComponent] });
+			await this.interaction.editReply({
+				embeds: [this.prompterEmbed],
+				components: [this.prompterComponent]
+			});
 		} else {
-			await this.interaction.reply({ embeds: [this.prompterEmbed], components: [this.prompterComponent] });
+			await this.interaction.reply({
+				embeds: [this.prompterEmbed],
+				components: [this.prompterComponent]
+			});
 		}
 
 		try {
@@ -56,7 +62,11 @@ export class Prompter {
 			if (response?.customId === 'yes') {
 				return true;
 			} else {
-				await this.interaction.editReply({ content: 'Aborting the process!', embeds: [], components: [] });
+				await this.interaction.editReply({
+					content: 'Aborting the process!',
+					embeds: [],
+					components: []
+				});
 				return false;
 			}
 		} catch {

@@ -36,6 +36,9 @@ export class FAQsCommand extends GoblinCommand {
 		const faqKey = interaction.options.getString('key', true);
 
 		const faqImage = new AttachmentBuilder(await readFile(new URL(`meta/faq-static/${faqKey}.png`, RootDir)));
-		return interaction.editReply({ content: faqsCache.get(faqKey)?.content, files: [faqImage] });
+		return interaction.editReply({
+			content: faqsCache.get(faqKey)?.content,
+			files: [faqImage]
+		});
 	}
 }

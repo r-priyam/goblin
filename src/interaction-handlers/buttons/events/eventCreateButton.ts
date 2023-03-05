@@ -63,10 +63,22 @@ export class ButtonHandler extends InteractionHandler {
 					.setCustomId(SelectMenuCustomIds.CWLEventConfig)
 					.setPlaceholder('Select a config to set')
 					.addOptions([
-						{ label: '✍🏻 Event Name', value: SelectMenuOptionsValue.EventName },
-						{ label: '#️⃣ Registration Channel', value: SelectMenuOptionsValue.EventRegistrationChannel },
-						{ label: '＠ Event Start Role Ping', value: SelectMenuOptionsValue.EventStartRolePing },
-						{ label: '＠ Event End Role Ping', value: SelectMenuOptionsValue.EventEndRolePing }
+						{
+							label: '✍🏻 Event Name',
+							value: SelectMenuOptionsValue.EventName
+						},
+						{
+							label: '#️⃣ Registration Channel',
+							value: SelectMenuOptionsValue.EventRegistrationChannel
+						},
+						{
+							label: '＠ Event Start Role Ping',
+							value: SelectMenuOptionsValue.EventStartRolePing
+						},
+						{
+							label: '＠ Event End Role Ping',
+							value: SelectMenuOptionsValue.EventEndRolePing
+						}
 					])
 			),
 			new ActionRowBuilder<ButtonBuilder>().addComponents(

@@ -77,11 +77,16 @@ export class LinkApi {
 	}
 
 	public async createLink(playerTag: string, discordId: string) {
-		return this.request('/links', { method: 'POST', body: JSON.stringify({ playerTag, discordId }) });
+		return this.request('/links', {
+			method: 'POST',
+			body: JSON.stringify({ playerTag, discordId })
+		});
 	}
 
 	public async deleteLink(tag: string, userId: string) {
-		await this.request(`/links/${encodeURIComponent(tag)}`, { method: 'DELETE' });
+		await this.request(`/links/${encodeURIComponent(tag)}`, {
+			method: 'DELETE'
+		});
 		return container.redis.delete(RedisKeys.Links, userId);
 	}
 
@@ -93,7 +98,10 @@ export class LinkApi {
 		const response = await fetch(`${this.url}${path}`, {
 			method: options.method,
 			body: options.body,
-			headers: { 'Authorization': `Bearer ${this.apiKey}`, 'Content-Type': 'application/json' }
+			headers: {
+				'Authorization': `Bearer ${this.apiKey}`,
+				'Content-Type': 'application/json'
+			}
 		}).catch(() => null);
 
 		const data = await response?.json().catch(() => null);
