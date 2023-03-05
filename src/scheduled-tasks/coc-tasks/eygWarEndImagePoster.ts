@@ -16,28 +16,28 @@ import { MetaDir } from '#utils/constants';
 import { logInfo, logWarning } from '#utils/functions/logging';
 
 @ApplyOptions<ScheduledTask.Options>({
-	pattern: '*/5 * * * *',
-	bullJobsOptions: {
-		removeOnComplete: true,
-		removeOnFail: true
-	}
+    pattern: '*/5 * * * *',
+    bullJobsOptions: {
+        removeOnComplete: true,
+        removeOnFail: true
+    }
 })
 export class EYGWarEndImagePoster extends ScheduledTask {
 	public override async run() {
 		if (this.container.client.ws.status !== Status.Ready) return;
 
 		const data = await this.sql<WarImagePosterData[]>`
-            SELECT DISTINCT ON (wip.clan_tag) wip.clan_tag,
-                                              wip.channel_id,
-                                              wip.win_enabled,
-                                              wip.lose_enabled,
-                                              wip.draw_enabled,
-                                              wpr.opponent_tag,
-                                              wpr.war_end_time
+            SELECT DISTINCT ON (wip.clan_tag, wip.guild_id) wip.clan_tag,
+                                                            wip.channel_id,
+                                                            wip.win_enabled,
+                                                            wip.lose_enabled,
+                                                            wip.draw_enabled,
+                                                            wpr.opponent_tag,
+                                                            wpr.war_end_time
             FROM war_image_poster wip
                      LEFT JOIN war_poster_records wpr
                                ON wip.clan_tag = wpr.clan_tag
-            ORDER BY wip.clan_tag, wpr.war_end_time DESC
+            ORDER BY wip.clan_tag, wip.guild_id, wpr.war_end_time DESC
         `;
 
 		for (const value of data) await this.postWarImage(value);
