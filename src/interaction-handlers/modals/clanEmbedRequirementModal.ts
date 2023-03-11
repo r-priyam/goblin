@@ -39,10 +39,10 @@ export class ModalHandler extends InteractionHandler {
 
 	private async handleClanRequirementUpdate(guildId: string, clanTag: string, requirements: Record<string, number>) {
 		const result = await Result.fromAsync(
-			() => this.sql`UPDATE clan_embeds
-                           SET requirements = ${requirements}
-                           WHERE clan_tag = ${clanTag}
-                             AND guild_id = ${guildId}`
+			async () => this.sql`UPDATE clan_embeds
+                                 SET requirements = ${requirements}
+                                 WHERE clan_tag = ${clanTag}
+                                   AND guild_id = ${guildId}`
 		);
 
 		if (result.isErr()) {
