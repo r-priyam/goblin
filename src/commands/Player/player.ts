@@ -56,7 +56,7 @@ export class PlayerCommand extends GoblinCommand {
 	}
 
 	public static unitsEmbed(player: GoblinPlayer, filterFields = ['']) {
-		const { units } = player;
+		const { units, name, townHallImage, shareLink } = player;
 		const possibleFields = [
 			{ name: 'Elixir Troops', value: units.unit('ELIXIR') },
 			{ name: 'Dark Troops', value: units.unit('DARK') },
@@ -70,9 +70,9 @@ export class PlayerCommand extends GoblinCommand {
 
 		const embed = new EmbedBuilder() //
 			.setAuthor({
-				name: `Units for ${player.name}`,
-				iconURL: player.townHallImage,
-				url: player.shareLink
+				name: `Units for ${name}`,
+				iconURL: townHallImage,
+				url: shareLink
 			})
 			.setColor(Colors.Indigo);
 

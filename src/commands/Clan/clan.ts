@@ -59,7 +59,7 @@ export class ClanCommand extends GoblinCommand {
 		let description = '';
 		description += `${MiscEmotes.HomeTrophy} **${clan.points}** ${MiscEmotes.BuilderTrophy} **${clan.versusPoints}** ${MiscEmotes.Members} **${clan.memberCount}**\n\n`;
 		description += clan.description ? `${clan.description}` : 'No description set';
-		if (clan.labels.length) {
+		if (clan.labels.length > 0) {
 			description += `\n\n${clan.labels.map((label) => [`${LabelEmotes[label.name]} ${label.name}`]).join('\n')}\n\n`;
 		}
 

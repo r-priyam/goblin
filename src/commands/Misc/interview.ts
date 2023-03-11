@@ -124,11 +124,11 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 		const messages: string[] = [];
 		await channel!.messages.fetch({ limit: 100, cache: false }).then((data) => {
 			for (const message of [...data.values()].sort((a, b) => a.createdTimestamp - b.createdTimestamp)) {
-				if (message.embeds.length) {
+				if (message.embeds.length > 0) {
 					messages.push(`${message.createdAt} » ${message.author.username} » ${message.embeds[0].description}`);
 				}
 
-				if (message.content.length)
+				if (message.content.length > 0)
 					messages.push(`${message.createdAt} » ${message.author.username} » ${message.content}`);
 			}
 		});

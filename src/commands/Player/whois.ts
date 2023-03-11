@@ -74,7 +74,8 @@ export class WhoIsCommand extends GoblinCommand {
 				} Attacks: ${overall.attacks}\n${MiscEmotes.Shield} Defenses: ${overall.defenses}`
 			);
 
-			const { units, townHallLevel, name, tag, clan, role, expLevel, trophies, warStars, shareLink } = player;
+			const { units, townHallLevel, name, tag, clan, role, expLevel, trophies, warStars, shareLink, townHallImage } =
+				player;
 			firstPage.addFields({
 				name: `<:dot:958824443445116960> ${TownHallEmotes[townHallLevel]} ${name} (${tag})`,
 				value: `${MiscEmotes.Clan} ${clan ? `${clan.name} (${RawPosition[role!]})` : 'Not in a clan'}\n${units.unit(
@@ -83,13 +84,13 @@ export class WhoIsCommand extends GoblinCommand {
 				inline: false
 			});
 
-			playersData[`${player.name} (${player.tag})`] = PlayerCommand.unitsEmbed(player, ['Builder Troops', 'Heroes'])
+			playersData[`${name} (${tag})`] = PlayerCommand.unitsEmbed(player, ['Builder Troops', 'Heroes'])
 				.setTitle(`${name} (${tag})`)
 				.setURL(shareLink)
 				.setDescription(
 					`${MiscEmotes.Exp} ${expLevel} ${MiscEmotes.HomeTrophy} ${trophies} ${MiscEmotes.WarStars} ${warStars}`
 				)
-				.setThumbnail(player.townHallImage);
+				.setThumbnail(townHallImage);
 		}
 
 		const paginator = new PaginatedMessage({

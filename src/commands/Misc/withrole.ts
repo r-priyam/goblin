@@ -39,7 +39,7 @@ export class WithRoleCommand extends GoblinCommand {
 				content: `No member has ${roleMention(role.id)}`
 			});
 
-		while (members.length !== 0) {
+		while (members.length > 0) {
 			const namesEmbed = new EmbedBuilder()
 				.setTitle(`Showing members for ${role.name}`)
 				.setDescription(

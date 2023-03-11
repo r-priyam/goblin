@@ -10,7 +10,7 @@ import type { AutocompleteInteraction } from 'discord.js';
 import { RedisKeys } from '#utils/constants';
 
 @ApplyOptions<InteractionHandler.Options>({
-	interactionHandlerType: InteractionHandlerTypes.Autocomplete
+    interactionHandlerType: InteractionHandlerTypes.Autocomplete
 })
 export class AutocompleteHandler extends InteractionHandler {
 	public override async run(interaction: AutocompleteInteraction, result: InteractionHandler.ParseResult<this>) {
@@ -45,17 +45,17 @@ export class AutocompleteHandler extends InteractionHandler {
 	}
 
 	private async handleNoRedisCache(userId: string, identifier: RedisKeys.Clan | RedisKeys.Player) {
-		let data: ClanOrPlayerCache[];
-
-		if (identifier === RedisKeys.Player) {
-			data = await this.sql`SELECT player_name AS "name", player_tag AS "tag"
-                                          FROM players
-                                          WHERE user_id = ${userId}`;
-		} else {
-			data = await this.sql`SELECT clan_name AS "name", clan_tag AS "tag"
-                                          FROM clans
-                                          WHERE user_id = ${userId}`;
-		}
+		const data = await (identifier === RedisKeys.Player
+			? this.sql<ClanOrPlayerCache[]>`
+                    SELECT player_name AS "name", player_tag AS "tag"
+                    FROM players
+                    WHERE user_id = ${userId}
+            `
+			: this.sql<ClanOrPlayerCache[]>`
+                SELECT clan_name AS "name", clan_tag AS "tag"
+                FROM clans
+                WHERE user_id = ${userId}
+            `);
 
 		if (isNullishOrEmpty(data)) return this.none();
 

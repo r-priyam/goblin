@@ -38,12 +38,10 @@ export class ButtonHandler extends InteractionHandler {
 			return this.none();
 		}
 
-		let tweak;
-		if (optedIn === undefined || optedIn === 'true') {
-			tweak = { style: ButtonStyle.Danger, customId: `${customId}_false` };
-		} else {
-			tweak = { style: ButtonStyle.Success, customId: `${customId}_true` };
-		}
+		const tweak =
+			optedIn === undefined || optedIn === 'true'
+				? { style: ButtonStyle.Danger, customId: `${customId}_false` }
+				: { style: ButtonStyle.Success, customId: `${customId}_true` };
 
 		switch (customId) {
 			case ButtonCustomIds.CWLOptInDayOne:
