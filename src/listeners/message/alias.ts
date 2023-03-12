@@ -1,5 +1,5 @@
 import { ApplyOptions } from '@sapphire/decorators';
-import { Events, Listener, Result } from '@sapphire/framework';
+import { Events, Listener } from '@sapphire/framework';
 import { bold, EmbedBuilder } from 'discord.js';
 
 import type { Clan } from 'clashofclans.js';
@@ -27,7 +27,7 @@ export class BotListener extends Listener<typeof Events.MessageCreate> {
 		await message.channel.sendTyping();
 		const clan = await this.coc.getClan(possibleAlias.tag);
 		await message.channel.send({ embeds: [BotListener.aliasClanInfo(clan)] });
-		await Result.fromAsync(async () => message.delete());
+		await message.delete();
 	}
 
 	private static aliasClanInfo(clan: Clan) {

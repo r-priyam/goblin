@@ -1,5 +1,5 @@
 import { ApplyOptions } from '@sapphire/decorators';
-import { Listener, Result } from '@sapphire/framework';
+import { Listener } from '@sapphire/framework';
 import { ScheduledTaskEvents } from '@sapphire/plugin-scheduled-tasks';
 import Sentry from '@sentry/node';
 import { bold, DiscordAPIError, HTTPError, EmbedBuilder } from 'discord.js';
@@ -26,15 +26,13 @@ export class BotListener extends Listener<typeof ScheduledTaskEvents.ScheduledTa
 			lines.splice(2, 0, getPathLine(error), getCodeLine(error));
 		}
 
-		await Result.fromAsync(() =>
-			useErrorLogsWebhook().send({
-				embeds: [
-					new EmbedBuilder() //
-						.setTitle('Scheduled-Task Error')
-						.setDescription(lines.join('\n'))
-						.setColor(Colors.Red)
-				]
-			})
-		);
+		await useErrorLogsWebhook().send({
+			embeds: [
+				new EmbedBuilder() //
+					.setTitle('Scheduled-Task Error')
+					.setDescription(lines.join('\n'))
+					.setColor(Colors.Red)
+			]
+		});
 	}
 }

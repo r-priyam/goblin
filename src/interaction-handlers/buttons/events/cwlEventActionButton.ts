@@ -190,6 +190,6 @@ Cute Goblin
 `
 			)
 			.setColor(Colors.Green);
-		await Result.fromAsync(async () => user.send({ embeds: [embed] }));
+		await user.send({ embeds: [embed] });
 	}
 }
