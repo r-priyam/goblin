@@ -1,4 +1,5 @@
-import { container, Result, UserError } from '@sapphire/framework';
+import { container, UserError } from '@sapphire/framework';
+import { Result } from '@sapphire/result';
 import { isNullishOrEmpty } from '@sapphire/utilities';
 import { HTTPError } from 'clashofclans.js';
 import { bold, userMention, EmbedBuilder, ChatInputCommandInteraction } from 'discord.js';

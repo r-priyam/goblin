@@ -1,6 +1,6 @@
 import { ApplyOptions } from '@sapphire/decorators';
-import { Result } from '@sapphire/framework';
 import { ScheduledTask } from '@sapphire/plugin-scheduled-tasks';
+import { Result } from '@sapphire/result';
 import { RESTJSONErrorCodes, Routes } from 'discord-api-types/v10';
 import { Status } from 'discord.js';
 

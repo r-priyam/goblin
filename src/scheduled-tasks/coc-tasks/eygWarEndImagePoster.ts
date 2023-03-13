@@ -2,8 +2,8 @@ import { fileURLToPath, URL } from 'node:url';
 
 import { createCanvas, loadImage, GlobalFonts } from '@napi-rs/canvas';
 import { ApplyOptions } from '@sapphire/decorators';
-import { Result } from '@sapphire/framework';
 import { ScheduledTask } from '@sapphire/plugin-scheduled-tasks';
+import { Result } from '@sapphire/result';
 import { Routes, RESTJSONErrorCodes } from 'discord-api-types/v10';
 import { Status } from 'discord.js';
 import { fetch } from 'undici';

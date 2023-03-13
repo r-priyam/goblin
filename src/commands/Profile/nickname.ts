@@ -1,5 +1,6 @@
 import { ApplyOptions } from '@sapphire/decorators';
-import { container, Result, UserError } from '@sapphire/framework';
+import { container, UserError } from '@sapphire/framework';
+import { Result } from '@sapphire/result';
 import { isNullishOrEmpty } from '@sapphire/utilities';
 import { Util } from 'clashofclans.js';
 import { PermissionFlagsBits, RESTJSONErrorCodes, Routes } from 'discord-api-types/v10';

@@ -1,6 +1,7 @@
 import { Time } from '@sapphire/cron';
 import { ApplyOptions } from '@sapphire/decorators';
-import { InteractionHandler, InteractionHandlerTypes, Result, UserError } from '@sapphire/framework';
+import { InteractionHandler, InteractionHandlerTypes, UserError } from '@sapphire/framework';
+import { Result } from '@sapphire/result';
 import {
 	ActionRowBuilder,
 	ButtonBuilder,

@@ -1,7 +1,7 @@
 import { execSync } from 'node:child_process';
 import process, { exit } from 'node:process';
 
-import { Result } from '@sapphire/framework';
+import { Result } from '@sapphire/result';
 import { cyanBright, greenBright, redBright } from 'colorette';
 
 function executeCommand(operation, action) {
