@@ -42,7 +42,7 @@ export class SyncClanEmbedTask extends ScheduledTask {
 		});
 
 		const result = await Result.fromAsync<unknown, HTTPError>(async () =>
-			this.discordRest.patch(Routes.channelMessage(data.channelId, data.messageId), {
+			this.client.rest.patch(Routes.channelMessage(data.channelId, data.messageId), {
 				body: { embeds: [embed.toJSON()] }
 			})
 		);

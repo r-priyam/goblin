@@ -88,7 +88,7 @@ export class NicknameCommand extends GoblinCommand {
 
 	public static async updateNickname(guildId: string, memberId: string, nick: string, reason: string) {
 		const result = await Result.fromAsync<unknown, HTTPError>(async () =>
-			container.discordRest.patch(Routes.guildMember(guildId, memberId), {
+			container.client.rest.patch(Routes.guildMember(guildId, memberId), {
 				body: { nick },
 				headers: { 'X-Audit-Log-Reason': reason }
 			})

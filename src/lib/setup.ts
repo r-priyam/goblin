@@ -40,6 +40,5 @@ Object.defineProperties(Piece.prototype, {
 	sql: { get: () => container.sql },
 	redis: { get: () => container.redis },
 	coc: { get: () => container.coc },
-	tasks: { get: () => container.tasks },
-	discordRest: { get: () => container.discordRest }
+	tasks: { get: () => container.tasks }
 });

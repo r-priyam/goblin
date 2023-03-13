@@ -1,4 +1,3 @@
-import { REST } from '@discordjs/rest';
 import { container, LogLevel, SapphireClient } from '@sapphire/framework';
 import { ScheduledTaskRedisStrategy } from '@sapphire/plugin-scheduled-tasks/register-redis';
 import { envParseBoolean, envParseInteger, envParseString } from '@skyra/env-utilities';
@@ -47,7 +46,6 @@ export class GoblinClient extends SapphireClient {
 
 		// Inject things in container
 		container.coc = new GoblinClashClient();
-		container.discordRest = new REST({ version: '10' }).setToken(envParseString('DISCORD_TOKEN'));
 		container.redis = new GoblinRedisClient();
 		container.sql = postgres({
 			transform: {

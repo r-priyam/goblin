@@ -45,7 +45,7 @@ export class BotScheduledTask extends ScheduledTask {
 		);
 
 		const result = await Result.fromAsync<unknown, HTTPError>(async () =>
-			this.discordRest.patch(Routes.channelMessage(channelId, messageId), {
+			this.client.rest.patch(Routes.channelMessage(channelId, messageId), {
 				body: {
 					content: endRolePing ? roleMention(endRolePing) : null,
 					embeds: [embed.toJSON()],

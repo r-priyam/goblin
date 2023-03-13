@@ -1,7 +1,6 @@
 import type { GoblinClashClient } from '#lib/coc';
 import type { GoblinClient } from '#lib/extensions/GoblinClient';
 import type { GoblinRedisClient } from '#lib/redis-cache/RedisCacheClient';
-import type { REST } from '@discordjs/rest';
 import type { Logger } from '@sapphire/framework';
 import type { ScheduledTaskHandler } from '@sapphire/plugin-scheduled-tasks';
 import type { Sql } from 'postgres';
@@ -9,7 +8,6 @@ import type { Sql } from 'postgres';
 declare module '@sapphire/pieces' {
 	interface Container {
 		coc: GoblinClashClient;
-		discordRest: REST;
 		redis: GoblinRedisClient;
 		// rome-ignore lint/suspicious/noExplicitAny: <explanation>
 		sql: Sql<any>;

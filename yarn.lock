@@ -452,7 +452,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@discordjs/rest@npm:^1.4.0, @discordjs/rest@npm:^1.5.0":
+"@discordjs/rest@npm:^1.4.0":
   version: 1.5.0
   resolution: "@discordjs/rest@npm:1.5.0"
   dependencies:
@@ -4431,7 +4431,6 @@ __metadata:
   dependencies:
     "@commitlint/cli": ^17.4.4
     "@commitlint/config-conventional": ^17.4.4
-    "@discordjs/rest": ^1.5.0
     "@ltd/j-toml": ^1.38.0
     "@napi-rs/canvas": ^0.1.38
     "@sapphire/cron": ^1.0.0
