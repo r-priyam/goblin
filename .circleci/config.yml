@@ -1,38 +1,38 @@
-version: 2.1
+# version: 2.1
 
-parameters:
-  GHA_Event:
-    type: string
-    default: ""
-  GHA_Actor:
-    type: string
-    default: ""
-  GHA_Action:
-    type: string
-    default: ""
-  GHA_Meta:
-    type: string
-    default: ""
+# parameters:
+#   GHA_Event:
+#     type: string
+#     default: ""
+#   GHA_Actor:
+#     type: string
+#     default: ""
+#   GHA_Action:
+#     type: string
+#     default: ""
+#   GHA_Meta:
+#     type: string
+#     default: ""
 
-commands:
-  deploy-over-ssh:
-    description: Continuous Delivery to VPS
-    steps:
-      - run:
-          name: Deploy
-          command: |
-            ssh $SSH_USER@$SSH_HOST "<remote deploy command>"
+# commands:
+#   deploy-over-ssh:
+#     description: Continuous Delivery to VPS
+#     steps:
+#       - run:
+#           name: Deploy
+#           command: |
+#             ssh $SSH_USER@$SSH_HOST "<remote deploy command>"
 
-jobs:
-  deploy-to-vps:
-    machine:
-      enabled: true
-    steps:
-      - deploy-over-ssh
+# jobs:
+#   deploy-to-vps:
+#     machine:
+#       enabled: true
+#     steps:
+#       - deploy-over-ssh
 
-workflows:
-  deploy-to-vps:
-    when:
-      equal: [ << pipeline.parameters.GHA_Event >> ]
-    jobs:
-      - deploy-to-vps
+# workflows:
+#   deploy-to-vps:
+#     when:
+#       equal: [ << pipeline.parameters.GHA_Event >> ]
+#     jobs:
+#       - deploy-to-vps
