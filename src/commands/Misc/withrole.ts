@@ -1,4 +1,6 @@
+import { Time } from '@sapphire/cron';
 import { ApplyOptions } from '@sapphire/decorators';
+import { PaginatedMessage } from '@sapphire/discord.js-utilities';
 import { inlineCodeBlock } from '@sapphire/utilities';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
 import { EmbedBuilder, roleMention } from 'discord.js';
@@ -32,15 +34,15 @@ export class WithRoleCommand extends GoblinCommand {
 			.fetch()
 			.then((member) => [...member.values()].filter((member) => member.roles.cache.has(role.id)));
 		const totalMembers = members.length;
-		let count = 0;
 
 		if (members.length === 0)
 			return interaction.editReply({
 				content: `No member has ${roleMention(role.id)}`
 			});
 
+		const namesEmbed = [];
 		while (members.length > 0) {
-			const namesEmbed = new EmbedBuilder()
+			const embed = new EmbedBuilder()
 				.setTitle(`Showing members for ${role.name}`)
 				.setDescription(
 					members
@@ -57,19 +59,15 @@ export class WithRoleCommand extends GoblinCommand {
 					})
 				})
 				.setColor(Colors.BlueGrey);
-
-			if (count === 0) {
-				await interaction.editReply({ embeds: [namesEmbed] });
-				count++;
-				continue;
-			}
-
-			await interaction.followUp({ embeds: [namesEmbed] });
-			count++;
+			namesEmbed.push(embed);
 		}
 
+		const paginatedMessage = new PaginatedMessage().addPageEmbeds(namesEmbed);
+		await paginatedMessage.setIdle(Time.Minute * 3).run(interaction);
+
 		return interaction.followUp({
-			content: `Check done! Total members for ${roleMention(role.id)}: ${inlineCodeBlock(String(totalMembers))}`
+			content: `Check done! Total members for ${roleMention(role.id)}: ${inlineCodeBlock(String(totalMembers))}`,
+			ephemeral: true
 		});
 	}
 }
