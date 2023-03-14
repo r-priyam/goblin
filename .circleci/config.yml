@@ -18,12 +18,15 @@ commands:
   deploy-over-ssh:
     description: Continuous Delivery to VPS
     steps:
-      - run: Deploy
-        command: |
-          ssh $SSH_USER@$SSH_HOST "<remote deploy command>"
+      - run:
+          name: Deploy
+          command: |
+            ssh $SSH_USER@$SSH_HOST "<remote deploy command>"
 
 jobs:
   deploy-to-vps:
+    machine:
+      enabled: true
     steps:
       - deploy-over-ssh
 
