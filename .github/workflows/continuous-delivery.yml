@@ -36,9 +36,3 @@ jobs:
           file: Dockerfile
           push: true
           tags: ghcr.io/r-priyam/goblin:latest
-      
-      # - name: Trigger CircleCI
-      #   id: trigger-circle-ci
-      #   uses: CircleCI-Public/trigger-circleci-pipeline-action@v1.0
-      #   env:
-      #     CCI_TOKEN: ${{ secrets.CCI_TOKEN }}
