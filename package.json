@@ -95,7 +95,7 @@
 		"cz-conventional-changelog": "^3.3.0",
 		"eslint": "^8.36.0",
 		"eslint-config-snail": "^1.6.0",
-		"eslint-formatter-pretty": "^4.1.0",
+		"eslint-formatter-pretty": "^5.0.0",
 		"husky": "^8.0.3",
 		"ley": "^0.8.1",
 		"lint-staged": "^13.2.0",
