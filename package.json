@@ -100,7 +100,7 @@
 		"ley": "^0.8.1",
 		"lint-staged": "^13.2.1",
 		"rome": "^11.0.0",
-		"tsup": "^6.7.0",
+		"tsup": "^7.0.0",
 		"typescript": "^5.0.4"
 	},
 	"packageManager": "yarn@3.5.0",
