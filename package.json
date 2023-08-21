@@ -98,7 +98,7 @@
 		"eslint-formatter-pretty": "^5.0.0",
 		"husky": "^8.0.3",
 		"ley": "^0.8.1",
-		"lint-staged": "^13.2.1",
+		"lint-staged": "^14.0.1",
 		"rome": "^11.0.0",
 		"tsup": "^7.0.0",
 		"typescript": "^5.0.4"
