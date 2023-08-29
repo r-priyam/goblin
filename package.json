@@ -52,7 +52,7 @@
 		"@napi-rs/canvas": "^0.1.39",
 		"@sapphire/cron": "^1.1.0",
 		"@sapphire/decorators": "^6.0.0",
-		"@sapphire/discord.js-utilities": "^6.0.4",
+		"@sapphire/discord.js-utilities": "^7.0.2",
 		"@sapphire/framework": "4.2.2",
 		"@sapphire/plugin-logger": "^3.0.2",
 		"@sapphire/plugin-scheduled-tasks": "^6.0.0",
