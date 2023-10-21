@@ -20,7 +20,9 @@ export class ButtonHandler extends InteractionHandler {
 
 	public override async parse(interaction: ButtonInteraction) {
 		if (
-			!([ButtonCustomIds.CWLEventCreate, ButtonCustomIds.CustomEventCreate] as string[]).includes(interaction.customId)
+			!([ButtonCustomIds.CWLEventCreate, ButtonCustomIds.CustomEventCreate] as string[]).includes(
+				interaction.customId
+			)
 		) {
 			return this.none();
 		}

@@ -74,13 +74,24 @@ export class WhoIsCommand extends GoblinCommand {
 				} Attacks: ${overall.attacks}\n${MiscEmotes.Shield} Defenses: ${overall.defenses}`
 			);
 
-			const { units, townHallLevel, name, tag, clan, role, expLevel, trophies, warStars, shareLink, townHallImage } =
-				player;
+			const {
+				units,
+				townHallLevel,
+				name,
+				tag,
+				clan,
+				role,
+				expLevel,
+				trophies,
+				warStars,
+				shareLink,
+				townHallImage
+			} = player;
 			firstPage.addFields({
 				name: `<:dot:958824443445116960> ${TownHallEmotes[townHallLevel]} ${name} (${tag})`,
-				value: `${MiscEmotes.Clan} ${clan ? `${clan.name} (${RawPosition[role!]})` : 'Not in a clan'}\n${units.unit(
-					'HEROES'
-				)}`,
+				value: `${MiscEmotes.Clan} ${
+					clan ? `${clan.name} (${RawPosition[role!]})` : 'Not in a clan'
+				}\n${units.unit('HEROES')}`,
 				inline: false
 			});
 

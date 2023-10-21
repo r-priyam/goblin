@@ -39,7 +39,11 @@ export class HackBanCommand extends GoblinCommand {
 		} catch (error) {
 			if (error instanceof DiscordAPIError && error.status === 404) {
 				return interaction.editReply({
-					embeds: [new EmbedBuilder().setDescription("User with the provided id doesn't exist").setColor(Colors.Red)]
+					embeds: [
+						new EmbedBuilder()
+							.setDescription("User with the provided id doesn't exist")
+							.setColor(Colors.Red)
+					]
 				});
 			}
 

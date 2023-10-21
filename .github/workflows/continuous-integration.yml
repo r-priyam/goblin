@@ -23,7 +23,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - name: Install Dependencies
         run: yarn --immutable
-      - name: Run ESLint & Rome
+      - name: Run ESLint & Prettier
         run: yarn lint
 
   TypeChecking:

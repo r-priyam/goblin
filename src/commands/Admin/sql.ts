@@ -52,9 +52,9 @@ export class SQLCommand extends GoblinCommand {
 
 		if (rows.length === 0) {
 			return interaction.editReply({
-				content: `${codeBlock('ts', toSend)}\nReturned \`${result.length}\` rows. Executed in: \`${inlineCodeBlock(
-					executionTime
-				)}\``
+				content: `${codeBlock('ts', toSend)}\nReturned \`${
+					result.length
+				}\` rows. Executed in: \`${inlineCodeBlock(executionTime)}\``
 			});
 		}
 

@@ -83,7 +83,6 @@ export class EvalCommand extends GoblinCommand {
 		code: string,
 		{ isAsync, depth }: { depth: number | null; isAsync: boolean | null }
 	) {
-		// rome-ignore lint/suspicious/noExplicitAny: <explanation>
 		let result: any;
 		let success = true;
 		let elapsed = '';

@@ -92,7 +92,9 @@ export class AliasCommand extends GoblinSubCommand {
 			embeds: [
 				new EmbedBuilder() //
 					.setTitle(`${Emotes.Success} Success`)
-					.setDescription(`Successfully created alias **${alias.toUpperCase()}** for ${clan.name} (${clan.tag})`)
+					.setDescription(
+						`Successfully created alias **${alias.toUpperCase()}** for ${clan.name} (${clan.tag})`
+					)
 					.setColor(Colors.Green)
 			]
 		});
@@ -145,7 +147,10 @@ export class AliasCommand extends GoblinSubCommand {
 
 	private canPerformAliasOperations(member: GuildMember) {
 		if (
-			!(member.roles.cache.has(envParseString('EYG_ADMINISTRATOR_ROLE')) || envParseArray('OWNERS').includes(member.id))
+			!(
+				member.roles.cache.has(envParseString('EYG_ADMINISTRATOR_ROLE')) ||
+				envParseArray('OWNERS').includes(member.id)
+			)
 		) {
 			throw new UserError({
 				identifier: ErrorIdentifiers.MissingPermissions,
