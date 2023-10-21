@@ -36,14 +36,17 @@ export class SQLCommand extends GoblinCommand {
 		const query = interaction.options.getString('query', true);
 		const { success, result, executionTime } = await this.runSql(query);
 
-		if (!success)
+		if (!success) {
 			return interaction.editReply({
 				content: `${codeBlock('bash', String(result))}\nExecuted in: \`${inlineCodeBlock(executionTime)}\``
 			});
-		if (isNullishOrEmpty(result))
+		}
+
+		if (isNullishOrEmpty(result)) {
 			return interaction.editReply({
 				content: `Returned ${inlineCodeBlock('[]')} in ${inlineCodeBlock(executionTime)}`
 			});
+		}
 
 		const columns = Object.keys(result[0]);
 		// @ts-expect-error result will be arrayed of objects always
@@ -78,7 +81,10 @@ export class SQLCommand extends GoblinCommand {
 			result = await this.sql.unsafe(query);
 			executionTime = stopwatch.toString();
 		} catch (error: unknown) {
-			if (!executionTime) executionTime = stopwatch.toString();
+			if (!executionTime) {
+				executionTime = stopwatch.toString();
+			}
+
 			success = false;
 			result = error instanceof Error ? error.message : inspect(error, { depth: 0 });
 		}

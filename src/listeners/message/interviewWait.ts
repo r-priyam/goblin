@@ -25,10 +25,13 @@ We thank you for your patience and can't wait to welcome you in!`.replaceAll('\n
 			!message.channel.parent ||
 			message.channel.parentId !== envParseString('EYG_INTERVIEW_CHANNEL_PARENT') ||
 			message.content !== '-wait'
-		)
+		) {
 			return;
+		}
 
-		if (!message.member?.roles.cache.has(envParseString('EYG_RECRUITER_ROLE'))) return;
+		if (!message.member?.roles.cache.has(envParseString('EYG_RECRUITER_ROLE'))) {
+			return;
+		}
 
 		const timerMessage = await message.channel.send({
 			content: `Hello ${roleMention(envParseString('EYG_RECRUIT_ROLE'))}! ${this.#waitMessage}\n\n${bold(

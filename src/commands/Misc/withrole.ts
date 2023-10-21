@@ -35,10 +35,11 @@ export class WithRoleCommand extends GoblinCommand {
 			.then((member) => [...member.values()].filter((member) => member.roles.cache.has(role.id)));
 		const totalMembers = members.length;
 
-		if (members.length === 0)
+		if (members.length === 0) {
 			return interaction.editReply({
 				content: `No member has ${roleMention(role.id)}`
 			});
+		}
 
 		const namesEmbed = [];
 		while (members.length > 0) {

@@ -17,7 +17,9 @@ export class ButtonHandler extends InteractionHandler {
 	}
 
 	public override async parse(interaction: ButtonInteraction) {
-		if (!interaction.customId.startsWith(ButtonCustomIds.CWLEventEndExport)) return this.none();
+		if (!interaction.customId.startsWith(ButtonCustomIds.CWLEventEndExport)) {
+			return this.none();
+		}
 
 		await interaction.deferReply({ ephemeral: true });
 		const eventId = interaction.customId.split('_').pop()!;

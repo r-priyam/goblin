@@ -22,7 +22,9 @@ export class SelectMenuHandler extends InteractionHandler {
 	}
 
 	public override async parse(interaction: StringSelectMenuInteraction) {
-		if (!interaction.customId.startsWith(SelectMenuCustomIds.CWLEventConfig)) return this.none();
+		if (!interaction.customId.startsWith(SelectMenuCustomIds.CWLEventConfig)) {
+			return this.none();
+		}
 
 		checkUser(interaction.message.interaction!.user.id, interaction.user.id);
 

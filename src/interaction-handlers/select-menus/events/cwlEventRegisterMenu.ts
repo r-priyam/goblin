@@ -19,9 +19,14 @@ export class SelectMenuHandler extends InteractionHandler {
 	}
 
 	public override async parse(interaction: StringSelectMenuInteraction) {
-		if (!interaction.customId.startsWith(SelectMenuCustomIds.CWLEventRegister)) return this.none();
+		if (!interaction.customId.startsWith(SelectMenuCustomIds.CWLEventRegister)) {
+			return this.none();
+		}
 
-		if (!interaction.message.components) return this.none();
+		if (!interaction.message.components) {
+			return this.none();
+		}
+
 		await interaction.deferUpdate();
 
 		const menu = new StringSelectMenuBuilder(

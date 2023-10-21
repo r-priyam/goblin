@@ -27,8 +27,13 @@ export class BotListener extends Listener<typeof Events.GuildCreate> {
 			.setColor(Colors.Green)
 			.setTimestamp();
 
-		if (guild.icon) guildDeleteEmbed.setThumbnail(guild.iconURL()!);
-		if (guild.members.me) guildDeleteEmbed.setTimestamp(guild.members.me.joinedTimestamp);
+		if (guild.icon) {
+			guildDeleteEmbed.setThumbnail(guild.iconURL()!);
+		}
+
+		if (guild.members.me) {
+			guildDeleteEmbed.setTimestamp(guild.members.me.joinedTimestamp);
+		}
 
 		await webhook.send({ embeds: [guildDeleteEmbed] });
 	}

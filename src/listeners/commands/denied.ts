@@ -12,7 +12,9 @@ import { Colors } from '#utils/constants';
 })
 export class ChatInputCommandDenied extends Listener<typeof Events.ChatInputCommandDenied> {
 	public override async run({ context, message }: UserError, { interaction }: ChatInputCommandDeniedPayload) {
-		if (Reflect.get(Object(context), 'silent')) return;
+		if (Reflect.get(Object(context), 'silent')) {
+			return;
+		}
 
 		await interaction.reply({
 			embeds: [

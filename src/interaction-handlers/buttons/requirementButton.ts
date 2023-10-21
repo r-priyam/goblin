@@ -22,7 +22,9 @@ export class ButtonHandler extends InteractionHandler {
 	}
 
 	public override parse(interaction: ButtonInteraction) {
-		if (!interaction.customId.startsWith(ButtonCustomIds.ClanEmbedRequirement)) return this.none();
+		if (!interaction.customId.startsWith(ButtonCustomIds.ClanEmbedRequirement)) {
+			return this.none();
+		}
 
 		const clanTag = interaction.customId.split('-').pop()!;
 		return this.some({ modal: this.requirementsModel(clanTag) });

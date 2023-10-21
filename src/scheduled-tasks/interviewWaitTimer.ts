@@ -23,7 +23,9 @@ export class BotScheduledTask extends ScheduledTask {
 		startedAt: number;
 	}) {
 		const channel = (await this.client.channels.fetch(channelId)) as TextChannel;
-		if (isNullish(channel)) return;
+		if (isNullish(channel)) {
+			return;
+		}
 
 		return channel.send({
 			content: `Hello ${roleMention(envParseString('EYG_RECRUITER_ROLE'))}, wait timer ended.\n${bold(

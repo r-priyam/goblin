@@ -24,7 +24,9 @@ import { logInfo, logWarning } from '#utils/functions/logging';
 })
 export class EYGWarEndImagePoster extends ScheduledTask {
 	public override async run() {
-		if (this.container.client.ws.status !== Status.Ready) return;
+		if (this.container.client.ws.status !== Status.Ready) {
+			return;
+		}
 
 		const data = await this.sql<WarImagePosterData[]>`
             SELECT DISTINCT ON (wip.clan_tag, wip.guild_id) wip.clan_tag,
@@ -40,7 +42,9 @@ export class EYGWarEndImagePoster extends ScheduledTask {
             ORDER BY wip.clan_tag, wip.guild_id, wpr.war_end_time DESC
         `;
 
-		for (const value of data) await this.postWarImage(value);
+		for (const value of data) {
+			await this.postWarImage(value);
+		}
 	}
 
 	public override onLoad() {
@@ -49,11 +53,21 @@ export class EYGWarEndImagePoster extends ScheduledTask {
 
 	private async postWarImage(data: WarImagePosterData) {
 		const war = await this.getClanWar(data.clanTag, data.channelId);
-		if (!war || war.state !== 'warEnded') return;
+		if (!war || war.state !== 'warEnded') {
+			return;
+		}
 
-		if (war.status === 'win' && !data.winEnabled) return;
-		if (war.status === 'lose' && !data.loseEnabled) return;
-		if (war.status === 'tie' && !data.drawEnabled) return;
+		if (war.status === 'win' && !data.winEnabled) {
+			return;
+		}
+
+		if (war.status === 'lose' && !data.loseEnabled) {
+			return;
+		}
+
+		if (war.status === 'tie' && !data.drawEnabled) {
+			return;
+		}
 
 		if (
 			data.opponentTag === war.opponent.tag &&

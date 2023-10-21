@@ -16,7 +16,9 @@ export class ModalHandler extends InteractionHandler {
 	}
 
 	public override async parse(interaction: ModalSubmitInteraction) {
-		if (!interaction.customId.startsWith(ModalCustomIds.ClanEmbedRequirements)) return this.none();
+		if (!interaction.customId.startsWith(ModalCustomIds.ClanEmbedRequirements)) {
+			return this.none();
+		}
 
 		await interaction.deferReply({ ephemeral: true });
 

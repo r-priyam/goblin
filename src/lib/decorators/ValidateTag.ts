@@ -22,7 +22,10 @@ export const ValidateTag = ({ prefix, isDynamic }: { isDynamic?: boolean; prefix
 	return createFunctionPrecondition((interaction: ChatInputCommandInteraction<'cached'>) => {
 		const tag = interaction.options?.getString('tag');
 
-		if (isDynamic && !tag) return true;
+		if (isDynamic && !tag) {
+			return true;
+		}
+
 		return tagChecker(tag!, prefix);
 	});
 };

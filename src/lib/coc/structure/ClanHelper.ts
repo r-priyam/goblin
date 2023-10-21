@@ -42,7 +42,10 @@ export class ClanHelper {
 		const members = await clan.fetchMembers();
 
 		for (const member of members) {
-			if (!Object.hasOwn(composition, member.townHallLevel)) composition[member.townHallLevel] = 0;
+			if (!Object.hasOwn(composition, member.townHallLevel)) {
+				composition[member.townHallLevel] = 0;
+			}
+
 			composition[member.townHallLevel]++;
 		}
 

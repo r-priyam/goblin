@@ -39,7 +39,9 @@ export class GoblinRedisClient extends Redis {
 		const result = await Result.fromAsync(async () => {
 			const raw = await this.get(query ? `${key}-${query}` : key);
 
-			if (isNullish(raw)) return raw;
+			if (isNullish(raw)) {
+				return raw;
+			}
 
 			return JSON.parse(raw) as RedisData<K>;
 		});
@@ -76,7 +78,9 @@ export class GoblinRedisClient extends Redis {
 			return this.insert(initial, userId, cachedData);
 		}
 
-		if (isNullish(cachedData)) return;
+		if (isNullish(cachedData)) {
+			return;
+		}
 
 		const updated = cachedData.filter((data) => data.tag !== tag);
 		return updated.length === 0
@@ -88,14 +92,17 @@ export class GoblinRedisClient extends Redis {
 		const cachedAlias = await this.fetch(RedisKeys.ClanAlias, undefined);
 
 		if (method === RedisMethods.Insert) {
-			if (isNullish(cachedAlias))
+			if (isNullish(cachedAlias)) {
 				return this.insert(RedisKeys.ClanAlias, undefined, [{ name: name!, tag, alias }]);
+			}
 
 			cachedAlias.push({ name: name!, tag, alias });
 			return this.insert(RedisKeys.ClanAlias, undefined, cachedAlias);
 		}
 
-		if (isNullish(cachedAlias)) return;
+		if (isNullish(cachedAlias)) {
+			return;
+		}
 
 		const updated = cachedAlias.filter((data) => data.tag !== tag);
 		return updated.length === 0

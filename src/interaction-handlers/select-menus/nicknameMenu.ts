@@ -21,9 +21,13 @@ export class NicknameMenu extends InteractionHandler {
 	}
 
 	public override async parse(interaction: StringSelectMenuInteraction) {
-		if (!interaction.customId.startsWith(SelectMenuCustomIds.Nickname)) return this.none();
-		if (!interaction.memberPermissions?.any(PermissionFlagsBits.BanMembers | PermissionFlagsBits.KickMembers))
+		if (!interaction.customId.startsWith(SelectMenuCustomIds.Nickname)) {
 			return this.none();
+		}
+
+		if (!interaction.memberPermissions?.any(PermissionFlagsBits.BanMembers | PermissionFlagsBits.KickMembers)) {
+			return this.none();
+		}
 
 		await interaction.deferUpdate();
 		const userId = interaction.customId.split('-').pop()!;

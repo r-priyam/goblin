@@ -23,7 +23,9 @@ export class ModalHandler extends InteractionHandler {
 	}
 
 	public override async parse(interaction: ModalSubmitInteraction) {
-		if (!interaction.customId.startsWith(ModalCustomIds.CWLEvent)) return this.none();
+		if (!interaction.customId.startsWith(ModalCustomIds.CWLEvent)) {
+			return this.none();
+		}
 
 		await interaction.deferUpdate();
 		checkUser(interaction.message!.interaction!.user.id, interaction.user.id);
@@ -52,11 +54,23 @@ export class ModalHandler extends InteractionHandler {
 		this.verifyInput('End role ping', valueToSend.endRolePing);
 
 		let color;
-		if (valueToSend.endRolePing) color = Colors.Yellow;
-		if (valueToSend.startRolePing) color = Colors.Orange;
-		if (valueToSend.registrationChannel) color = Colors.LightGreen;
-		if (valueToSend.eventName) color = Colors.Green;
-		else color = Colors.Indigo;
+		if (valueToSend.endRolePing) {
+			color = Colors.Yellow;
+		}
+
+		if (valueToSend.startRolePing) {
+			color = Colors.Orange;
+		}
+
+		if (valueToSend.registrationChannel) {
+			color = Colors.LightGreen;
+		}
+
+		if (valueToSend.eventName) {
+			color = Colors.Green;
+		} else {
+			color = Colors.Indigo;
+		}
 
 		return this.some({
 			embed: new EmbedBuilder()
@@ -71,8 +85,9 @@ export class ModalHandler extends InteractionHandler {
 			([EventConfigDefaultValues.Required, EventConfigDefaultValues.NotRequired, null] as string[]).includes(
 				value
 			)
-		)
+		) {
 			return;
+		}
 
 		if (!SnowflakeRegex.test(value)) {
 			throw new UserError({

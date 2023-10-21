@@ -15,7 +15,9 @@ export class SuperTroopMenu extends InteractionHandler {
 	}
 
 	public override async parse(interaction: StringSelectMenuInteraction) {
-		if (!interaction.customId.startsWith(SelectMenuCustomIds.SuperTroop)) return this.none();
+		if (!interaction.customId.startsWith(SelectMenuCustomIds.SuperTroop)) {
+			return this.none();
+		}
 
 		await interaction.deferReply({ ephemeral: true });
 

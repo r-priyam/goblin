@@ -29,7 +29,10 @@ export class ButtonHandler extends InteractionHandler {
 			return this.none();
 		}
 
-		if (!interaction.message.components) return this.none();
+		if (!interaction.message.components) {
+			return this.none();
+		}
+
 		await interaction.deferUpdate();
 
 		if (interaction.customId === ButtonCustomIds.CWLEventUserRegisterCancel) {

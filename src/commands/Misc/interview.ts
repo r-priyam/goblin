@@ -130,8 +130,9 @@ Our clans have 8 hours to review your answers & ask further questions. After thi
 					);
 				}
 
-				if (message.content.length > 0)
+				if (message.content.length > 0) {
 					messages.push(`${message.createdAt} » ${message.author.username} » ${message.content}`);
+				}
 			}
 		});
 

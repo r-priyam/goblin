@@ -16,8 +16,13 @@ import {
 } from '#utils/functions/errorHelper';
 
 export async function commandErrorHandler(error: Error, interaction: ChatInputCommandInteraction) {
-	if (typeof error === 'string') return sendCommandErrorToUser(interaction, errorEmbedUser(error));
-	if (error instanceof UserError) return handleUserError(interaction, error);
+	if (typeof error === 'string') {
+		return sendCommandErrorToUser(interaction, errorEmbedUser(error));
+	}
+
+	if (error instanceof UserError) {
+		return handleUserError(interaction, error);
+	}
 
 	const { client, logger } = container;
 
@@ -30,7 +35,9 @@ export async function commandErrorHandler(error: Error, interaction: ChatInputCo
 	}
 
 	if (error instanceof DiscordAPIError || error instanceof HTTPError) {
-		if (IgnoredCodes.has(error.status)) return;
+		if (IgnoredCodes.has(error.status)) {
+			return;
+		}
 
 		client.emit(Events.Error, error);
 	} else {
@@ -49,8 +56,13 @@ export function interactionErrorHandler(
 	error: Error,
 	{ interaction }: InteractionHandlerError | InteractionHandlerParseError
 ) {
-	if (typeof error === 'string') return sendErrorToUser(interaction, errorEmbedUser(error));
-	if (error instanceof UserError) return handleUserError(interaction, error);
+	if (typeof error === 'string') {
+		return sendErrorToUser(interaction, errorEmbedUser(error));
+	}
+
+	if (error instanceof UserError) {
+		return handleUserError(interaction, error);
+	}
 
 	const { client, logger } = container;
 
@@ -63,7 +75,9 @@ export function interactionErrorHandler(
 	}
 
 	if (error instanceof DiscordAPIError || error instanceof HTTPError) {
-		if (IgnoredCodes.has(error.status)) return;
+		if (IgnoredCodes.has(error.status)) {
+			return;
+		}
 
 		client.emit(Events.Error, error);
 	} else {

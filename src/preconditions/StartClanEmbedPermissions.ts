@@ -28,13 +28,15 @@ export class UserPrecondition extends Precondition {
 	private formatMissingPerms(perms: string[]) {
 		const noun = perms.length === 1 ? 'permission' : 'permissions';
 		let formatted = `I am missing some ${noun} to execute this command. Please allow the ${noun} mentioned below to me:\n`;
-		for (const perm of perms)
+		for (const perm of perms) {
 			formatted += `$${Emotes.Error}${perm
 				.replace('_', ' ')
 				.replaceAll(
 					/\w\S*/g,
 					(replace) => replace.charAt(0).toUpperCase() + replace.slice(1).toLowerCase()
 				)}\n`;
+		}
+
 		return formatted.slice(0, -2);
 	}
 }

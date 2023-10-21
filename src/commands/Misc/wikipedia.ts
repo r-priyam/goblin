@@ -34,12 +34,15 @@ export class WikipediaCommand extends GoblinCommand {
 
 		const data = (await response?.json().catch(() => null)) as WikipediaData;
 
-		if (response?.status !== 200)
+		if (response?.status !== 200) {
 			return interaction.editReply({
 				content: 'Something went wrong, try again!'
 			});
+		}
 
-		if (data.query.searchinfo.totalhits === 0) return interaction.editReply({ content: 'No result found' });
+		if (data.query.searchinfo.totalhits === 0) {
+			return interaction.editReply({ content: 'No result found' });
+		}
 
 		const paginatedMessage = new PaginatedMessage({
 			template: new EmbedBuilder() //
@@ -47,13 +50,14 @@ export class WikipediaCommand extends GoblinCommand {
 				.setFooter({ text: ` Showing results for ${keyword}` })
 		});
 
-		for (const search of data.query.search)
+		for (const search of data.query.search) {
 			paginatedMessage.addPageEmbed((embed) =>
 				embed //
 					.setURL(`https://en.wikipedia.org/?curid=${search.pageid}`)
 					.setTitle(search.title)
 					.setDescription(stripHtml(search.snippet).result)
 			);
+		}
 
 		return paginatedMessage.run(interaction);
 	}

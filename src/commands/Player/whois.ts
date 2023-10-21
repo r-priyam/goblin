@@ -108,10 +108,15 @@ export class WhoIsCommand extends GoblinCommand {
 			template: new EmbedBuilder().setColor(Colors.Indigo)
 		});
 		paginator.addPageEmbed(firstPage);
-		for (const page of Object.values(playersData)) paginator.addPageEmbed(page);
+		for (const page of Object.values(playersData)) {
+			paginator.addPageEmbed(page);
+		}
 
 		paginator.setSelectMenuOptions((pageIndex) => {
-			if (pageIndex === 1) return { label: 'Accounts Summary' };
+			if (pageIndex === 1) {
+				return { label: 'Accounts Summary' };
+			}
+
 			return { label: Object.keys(playersData)[pageIndex - 2] };
 		});
 

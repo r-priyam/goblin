@@ -14,15 +14,22 @@ import { Colors, RedisKeys } from '#utils/constants';
 })
 export class BotListener extends Listener<typeof Events.MessageCreate> {
 	public async run(message: Message) {
-		if (message.author.bot || message.content.length > 6) return;
+		if (message.author.bot || message.content.length > 6) {
+			return;
+		}
 
 		const cachedAlias = await this.redis.fetch(RedisKeys.ClanAlias, undefined);
 		const parsedMessage = message.content.toUpperCase().split(' ', 1)[0];
 
-		if (!cachedAlias) return;
+		if (!cachedAlias) {
+			return;
+		}
+
 		const possibleAlias = cachedAlias.find((aliases) => aliases.alias === parsedMessage);
 
-		if (!possibleAlias) return;
+		if (!possibleAlias) {
+			return;
+		}
 
 		await message.channel.sendTyping();
 		const clan = await this.coc.getClan(possibleAlias.tag);

@@ -25,7 +25,10 @@ export class AutocompleteHandler extends InteractionHandler {
 
 		if (isNullishOrEmpty(tag)) {
 			// here just cross check when there's no redis cache, who knows
-			if (isNullishOrEmpty(cachedData)) return this.handleNoRedisCache(interaction.user.id, identifier);
+			if (isNullishOrEmpty(cachedData)) {
+				return this.handleNoRedisCache(interaction.user.id, identifier);
+			}
+
 			return this.some(this.handleNoFocusedValue(cachedData));
 		}
 
@@ -57,7 +60,9 @@ export class AutocompleteHandler extends InteractionHandler {
                 WHERE user_id = ${userId}
             `);
 
-		if (isNullishOrEmpty(data)) return this.none();
+		if (isNullishOrEmpty(data)) {
+			return this.none();
+		}
 
 		await this.redis.insert(identifier, userId, data);
 		return this.some(this.handleNoFocusedValue(data as unknown as ClanOrPlayerCache[]));
@@ -89,7 +94,9 @@ export class AutocompleteHandler extends InteractionHandler {
 			}))
 			.slice(0, 14);
 
-		if (result[0].value.toLowerCase() === rawTag.toLowerCase()) return result;
+		if (result[0].value.toLowerCase() === rawTag.toLowerCase()) {
+			return result;
+		}
 
 		result.unshift(...this.handleNoMatch(rawTag));
 		return result;

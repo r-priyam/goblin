@@ -92,7 +92,9 @@ export class EventCommands extends GoblinSubCommand {
 		);
 		const response = await prompter.prompt();
 
-		if (!response) return;
+		if (!response) {
+			return;
+		}
 
 		await this.sql`DELETE
                        FROM events

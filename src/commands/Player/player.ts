@@ -77,7 +77,10 @@ export class PlayerCommand extends GoblinCommand {
 			.setColor(Colors.Indigo);
 
 		for (const field of possibleFields) {
-			if (filterFields.includes(field.name) || isNullishOrEmpty(field.value)) continue;
+			if (filterFields.includes(field.name) || isNullishOrEmpty(field.value)) {
+				continue;
+			}
+
 			embed.addFields({ name: field.name, value: field.value, inline: false });
 		}
 
@@ -104,10 +107,11 @@ export class PlayerCommand extends GoblinCommand {
 		let description = '';
 
 		description += `${MiscEmotes.Exp} ${player.expLevel} ${MiscEmotes.HomeTrophy} ${player.trophies} ${MiscEmotes.WarStars} ${player.warStars}`;
-		if (player.clan)
+		if (player.clan) {
 			description += `\n\n${MiscEmotes.Clan} [${player.clan.name}](${player.clan.shareLink}) (${
 				RawPosition[player.role!]
 			})`;
+		}
 
 		const seasonStats = `${bold('Season Stats')}\n${bold('Troops donated')}\n${MiscEmotes.TroopDonations} ${
 			player.donations

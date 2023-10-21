@@ -116,7 +116,13 @@ export function checkUser(originalAuthorId: string, userId: string) {
 
 export function makeButton(label: string, customId: string, style: ButtonStyle, enabled = true, emoji?: string) {
 	const button = new ButtonBuilder().setLabel(label).setCustomId(customId).setStyle(style);
-	if (!enabled) button.setDisabled(true);
-	if (emoji) button.setEmoji(emoji);
+	if (!enabled) {
+		button.setDisabled(true);
+	}
+
+	if (emoji) {
+		button.setEmoji(emoji);
+	}
+
 	return button;
 }

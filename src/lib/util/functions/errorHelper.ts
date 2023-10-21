@@ -37,10 +37,14 @@ export function getErrorLine(error: Error): string {
 }
 
 export async function handleUserError(interaction: Interaction, error: UserError) {
-	if (Reflect.get(Object(error.context), 'silent')) return;
+	if (Reflect.get(Object(error.context), 'silent')) {
+		return;
+	}
 
-	if (interaction.isCommand())
+	if (interaction.isCommand()) {
 		await sendCommandErrorToUser(interaction, errorEmbedUser(error.message ?? UnidentifiedErrorMessage));
+	}
+
 	await sendErrorToUser(
 		interaction,
 		errorEmbedUser(error.message ?? UnidentifiedErrorMessage),
@@ -57,7 +61,9 @@ export async function sendCommandErrorToUser(interaction: CommandInteraction, em
 }
 
 export async function sendErrorToUser(interaction: Interaction, embed: EmbedBuilder, followUp = false) {
-	if (!(interaction.isStringSelectMenu() || interaction.isButton() || interaction.isModalSubmit())) return;
+	if (!(interaction.isStringSelectMenu() || interaction.isButton() || interaction.isModalSubmit())) {
+		return;
+	}
 
 	if (followUp) {
 		if (!interaction.deferred) {

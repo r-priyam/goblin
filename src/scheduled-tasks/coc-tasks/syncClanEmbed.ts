@@ -18,7 +18,9 @@ import { logInfo, logWarning } from '#utils/functions/logging';
 })
 export class SyncClanEmbedTask extends ScheduledTask {
 	public override async run() {
-		if (this.container.client.ws.status !== Status.Ready) return;
+		if (this.container.client.ws.status !== Status.Ready) {
+			return;
+		}
 
 		const data = await this.sql<ClanEmbedSyncData[]>`SELECT clan_tag,
                                                                 leader_discord_id,
@@ -28,12 +30,16 @@ export class SyncClanEmbedTask extends ScheduledTask {
                                                                 channel_id
                                                          FROM clan_embeds`;
 
-		for (const value of data) await this.updateEmbed(value);
+		for (const value of data) {
+			await this.updateEmbed(value);
+		}
 	}
 
 	private async updateEmbed(data: ClanEmbedSyncData) {
 		const clan = await this.getClan(data.clanTag, data.channelId);
-		if (!clan) return;
+		if (!clan) {
+			return;
+		}
 
 		const embed = await this.coc.clanHelper.generateAutomationClanEmbed(clan, {
 			leaderId: data.leaderDiscordId,
@@ -75,7 +81,10 @@ export class SyncClanEmbedTask extends ScheduledTask {
 	private parseRequirements(requirements: Record<string, number>) {
 		let result = '';
 		for (const [key, value] of Object.entries(requirements)) {
-			if (value === 0) continue;
+			if (value === 0) {
+				continue;
+			}
+
 			result += `${TownHallEmotes[key]}: ${BlueNumberEmotes[value]} `;
 		}
 

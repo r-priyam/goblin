@@ -57,7 +57,9 @@ export class SuperTroopsCommand extends GoblinCommand {
 
 		for (const member of members) {
 			for (const troop of member.superTroops) {
-				if (troop.isActive) superTroops[`${SuperTroopEmotes[troop.name]} ${troop.name}`].push(member.name);
+				if (troop.isActive) {
+					superTroops[`${SuperTroopEmotes[troop.name]} ${troop.name}`].push(member.name);
+				}
 			}
 		}
 
@@ -82,7 +84,10 @@ export class SuperTroopsCommand extends GoblinCommand {
 		}
 
 		for (const [troop, data] of Object.entries(superTroops)) {
-			if (isNullishOrEmpty(data)) continue;
+			if (isNullishOrEmpty(data)) {
+				continue;
+			}
+
 			superTroopsEmbed.addFields({
 				name: troop,
 				value: data.join('\n'),
@@ -90,8 +95,10 @@ export class SuperTroopsCommand extends GoblinCommand {
 			});
 		}
 
-		if (superTroopsEmbed.data.fields?.length === 0)
+		if (superTroopsEmbed.data.fields?.length === 0) {
 			superTroopsEmbed.setDescription('No one has boosted any super troop 🥲');
+		}
+
 		return superTroopsEmbed;
 	}
 }

@@ -112,10 +112,11 @@ export class AliasCommand extends GoblinSubCommand {
                                                                                  WHERE clan_tag = ${tag}
                                                                                  RETURNING clan_name, alias`;
 
-		if (!result)
+		if (!result) {
 			return interaction.editReply({
 				content: `Alias for ${tag} doesn't exist`
 			});
+		}
 
 		await this.redis.handleAliasOperations(RedisMethods.Delete, tag, result.alias!);
 		return interaction.editReply({

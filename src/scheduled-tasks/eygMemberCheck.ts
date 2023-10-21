@@ -15,7 +15,9 @@ import { Colors } from '#utils/constants';
 })
 export class EygMemberCheck extends ScheduledTask {
 	public override async run() {
-		if (this.container.client.ws.status !== Status.Ready) return;
+		if (this.container.client.ws.status !== Status.Ready) {
+			return;
+		}
 
 		const eygGuild = await this.client.guilds.fetch(envParseString('EYG_GUILD'));
 		// TODO: Write pending members check
@@ -27,7 +29,9 @@ export class EygMemberCheck extends ScheduledTask {
 				[...member.values()].filter((member) => member.roles.cache.has(envParseString('EYG_FRESH_SPAWN_ROLE')))
 			);
 
-		if (!checkRoleMembers) return;
+		if (!checkRoleMembers) {
+			return;
+		}
 
 		for (const member of checkRoleMembers) {
 			const minutes = this.getMinutes(member.joinedAt!);
