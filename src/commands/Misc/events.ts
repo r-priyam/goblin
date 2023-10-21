@@ -53,7 +53,10 @@ export class EventCommands extends GoblinSubCommand {
 			],
 			components: [
 				new ActionRowBuilder<ButtonBuilder>().addComponents(
-					new ButtonBuilder().setCustomId(ButtonCustomIds.CWLEventCreate).setLabel('CWL').setStyle(ButtonStyle.Primary),
+					new ButtonBuilder()
+						.setCustomId(ButtonCustomIds.CWLEventCreate)
+						.setLabel('CWL')
+						.setStyle(ButtonStyle.Primary),
 					new ButtonBuilder()
 						.setCustomId(ButtonCustomIds.CustomEventCreate)
 						.setLabel('Custom')

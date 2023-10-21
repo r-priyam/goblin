@@ -16,9 +16,9 @@
 	"scripts": {
 		"build": "tsup",
 		"dev": "tsup --watch --onSuccess \"yarn start\"",
-		"format": "rome format --write . && rome check src --apply && rome check src --apply-suggested &&  eslint src --ext ts --fix --format=pretty",
+		"format": "prettier --write . && eslint src --ext ts --fix --format=pretty",
 		"postinstall": "husky install .github/husky",
-		"lint": "rome format . && rome check src && eslint src --ext ts --format=pretty",
+		"lint": "prettier --check . && eslint src --ext ts --format=pretty",
 		"migrate": "node scripts/dbMigration.mjs",
 		"migrate:new": "ley new $0 --timestamp --esm",
 		"start": "node --enable-source-maps dist/goblin.js",
@@ -34,8 +34,7 @@
 	},
 	"lint-staged": {
 		"*.{mjs,js,ts}": [
-			"rome format --write \"src/**/*.ts\"",
-			"rome check src",
+			"prettier --write --loglevel=warn \"src/**/*.ts\"",
 			"eslint --fix --ext mjs,js,ts"
 		]
 	},
@@ -85,11 +84,13 @@
 	"devDependencies": {
 		"@commitlint/cli": "^18.0.0",
 		"@commitlint/config-conventional": "^18.0.0",
+		"@sapphire/prettier-config": "^2.0.0",
 		"@sapphire/ts-config": "^5.0.0",
 		"@swc/core": "^1.3.93",
 		"@types/figlet": "^1.5.7",
 		"@types/gradient-string": "^1.1.4",
 		"@types/node": "^20.8.7",
+		"@types/pretty-quick": "^3",
 		"@typescript-eslint/eslint-plugin": "^6.8.0",
 		"@typescript-eslint/parser": "^6.8.0",
 		"cz-conventional-changelog": "^3.3.0",
@@ -99,6 +100,8 @@
 		"husky": "^8.0.3",
 		"ley": "^0.8.1",
 		"lint-staged": "^15.0.2",
+		"prettier": "^3.0.3",
+		"pretty-quick": "^3.1.3",
 		"rome": "^12.1.3",
 		"tsup": "^7.2.0",
 		"typescript": "^5.2.2"

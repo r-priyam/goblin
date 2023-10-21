@@ -10,7 +10,7 @@ import type { AutocompleteInteraction } from 'discord.js';
 import { RedisKeys } from '#utils/constants';
 
 @ApplyOptions<InteractionHandler.Options>({
-    interactionHandlerType: InteractionHandlerTypes.Autocomplete
+	interactionHandlerType: InteractionHandlerTypes.Autocomplete
 })
 export class AutocompleteHandler extends InteractionHandler {
 	public override async run(interaction: AutocompleteInteraction, result: InteractionHandler.ParseResult<this>) {

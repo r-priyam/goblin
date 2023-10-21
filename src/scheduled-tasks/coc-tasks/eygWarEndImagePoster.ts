@@ -16,11 +16,11 @@ import { MetaDir } from '#utils/constants';
 import { logInfo, logWarning } from '#utils/functions/logging';
 
 @ApplyOptions<ScheduledTask.Options>({
-    pattern: '*/5 * * * *',
-    bullJobsOptions: {
-        removeOnComplete: true,
-        removeOnFail: true
-    }
+	pattern: '*/5 * * * *',
+	bullJobsOptions: {
+		removeOnComplete: true,
+		removeOnFail: true
+	}
 })
 export class EYGWarEndImagePoster extends ScheduledTask {
 	public override async run() {
@@ -111,7 +111,10 @@ export class EYGWarEndImagePoster extends ScheduledTask {
 			}
 
 			this.logger.warn(
-				logWarning('WarImagePoster', `Failed to send war end image for ${data.clanTag} with reason ${error.message}`)
+				logWarning(
+					'WarImagePoster',
+					`Failed to send war end image for ${data.clanTag} with reason ${error.message}`
+				)
 			);
 		} else {
 			await this.sql`
