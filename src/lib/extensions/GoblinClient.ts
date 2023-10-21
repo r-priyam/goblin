@@ -1,5 +1,4 @@
 import { container, LogLevel, SapphireClient } from '@sapphire/framework';
-import { ScheduledTaskRedisStrategy } from '@sapphire/plugin-scheduled-tasks/register-redis';
 import { envParseBoolean, envParseInteger, envParseString } from '@skyra/env-utilities';
 import { GatewayIntentBits } from 'discord-api-types/v10';
 import { ActivityType } from 'discord.js';
@@ -32,15 +31,13 @@ export class GoblinClient extends SapphireClient {
 				]
 			},
 			tasks: {
-				strategy: new ScheduledTaskRedisStrategy({
-					bull: {
-						connection: {
-							host: envParseString('REDIS_HOST'),
-							port: envParseInteger('REDIS_PORT'),
-							db: envParseInteger('REDIS_TASK_DB')
-						}
+				bull: {
+					connection: {
+						host: envParseString('REDIS_HOST'),
+						port: envParseInteger('REDIS_PORT'),
+						db: envParseInteger('REDIS_TASK_DB')
 					}
-				})
+				}
 			}
 		});
 

@@ -6,6 +6,8 @@
 	"ignorePatterns": ["./dist/*"],
 	"extends": ["snail/common", "snail/node", "snail/typescript", "snail/prettier"],
 	"rules": {
-		"tsdoc/syntax": 0
+		"tsdoc/syntax": 0,
+		"jsdoc/newline-after-description": 0,
+		"@typescript-eslint/sort-type-union-intersection-members": 0
 	}
 }

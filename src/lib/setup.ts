@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 import '@sapphire/plugin-logger/register';
+import '@sapphire/plugin-scheduled-tasks/register';
 
 import process from 'node:process';
 import { URL } from 'node:url';

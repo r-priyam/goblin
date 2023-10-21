@@ -14,6 +14,6 @@ try {
 } catch (error) {
 	Sentry.captureException(error);
 	client.logger.error(error);
-	void client.destroy();
+	await client.destroy();
 	exit(1);
 }

@@ -2,7 +2,6 @@ import type { SlashCommandStringOption } from 'discord.js';
 
 /**
  * Generate ClanTag or PlayerTag SlashCommandString option
- *
  * @param optionInstance  - {@link SlashCommandStringOption}
  * @param options - {@link TagProperties}
  * @defaultValue `required: false` and `autoComplete: false`
@@ -24,7 +23,6 @@ export function addTagOption(
 
 /**
  * Generate ClanTag SlashCommandString option
- *
  * @param optionInstance  - {@link SlashCommandStringOption}
  * @param options - {@link TagProperties}
  * @defaultValue `required: false` and `autoComplete: false`
@@ -35,7 +33,6 @@ export const clanTagOption = (optionInstance: SlashCommandStringOption, options:
 
 /**
  * Generate PlayerTag SlashCommandString option
- *
  * @param optionInstance  - {@link SlashCommandStringOption}
  * @param options - {@link TagProperties}
  * @defaultValue `required: false` and `autoComplete: false`

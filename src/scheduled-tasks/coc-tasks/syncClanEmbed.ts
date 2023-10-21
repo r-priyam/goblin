@@ -85,7 +85,6 @@ export class SyncClanEmbedTask extends ScheduledTask {
 	/**
 	 * Get clan information from the clan tag.
 	 * Stops the clan embed if clan not found and logs it
-	 *
 	 * @param clanTag - Clan Tag to get information for
 	 * @param channelId - Channel ID where the clan board is running
 	 */
