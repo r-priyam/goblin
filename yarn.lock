@@ -4086,12 +4086,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"figlet@npm:^1.6.0":
-  version: 1.6.0
-  resolution: "figlet@npm:1.6.0"
+"figlet@npm:^1.7.0":
+  version: 1.7.0
+  resolution: "figlet@npm:1.7.0"
   bin:
     figlet: bin/index.js
-  checksum: ffc17bb3eedc9d39e5d1eee31378cd3bdd25a86a345db261328ed20b59530162a9e7f448ba6a166d67098d12cc68933395153147ec139b4e305a87f99f707eba
+  checksum: 1baeed096fa90f5802022c4d36c24ebd59331f77f00f9b3de68b13f42f7ab210b327f4935fd194fc29575120e91aa95a2f43d63c2760f3e374a4f8348070c784
   languageName: node
   linkType: hard
 
@@ -4607,7 +4607,7 @@ __metadata:
     eslint: "npm:^8.52.0"
     eslint-config-snail: "npm:^2.0.0"
     eslint-formatter-pretty: "npm:^5.0.0"
-    figlet: "npm:^1.6.0"
+    figlet: "npm:^1.7.0"
     fuse.js: "npm:^6.6.2"
     gradient-string: "npm:^2.0.2"
     ioredis: "npm:^5.3.2"
