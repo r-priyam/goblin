@@ -27,7 +27,6 @@ import { ButtonCustomIds, Colors, ErrorIdentifiers } from '#utils/constants';
 							.setRequired(true)
 					)
 			),
-	requiredUserPermissions: PermissionFlagsBits.Administrator,
 	commandMetaOptions: { idHints: ['1034307161024647198', '1043558434194341969'] },
 	subcommands: [
 		{
@@ -38,7 +37,8 @@ import { ButtonCustomIds, Colors, ErrorIdentifiers } from '#utils/constants';
 			name: 'delete',
 			chatInputRun: 'deleteEvent'
 		}
-	]
+	],
+	preconditions: ['OwnerOnly']
 })
 export class EventCommands extends GoblinSubCommand {
 	public async createEvent(interaction: ChatInputCommandInteraction<'cached'>) {
