@@ -1,6 +1,6 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { UserError } from '@sapphire/framework';
-import { ButtonStyle, PermissionFlagsBits } from 'discord-api-types/v10';
+import { ButtonStyle } from 'discord-api-types/v10';
 import { ActionRowBuilder, ButtonBuilder, EmbedBuilder, bold } from 'discord.js';
 
 import type { GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
