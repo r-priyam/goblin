@@ -9,7 +9,7 @@ import { Colors } from '#utils/constants';
 
 @ApplyOptions<ScheduledTask.Options>({
 	pattern: '*/01 * * * *',
-	bullJobsOptions: {
+	customJobOptions: {
 		removeOnComplete: true
 	}
 })

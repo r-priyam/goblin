@@ -12,7 +12,7 @@ import { logInfo, logWarning } from '#utils/functions/logging';
 
 @ApplyOptions<ScheduledTask.Options>({
 	pattern: '00 */2 * * *',
-	bullJobsOptions: {
+	customJobOptions: {
 		removeOnComplete: true
 	}
 })

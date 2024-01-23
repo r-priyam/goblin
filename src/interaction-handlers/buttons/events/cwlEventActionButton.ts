@@ -93,13 +93,9 @@ export class ButtonHandler extends InteractionHandler {
 		const messageUrl = `https://discord.com/channels/${interaction.guildId}/${interaction.channelId}/${messageId}`;
 		await this.sendSuccessToAuthor(interaction.user, eventId, eventName!, messageUrl);
 		await this.tasks.create(
-			'cwlEventEnd',
 			{
-				channelId: registrationChannel,
-				messageId,
-				eventId,
-				eventName,
-				endRolePing
+				name: 'cwlEventEnd',
+				data: { channelId: registrationChannel, messageId, eventId, eventName, endRolePing }
 			},
 			Time.Day * 7
 		);

@@ -32,7 +32,7 @@ export class GoblinClashClient extends Client {
 	}
 
 	public override async getPlayer(playerTag: string, options?: OverrideOptions) {
-		const { data } = await this.rest.getPlayer(playerTag, options);
-		return new GoblinPlayer(this, data);
+		const { body } = await this.rest.getPlayer(playerTag, options);
+		return new GoblinPlayer(this, body);
 	}
 }

@@ -17,7 +17,7 @@ import { logInfo, logWarning } from '#utils/functions/logging';
 
 @ApplyOptions<ScheduledTask.Options>({
 	pattern: '*/5 * * * *',
-	bullJobsOptions: {
+	customJobOptions: {
 		removeOnComplete: true,
 		removeOnFail: true
 	}
