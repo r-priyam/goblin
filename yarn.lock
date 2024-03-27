@@ -708,13 +708,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fastify/busboy@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "@fastify/busboy@npm:2.0.0"
-  checksum: 6a2366d06b82aac1069b8323792f76f7a8fca02533cb3745fcd218d8f0f953dc4dbef057287237414658cd43f8dede0846ef33398999e3dbe54ddaeefec71c0a
-  languageName: node
-  linkType: hard
-
 "@humanwhocodes/config-array@npm:^0.11.13":
   version: 0.11.13
   resolution: "@humanwhocodes/config-array@npm:0.11.13"
@@ -4533,7 +4526,7 @@ __metadata:
     string-strip-html: "npm:^13.4.3"
     tsup: "npm:^7.2.0"
     typescript: "npm:^5.2.2"
-    undici: "npm:^5.27.2"
+    undici: "npm:^6.10.2"
     utf-8-validate: "npm:^6.0.3"
     zlib-sync: "npm:^0.1.9"
   languageName: unknown
@@ -8107,12 +8100,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"undici@npm:^5.27.2":
-  version: 5.28.3
-  resolution: "undici@npm:5.28.3"
-  dependencies:
-    "@fastify/busboy": "npm:^2.0.0"
-  checksum: 779856ce14ba6907c0759df8e4babd61608b1f502569d44de7dd1d014afb7c67a0a2997b4f706e0daff8a55d87ee2f25b830b195fc0202cb6fbd25abe2d941eb
+"undici@npm:^6.10.2":
+  version: 6.10.2
+  resolution: "undici@npm:6.10.2"
+  checksum: 796dc80a0f8c98ed0676c18a24bb51f9e8b42810c1225dc7db151b018da5f986ef7997e8bcc077ebe25ab1539e2861d0db542b2d17bbb030c25905e1b4a4e0e3
   languageName: node
   linkType: hard
 
