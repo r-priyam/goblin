@@ -4483,7 +4483,6 @@ __metadata:
     string-strip-html: "npm:^13.4.3"
     tsup: "npm:^7.2.0"
     typescript: "npm:^5.2.2"
-    undici: "npm:^6.10.2"
     utf-8-validate: "npm:^6.0.3"
     zlib-sync: "npm:^0.1.9"
   languageName: unknown
@@ -8025,13 +8024,6 @@ __metadata:
   dependencies:
     busboy: "npm:^1.6.0"
   checksum: 4e4ae061372508bad6c017e0188cdbf1bb73e427d881aefe6277f88cb0bdd45b57bb88d7ab6fc136ff08e7d022bd83ca550a28272aebfb36b28c06fe8f07ac5e
-  languageName: node
-  linkType: hard
-
-"undici@npm:^6.10.2":
-  version: 6.11.1
-  resolution: "undici@npm:6.11.1"
-  checksum: 129480684630e5723b7f4a946c1d9f8120f9b5697cb2032d791d1e3d2898a90eed0ed63c6ef5641502569dca0112759948564354a932c8172fc96845aaf2dd28
   languageName: node
   linkType: hard
 
