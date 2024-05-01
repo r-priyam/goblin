@@ -73,7 +73,7 @@ export class ClanHelper {
 			.setTitle(clan.name)
 			.setURL(clan.shareLink)
 			.setDescription(
-				`${MiscEmotes.HomeTrophy} **${clan.points}** ${MiscEmotes.BuilderTrophy} **${clan.versusPoints}** ${
+				`${MiscEmotes.HomeTrophy} **${clan.points}** ${MiscEmotes.BuilderTrophy} **${clan.builderBasePoints}** ${
 					MiscEmotes.Members
 				} **${clan.memberCount}**\n\n${clan.description ? `${clan.description}` : 'No description set'}`
 			)

@@ -41,7 +41,7 @@ export class BotListener extends Listener<typeof Events.MessageCreate> {
 		const info = `${bold('Members')}
 ${MiscEmotes.Members} ${clan.memberCount}
 ${bold('Required Trophies')}
-${MiscEmotes.HomeTrophy} ${clan.requiredTrophies} ${MiscEmotes.BuilderTrophy} ${clan.requiredVersusTrophies}
+${MiscEmotes.HomeTrophy} ${clan.requiredTrophies} ${MiscEmotes.BuilderTrophy} ${clan.requiredBuilderBaseTrophies}
 ${bold('War Stats')}
  ${MiscEmotes.Sword} ${clan.warWins} Wins
 ${MiscEmotes.WarStreak} ${clan.warWinStreak} Streak

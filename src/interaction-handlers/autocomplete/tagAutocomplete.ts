@@ -2,7 +2,7 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes } from '@sapphire/framework';
 import { isNullishOrEmpty } from '@sapphire/utilities';
 import { Util } from 'clashofclans.js';
-import Fuse from 'fuse.js';
+import Fuse, { type FuseResult } from 'fuse.js';
 
 import type { ClanOrPlayerCache } from '#lib/redis-cache/RedisCacheClient';
 import type { AutocompleteInteraction } from 'discord.js';
@@ -86,7 +86,7 @@ export class AutocompleteHandler extends InteractionHandler {
 			: [{ name: `❌ ${formattedTag || tag} isn't a valid tag ❌`, value: tag }];
 	}
 
-	private getFuzzyMatches(rawTag: string, matches: Fuse.FuseResult<ClanOrPlayerCache>[]) {
+	private getFuzzyMatches(rawTag: string, matches: FuseResult<ClanOrPlayerCache>[]) {
 		const result = matches
 			.map((fuzzy) => ({
 				name: `✅ ${fuzzy.item.name} (${fuzzy.item.tag})`,

@@ -57,7 +57,7 @@ export class ClanCommand extends GoblinCommand {
 
 	private static infoEmbed(clan: Clan) {
 		let description = '';
-		description += `${MiscEmotes.HomeTrophy} **${clan.points}** ${MiscEmotes.BuilderTrophy} **${clan.versusPoints}** ${MiscEmotes.Members} **${clan.memberCount}**\n\n`;
+		description += `${MiscEmotes.HomeTrophy} **${clan.points}** ${MiscEmotes.BuilderTrophy} **${clan.builderBasePoints}** ${MiscEmotes.Members} **${clan.memberCount}**\n\n`;
 		description += clan.description ? `${clan.description}` : 'No description set';
 		if (clan.labels.length > 0) {
 			description += `\n\n${clan.labels
