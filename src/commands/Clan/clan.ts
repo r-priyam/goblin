@@ -80,7 +80,7 @@ ${
 				clan.location?.countryCode
 					? `flag_${clan.location?.countryCode?.toLowerCase()}`
 					: 'globe_with_meridians'
-		  }: ${clan.location.name}`
+			}: ${clan.location.name}`
 		: '`Not set`'
 }
 🚪 ${RawClanType[clan.type]} ${MiscEmotes.HomeTrophy} ${clan.requiredTrophies}+ ${

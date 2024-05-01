@@ -123,23 +123,23 @@ interface ClanAliasCache extends ClanOrPlayerCache {
 type RedisKeyQuery<K extends RedisKeys> = K extends RedisKeys.Player
 	? string
 	: K extends RedisKeys.Clan
-	? string
-	: K extends RedisKeys.Links
-	? string
-	: K extends RedisKeys.ClanAlias
-	? undefined
-	: K extends RedisKeys.CWLEventRegistration
-	? string
-	: never;
+		? string
+		: K extends RedisKeys.Links
+			? string
+			: K extends RedisKeys.ClanAlias
+				? undefined
+				: K extends RedisKeys.CWLEventRegistration
+					? string
+					: never;
 
 type RedisData<K extends RedisKeys> = K extends RedisKeys.Player
 	? ClanOrPlayerCache[]
 	: K extends RedisKeys.Clan
-	? ClanOrPlayerCache[]
-	: K extends RedisKeys.Links
-	? string[]
-	: K extends RedisKeys.ClanAlias
-	? ClanAliasCache[]
-	: K extends RedisKeys.CWLEventRegistration
-	? SelectMenuComponentOptionData[]
-	: never;
+		? ClanOrPlayerCache[]
+		: K extends RedisKeys.Links
+			? string[]
+			: K extends RedisKeys.ClanAlias
+				? ClanAliasCache[]
+				: K extends RedisKeys.CWLEventRegistration
+					? SelectMenuComponentOptionData[]
+					: never;
