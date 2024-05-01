@@ -1015,48 +1015,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rometools/cli-darwin-arm64@npm:12.1.3":
-  version: 12.1.3
-  resolution: "@rometools/cli-darwin-arm64@npm:12.1.3"
-  conditions: os=darwin & cpu=arm64
-  languageName: node
-  linkType: hard
-
-"@rometools/cli-darwin-x64@npm:12.1.3":
-  version: 12.1.3
-  resolution: "@rometools/cli-darwin-x64@npm:12.1.3"
-  conditions: os=darwin & cpu=x64
-  languageName: node
-  linkType: hard
-
-"@rometools/cli-linux-arm64@npm:12.1.3":
-  version: 12.1.3
-  resolution: "@rometools/cli-linux-arm64@npm:12.1.3"
-  conditions: os=linux & cpu=arm64
-  languageName: node
-  linkType: hard
-
-"@rometools/cli-linux-x64@npm:12.1.3":
-  version: 12.1.3
-  resolution: "@rometools/cli-linux-x64@npm:12.1.3"
-  conditions: os=linux & cpu=x64
-  languageName: node
-  linkType: hard
-
-"@rometools/cli-win32-arm64@npm:12.1.3":
-  version: 12.1.3
-  resolution: "@rometools/cli-win32-arm64@npm:12.1.3"
-  conditions: os=win32 & cpu=arm64
-  languageName: node
-  linkType: hard
-
-"@rometools/cli-win32-x64@npm:12.1.3":
-  version: 12.1.3
-  resolution: "@rometools/cli-win32-x64@npm:12.1.3"
-  conditions: os=win32 & cpu=x64
-  languageName: node
-  linkType: hard
-
 "@rushstack/eslint-patch@npm:^1.5.1":
   version: 1.5.1
   resolution: "@rushstack/eslint-patch@npm:1.5.1"
@@ -4522,7 +4480,6 @@ __metadata:
     postgres: "npm:^3.4.3"
     prettier: "npm:^3.0.3"
     reflect-metadata: "npm:^0.1.13"
-    rome: "npm:^12.1.3"
     string-strip-html: "npm:^13.4.3"
     tsup: "npm:^7.2.0"
     typescript: "npm:^5.2.2"
@@ -7096,35 +7053,6 @@ __metadata:
   bin:
     rollup: dist/bin/rollup
   checksum: 9e39d54e23731a4c4067e9c02910cdf7479a0f9a7584796e2dc6efaa34bb1e5e015c062c87d1e64d96038baca76cefd47681ff22604fae5827147f54123dc6d0
-  languageName: node
-  linkType: hard
-
-"rome@npm:^12.1.3":
-  version: 12.1.3
-  resolution: "rome@npm:12.1.3"
-  dependencies:
-    "@rometools/cli-darwin-arm64": "npm:12.1.3"
-    "@rometools/cli-darwin-x64": "npm:12.1.3"
-    "@rometools/cli-linux-arm64": "npm:12.1.3"
-    "@rometools/cli-linux-x64": "npm:12.1.3"
-    "@rometools/cli-win32-arm64": "npm:12.1.3"
-    "@rometools/cli-win32-x64": "npm:12.1.3"
-  dependenciesMeta:
-    "@rometools/cli-darwin-arm64":
-      optional: true
-    "@rometools/cli-darwin-x64":
-      optional: true
-    "@rometools/cli-linux-arm64":
-      optional: true
-    "@rometools/cli-linux-x64":
-      optional: true
-    "@rometools/cli-win32-arm64":
-      optional: true
-    "@rometools/cli-win32-x64":
-      optional: true
-  bin:
-    rome: bin/rome
-  checksum: a0021342ea339279aeed0111997144e2b703451b9a73b3bd21150408eb1c2e0563e8f59ea2f2792b261c9fe4f97f269759a9c66fc2cab87f4ffe5fb391120f77
   languageName: node
   linkType: hard
 
