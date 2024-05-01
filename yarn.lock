@@ -1767,13 +1767,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sapphire/plugin-logger@npm:^3.0.7":
-  version: 3.0.7
-  resolution: "@sapphire/plugin-logger@npm:3.0.7"
+"@sapphire/plugin-logger@npm:^4.0.2":
+  version: 4.0.2
+  resolution: "@sapphire/plugin-logger@npm:4.0.2"
   dependencies:
-    "@sapphire/timestamp": "npm:^1.0.1"
+    "@sapphire/timestamp": "npm:^1.0.3"
     colorette: "npm:^2.0.20"
-  checksum: d28f2b814a90ad736ac1a5f259ce919de03aa682d5884e3e52662ca10f9778380f92aad9c704a9515357215f7eba70579f37092230b151b847927a49cd400d6f
+  checksum: 6e47d545b2505b2e27f6d3699d7694603d6fe80d0aeda3b177de6f8c78c1a9573988e8702064e07ea414b94c3a1be11bd39786470559db544b263457f4da792d
   languageName: node
   linkType: hard
 
@@ -1848,10 +1848,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sapphire/timestamp@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "@sapphire/timestamp@npm:1.0.1"
-  checksum: 6bed5ac6efb82df3ae14e4215395b43b2c7ea1afb7b0f0da08e43c779ad851e2557f6b02dbd05a567e3134a5f6aef5bd71fce5cde3153299e4cf21dd0a4074a0
+"@sapphire/timestamp@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "@sapphire/timestamp@npm:1.0.3"
+  checksum: f4b8f0a36f4b494f6b19a2656cfd6d158e7f061208499225f88f7a0d0592c2a8ea0abf017a074c489f00e478878083960e57570b6a5d937efec9f7049fc4e38f
   languageName: node
   linkType: hard
 
@@ -5510,7 +5510,7 @@ __metadata:
     "@sapphire/decorators": "npm:^6.1.0"
     "@sapphire/discord.js-utilities": "npm:^7.2.0"
     "@sapphire/framework": "npm:4.8.5"
-    "@sapphire/plugin-logger": "npm:^3.0.7"
+    "@sapphire/plugin-logger": "npm:^4.0.2"
     "@sapphire/plugin-scheduled-tasks": "npm:^7.1.2"
     "@sapphire/plugin-subcommands": "npm:4.3.0"
     "@sapphire/prettier-config": "npm:^2.0.0"

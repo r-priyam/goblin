@@ -52,7 +52,7 @@
 		"@sapphire/decorators": "^6.1.0",
 		"@sapphire/discord.js-utilities": "^7.2.0",
 		"@sapphire/framework": "4.8.5",
-		"@sapphire/plugin-logger": "^3.0.7",
+		"@sapphire/plugin-logger": "^4.0.2",
 		"@sapphire/plugin-scheduled-tasks": "^7.1.2",
 		"@sapphire/plugin-subcommands": "4.3.0",
 		"@sapphire/result": "^2.6.6",
