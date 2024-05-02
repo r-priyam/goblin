@@ -40,13 +40,11 @@ We thank you for your patience and can't wait to welcome you in!`.replaceAll('\n
 		});
 
 		return this.tasks.create(
-			'interviewWaitTimer',
 			{
-				channelId: message.channelId,
-				messageUrl: timerMessage.url,
-				startedAt: Date.now()
+				name: 'interviewWaitTimer',
+				payload: { channelId: message.channelId, messageUrl: timerMessage.url, startedAt: Date.now() }
 			},
-			Time.Hour * 8
+			{ delay: Time.Hour * 8, repeated: false }
 		);
 	}
 }

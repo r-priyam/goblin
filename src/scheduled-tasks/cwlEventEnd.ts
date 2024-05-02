@@ -11,7 +11,7 @@ import { useErrorLogsWebhook } from '#utils/webhooks/errorLogs';
 
 @ApplyOptions<ScheduledTask.Options>({
 	name: 'cwlEventEnd',
-	bullJobsOptions: {
+	customJobOptions: {
 		removeOnComplete: true
 	}
 })

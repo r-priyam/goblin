@@ -1,6 +1,6 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { Listener } from '@sapphire/framework';
-import { ScheduledTaskEvents } from '@sapphire/plugin-scheduled-tasks';
+import { ScheduledTaskEvents, type ScheduledTask } from '@sapphire/plugin-scheduled-tasks';
 import Sentry from '@sentry/node';
 import { bold, DiscordAPIError, HTTPError, EmbedBuilder } from 'discord.js';
 
@@ -13,14 +13,14 @@ import { useErrorLogsWebhook } from '#utils/webhooks/errorLogs';
 	event: ScheduledTaskEvents.ScheduledTaskError
 })
 export class BotListener extends Listener<typeof ScheduledTaskEvents.ScheduledTaskError> {
-	public override async run(error: Error, task: string) {
+	public override async run(error: Error, task: ScheduledTask) {
 		Sentry.captureException(error);
-		this.logger.error(`[Scheduled-Task] Error occurred in task ${task}`, error);
+		this.logger.error(`[Scheduled-Task] Error occurred in task ${task.name}`, error);
 		return this.errorToWebhook(error, task);
 	}
 
-	private async errorToWebhook(error: Error, task: string) {
-		const lines = [`${bold('Task')}: ${task}`, getErrorLine(error)];
+	private async errorToWebhook(error: Error, task: ScheduledTask) {
+		const lines = [`${bold('Task')}: ${task.name}`, getErrorLine(error)];
 
 		if (error instanceof DiscordAPIError || error instanceof HTTPError) {
 			lines.splice(2, 0, getPathLine(error), getCodeLine(error));

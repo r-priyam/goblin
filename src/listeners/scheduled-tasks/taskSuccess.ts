@@ -1,6 +1,6 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { Listener, LogLevel } from '@sapphire/framework';
-import { ScheduledTaskEvents } from '@sapphire/plugin-scheduled-tasks';
+import { ScheduledTaskEvents, type ScheduledTask } from '@sapphire/plugin-scheduled-tasks';
 
 import type { Logger } from '@sapphire/framework';
 
@@ -9,9 +9,9 @@ import type { Logger } from '@sapphire/framework';
 	event: ScheduledTaskEvents.ScheduledTaskSuccess
 })
 export class BotListener extends Listener<typeof ScheduledTaskEvents.ScheduledTaskSuccess> {
-	public override run(task: string, _payload: unknown, _taskRunResult: unknown, duration: number) {
+	public override run(task: ScheduledTask, _payload: unknown, _taskRunResult: unknown, duration: number) {
 		this.container.logger.debug(
-			`[Scheduled-Task]: successfully ran task: ${task} in ${this.formatDuration(duration)}`
+			`[Scheduled-Task]: successfully ran task: ${task.name} in ${this.formatDuration(duration)}`
 		);
 	}
 

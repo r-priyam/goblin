@@ -8,7 +8,7 @@ import type { TextChannel } from 'discord.js';
 
 @ApplyOptions<ScheduledTask.Options>({
 	name: 'interviewWaitTimer',
-	bullJobsOptions: {
+	customJobOptions: {
 		removeOnComplete: true
 	}
 })
