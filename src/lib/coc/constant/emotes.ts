@@ -73,31 +73,33 @@ export const LabelEmotes: { [key: string]: string } = {
 };
 
 export const HomeBaseTroopEmotes: { [key: string]: string } = {
-	'Barbarian': '<:Barbarian:701626910207115274>',
-	'Archer': '<:Archer:701626909498409040>',
-	'Giant': '<:Giant:701626915026370671>',
-	'Goblin': '<:Goblin:701626915165044828>',
-	'Wall Breaker': '<:wallbreaker:763264884040663040>',
-	'Balloon': '<:Balloon:701626912241352745>',
-	'Wizard': '<:Wizard:701626914841821186> ',
-	'Healer': '<:Healer:701626914930163783>',
-	'Dragon': '<:Dragon:701626910752374804>',
-	'P.E.K.K.A': '<:PEKKA:701626915328491610>',
-	'Baby Dragon': '<:BabyDragon:701626909586358364>',
-	'Miner': '<:Miner:701626913793245255>',
-	'Electro Dragon': '<:ElectroDragon:701626910735728672>',
-	'Yeti': '<:Yeti:701626914816655431>',
-	'Dragon Rider': '<:DragonRider:854373772412977152>',
-	'Electro Titan': '<:ElectroTitan:1029589837679964281>',
-	'Minion': '<:Minion:701626915311583294>',
-	'Hog Rider': '<:HogRider:701626914506276895>',
-	'Valkyrie': '<:Valkyrie:701626915680681994>',
-	'Golem': '<:Golem:701626915395600394>',
-	'Witch': '<:Witch:701626915173433385> ',
-	'Lava Hound': '<:LavaHound:701626915479355483>',
-	'Bowler': '<:Bowler:701626910614093844>',
-	'Ice Golem': '<:IceGolem:701626913701101668>',
-	'Headhunter': '<:Headhunter:742121658386481262>'
+	'Barbarian': '<:Barbarian:696280898122809344>',
+	'Archer': '<:Archer:696280941005504592>',
+	'Giant': '<:Giant:696280991697731585>',
+	'Goblin': '<:Goblin:696281044764327966>',
+	'Wall Breaker': '<:WallBreaker:696281102637334539>',
+	'Balloon': '<:Balloon:696281155250683915>',
+	'Wizard': '<:Wizard:696281232971137084>',
+	'Healer': '<:Healer:696281319394639982>',
+	'Dragon': '<:Dragon:696281449820848158>',
+	'P.E.K.K.A': '<:PEKKA:696281471127912468>',
+	'Baby Dragon': '<:BabyDragon:696281500018278400>',
+	'Miner': '<:Miner:696281535111757895>',
+	'Electro Dragon': '<:ElectroDragon:696281556930527352>',
+	'Yeti': '<:Yeti:696281814293282857>',
+	'Dragon Rider': '<:DragonRider:854290952888909834>',
+	'Electro Titan': '<:ElectroTitan:1029113633243922572>',
+	'Root Rider': '<:RootRider:1184210445544992788>',
+	'Minion': '<:Minion:696281875794231326>',
+	'Hog Rider': '<:HogRider:696281961257238579>',
+	'Valkyrie': '<:valkyrie:696282003158597662>',
+	'Golem': '<:Golem:696282074788659250>',
+	'Witch': '<:Witch:696282143508267068>',
+	'Lava Hound': '<:LavaHound:696282183832305685>',
+	'Bowler': '<:bowler:696282213360074782>',
+	'Ice Golem': '<:IceGolem:696282324798799892>',
+	'Headhunter': '<:Headhunter:724650414066106459>',
+	'Apprentice Warden': '<:ApprenticeWarden:1117866249645461604>'
 };
 
 export const BuilderBaseTroopEmotes: { [key: string]: string } = {
@@ -139,14 +141,16 @@ export const HeroEmotes: { [key: string]: string } = {
 };
 
 export const HeroPetEmotes: { [key: string]: string } = {
-	'L.A.S.S.I': '<:LASSI:830510531168829521>',
-	'Electro Owl': '<:ElectroOwl:830511434269982790>',
-	'Mighty Yak': '<:MightyYak:830510531222962278>',
-	'Unicorn': '<:Unicorn:830510531483795516>',
-	'Frosty': '<:Frosty:1029589369532719226>',
-	'Diggy': '<:Diggy:1029589353934098522>',
-	'Poison Lizard': '<:PoisonLizard:1029589359302807662>',
-	'Phoenix': '<:Phoenix:1029589364164005968>'
+	'L.A.S.S.I': '<:LASSI:831123509827731527>',
+	'Electro Owl': '<:Owl:831123515939356703>',
+	'Mighty Yak': '<:Yak:831123515067334707>',
+	'Unicorn': '<:Unicorn:831123514613694564>',
+	'Poison Lizard': '<:PoisonLizard:1029115995845046323>',
+	'Diggy': '<:Diggy:1029115689157525504>',
+	'Frosty': '<:Frosty:1029115796271669369>',
+	'Phoenix': '<:Phoenix:1029115881982271549>',
+	'Spirit Fox': '<:SpiritFox:1184210185263259778>',
+	'Angry Jelly': '<:AngryJelly:1230233853013004319>'
 };
 
 export const SiegeMachineEmotes: { [key: string]: string } = {
@@ -160,20 +164,22 @@ export const SiegeMachineEmotes: { [key: string]: string } = {
 };
 
 export const SuperTroopEmotes: { [key: string]: string } = {
-	'Super Barbarian': '<:SuperBarbarian:701626916087529673>',
-	'Super Archer': '<:SuperArcher:750010593045643355>',
-	'Super Giant': '<:SuperGiant:701626915902980197>',
-	'Sneaky Goblin': '<:SneakyGoblin:701626916129734787>',
-	'Super Wall Breaker': '<:SuperWallBreaker:701626916133666896>',
-	'Rocket Balloon': '<:RocketBalloon:854368171682431006>',
-	'Super Wizard': '<:SuperWizard:785536616864153610>',
-	'Super Dragon': '<:SuperDragon:918876075809964072>',
-	'Inferno Dragon': '<:InfernoDragon:742121658386743366>',
-	'Super Minion': '<:SuperMinion:771375748916576286>',
-	'Super Valkyrie': '<:SuperValkyrie:771375748815519825>',
-	'Super Witch': '<:SuperWitch:742121660324511818>',
-	'Ice Hound': '<:IceHound:785539963068481546>',
-	'Super Bowler': '<:SuperBowler:892035736168185876>'
+	'Super Barbarian': '<:SuperBarbarian:789730407360495646>',
+	'Super Archer': '<:SuperArcher:789730408673181717>',
+	'Super Giant': '<:SuperGiant:789730409051193364>',
+	'Sneaky Goblin': '<:SuperGoblin:789730408102232064>',
+	'Super Wall Breaker': '<:SuperWallBreaker:789730406206275595>',
+	'Rocket Balloon': '<:RocketBalloon:854290612081655838>',
+	'Super Wizard': '<:SuperWizard:789730402189049876>',
+	'Super Dragon': '<:SuperDragon:918762776619536474>',
+	'Inferno Dragon': '<:SuperBabyDragon:789730408878309376>',
+	'Super Minion': '<:SuperMinion:789730407930920990>',
+	'Super Valkyrie': '<:SuperValkyrie:789730405967462440>',
+	'Super Witch': '<:SuperWitch:789730409210576897>',
+	'Ice Hound': '<:IceHound:789730401816018945>',
+	'Super Bowler': '<:SuperBowler:892028277252825128>',
+	'Super Miner': '<:SuperMiner:1062662677077446656>',
+	'Super Hog Rider': '<:SuperHogRider:1117866738495787018>'
 };
 
 export const MiscEmotes: { [key: string]: string } = {
