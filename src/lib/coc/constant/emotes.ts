@@ -117,27 +117,28 @@ export const BuilderBaseTroopEmotes: { [key: string]: string } = {
 };
 
 export const SpellEmotes: { [key: string]: string } = {
-	'Lightning Spell': '<:LightningSpell:742119333974638602>',
-	'Healing Spell': '<:HealingSpell:701613920368066660>',
-	'Rage Spell': '<:RageSpell:701613920703611003>',
-	'Jump Spell': '<:JumpSpell:701613920355352596>',
-	'Freeze Spell': '<:FreezeSpell:742119333538299954>',
-	'Poison Spell': '<:PoisonSpell:701613920011550722>',
-	'Earthquake Spell': '<:EarthquakeSpell:701613918396612629>',
-	'Haste Spell': '<:HasteSpell:701613920045236316>',
-	'Clone Spell': '<:CloneSpell:701613916542992445>',
-	'Skeleton Spell': '<:SkeletonSpell:701613919948636282>',
-	'Bat Spell': '<:BatSpell:701613916198797402>',
-	'Invisibility Spell': '<:InvisibilitySpell:785540460914671646>',
-	'Recall Spell': '<:RecallSpell:1133979593250963457>'
+	'Lightning Spell': '<:Lightning:785740412010364958>',
+	'Healing Spell': '<:Healing:696302035913670737>',
+	'Rage Spell': '<:Rage:696302044343959572>',
+	'Jump Spell': '<:Jump:696302055681425438>',
+	'Freeze Spell': '<:Freeze:1222627172141891835>',
+	'Clone Spell': '<:Clone:696302107950710795>',
+	'Invisibility Spell': '<:Invisible:787186410032463882>',
+	'Recall Spell': '<:Recall:1029115194552623227>',
+	'Poison Spell': '<:Poison:696302119434846231>',
+	'Earthquake Spell': '<:Earthquake:696302170957414460>',
+	'Haste Spell': '<:Haste:696302178763276348>',
+	'Skeleton Spell': '<:Skeleton:696302204348530698>',
+	'Bat Spell': '<:Bat:696303291176583198>',
+	'Overgrowth Spell': '<:Overgrowth:1212040817896726631>'
 };
 
 export const HeroEmotes: { [key: string]: string } = {
-	'Barbarian King': '<:BarbarianKing:838081409850671114>',
-	'Archer Queen': '<:ArcherQueen:838081404125970484>',
-	'Grand Warden': '<:GrandWarden:838081425671716895>',
-	'Royal Champion': '<:RoyalChampion:838081414448283698>',
-	'Battle Machine': '<:BattleMachine:838081431905239050>'
+	'Barbarian King': '<:BarbarianKing:696305370682884111>',
+	'Archer Queen': '<:ArcherQueen:696305403046133780>',
+	'Grand Warden': '<:GrandWarden:841295204476780586>',
+	'Royal Champion': '<:RoyalChampion:813806447934308422>',
+	'Battle Machine': '<:BattleMachine:1108950875742933065>'
 };
 
 export const HeroPetEmotes: { [key: string]: string } = {
