@@ -45,7 +45,7 @@ export class LinkApi {
 
 			const tagsToFetch = [...new Set([...linkApiTags, ...cachedTags])];
 			const playersData = await Util.allSettled(
-				tagsToFetch.splice(0, 5).map((tag) => container.coc.getPlayer(tag))
+				tagsToFetch.slice(0, 5).map((tag) => container.coc.getPlayer(tag))
 			);
 
 			const sqlData = playersData.map((player) => ({
