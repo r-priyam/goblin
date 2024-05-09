@@ -120,14 +120,14 @@ export const SpellEmotes: { [key: string]: string } = {
 	'Rage Spell': '<:RageSpell:701613920703611003>',
 	'Jump Spell': '<:JumpSpell:701613920355352596>',
 	'Freeze Spell': '<:FreezeSpell:742119333538299954>',
-	'Clone Spell': '<:CloneSpell:701613916542992445>',
-	'Invisibility Spell': '<:InvisibilitySpell:785540460914671646>',
 	'Poison Spell': '<:PoisonSpell:701613920011550722>',
 	'Earthquake Spell': '<:EarthquakeSpell:701613918396612629>',
 	'Haste Spell': '<:HasteSpell:701613920045236316>',
+	'Clone Spell': '<:CloneSpell:701613916542992445>',
 	'Skeleton Spell': '<:SkeletonSpell:701613919948636282>',
 	'Bat Spell': '<:BatSpell:701613916198797402>',
-	'Recall Spell': '<:RecallSpell:1029589376373633085>'
+	'Invisibility Spell': '<:InvisibilitySpell:785540460914671646>',
+	'Recall Spell': '<:RecallSpell:1133979593250963457>'
 };
 
 export const HeroEmotes: { [key: string]: string } = {
@@ -224,7 +224,8 @@ export const TownHallEmotes: { [key: number | string]: string } = {
 	12: '<:12:836305178075988030>',
 	13: '<:13:836305329737170985>',
 	14: '<:14:836305386603675658>',
-	15: '<:15:1029589379238346833>'
+	15: '<:15:1029589379238346833>',
+	16: '<:16:1184134208847884391>'
 };
 
 export const BlueNumberEmotes: { [key: number]: string } = {
