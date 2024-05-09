@@ -103,17 +103,18 @@ export const HomeBaseTroopEmotes: { [key: string]: string } = {
 };
 
 export const BuilderBaseTroopEmotes: { [key: string]: string } = {
-	'Raged Barbarian': '<:RagedBarbarian:701625285107515462>',
-	'Sneaky Archer': '<:SneakyArcher:701625285279219765>',
-	'Boxer Giant': '<:BoxerGiant:701625285061115915>',
-	'Beta Minion': '<:BetaMinion:701625285069504562>',
-	'Bomber': '<:Bomber:701625279562383410>',
-	'Baby Dragon': '<:BabyDragon:701625278849351721>',
-	'Cannon Cart': '<:CannonCart:701625284847206400>',
-	'Night Witch': '<:NightWitch:701625285161910372>',
-	'Drop Ship': '<:DropShip:701625285061115955>',
-	'Super P.E.K.K.A': '<:SuperPEKKA:701625285031886941>',
-	'Hog Glider': '<:HogGlider:701625283354296331>'
+	'Raged Barbarian': '<:RagedBarbarian:696283193426575390>',
+	'Sneaky Archer': '<:SneakyArcher:696283216687923223>',
+	'Boxer Giant': '<:BoxerGiant:696283264968556555>',
+	'Beta Minion': '<:BetaMinion:696283283910295552>',
+	'Bomber': '<:Bomber:696283305493921842>',
+	'Baby Dragon': '<:BabyDragon:696281500018278400>',
+	'Cannon Cart': '<:CannonCart:696283381654093854>',
+	'Night Witch': '<:NightWitch:696283537145462814>',
+	'Drop Ship': '<:DropShip:696283560373387305>',
+	'Power P.E.K.K.A': '<:SuperPEKKA:696283614891081769>',
+	'Hog Glider': '<:HogGlider:696289358780563489>',
+	'Electrofire Wizard': '<:EW:1108949636229636096>'
 };
 
 export const SpellEmotes: { [key: string]: string } = {
@@ -138,7 +139,8 @@ export const HeroEmotes: { [key: string]: string } = {
 	'Archer Queen': '<:ArcherQueen:696305403046133780>',
 	'Grand Warden': '<:GrandWarden:841295204476780586>',
 	'Royal Champion': '<:RoyalChampion:813806447934308422>',
-	'Battle Machine': '<:BattleMachine:1108950875742933065>'
+	'Battle Machine': '<:BattleMachine:1108950875742933065>',
+	'Battle Copter': '<:BC:1108949723752185986>'
 };
 
 export const HeroPetEmotes: { [key: string]: string } = {
