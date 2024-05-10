@@ -14,7 +14,7 @@ import { Colors, RedisKeys } from '#utils/constants';
 })
 export class BotListener extends Listener<typeof Events.MessageCreate> {
 	public async run(message: Message) {
-		if (message.author.bot || message.content.length > 6) {
+		if (message.author.bot || message.content.length > 75) {
 			return;
 		}
 
@@ -26,7 +26,7 @@ export class BotListener extends Listener<typeof Events.MessageCreate> {
 		}
 
 		let tag: string = parsedMessage;
-		if (parsedMessage.startsWith('https://link.clashofclans.com/en?action=OpenClanProfile&tag=')) {
+		if (parsedMessage.startsWith('HTTPS://LINK.CLASHOFCLANS.COM/EN?ACTION=OPENCLANPROFILE&TAG=')) {
 			tag = `#${parsedMessage.slice(parsedMessage.length).replace(/^#+/, '')}`;
 		}
 
