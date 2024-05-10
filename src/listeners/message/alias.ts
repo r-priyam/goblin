@@ -27,7 +27,7 @@ export class BotListener extends Listener<typeof Events.MessageCreate> {
 
 		let tag: string = parsedMessage;
 		if (parsedMessage.startsWith('HTTPS://LINK.CLASHOFCLANS.COM/EN?ACTION=OPENCLANPROFILE&TAG=')) {
-			tag = `#${parsedMessage.slice(parsedMessage.length).replace(/^#+/, '')}`;
+			tag = `#${parsedMessage.split('TAG=')[1].replace(/^#+/, '')}`;
 		}
 
 		const possibleAlias = cachedAlias.find((aliases) => aliases.alias === tag || aliases.tag === tag);
