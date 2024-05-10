@@ -25,7 +25,12 @@ export class BotListener extends Listener<typeof Events.MessageCreate> {
 			return;
 		}
 
-		const possibleAlias = cachedAlias.find((aliases) => aliases.alias === parsedMessage);
+		let tag: string = parsedMessage;
+		if (parsedMessage.startsWith('https://link.clashofclans.com/en?action=OpenClanProfile&tag=')) {
+			tag = `#${parsedMessage.slice(parsedMessage.length).replace(/^#+/, '')}`;
+		}
+
+		const possibleAlias = cachedAlias.find((aliases) => aliases.alias === tag || aliases.tag === tag);
 
 		if (!possibleAlias) {
 			return;
