@@ -3997,9 +3997,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bullmq@npm:^5.7.8":
-  version: 5.7.8
-  resolution: "bullmq@npm:5.7.8"
+"bullmq@npm:^5.7.9":
+  version: 5.7.9
+  resolution: "bullmq@npm:5.7.9"
   dependencies:
     cron-parser: "npm:^4.6.0"
     ioredis: "npm:^5.4.1"
@@ -4008,7 +4008,7 @@ __metadata:
     semver: "npm:^7.5.4"
     tslib: "npm:^2.0.0"
     uuid: "npm:^9.0.0"
-  checksum: 10/6852b0c74257e799253b772a9d7fca4455537344d27f2315759f7617225f05805bb6bf029a6f5f02787b759a4dc730b7c06cdc9dab845092320de570a2fc2d9f
+  checksum: 10/080f816cfc619bd75e33f1a8450e37028f932cb85d1679c095162ed131db6f61499a731b2f72059518fd9f0fecaf9618ed3b3e040a53768b5207fbbe02236852
   languageName: node
   linkType: hard
 
@@ -6373,7 +6373,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:^7.9.0"
     "@typescript-eslint/parser": "npm:^7.9.0"
     bufferutil: "npm:^4.0.8"
-    bullmq: "npm:^5.7.8"
+    bullmq: "npm:^5.7.9"
     clashofclans.js: "npm:^3.3.9"
     colorette: "npm:^2.0.20"
     cz-conventional-changelog: "npm:^3.3.0"
