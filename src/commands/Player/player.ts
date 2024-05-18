@@ -1,7 +1,15 @@
 import { Time } from '@sapphire/cron';
 import { ApplyOptions } from '@sapphire/decorators';
 import { isNullishOrEmpty } from '@sapphire/utilities';
-import { ActionRowBuilder, ButtonBuilder, EmbedBuilder, bold, ComponentType, ButtonStyle } from 'discord.js';
+import {
+	ActionRowBuilder,
+	ButtonBuilder,
+	EmbedBuilder,
+	bold,
+	ComponentType,
+	ButtonStyle,
+	userMention
+} from 'discord.js';
 
 import type { GoblinPlayer } from '#lib/coc';
 import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
@@ -30,7 +38,7 @@ export class PlayerCommand extends GoblinCommand {
 		const playerTag = await this.coc.playerHelper.dynamicTag(interaction);
 		const player = await this.coc.playerHelper.info(interaction, playerTag);
 
-		const infoEmbed = PlayerCommand.infoEmbed(player);
+		const infoEmbed = await this.infoEmbed(player);
 		const unitsEmbed = PlayerCommand.unitsEmbed(player);
 		await interaction.editReply({
 			embeds: [infoEmbed],
@@ -103,7 +111,7 @@ export class PlayerCommand extends GoblinCommand {
 			]);
 	}
 
-	private static infoEmbed(player: GoblinPlayer) {
+	private async infoEmbed(player: GoblinPlayer) {
 		let description = '';
 
 		description += `${MiscEmotes.Exp} ${player.expLevel} ${MiscEmotes.HomeTrophy} ${player.trophies} ${MiscEmotes.WarStars} ${player.warStars}`;
@@ -121,11 +129,23 @@ export class PlayerCommand extends GoblinCommand {
 			MiscEmotes.Shield
 		} ${player.defenseWins}`;
 
+		const linkedData = await this.sql<
+			{ userId: string }[]
+		>`SELECT user_id FROM players WHERE player_tag = ${player.tag}`;
+
+		let linkedValue = '';
+		if (isNullishOrEmpty(linkedData)) {
+			linkedValue = 'Not linked to any user';
+		} else {
+			linkedValue = linkedData.map((data) => userMention(data.userId)).join('\n');
+		}
+
 		return new EmbedBuilder()
 			.setTitle(player.name)
 			.setURL(player.shareLink)
 			.setDescription(description)
 			.addFields(
+				{ name: 'Link Info', value: linkedValue, inline: false },
 				{ name: '\u200B', value: seasonStats, inline: false },
 				{
 					name: '\u200B',
