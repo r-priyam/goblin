@@ -19,11 +19,13 @@ export class BotListener extends Listener<typeof Events.MessageCreate> {
 		}
 
 		const cachedAlias = await this.redis.fetch(RedisKeys.ClanAlias, undefined);
-		const parsedMessage = message.content.toUpperCase().split(' ', 1)[0];
+		const aliasedMessage = message.content.toUpperCase().split(' ', 1);
 
-		if (!cachedAlias) {
+		if (aliasedMessage.length > 1 || !cachedAlias) {
 			return;
 		}
+
+		const parsedMessage = aliasedMessage[0];
 
 		let tag: string = parsedMessage;
 		if (
