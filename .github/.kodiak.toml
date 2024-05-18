@@ -9,6 +9,6 @@ method = 'squash'
 versions = ["minor", "patch"]
 usernames = ["dependabot", "renovate"]
 
-[approve]
-auto_approve_usernames = ["dependabot", "renovate"]
-auto_approve_labels = ["dependencies"]
+# [approve]
+# auto_approve_usernames = ["dependabot", "renovate"]
+# auto_approve_labels = ["dependencies"]
