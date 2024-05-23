@@ -95,7 +95,10 @@ export class WhoIsCommand extends GoblinCommand {
 				inline: false
 			});
 
-			playersData[`${name} (${tag})`] = PlayerCommand.unitsEmbed(player, ['Builder Troops', 'Heroes'])
+			playersData[`${name} (${tag})|${townHallLevel}`] = PlayerCommand.unitsEmbed(player, [
+				'Builder Troops',
+				'Heroes'
+			])
 				.setTitle(`${name} (${tag})`)
 				.setURL(shareLink)
 				.setDescription(
@@ -114,10 +117,11 @@ export class WhoIsCommand extends GoblinCommand {
 
 		paginator.setSelectMenuOptions((pageIndex) => {
 			if (pageIndex === 1) {
-				return { label: 'Accounts Summary' };
+				return { default: true, label: 'Accounts Summary', emoji: MiscEmotes.Info };
 			}
 
-			return { label: Object.keys(playersData)[pageIndex - 2] };
+			const [label, townHallLevel] = Object.keys(playersData)[pageIndex - 2].split('|');
+			return { label, emoji: TownHallEmotes[Number(townHallLevel)] };
 		});
 
 		return paginator.run(interaction);
