@@ -8,7 +8,7 @@ import type { ChatInputCommandInteraction } from 'discord.js';
 
 import { LabelEmotes, MiscEmotes, RawClanType, RawWarFrequency, TownHallEmotes, WarLeagueEmotes } from '#lib/coc';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
-import { Colors, Emotes, ErrorIdentifiers } from '#utils/constants';
+import { Colors, ErrorIdentifiers } from '#utils/constants';
 import { clanTagOption } from '#utils/functions/commandOptions';
 
 @ApplyOptions<GoblinCommandOptions>({
