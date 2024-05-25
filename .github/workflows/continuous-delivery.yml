@@ -47,4 +47,4 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           command: ${{ secrets.SSH_COMMAND }}
           password: ${{ secrets.SSH_PASSWORD }}
-        #   silent: true
+          silent: true
