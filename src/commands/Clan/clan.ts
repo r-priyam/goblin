@@ -33,28 +33,27 @@ export class ClanCommand extends GoblinCommand {
 			});
 		}
 
-		const infoEmbed = ClanCommand.infoEmbed(clan);
+		const infoEmbed = this.infoEmbed(clan);
 
-		await interaction.editReply({ embeds: [infoEmbed] });
-		return this.injectClanComposition(interaction, infoEmbed, clan);
+		return interaction.editReply({ embeds: [infoEmbed] });
 	}
 
-	private async injectClanComposition(
-		interaction: ChatInputCommandInteraction<'cached'>,
-		embed: EmbedBuilder,
-		clan: Clan
-	) {
-		// remove placeholder field for composition fetch
-		embed.spliceFields(2, 1);
-		embed.addFields({
-			name: '\u200B',
-			value: this.coc.clanHelper.getClanComposition(clan, true) as string,
-			inline: false
-		});
-		return interaction.editReply({ embeds: [embed] });
-	}
+	// private async injectClanComposition(
+	// 	interaction: ChatInputCommandInteraction<'cached'>,
+	// 	embed: EmbedBuilder,
+	// 	clan: Clan
+	// ) {
+	// 	// remove placeholder field for composition fetch
+	// 	embed.spliceFields(2, 1);
+	// 	embed.addFields({
+	// 		name: '\u200B',
+	// 		value: this.coc.clanHelper.getClanComposition(clan, true) as string,
+	// 		inline: false
+	// 	});
+	// 	return interaction.editReply({ embeds: [embed] });
+	// }
 
-	private static infoEmbed(clan: Clan) {
+	private infoEmbed(clan: Clan) {
 		let description = '';
 		description += `${MiscEmotes.HomeTrophy} **${clan.points}** ${MiscEmotes.BuilderTrophy} **${clan.builderBasePoints}** ${MiscEmotes.Members} **${clan.memberCount}**\n\n`;
 		description += clan.description ? `${clan.description}` : 'No description set';
@@ -101,7 +100,7 @@ ${WarLeagueEmotes[clan.warLeague!.name]} ${clan.warLeague!.name}`,
 				},
 				{
 					name: 'Clan Composition',
-					value: `${Emotes.Typing} Fetching clan composition...`,
+					value: this.coc.clanHelper.getClanComposition(clan, true) as string,
 					inline: false
 				}
 			)
