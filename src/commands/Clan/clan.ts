@@ -44,12 +44,11 @@ export class ClanCommand extends GoblinCommand {
 		embed: EmbedBuilder,
 		clan: Clan
 	) {
-		const composition = await this.coc.clanHelper.getClanComposition(clan, true);
 		// remove placeholder field for composition fetch
 		embed.spliceFields(2, 1);
 		embed.addFields({
 			name: '\u200B',
-			value: composition as string,
+			value: this.coc.clanHelper.getClanComposition(clan, true) as string,
 			inline: false
 		});
 		return interaction.editReply({ embeds: [embed] });

@@ -37,11 +37,10 @@ export class ClanHelper {
 		return result.unwrap();
 	}
 
-	public async getClanComposition(clan: Clan, formatComposition = false) {
+	public getClanComposition(clan: Clan, formatComposition = false) {
 		const composition: Record<number, number> = {};
-		const members = await clan.fetchMembers();
 
-		for (const member of members) {
+		for (const member of clan.members) {
 			if (!Object.hasOwn(composition, member.townHallLevel)) {
 				composition[member.townHallLevel] = 0;
 			}
@@ -67,8 +66,6 @@ export class ClanHelper {
 		clan: Clan,
 		{ leaderId, requirements, color }: { color: string; leaderId: string; requirements: string }
 	) {
-		const composition = await this.getClanComposition(clan, true);
-
 		return new EmbedBuilder()
 			.setTitle(clan.name)
 			.setURL(clan.shareLink)
@@ -103,8 +100,7 @@ ${WarLeagueEmotes[clan.warLeague!.name]} ${clan.warLeague!.name}`,
 				},
 				{
 					name: '\u200B',
-					// TODO: Send loading message here instead of delaying the output
-					value: composition as string,
+					value: this.getClanComposition(clan, true) as string,
 					inline: false
 				},
 				{
