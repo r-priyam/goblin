@@ -8,7 +8,7 @@ import { Routes, RESTJSONErrorCodes } from 'discord-api-types/v10';
 import { Status } from 'discord.js';
 import { fetch } from 'undici';
 
-import type { SKRSContext2D } from '@napi-rs/canvas';
+import type { Image, SKRSContext2D } from '@napi-rs/canvas';
 import type { ClanWar, WarClan, HTTPError as COCHttpError } from 'clashofclans.js';
 import type { HTTPError } from 'discord.js';
 
@@ -100,8 +100,7 @@ export class EYGWarEndImagePoster extends ScheduledTask {
 				break;
 		}
 
-		const image = await this.generateWarImage(war.clan, war.opponent, clanColor, opponentColor);
-
+		const image = await this.generateWarImage(war, clanColor, opponentColor);
 		const result = await Result.fromAsync<unknown, HTTPError>(async () =>
 			this.client.rest.post(Routes.channelMessages(data.channelId), {
 				files: [{ data: image, name: `${war.clan.name}-result.png` }]
@@ -161,25 +160,39 @@ export class EYGWarEndImagePoster extends ScheduledTask {
         `;
 	}
 
-	private async generateWarImage(clan: WarClan, opponentClan: WarClan, clanColor: string, opponentColor: string) {
+	private async generateWarImage(war: ClanWar, clanColor: string, opponentColor: string) {
 		const canvas = createCanvas(2496, 1404);
 		const context = canvas.getContext('2d');
 		const background = await loadImage(new URL('images/WarResultBackground.jpg', MetaDir));
 
 		context.drawImage(background, 0, 0, canvas.width, canvas.height);
-		await this.drawStar(context);
-		await this.drawClanBadge(context, clan.badge.url, opponentClan.badge.url);
-		this.drawText(context, clan, opponentClan, clanColor, opponentColor);
+		await this.drawStar(context, war);
+		await this.drawClanBadge(context, war.clan.badge.url, war.opponent.badge.url);
+		this.drawText(context, war.clan, war.opponent, clanColor, opponentColor);
 
 		return canvas.encode('png');
 	}
 
-	private async drawStar(context: SKRSContext2D) {
-		const greenStar = await loadImage(new URL('images/GreenStar.png', MetaDir));
-		const redStar = await loadImage(new URL('images/RedStar.png', MetaDir));
+	private async drawStar(context: SKRSContext2D, war: ClanWar) {
+		// Left star is for the clan, right star is for the opponent
+		let leftStar: Image;
+		let rightStar: Image;
+		switch (war.status) {
+			case 'lose':
+				leftStar = await loadImage(new URL('images/RedStar.png', MetaDir));
+				rightStar = await loadImage(new URL('images/GreenStar.png', MetaDir));
+				break;
+			case 'win':
+				leftStar = await loadImage(new URL('images/GreenStar.png', MetaDir));
+				rightStar = await loadImage(new URL('images/RedStar.png', MetaDir));
+				break;
+			default:
+				leftStar = await loadImage(new URL('images/Star.png', MetaDir));
+				rightStar = await loadImage(new URL('images/Star.png', MetaDir));
+		}
 
-		context.drawImage(greenStar, 850, 750, 200, 200);
-		context.drawImage(redStar, 1450, 750, 200, 200);
+		context.drawImage(leftStar, 850, 750, 200, 200);
+		context.drawImage(rightStar, 1450, 750, 200, 200);
 	}
 
 	private async drawClanBadge(context: SKRSContext2D, clanBadgeUrl: string, opponentBadgeUrl: string) {
