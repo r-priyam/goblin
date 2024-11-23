@@ -24,7 +24,7 @@ export class ModalHandler extends InteractionHandler {
 	}
 
 	public override async parse(interaction: ModalSubmitInteraction) {
-		if (!interaction.customId.startsWith(ModalCustomIds.StartClanEmbed)) {
+		if (!interaction.customId.startsWith(ModalCustomIds.StartClanEmbed) || !interaction.channel?.isSendable()) {
 			return this.none();
 		}
 
@@ -80,6 +80,7 @@ export class ModalHandler extends InteractionHandler {
 		leaderId: string,
 		color: string
 	) {
+		// @ts-expect-error Sendable channel is checked above
 		const automationMessage = await interaction.channel!.send({
 			embeds: [
 				await this.coc.clanHelper.generateAutomationClanEmbed(clan, {

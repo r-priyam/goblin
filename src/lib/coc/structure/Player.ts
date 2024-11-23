@@ -11,12 +11,8 @@ export class GoblinPlayer extends Player {
 	 */
 	public units: UnitsHelper;
 
-	public constructor(
-		public override client: GoblinClashClient,
-		data: APIPlayer
-	) {
-		super(client, data);
-
+	public constructor(client: GoblinClashClient, data: APIPlayer) {
+		super(client, data); // Pass `client` and `data` to the base class constructor
 		this.units = new UnitsHelper(this);
 	}
 

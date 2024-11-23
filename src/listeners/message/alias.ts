@@ -14,7 +14,7 @@ import type { Message } from 'discord.js';
 })
 export class BotListener extends Listener<typeof Events.MessageCreate> {
 	public async run(message: Message) {
-		if (message.author.bot || message.content.length > 75) {
+		if (message.author.bot || message.channel.isDMBased() || message.content.length > 75) {
 			return;
 		}
 

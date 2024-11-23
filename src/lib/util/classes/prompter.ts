@@ -29,6 +29,8 @@ export class Prompter {
 	}
 
 	public async prompt() {
+		if (!this.interaction.channel?.isSendable()) return false;
+
 		if (this.interaction.replied || this.interaction.deferred) {
 			await this.interaction.editReply({
 				embeds: [this.prompterEmbed],
