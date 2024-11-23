@@ -6,10 +6,10 @@ import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
 import { Util } from 'clashofclans.js';
 import { fetch } from 'undici';
 
+import type { RequestOptions } from 'clashofclans.js';
+
 import { RedisKeys } from '#utils/constants';
 import { seconds } from '#utils/functions/time';
-
-import type { RequestOptions } from 'clashofclans.js';
 
 export class LinkApi {
 	private readonly userName: string;

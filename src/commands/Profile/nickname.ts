@@ -6,13 +6,13 @@ import { Util } from 'clashofclans.js';
 import { PermissionFlagsBits, RESTJSONErrorCodes, Routes } from 'discord-api-types/v10';
 import { ActionRowBuilder, EmbedBuilder, StringSelectMenuBuilder, bold, inlineCode, userMention } from 'discord.js';
 
-import { TownHallEmotes } from '#lib/coc';
-import { GoblinCommand } from '#lib/extensions/GoblinCommand';
-import { Colors, Emotes, ErrorIdentifiers, SelectMenuCustomIds } from '#utils/constants';
-
 import type { GoblinPlayer } from '#lib/coc';
 import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import type { ChatInputCommandInteraction, HTTPError } from 'discord.js';
+
+import { TownHallEmotes } from '#lib/coc';
+import { GoblinCommand } from '#lib/extensions/GoblinCommand';
+import { Colors, Emotes, ErrorIdentifiers, SelectMenuCustomIds } from '#utils/constants';
 
 @ApplyOptions<GoblinCommandOptions>({
 	command: (builder) =>

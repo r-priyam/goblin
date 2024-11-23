@@ -4,14 +4,14 @@ import { Util } from 'clashofclans.js';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
 import { bold, EmbedBuilder, ChatInputCommandInteraction } from 'discord.js';
 
+import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
+import type { ChatInputCommand } from '@sapphire/framework';
+
 import { ValidateTag } from '#lib/decorators/ValidateTag';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors, Emotes, ErrorIdentifiers } from '#utils/constants';
 import { automationMemberCheck } from '#utils/functions/automationMemberCheck';
 import { addTagOption } from '#utils/functions/commandOptions';
-
-import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
-import type { ChatInputCommand } from '@sapphire/framework';
 
 @ApplyOptions<GoblinCommandOptions>({
 	command: (builder) =>

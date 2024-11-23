@@ -4,9 +4,9 @@ import { URL } from 'node:url';
 import { parse as parseToml } from '@ltd/j-toml';
 import { Collection } from 'discord.js';
 
-import { RootDir } from '#utils/constants';
-
 import type { FAQ } from '#lib/types/Faqs';
+
+import { RootDir } from '#utils/constants';
 
 export const faqsCache = new Collection<string, FAQ>();
 

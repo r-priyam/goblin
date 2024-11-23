@@ -2,9 +2,9 @@ import { createFunctionPrecondition } from '@sapphire/decorators';
 import { UserError } from '@sapphire/framework';
 import { envParseString } from '@skyra/env-utilities';
 
-import { ErrorIdentifiers } from '#utils/constants';
-
 import type { CommandInteraction, GuildMember } from 'discord.js';
+
+import { ErrorIdentifiers } from '#utils/constants';
 
 export const EygInterviewCheck = (): MethodDecorator =>
 	createFunctionPrecondition((interaction: CommandInteraction<'cached'>) => {

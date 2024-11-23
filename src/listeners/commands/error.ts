@@ -2,10 +2,10 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { Events, Listener } from '@sapphire/framework';
 import { SubcommandPluginEvents } from '@sapphire/plugin-subcommands';
 
-import { commandErrorHandler } from '#utils/functions/errorHandler';
-
 import type { ChatInputCommandErrorPayload } from '@sapphire/framework';
 import type { ChatInputSubcommandErrorPayload } from '@sapphire/plugin-subcommands';
+
+import { commandErrorHandler } from '#utils/functions/errorHandler';
 
 @ApplyOptions<Listener.Options>({
 	name: 'ChatInputCommandError',

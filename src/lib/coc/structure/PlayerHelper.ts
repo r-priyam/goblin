@@ -3,12 +3,12 @@ import { Result } from '@sapphire/result';
 import { isNullishOrEmpty } from '@sapphire/utilities';
 import { bold, ChatInputCommandInteraction } from 'discord.js';
 
+import type { GoblinPlayer } from '#lib/coc';
+import type { HTTPError } from 'clashofclans.js';
+
 import { ErrorMessages } from '#lib/coc';
 import { ValidateTag } from '#lib/decorators/ValidateTag';
 import { ErrorIdentifiers } from '#utils/constants';
-
-import type { GoblinPlayer } from '#lib/coc';
-import type { HTTPError } from 'clashofclans.js';
 
 export class PlayerHelper {
 	@ValidateTag({ prefix: 'player', isDynamic: true })

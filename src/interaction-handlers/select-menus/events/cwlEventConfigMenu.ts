@@ -2,6 +2,8 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes, UserError } from '@sapphire/framework';
 import { ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } from 'discord.js';
 
+import type { StringSelectMenuInteraction } from 'discord.js';
+
 import {
 	ErrorIdentifiers,
 	ModalCustomIds,
@@ -10,8 +12,6 @@ import {
 	SelectMenuOptionsValue
 } from '#utils/constants';
 import { checkUser } from '#utils/functions/eventHelpers';
-
-import type { StringSelectMenuInteraction } from 'discord.js';
 
 @ApplyOptions<InteractionHandler.Options>({
 	interactionHandlerType: InteractionHandlerTypes.SelectMenu

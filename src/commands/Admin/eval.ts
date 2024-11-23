@@ -8,11 +8,11 @@ import { isThenable } from '@sapphire/utilities';
 import { envParseString } from '@skyra/env-utilities';
 import { EmbedBuilder, codeBlock } from 'discord.js';
 
-import { GoblinCommand } from '#lib/extensions/GoblinCommand';
-import { Colors } from '#utils/constants';
-
 import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import type { CommandInteraction, ChatInputCommandInteraction } from 'discord.js';
+
+import { GoblinCommand } from '#lib/extensions/GoblinCommand';
+import { Colors } from '#utils/constants';
 
 @ApplyOptions<GoblinCommandOptions>({
 	command: (builder) =>

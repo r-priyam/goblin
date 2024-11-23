@@ -4,12 +4,12 @@ import { URL } from 'node:url';
 import { ApplyOptions } from '@sapphire/decorators';
 import { AttachmentBuilder } from 'discord.js';
 
+import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
+import type { ChatInputCommandInteraction } from 'discord.js';
+
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { RootDir } from '#utils/constants';
 import { faqsCache } from '#utils/faq';
-
-import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
-import type { ChatInputCommandInteraction } from 'discord.js';
 
 @ApplyOptions<GoblinCommandOptions>({
 	command: (builder) =>

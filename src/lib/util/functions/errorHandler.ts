@@ -2,6 +2,9 @@ import { container, Events, UserError } from '@sapphire/framework';
 import Sentry from '@sentry/node';
 import { DiscordAPIError, HTTPError } from 'discord.js';
 
+import type { InteractionHandlerError, InteractionHandlerParseError } from '@sapphire/framework';
+import type { ChatInputCommandInteraction } from 'discord.js';
+
 import {
 	errorEmbedUser,
 	getWarnError,
@@ -10,9 +13,6 @@ import {
 	sendCommandErrorToUser,
 	sendErrorToUser
 } from '#utils/functions/errorHelper';
-
-import type { InteractionHandlerError, InteractionHandlerParseError } from '@sapphire/framework';
-import type { ChatInputCommandInteraction } from 'discord.js';
 
 export async function commandErrorHandler(error: Error, interaction: ChatInputCommandInteraction) {
 	if (typeof error === 'string') {

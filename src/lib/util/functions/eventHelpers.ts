@@ -1,9 +1,9 @@
 import { UserError } from '@sapphire/framework';
 import { bold, channelMention, italic, roleMention, ButtonBuilder } from 'discord.js';
 
-import { ErrorIdentifiers, EventConfigDefaultValues } from '#utils/constants';
-
 import type { ButtonStyle } from 'discord.js';
+
+import { ErrorIdentifiers, EventConfigDefaultValues } from '#utils/constants';
 
 export function eventConfigMessage({
 	eventName,

@@ -2,14 +2,14 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { UserError } from '@sapphire/framework';
 import { EmbedBuilder } from 'discord.js';
 
+import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
+import type { Clan } from 'clashofclans.js';
+import type { ChatInputCommandInteraction } from 'discord.js';
+
 import { LabelEmotes, MiscEmotes, RawClanType, RawWarFrequency, TownHallEmotes, WarLeagueEmotes } from '#lib/coc';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors, ErrorIdentifiers } from '#utils/constants';
 import { clanTagOption } from '#utils/functions/commandOptions';
-
-import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
-import type { Clan } from 'clashofclans.js';
-import type { ChatInputCommandInteraction } from 'discord.js';
 
 @ApplyOptions<GoblinCommandOptions>({
 	command: (builder) =>

@@ -2,10 +2,10 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes } from '@sapphire/framework';
 import { ActionRowBuilder, EmbedBuilder, StringSelectMenuBuilder, bold, ButtonStyle } from 'discord.js';
 
+import type { StringSelectMenuInteraction, ButtonBuilder, StringSelectMenuComponentData } from 'discord.js';
+
 import { ButtonCustomIds, Colors, SelectMenuCustomIds } from '#utils/constants';
 import { makeButton } from '#utils/functions/eventHelpers';
-
-import type { StringSelectMenuInteraction, ButtonBuilder, StringSelectMenuComponentData } from 'discord.js';
 
 @ApplyOptions<InteractionHandler.Options>({
 	interactionHandlerType: InteractionHandlerTypes.SelectMenu

@@ -4,9 +4,9 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes, UserError } from '@sapphire/framework';
 import { isNullOrUndefinedOrEmpty } from '@sapphire/utilities';
 
-import { ButtonCustomIds, ErrorIdentifiers } from '#utils/constants';
-
 import type { ButtonInteraction } from 'discord.js';
+
+import { ButtonCustomIds, ErrorIdentifiers } from '#utils/constants';
 
 @ApplyOptions<InteractionHandler.Options>({
 	interactionHandlerType: InteractionHandlerTypes.Button

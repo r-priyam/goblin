@@ -2,10 +2,10 @@ import { codeBlock } from '@sapphire/utilities';
 import { RESTJSONErrorCodes } from 'discord-api-types/v10';
 import { userMention, EmbedBuilder } from 'discord.js';
 
-import { Colors, Emotes } from '#utils/constants';
-
 import type { UserError } from '@sapphire/framework';
 import type { CommandInteraction, DiscordAPIError, HTTPError, Interaction } from 'discord.js';
+
+import { Colors, Emotes } from '#utils/constants';
 
 export const IgnoredCodes = new Set([RESTJSONErrorCodes.UnknownChannel, RESTJSONErrorCodes.UnknownMessage]);
 export const UnidentifiedErrorMessage = `UH OH! Looks like something went wrong which I was not able to identify. Please report it to ${userMention(

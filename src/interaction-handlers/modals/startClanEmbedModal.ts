@@ -3,6 +3,9 @@ import { SnowflakeRegex } from '@sapphire/discord.js-utilities';
 import { InteractionHandler, InteractionHandlerTypes, UserError } from '@sapphire/framework';
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, inlineCode } from 'discord.js';
 
+import type { Clan } from 'clashofclans.js';
+import type { ModalSubmitInteraction } from 'discord.js';
+
 import {
 	ButtonCustomIds,
 	Colors,
@@ -11,9 +14,6 @@ import {
 	ModalCustomIds,
 	ModalInputCustomIds
 } from '#utils/constants';
-
-import type { Clan } from 'clashofclans.js';
-import type { ModalSubmitInteraction } from 'discord.js';
 
 @ApplyOptions<InteractionHandler.Options>({
 	interactionHandlerType: InteractionHandlerTypes.ModalSubmit

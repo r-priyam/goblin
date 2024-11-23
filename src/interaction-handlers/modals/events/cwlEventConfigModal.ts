@@ -3,6 +3,8 @@ import { SnowflakeRegex } from '@sapphire/discord.js-utilities';
 import { InteractionHandler, InteractionHandlerTypes, UserError } from '@sapphire/framework';
 import { EmbedBuilder } from 'discord.js';
 
+import type { ModalSubmitInteraction } from 'discord.js';
+
 import {
 	Colors,
 	ErrorIdentifiers,
@@ -11,8 +13,6 @@ import {
 	ModalInputCustomIds
 } from '#utils/constants';
 import { checkUser, eventConfigMessage, extractConfigsFromValues } from '#utils/functions/eventHelpers';
-
-import type { ModalSubmitInteraction } from 'discord.js';
 
 @ApplyOptions<InteractionHandler.Options>({
 	interactionHandlerType: InteractionHandlerTypes.ModalSubmit

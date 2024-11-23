@@ -4,6 +4,8 @@ import { isNullishOrEmpty } from '@sapphire/utilities';
 import { HTTPError } from 'clashofclans.js';
 import { bold, userMention, EmbedBuilder, ChatInputCommandInteraction } from 'discord.js';
 
+import type { Clan } from 'clashofclans.js';
+
 import {
 	BlueNumberEmotes,
 	ErrorMessages,
@@ -15,8 +17,6 @@ import {
 } from '#lib/coc';
 import { ValidateTag } from '#lib/decorators/ValidateTag';
 import { ErrorIdentifiers } from '#utils/constants';
-
-import type { Clan } from 'clashofclans.js';
 
 export class ClanHelper {
 	@ValidateTag({ prefix: 'clan', isDynamic: true })

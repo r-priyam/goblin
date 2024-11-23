@@ -5,14 +5,14 @@ import { Util } from 'clashofclans.js';
 import { EmbedBuilder, ChatInputCommandInteraction, codeBlock } from 'discord.js';
 import { markdownTable } from 'markdown-table';
 
+import type { GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
+import type { GuildMember } from 'discord.js';
+
 import { ValidateTag } from '#lib/decorators/ValidateTag';
 import { GoblinSubCommand } from '#lib/extensions/GoblinSubCommand';
 import { RedisMethods } from '#lib/redis-cache/RedisCacheClient';
 import { Colors, Emotes, ErrorIdentifiers, RedisKeys } from '#utils/constants';
 import { addTagOption } from '#utils/functions/commandOptions';
-
-import type { GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
-import type { GuildMember } from 'discord.js';
 
 @ApplyOptions<GoblinSubCommandOptions>({
 	command: (builder) =>

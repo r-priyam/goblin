@@ -3,9 +3,9 @@ import { UserError } from '@sapphire/framework';
 import { Util } from 'clashofclans.js';
 import { bold } from 'discord.js';
 
-import { ErrorIdentifiers } from '#utils/constants';
-
 import type { ChatInputCommandInteraction } from 'discord.js';
+
+import { ErrorIdentifiers } from '#utils/constants';
 
 function tagChecker(tag: string, prefix: string) {
 	if (!Util.isValidTag(Util.formatTag(tag!))) {

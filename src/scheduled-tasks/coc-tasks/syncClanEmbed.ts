@@ -4,11 +4,11 @@ import { Result } from '@sapphire/result';
 import { RESTJSONErrorCodes, Routes } from 'discord-api-types/v10';
 import { Status } from 'discord.js';
 
-import { BlueNumberEmotes, TownHallEmotes } from '#lib/coc';
-import { logInfo, logWarning } from '#utils/functions/logging';
-
 import type { Clan, HTTPError as COCHttpError } from 'clashofclans.js';
 import type { HTTPError } from 'discord.js';
+
+import { BlueNumberEmotes, TownHallEmotes } from '#lib/coc';
+import { logInfo, logWarning } from '#utils/functions/logging';
 
 @ApplyOptions<ScheduledTask.Options>({
 	pattern: '00 */2 * * *',

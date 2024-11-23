@@ -4,9 +4,9 @@ import { isNullish } from '@sapphire/utilities';
 import { envParseInteger, envParseString } from '@skyra/env-utilities';
 import Redis from 'ioredis';
 
-import { RedisKeys } from '#utils/constants';
-
 import type { SelectMenuComponentOptionData } from 'discord.js';
+
+import { RedisKeys } from '#utils/constants';
 
 export enum RedisMethods {
 	Delete = 'DELETE',

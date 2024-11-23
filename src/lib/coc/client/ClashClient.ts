@@ -2,13 +2,13 @@ import { Time } from '@sapphire/cron';
 import { envParseString } from '@skyra/env-utilities';
 import { Client, RESTManager } from 'clashofclans.js';
 
+import type { OverrideOptions } from 'clashofclans.js';
+
 import { ClanHelper } from '#lib/coc/structure/ClanHelper';
 import { ClientCache } from '#lib/coc/structure/ClientCache';
 import { LinkApi } from '#lib/coc/structure/LinkApi';
 import { GoblinPlayer } from '#lib/coc/structure/Player';
 import { PlayerHelper } from '#lib/coc/structure/PlayerHelper';
-
-import type { OverrideOptions } from 'clashofclans.js';
 
 export class GoblinClashClient extends Client {
 	public clanHelper: ClanHelper;

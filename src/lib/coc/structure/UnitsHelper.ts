@@ -1,6 +1,8 @@
 import { DarkElixirTroops, ElixirTroops } from 'clashofclans.js';
 import { inlineCode } from 'discord.js';
 
+import type { Player } from 'clashofclans.js';
+
 import {
 	BuilderBaseTroopEmotes,
 	HeroEmotes,
@@ -10,8 +12,6 @@ import {
 	SpellEmotes,
 	SuperTroopEmotes
 } from '#lib/coc';
-
-import type { Player } from 'clashofclans.js';
 
 export class UnitsHelper {
 	private readonly player: Player;

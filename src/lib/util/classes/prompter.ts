@@ -10,10 +10,10 @@ import {
 	EmbedBuilder
 } from 'discord.js';
 
+import type { CommandInteraction, ButtonInteraction } from 'discord.js';
+
 import { Colors, Emotes } from '#utils/constants';
 import { seconds } from '#utils/functions/time';
-
-import type { CommandInteraction, ButtonInteraction } from 'discord.js';
 
 export class Prompter {
 	private readonly interaction: ButtonInteraction | CommandInteraction;
