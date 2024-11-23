@@ -4,10 +4,10 @@ import { isNullishOrEmpty } from '@sapphire/utilities';
 import { Util } from 'clashofclans.js';
 import Fuse, { type FuseResult } from 'fuse.js';
 
+import { RedisKeys } from '#utils/constants';
+
 import type { ClanOrPlayerCache } from '#lib/redis-cache/RedisCacheClient';
 import type { AutocompleteInteraction } from 'discord.js';
-
-import { RedisKeys } from '#utils/constants';
 
 @ApplyOptions<InteractionHandler.Options>({
 	interactionHandlerType: InteractionHandlerTypes.Autocomplete

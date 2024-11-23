@@ -2,11 +2,11 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { Events, Listener } from '@sapphire/framework';
 import { bold, EmbedBuilder } from 'discord.js';
 
-import type { Clan } from 'clashofclans.js';
-import type { Message } from 'discord.js';
-
 import { MiscEmotes } from '#lib/coc';
 import { Colors, RedisKeys } from '#utils/constants';
+
+import type { Clan } from 'clashofclans.js';
+import type { Message } from 'discord.js';
 
 @ApplyOptions<Listener.Options>({
 	name: 'AliasMessageCreate',

@@ -3,9 +3,9 @@ import { envParseArray, envParseString } from '@skyra/env-utilities';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
 import { bold, inlineCode, userMention } from 'discord.js';
 
-import type { GuildMember } from 'discord.js';
-
 import { ErrorIdentifiers } from '#utils/constants';
+
+import type { GuildMember } from 'discord.js';
 
 export function automationMemberCheck(guildId: string, member: GuildMember, checkManageMessage = false) {
 	if (guildId === envParseString('EYG_GUILD') && !envParseArray('OWNERS').includes(member.id)) {

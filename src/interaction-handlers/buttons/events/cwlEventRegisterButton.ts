@@ -5,12 +5,12 @@ import { isNullishOrEmpty } from '@sapphire/utilities';
 import { Util } from 'clashofclans.js';
 import { ActionRowBuilder, EmbedBuilder, StringSelectMenuBuilder, bold } from 'discord.js';
 
-import type { ButtonInteraction, SelectMenuComponentOptionData } from 'discord.js';
-
 import { TownHallEmotes } from '#lib/coc';
 import { Prompter } from '#utils/classes/prompter';
 import { ButtonCustomIds, Colors, ErrorIdentifiers, RedisKeys, SelectMenuCustomIds } from '#utils/constants';
 import { seconds } from '#utils/functions/time';
+
+import type { ButtonInteraction, SelectMenuComponentOptionData } from 'discord.js';
 
 @ApplyOptions<InteractionHandler.Options>({
 	interactionHandlerType: InteractionHandlerTypes.Button
@@ -84,7 +84,7 @@ export class ButtonHandler extends InteractionHandler {
 				...linkedPlayers.map((data) => ({ [data.playerTag]: data.registered }))
 			);
 			const playersData = await Util.allSettled(
-				Object.keys(linkedData).map((tag) => this.container.coc.getPlayer(tag))
+				Object.keys(linkedData).map(async (tag) => this.container.coc.getPlayer(tag))
 			);
 			const players = playersData.filter((player) => player.townHallLevel > 8);
 

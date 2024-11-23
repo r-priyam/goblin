@@ -2,11 +2,11 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { ButtonStyle } from 'discord-api-types/v10';
 import { ActionRowBuilder, ButtonBuilder, EmbedBuilder, time, TimestampStyles } from 'discord.js';
 
-import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
-import type { ChatInputCommandInteraction, GuildMember, Role } from 'discord.js';
-
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#lib/util/constants';
+
+import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
+import type { ChatInputCommandInteraction, GuildMember, Role } from 'discord.js';
 
 const sortRanks = (x: Role, y: Role) => Number(y.position > x.position) || Number(x.position === y.position) - 1;
 
@@ -84,7 +84,7 @@ export class UserInfoCommand extends GoblinCommand {
 		const value = [...roles.values()].join(' ');
 		embed.addFields({
 			name: 'Roles',
-			value: `${value.length > 1024 ? `${value.slice(1, 1020)}...` : value}`,
+			value: `${value.length > 1_024 ? `${value.slice(1, 1_020)}...` : value}`,
 			inline: false
 		});
 	}

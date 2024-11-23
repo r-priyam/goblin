@@ -1,16 +1,16 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { Events, Listener } from '@sapphire/framework';
 
-import type { InteractionHandlerParseError } from '@sapphire/framework';
-
 import { interactionErrorHandler } from '#utils/functions/errorHandler';
+
+import type { InteractionHandlerParseError } from '@sapphire/framework';
 
 @ApplyOptions<Listener.Options>({
 	name: 'InteractionHandlerParser',
 	event: Events.InteractionHandlerParseError
 })
 export class BotListener extends Listener<typeof Events.InteractionHandlerError> {
-	public run(error: Error, payload: InteractionHandlerParseError) {
+	public async run(error: Error, payload: InteractionHandlerParseError) {
 		return interactionErrorHandler(error, payload);
 	}
 }

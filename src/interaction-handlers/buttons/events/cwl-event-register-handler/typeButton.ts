@@ -2,11 +2,11 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes } from '@sapphire/framework';
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
 
-import type { APIButtonComponent } from 'discord-api-types/v10';
-import type { ButtonInteraction } from 'discord.js';
-
 import { ButtonCustomIds } from '#utils/constants';
 import { makeButton } from '#utils/functions/eventHelpers';
+
+import type { APIButtonComponent } from 'discord-api-types/v10';
+import type { ButtonInteraction } from 'discord.js';
 
 @ApplyOptions<InteractionHandler.Options>({
 	interactionHandlerType: InteractionHandlerTypes.Button

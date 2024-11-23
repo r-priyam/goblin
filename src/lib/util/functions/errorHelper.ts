@@ -2,10 +2,10 @@ import { codeBlock } from '@sapphire/utilities';
 import { RESTJSONErrorCodes } from 'discord-api-types/v10';
 import { userMention, EmbedBuilder } from 'discord.js';
 
+import { Colors, Emotes } from '#utils/constants';
+
 import type { UserError } from '@sapphire/framework';
 import type { CommandInteraction, DiscordAPIError, HTTPError, Interaction } from 'discord.js';
-
-import { Colors, Emotes } from '#utils/constants';
 
 export const IgnoredCodes = new Set([RESTJSONErrorCodes.UnknownChannel, RESTJSONErrorCodes.UnknownMessage]);
 export const UnidentifiedErrorMessage = `UH OH! Looks like something went wrong which I was not able to identify. Please report it to ${userMention(
@@ -14,6 +14,7 @@ export const UnidentifiedErrorMessage = `UH OH! Looks like something went wrong 
 
 /**
  * Formats an error path line.
+ *
  * @param error - The error to format.
  */
 export function getPathLine(error: DiscordAPIError | HTTPError): string {
@@ -22,6 +23,7 @@ export function getPathLine(error: DiscordAPIError | HTTPError): string {
 
 /**
  * Formats an error code line.
+ *
  * @param error - The error to format.
  */
 export function getCodeLine(error: DiscordAPIError | HTTPError): string {
@@ -30,6 +32,7 @@ export function getCodeLine(error: DiscordAPIError | HTTPError): string {
 
 /**
  * Formats an error codeblock.
+ *
  * @param error - The error to format.
  */
 export function getErrorLine(error: Error): string {
@@ -37,7 +40,8 @@ export function getErrorLine(error: Error): string {
 }
 
 export async function handleUserError(interaction: Interaction, error: UserError) {
-	if (Reflect.get(Object(error.context), 'silent')) {
+	// eslint-disable-next-line no-new-object
+	if (Reflect.get(new Object(error.context), 'silent')) {
 		return;
 	}
 
@@ -48,7 +52,8 @@ export async function handleUserError(interaction: Interaction, error: UserError
 	await sendErrorToUser(
 		interaction,
 		errorEmbedUser(error.message ?? UnidentifiedErrorMessage),
-		Reflect.get(Object(error.context), 'followUp')
+		// eslint-disable-next-line no-new-object
+		Reflect.get(new Object(error.context), 'followUp')
 	);
 }
 

@@ -4,9 +4,9 @@ import { isNullish } from '@sapphire/utilities';
 import { envParseInteger, envParseString } from '@skyra/env-utilities';
 import Redis from 'ioredis';
 
-import type { SelectMenuComponentOptionData } from 'discord.js';
-
 import { RedisKeys } from '#utils/constants';
+
+import type { SelectMenuComponentOptionData } from 'discord.js';
 
 export enum RedisMethods {
 	Delete = 'DELETE',
@@ -111,14 +111,14 @@ export class GoblinRedisClient extends Redis {
 	}
 }
 
-export interface ClanOrPlayerCache {
+export type ClanOrPlayerCache = {
 	name: string;
 	tag: string;
-}
+};
 
-interface ClanAliasCache extends ClanOrPlayerCache {
+type ClanAliasCache = ClanOrPlayerCache & {
 	alias: string;
-}
+};
 
 type RedisKeyQuery<K extends RedisKeys> = K extends RedisKeys.Player
 	? string

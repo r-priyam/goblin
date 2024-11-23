@@ -3,10 +3,10 @@ import { InteractionHandler, InteractionHandlerTypes } from '@sapphire/framework
 import { envParseString } from '@skyra/env-utilities';
 import { ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } from 'discord.js';
 
-import type { ButtonInteraction, GuildMember } from 'discord.js';
-
 import { ButtonCustomIds, ModalCustomIds, ModalInputCustomIds } from '#utils/constants';
 import { automationMemberCheck } from '#utils/functions/automationMemberCheck';
+
+import type { ButtonInteraction, GuildMember } from 'discord.js';
 
 @ApplyOptions<InteractionHandler.Options>({
 	interactionHandlerType: InteractionHandlerTypes.Button

@@ -3,14 +3,14 @@ import { isNullishOrEmpty } from '@sapphire/utilities';
 import { SuperTroops } from 'clashofclans.js';
 import { ActionRowBuilder, EmbedBuilder, StringSelectMenuBuilder } from 'discord.js';
 
-import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
-import type { Clan } from 'clashofclans.js';
-import type { ChatInputCommandInteraction } from 'discord.js';
-
 import { SuperTroopEmotes } from '#lib/coc';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors, SelectMenuCustomIds } from '#utils/constants';
 import { clanTagOption } from '#utils/functions/commandOptions';
+
+import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
+import type { Clan } from 'clashofclans.js';
+import type { ChatInputCommandInteraction } from 'discord.js';
 
 @ApplyOptions<GoblinCommandOptions>({
 	command: (builder) =>

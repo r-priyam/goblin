@@ -3,9 +3,9 @@ import { ScheduledTask } from '@sapphire/plugin-scheduled-tasks';
 import { envParseString } from '@skyra/env-utilities';
 import { bold, inlineCode, userMention, EmbedBuilder, Status } from 'discord.js';
 
-import type { TextChannel } from 'discord.js';
-
 import { Colors } from '#utils/constants';
+
+import type { TextChannel } from 'discord.js';
 
 @ApplyOptions<ScheduledTask.Options>({
 	pattern: '*/01 * * * *',
@@ -20,7 +20,6 @@ export class EygMemberCheck extends ScheduledTask {
 		}
 
 		const eygGuild = await this.client.guilds.fetch(envParseString('EYG_GUILD'));
-		// TODO: Write pending members check
 		// const pendingMembers = await eygGuild.members.fetch().then((data) => [...data.values()].filter((member) => member.pending));
 
 		const checkRoleMembers = await eygGuild.members
@@ -74,7 +73,7 @@ export class EygMemberCheck extends ScheduledTask {
 	}
 
 	private getMinutes(time: Date) {
-		let diff = (time.getTime() - Date.now()) / 1000;
+		let diff = (time.getTime() - Date.now()) / 1_000;
 		diff /= 60;
 		return Math.abs(Math.round(diff));
 	}

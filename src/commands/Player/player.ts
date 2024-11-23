@@ -11,17 +11,17 @@ import {
 	userMention
 } from 'discord.js';
 
-import type { GoblinPlayer } from '#lib/coc';
-import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
-import type { Achievement } from 'clashofclans.js';
-import type { ChatInputCommandInteraction } from 'discord.js';
-
 import { LabelEmotes, MiscEmotes, RawPosition } from '#lib/coc';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { collectorFiler } from '#utils/InteractionHelpers';
 import { Colors } from '#utils/constants';
 import { playerTagOption } from '#utils/functions/commandOptions';
 import { humanizeNumber } from '#utils/utils';
+
+import type { GoblinPlayer } from '#lib/coc';
+import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
+import type { Achievement } from 'clashofclans.js';
+import type { ChatInputCommandInteraction } from 'discord.js';
 
 @ApplyOptions<GoblinCommandOptions>({
 	command: (builder) =>
@@ -48,7 +48,7 @@ export class PlayerCommand extends GoblinCommand {
 		const authorId = interaction.user.id;
 		const collector = message.channel.createMessageComponentCollector({
 			componentType: ComponentType.Button,
-			filter: (interaction) => collectorFiler(interaction, authorId, message.id),
+			filter: async (interaction) => collectorFiler(interaction, authorId, message.id),
 			time: Time.Minute * 2
 		});
 

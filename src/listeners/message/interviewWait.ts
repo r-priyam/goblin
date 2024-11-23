@@ -4,9 +4,9 @@ import { Events, Listener } from '@sapphire/framework';
 import { envParseString } from '@skyra/env-utilities';
 import { ChannelType, bold, roleMention, time, TimestampStyles } from 'discord.js';
 
-import type { Message } from 'discord.js';
-
 import { seconds } from '#utils/functions/time';
+
+import type { Message } from 'discord.js';
 
 @ApplyOptions<Listener.Options>({
 	name: 'InterviewWaitMessageCreate',

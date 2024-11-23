@@ -4,8 +4,6 @@ import { isNullishOrEmpty } from '@sapphire/utilities';
 import { HTTPError } from 'clashofclans.js';
 import { bold, userMention, EmbedBuilder, ChatInputCommandInteraction } from 'discord.js';
 
-import type { Clan } from 'clashofclans.js';
-
 import {
 	BlueNumberEmotes,
 	ErrorMessages,
@@ -18,10 +16,12 @@ import {
 import { ValidateTag } from '#lib/decorators/ValidateTag';
 import { ErrorIdentifiers } from '#utils/constants';
 
+import type { Clan } from 'clashofclans.js';
+
 export class ClanHelper {
 	@ValidateTag({ prefix: 'clan', isDynamic: true })
 	public async info(_interaction: ChatInputCommandInteraction<'cached'>, tag: string) {
-		const result = await Result.fromAsync(() => container.coc.getClan(tag));
+		const result = await Result.fromAsync(async () => container.coc.getClan(tag));
 		if (result.isErr()) {
 			const error = result.unwrapErr();
 			if (error instanceof HTTPError) {
@@ -93,7 +93,7 @@ ${MiscEmotes.Win} ${clan.warWins} Won ${MiscEmotes.Lose} ${clan.warLosses ?? 0} 
 						clan.warTies ?? 0
 					} Tied
 **Win Streak**\n${MiscEmotes.Streak} ${clan.warWinStreak}\n**War Frequency**
-${RawWarFrequency[clan.warFrequency]}
+${RawWarFrequency[clan.warFrequency ?? 'unknown']}
 **War League**
 ${WarLeagueEmotes[clan.warLeague!.name]} ${clan.warLeague!.name}`,
 					inline: false

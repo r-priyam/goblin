@@ -8,11 +8,11 @@ import { isThenable } from '@sapphire/utilities';
 import { envParseString } from '@skyra/env-utilities';
 import { EmbedBuilder, codeBlock } from 'discord.js';
 
-import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
-import type { CommandInteraction, ChatInputCommandInteraction } from 'discord.js';
-
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#utils/constants';
+
+import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
+import type { CommandInteraction, ChatInputCommandInteraction } from 'discord.js';
 
 @ApplyOptions<GoblinCommandOptions>({
 	command: (builder) =>
@@ -61,7 +61,7 @@ export class EvalCommand extends GoblinCommand {
 		const { result, success, type, elapsed } = await this.eval(interaction, code, { isAsync, depth });
 		const output = success ? codeBlock('js', result) : codeBlock('bash', result);
 
-		const embedLimitReached = output.length > 4096;
+		const embedLimitReached = output.length > 4_096;
 		const embed = new EmbedBuilder()
 			.setTitle('Info')
 			.setDescription(embedLimitReached ? 'Output was too long! The result has been sent as a file.' : output)

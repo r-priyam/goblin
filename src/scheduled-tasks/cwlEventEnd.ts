@@ -4,10 +4,10 @@ import { Result } from '@sapphire/result';
 import { Routes } from 'discord-api-types/v10';
 import { bold, roleMention, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } from 'discord.js';
 
-import type { HTTPError } from 'discord.js';
-
 import { ButtonCustomIds, Colors } from '#utils/constants';
 import { useErrorLogsWebhook } from '#utils/webhooks/errorLogs';
+
+import type { HTTPError } from 'discord.js';
 
 @ApplyOptions<ScheduledTask.Options>({
 	name: 'cwlEventEnd',

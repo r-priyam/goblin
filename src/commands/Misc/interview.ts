@@ -5,12 +5,12 @@ import { PermissionFlagsBits } from 'discord-api-types/v10';
 import { ChatInputCommandInteraction, EmbedBuilder, channelMention, userMention, ChannelType } from 'discord.js';
 import { fetch } from 'undici';
 
-import type { GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
-import type { TextChannel } from 'discord.js';
-
 import { EygInterviewCheck } from '#lib/decorators/EygInterviewCheck';
 import { GoblinSubCommand } from '#lib/extensions/GoblinSubCommand';
 import { Colors, ErrorIdentifiers } from '#utils/constants';
+
+import type { GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
+import type { TextChannel } from 'discord.js';
 
 @ApplyOptions<GoblinSubCommandOptions>({
 	command: (builder) =>

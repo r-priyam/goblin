@@ -3,10 +3,10 @@ import { InteractionHandler, InteractionHandlerTypes } from '@sapphire/framework
 import { PermissionFlagsBits } from 'discord-api-types/v10';
 import { EmbedBuilder, userMention } from 'discord.js';
 
-import type { StringSelectMenuInteraction } from 'discord.js';
-
 import { NicknameCommand } from '#root/commands/Profile/nickname';
 import { Colors, Emotes, SelectMenuCustomIds } from '#utils/constants';
+
+import type { StringSelectMenuInteraction } from 'discord.js';
 
 @ApplyOptions<InteractionHandler.Options>({
 	interactionHandlerType: InteractionHandlerTypes.SelectMenu

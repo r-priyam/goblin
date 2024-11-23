@@ -3,13 +3,13 @@ import { UserError } from '@sapphire/framework';
 import { Util } from 'clashofclans.js';
 import { EmbedBuilder, ChatInputCommandInteraction, inlineCode } from 'discord.js';
 
-import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
-
 import { ValidateTag } from '#lib/decorators/ValidateTag';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { RedisMethods } from '#lib/redis-cache/RedisCacheClient';
 import { Colors, Emotes, ErrorIdentifiers } from '#utils/constants';
 import { addTagOption } from '#utils/functions/commandOptions';
+
+import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 
 @ApplyOptions<GoblinCommandOptions>({
 	command: (builder) =>

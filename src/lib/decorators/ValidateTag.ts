@@ -3,9 +3,9 @@ import { UserError } from '@sapphire/framework';
 import { Util } from 'clashofclans.js';
 import { bold } from 'discord.js';
 
-import type { ChatInputCommandInteraction } from 'discord.js';
-
 import { ErrorIdentifiers } from '#utils/constants';
+
+import type { ChatInputCommandInteraction } from 'discord.js';
 
 function tagChecker(tag: string, prefix: string) {
 	if (!Util.isValidTag(Util.formatTag(tag!))) {
@@ -18,8 +18,8 @@ function tagChecker(tag: string, prefix: string) {
 	return true;
 }
 
-export const ValidateTag = ({ prefix, isDynamic }: { isDynamic?: boolean; prefix: string }): MethodDecorator => {
-	return createFunctionPrecondition((interaction: ChatInputCommandInteraction<'cached'>) => {
+export const ValidateTag = ({ prefix, isDynamic }: { isDynamic?: boolean; prefix: string }): MethodDecorator =>
+	createFunctionPrecondition((interaction: ChatInputCommandInteraction<'cached'>) => {
 		const tag = interaction.options?.getString('tag');
 
 		if (isDynamic && !tag) {
@@ -28,4 +28,3 @@ export const ValidateTag = ({ prefix, isDynamic }: { isDynamic?: boolean; prefix
 
 		return tagChecker(tag!, prefix);
 	});
-};

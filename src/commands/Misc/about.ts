@@ -8,12 +8,12 @@ import { version as sapphireVersion } from '@sapphire/framework';
 import { roundNumber } from '@sapphire/utilities';
 import { EmbedBuilder, version, hideLinkEmbed, hyperlink, time, TimestampStyles, userMention } from 'discord.js';
 
-import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
-import type { ChatInputCommandInteraction } from 'discord.js';
-
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#root/lib/util/constants';
 import { seconds } from '#utils/functions/time';
+
+import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
+import type { ChatInputCommandInteraction } from 'discord.js';
 
 @ApplyOptions<GoblinCommandOptions>({
 	command: (builder) => builder.setName('about').setDescription('Something about myself'),
@@ -99,7 +99,7 @@ export class AboutCommand extends GoblinCommand {
 			channels: client.channels.cache.size,
 			guilds: client.guilds.cache.size,
 			nodeJs: process.version,
-			// eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+
 			users: client.guilds.cache.reduce((acc, val) => acc + (val.memberCount ?? 0), 0),
 			discordjsVersion: `v${version}`,
 			clashofclansVersion: `v${dependencies['clashofclans.js']}`
@@ -108,7 +108,7 @@ export class AboutCommand extends GoblinCommand {
 
 	private get uptimeStatistics() {
 		const now = Date.now();
-		const nowSeconds = roundNumber(now / 1000);
+		const nowSeconds = roundNumber(now / 1_000);
 		return {
 			client: time(seconds.fromMilliseconds(now - this.container.client.uptime!), TimestampStyles.RelativeTime),
 			host: time(roundNumber(nowSeconds - uptime()), TimestampStyles.RelativeTime),

@@ -3,11 +3,11 @@ import { SnowflakeRegex } from '@sapphire/discord.js-utilities';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
 import { DiscordAPIError, EmbedBuilder, userMention } from 'discord.js';
 
-import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
-import type { ChatInputCommandInteraction, User } from 'discord.js';
-
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#utils/constants';
+
+import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
+import type { ChatInputCommandInteraction, User } from 'discord.js';
 
 @ApplyOptions<GoblinCommandOptions>({
 	requiredMemberPermissions: PermissionFlagsBits.BanMembers,

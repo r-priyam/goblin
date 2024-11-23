@@ -3,9 +3,9 @@ import { InteractionHandler, InteractionHandlerTypes, UserError } from '@sapphir
 import { Result } from '@sapphire/result';
 import { EmbedBuilder } from 'discord.js';
 
-import type { ModalSubmitInteraction } from 'discord.js';
-
 import { Colors, Emotes, ErrorIdentifiers, ModalCustomIds, ModalInputCustomIds } from '#utils/constants';
+
+import type { ModalSubmitInteraction } from 'discord.js';
 
 @ApplyOptions<InteractionHandler.Options>({
 	interactionHandlerType: InteractionHandlerTypes.ModalSubmit

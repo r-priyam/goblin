@@ -5,13 +5,13 @@ import { isNullishOrEmpty } from '@sapphire/utilities';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
 import { EmbedBuilder, userMention } from 'discord.js';
 
-import type { GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
-import type { ChatInputCommandInteraction } from 'discord.js';
-
 import { GoblinSubCommand } from '#lib/extensions/GoblinSubCommand';
 import { RedisMethods } from '#lib/redis-cache/RedisCacheClient';
 import { Colors, Emotes, ErrorIdentifiers } from '#utils/constants';
 import { clanTagOption, playerTagOption } from '#utils/functions/commandOptions';
+
+import type { GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
+import type { ChatInputCommandInteraction } from 'discord.js';
 
 @ApplyOptions<GoblinSubCommandOptions>({
 	command: (builder) =>

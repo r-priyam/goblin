@@ -7,10 +7,10 @@ import { envParseString } from '@skyra/env-utilities';
 import { codeBlock } from 'discord.js';
 import { markdownTable } from 'markdown-table';
 
+import { GoblinCommand } from '#lib/extensions/GoblinCommand';
+
 import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import type { ChatInputCommandInteraction } from 'discord.js';
-
-import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 
 @ApplyOptions<GoblinCommandOptions>({
 	command: (builder) =>

@@ -1,9 +1,9 @@
 import { ApplyOptions } from '@sapphire/decorators';
 
+import { GoblinCommand } from '#lib/extensions/GoblinCommand';
+
 import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import type { ChatInputCommandInteraction } from 'discord.js';
-
-import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 
 @ApplyOptions<GoblinCommandOptions>({
 	command: (builder) =>

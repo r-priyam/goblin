@@ -16,11 +16,11 @@ import {
 } from 'discord.js';
 import { nanoid } from 'nanoid';
 
-import type { ButtonInteraction, TextChannel, User } from 'discord.js';
-
 import { ButtonCustomIds, Colors, Emotes, ErrorIdentifiers } from '#utils/constants';
 import { checkUser, extractConfigsFromValues } from '#utils/functions/eventHelpers';
 import { seconds } from '#utils/functions/time';
+
+import type { ButtonInteraction, TextChannel, User } from 'discord.js';
 
 @ApplyOptions<InteractionHandler.Options>({
 	interactionHandlerType: InteractionHandlerTypes.Button
