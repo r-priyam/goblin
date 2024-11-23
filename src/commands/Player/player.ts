@@ -48,7 +48,7 @@ export class PlayerCommand extends GoblinCommand {
 		const authorId = interaction.user.id;
 		const collector = message.channel.createMessageComponentCollector({
 			componentType: ComponentType.Button,
-			filter: (interaction) => collectorFiler(interaction, authorId, message.id),
+			filter: async (interaction) => collectorFiler(interaction, authorId, message.id),
 			time: Time.Minute * 2
 		});
 

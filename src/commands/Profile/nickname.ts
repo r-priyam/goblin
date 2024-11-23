@@ -50,7 +50,9 @@ export class NicknameCommand extends GoblinCommand {
 			});
 		}
 
-		const playersData = await Util.allSettled(data.map((tags) => this.container.coc.getPlayer(tags.playerTag)));
+		const playersData = await Util.allSettled(
+			data.map(async (tags) => this.container.coc.getPlayer(tags.playerTag))
+		);
 
 		if (playersData.length === 1) {
 			await NicknameCommand.updateNickname(

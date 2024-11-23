@@ -138,7 +138,7 @@ export class EYGWarEndImagePoster extends ScheduledTask {
 	}
 
 	private async getClanWar(clanTag: string, channelId: string) {
-		const result = await Result.fromAsync<ClanWar, COCHttpError>(() => this.coc.getClanWar(clanTag));
+		const result = await Result.fromAsync<ClanWar, COCHttpError>(async () => this.coc.getClanWar(clanTag));
 
 		if (result.isErr() && [403, 404].includes(result.unwrapErr().status)) {
 			await this.stopWarImage(clanTag, channelId);
@@ -161,7 +161,7 @@ export class EYGWarEndImagePoster extends ScheduledTask {
 	}
 
 	private async generateWarImage(war: ClanWar, clanColor: string, opponentColor: string) {
-		const canvas = createCanvas(2496, 1404);
+		const canvas = createCanvas(2_496, 1_404);
 		const context = canvas.getContext('2d');
 		const background = await loadImage(new URL('images/WarResultBackground.jpg', MetaDir));
 
@@ -186,13 +186,17 @@ export class EYGWarEndImagePoster extends ScheduledTask {
 				leftStar = await loadImage(new URL('images/GreenStar.png', MetaDir));
 				rightStar = await loadImage(new URL('images/RedStar.png', MetaDir));
 				break;
+			case 'tie':
+				return;
+			case 'pending':
+				return;
 			default:
 				leftStar = await loadImage(new URL('images/Star.png', MetaDir));
 				rightStar = await loadImage(new URL('images/Star.png', MetaDir));
 		}
 
 		context.drawImage(leftStar, 850, 750, 200, 200);
-		context.drawImage(rightStar, 1450, 750, 200, 200);
+		context.drawImage(rightStar, 1_450, 750, 200, 200);
 	}
 
 	private async drawClanBadge(context: SKRSContext2D, clanBadgeUrl: string, opponentBadgeUrl: string) {
@@ -200,7 +204,7 @@ export class EYGWarEndImagePoster extends ScheduledTask {
 		const opponentBadge = await (await fetch(opponentBadgeUrl)).arrayBuffer();
 
 		context.drawImage(await loadImage(clanBadge), 100, 450, 400, 400);
-		context.drawImage(await loadImage(opponentBadge), 1990, 450, 400, 400);
+		context.drawImage(await loadImage(opponentBadge), 1_990, 450, 400, 400);
 	}
 
 	private drawText(
@@ -214,7 +218,7 @@ export class EYGWarEndImagePoster extends ScheduledTask {
 		context.fillStyle = '#E5E8E8 ';
 
 		context.fillText(clan.stars.toString(), 600, 900);
-		context.fillText(opponentClan.stars.toString(), 1700, 900);
+		context.fillText(opponentClan.stars.toString(), 1_700, 900);
 
 		context.font = '55px SuperCell';
 
@@ -222,21 +226,21 @@ export class EYGWarEndImagePoster extends ScheduledTask {
 		context.fillText(clan.name, 600, 600);
 
 		context.fillStyle = opponentColor;
-		context.fillText(opponentClan.name, 1450, 600);
+		context.fillText(opponentClan.name, 1_450, 600);
 
 		context.font = '40px SuperCell';
 
 		context.fillStyle = clanColor;
-		context.fillText(`Attacks - ${clan.attackCount}`, 500, 1050);
-		context.fillText(`Percentage - ${clan.destruction}%`, 500, 1100);
+		context.fillText(`Attacks - ${clan.attackCount}`, 500, 1_050);
+		context.fillText(`Percentage - ${clan.destruction}%`, 500, 1_100);
 
 		context.fillStyle = opponentColor;
-		context.fillText(`Attacks - ${opponentClan.attackCount}`, 1600, 1050);
-		context.fillText(`Percentage - ${opponentClan.destruction}`, 1600, 1100);
+		context.fillText(`Attacks - ${opponentClan.attackCount}`, 1_600, 1_050);
+		context.fillText(`Percentage - ${opponentClan.destruction}`, 1_600, 1_100);
 	}
 }
 
-interface WarImagePosterData {
+type WarImagePosterData = {
 	channelId: string;
 	clanTag: string;
 	drawEnabled: boolean;
@@ -244,4 +248,4 @@ interface WarImagePosterData {
 	opponentTag?: string;
 	warEndTime?: string;
 	winEnabled: boolean;
-}
+};

@@ -84,7 +84,7 @@ export class UserInfoCommand extends GoblinCommand {
 		const value = [...roles.values()].join(' ');
 		embed.addFields({
 			name: 'Roles',
-			value: `${value.length > 1024 ? `${value.slice(1, 1020)}...` : value}`,
+			value: `${value.length > 1_024 ? `${value.slice(1, 1_020)}...` : value}`,
 			inline: false
 		});
 	}

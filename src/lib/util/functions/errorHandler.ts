@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 import { container, Events, UserError } from '@sapphire/framework';
 import Sentry from '@sentry/node';
 import { DiscordAPIError, HTTPError } from 'discord.js';
@@ -52,7 +51,7 @@ export async function commandErrorHandler(error: Error, interaction: ChatInputCo
 	);
 }
 
-export function interactionErrorHandler(
+export async function interactionErrorHandler(
 	error: Error,
 	{ interaction }: InteractionHandlerError | InteractionHandlerParseError
 ) {

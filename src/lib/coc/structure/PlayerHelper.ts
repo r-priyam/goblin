@@ -13,7 +13,7 @@ import { ErrorIdentifiers } from '#utils/constants';
 export class PlayerHelper {
 	@ValidateTag({ prefix: 'player', isDynamic: true })
 	public async info(_interaction: ChatInputCommandInteraction<'cached'>, tag: string): Promise<GoblinPlayer> {
-		const result = await Result.fromAsync<GoblinPlayer, HTTPError>(() => container.coc.getPlayer(tag));
+		const result = await Result.fromAsync<GoblinPlayer, HTTPError>(async () => container.coc.getPlayer(tag));
 
 		if (result.isErr()) {
 			const error = result.unwrapErr();

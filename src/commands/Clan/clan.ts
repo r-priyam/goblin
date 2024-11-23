@@ -93,7 +93,7 @@ ${MiscEmotes.Win} ${clan.warWins} Won ${MiscEmotes.Lose} ${clan.warLosses ?? 0} 
 						clan.warTies ?? 0
 					} Tied
 **Win Streak**\n${MiscEmotes.Streak} ${clan.warWinStreak}\n**War Frequency**
-${RawWarFrequency[clan.warFrequency]}
+${RawWarFrequency[clan.warFrequency ?? 'unknown']}
 **War League**
 ${WarLeagueEmotes[clan.warLeague!.name]} ${clan.warLeague!.name}`,
 					inline: false

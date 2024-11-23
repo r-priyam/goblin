@@ -84,7 +84,7 @@ export class ButtonHandler extends InteractionHandler {
 				...linkedPlayers.map((data) => ({ [data.playerTag]: data.registered }))
 			);
 			const playersData = await Util.allSettled(
-				Object.keys(linkedData).map((tag) => this.container.coc.getPlayer(tag))
+				Object.keys(linkedData).map(async (tag) => this.container.coc.getPlayer(tag))
 			);
 			const players = playersData.filter((player) => player.townHallLevel > 8);
 

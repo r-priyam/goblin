@@ -1,12 +1,5 @@
 import type { SlashCommandStringOption } from 'discord.js';
 
-/**
- * Generate ClanTag or PlayerTag SlashCommandString option
- * @param optionInstance  - {@link SlashCommandStringOption}
- * @param options - {@link TagProperties}
- * @defaultValue `required: false` and `autoComplete: false`
- * @returns - {@link SlashCommandStringOption}
- */
 export function addTagOption(
 	optionInstance:
 		| Omit<SlashCommandStringOption, 'addChoices'>
@@ -21,30 +14,16 @@ export function addTagOption(
 		.setAutocomplete(options.autoComplete ?? false);
 }
 
-/**
- * Generate ClanTag SlashCommandString option
- * @param optionInstance  - {@link SlashCommandStringOption}
- * @param options - {@link TagProperties}
- * @defaultValue `required: false` and `autoComplete: false`
- * @returns - {@link SlashCommandStringOption}
- */
 export const clanTagOption = (optionInstance: SlashCommandStringOption, options: TagProperties) =>
 	addTagOption(optionInstance, { description: 'Tag of the clan', ...options });
 
-/**
- * Generate PlayerTag SlashCommandString option
- * @param optionInstance  - {@link SlashCommandStringOption}
- * @param options - {@link TagProperties}
- * @defaultValue `required: false` and `autoComplete: false`
- * @returns - {@link SlashCommandStringOption}
- */
 export const playerTagOption = (optionInstance: SlashCommandStringOption, options: TagProperties) =>
 	addTagOption(optionInstance, {
 		description: 'Tag of the player',
 		...options
 	});
 
-interface TagProperties {
+type TagProperties = {
 	/**
 	 * Whether this option supports autocomplete
 	 */
@@ -57,4 +36,4 @@ interface TagProperties {
 	 * Whether this option is required
 	 */
 	required?: boolean;
-}
+};

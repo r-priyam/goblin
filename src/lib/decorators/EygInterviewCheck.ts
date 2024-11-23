@@ -6,8 +6,8 @@ import type { CommandInteraction, GuildMember } from 'discord.js';
 
 import { ErrorIdentifiers } from '#utils/constants';
 
-export const EygInterviewCheck = (): MethodDecorator => {
-	return createFunctionPrecondition((interaction: CommandInteraction<'cached'>) => {
+export const EygInterviewCheck = (): MethodDecorator =>
+	createFunctionPrecondition((interaction: CommandInteraction<'cached'>) => {
 		const roleCheck = (interaction.member as GuildMember).roles.cache.hasAny(
 			envParseString('EYG_RECRUIT_ROLE'),
 			envParseString('EYG_ADMINISTRATOR_ROLE')
@@ -22,4 +22,3 @@ export const EygInterviewCheck = (): MethodDecorator => {
 
 		return true;
 	});
-};

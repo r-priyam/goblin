@@ -111,14 +111,14 @@ export class GoblinRedisClient extends Redis {
 	}
 }
 
-export interface ClanOrPlayerCache {
+export type ClanOrPlayerCache = {
 	name: string;
 	tag: string;
-}
+};
 
-interface ClanAliasCache extends ClanOrPlayerCache {
+type ClanAliasCache = ClanOrPlayerCache & {
 	alias: string;
-}
+};
 
 type RedisKeyQuery<K extends RedisKeys> = K extends RedisKeys.Player
 	? string

@@ -39,7 +39,7 @@ We thank you for your patience and can't wait to welcome you in!`.replaceAll('\n
 			)} ${time(seconds.fromMilliseconds(Date.now() + Time.Hour * 8), TimestampStyles.RelativeTime)}`
 		});
 
-		return this.tasks.create(
+		await this.tasks.create(
 			{
 				name: 'interviewWaitTimer',
 				payload: { channelId: message.channelId, messageUrl: timerMessage.url, startedAt: Date.now() }

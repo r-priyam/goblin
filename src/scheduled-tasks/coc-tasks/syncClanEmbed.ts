@@ -94,11 +94,12 @@ export class SyncClanEmbedTask extends ScheduledTask {
 	/**
 	 * Get clan information from the clan tag.
 	 * Stops the clan embed if clan not found and logs it
+	 *
 	 * @param clanTag - Clan Tag to get information for
 	 * @param channelId - Channel ID where the clan board is running
 	 */
 	private async getClan(clanTag: string, channelId: string) {
-		const result = await Result.fromAsync<Clan, COCHttpError>(() => this.coc.getClan(clanTag));
+		const result = await Result.fromAsync<Clan, COCHttpError>(async () => this.coc.getClan(clanTag));
 
 		if (result.isErr() && result.unwrapErr().status === 404) {
 			await this.stopClanEmbed(clanTag, channelId);
@@ -119,11 +120,11 @@ export class SyncClanEmbedTask extends ScheduledTask {
 	}
 }
 
-interface ClanEmbedSyncData {
+type ClanEmbedSyncData = {
 	channelId: string;
 	clanTag: string;
 	color: string;
 	leaderDiscordId: string;
 	messageId: string;
 	requirements: Record<string, number>;
-}
+};

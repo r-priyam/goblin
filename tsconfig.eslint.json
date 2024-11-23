@@ -1,4 +1,4 @@
 {
 	"extends": "./tsconfig.base.json",
-	"include": ["migrations", "src", "scripts", "tsup.config.ts", "index.mjs"]
+	"include": ["migrations", "src", "scripts", "tsup.config.ts", "index.mjs", "eslint.config.mjs"]
 }

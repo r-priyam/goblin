@@ -61,7 +61,7 @@ export class EvalCommand extends GoblinCommand {
 		const { result, success, type, elapsed } = await this.eval(interaction, code, { isAsync, depth });
 		const output = success ? codeBlock('js', result) : codeBlock('bash', result);
 
-		const embedLimitReached = output.length > 4096;
+		const embedLimitReached = output.length > 4_096;
 		const embed = new EmbedBuilder()
 			.setTitle('Info')
 			.setDescription(embedLimitReached ? 'Output was too long! The result has been sent as a file.' : output)

@@ -18,8 +18,8 @@ function tagChecker(tag: string, prefix: string) {
 	return true;
 }
 
-export const ValidateTag = ({ prefix, isDynamic }: { isDynamic?: boolean; prefix: string }): MethodDecorator => {
-	return createFunctionPrecondition((interaction: ChatInputCommandInteraction<'cached'>) => {
+export const ValidateTag = ({ prefix, isDynamic }: { isDynamic?: boolean; prefix: string }): MethodDecorator =>
+	createFunctionPrecondition((interaction: ChatInputCommandInteraction<'cached'>) => {
 		const tag = interaction.options?.getString('tag');
 
 		if (isDynamic && !tag) {
@@ -28,4 +28,3 @@ export const ValidateTag = ({ prefix, isDynamic }: { isDynamic?: boolean; prefix
 
 		return tagChecker(tag!, prefix);
 	});
-};

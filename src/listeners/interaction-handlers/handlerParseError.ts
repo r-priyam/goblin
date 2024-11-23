@@ -10,7 +10,7 @@ import { interactionErrorHandler } from '#utils/functions/errorHandler';
 	event: Events.InteractionHandlerParseError
 })
 export class BotListener extends Listener<typeof Events.InteractionHandlerError> {
-	public run(error: Error, payload: InteractionHandlerParseError) {
+	public async run(error: Error, payload: InteractionHandlerParseError) {
 		return interactionErrorHandler(error, payload);
 	}
 }

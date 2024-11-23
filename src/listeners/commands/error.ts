@@ -12,7 +12,7 @@ import { commandErrorHandler } from '#utils/functions/errorHandler';
 	event: Events.ChatInputCommandError
 })
 export class UserListener extends Listener<typeof Events.ChatInputCommandError> {
-	public run(error: Error, { interaction }: ChatInputCommandErrorPayload) {
+	public async run(error: Error, { interaction }: ChatInputCommandErrorPayload) {
 		return commandErrorHandler(error, interaction);
 	}
 }
@@ -22,7 +22,7 @@ export class UserListener extends Listener<typeof Events.ChatInputCommandError> 
 	event: SubcommandPluginEvents.ChatInputSubcommandError
 })
 export class SubUserListener extends Listener<typeof SubcommandPluginEvents.ChatInputSubcommandError> {
-	public run(error: Error, { interaction }: ChatInputSubcommandErrorPayload) {
+	public async run(error: Error, { interaction }: ChatInputSubcommandErrorPayload) {
 		return commandErrorHandler(error, interaction);
 	}
 }

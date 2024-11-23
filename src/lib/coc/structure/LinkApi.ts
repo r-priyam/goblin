@@ -45,7 +45,7 @@ export class LinkApi {
 
 			const tagsToFetch = [...new Set([...linkApiTags, ...cachedTags])];
 			const playersData = await Util.allSettled(
-				tagsToFetch.slice(0, 5).map((tag) => container.coc.getPlayer(tag))
+				tagsToFetch.slice(0, 5).map(async (tag) => container.coc.getPlayer(tag))
 			);
 
 			const sqlData = playersData.map((player) => ({
@@ -75,7 +75,7 @@ export class LinkApi {
 			return playersData;
 		}
 
-		return Util.allSettled(cachedData.splice(0, 5).map((tag) => container.coc.getPlayer(tag)));
+		return Util.allSettled(cachedData.splice(0, 5).map(async (tag) => container.coc.getPlayer(tag)));
 	}
 
 	public async createLink(playerTag: string, discordId: string) {
