@@ -1,5 +1,5 @@
 import { container, Events, UserError } from '@sapphire/framework';
-import Sentry from '@sentry/node';
+import * as Sentry from '@sentry/node';
 import { DiscordAPIError, HTTPError } from 'discord.js';
 
 import type { InteractionHandlerError, InteractionHandlerParseError } from '@sapphire/framework';
