@@ -11,8 +11,8 @@ import {
 	bold
 } from 'discord.js';
 import { ValidateTag } from '#lib/decorators/ValidateTag';
-import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
+import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import { Colors, Emotes, ErrorIdentifiers, ModalCustomIds, ModalInputCustomIds } from '#utils/constants';
 import { automationMemberCheck } from '#utils/functions/automationMemberCheck';
 import { addTagOption } from '#utils/functions/commandOptions';
@@ -26,7 +26,11 @@ import { addTagOption } from '#utils/functions/commandOptions';
 				option
 					.setName('type')
 					.setDescription('The type of automation to start')
-					.addChoices({ name: 'Clan Embed', value: 'clanEmbed' }, { name: 'War Image', value: 'warImage' })
+					.addChoices(
+						{ name: 'Clan Embed', value: 'clanEmbed' },
+						{ name: 'War Image', value: 'warImage' },
+						{ name: 'War Streak Announcement', value: 'warStreakAnnouncement' }
+					)
 					.setRequired(true)
 			)
 			.addStringOption((option) =>
@@ -41,7 +45,10 @@ export class StartCommand extends GoblinCommand {
 	public override async chatInputRun(interaction: ChatInputCommandInteraction<'cached'>) {
 		automationMemberCheck(interaction.guildId, interaction.member);
 
-		const startType = interaction.options.getString('type', true) as 'clanEmbed' | 'warImage';
+		const startType = interaction.options.getString('type', true) as
+			| 'clanEmbed'
+			| 'warImage'
+			| 'warStreakAnnouncement';
 		return this[startType](interaction);
 	}
 
@@ -105,6 +112,33 @@ export class StartCommand extends GoblinCommand {
 				new EmbedBuilder() //
 					.setTitle(`${Emotes.Success} Success`)
 					.setDescription(`Successfully started War Image Poster for ${clan.name} (${clan.tag})`)
+					.setColor(Colors.Green)
+			]
+		});
+	}
+
+	private async warStreakAnnouncement(interaction: ChatInputCommandInteraction<'cached'>) {
+		await interaction.deferReply({ ephemeral: true });
+
+		const clan = await this.coc.clanHelper.info(interaction, interaction.options.getString('tag', true));
+
+		try {
+			await this.sql`INSERT INTO war_win_streak_announcement (clan_tag, current_win_streak, guild_id, channel_id)
+						   VALUES (${clan.tag}, ${clan.warWinStreak}, ${interaction.guildId}, ${interaction.channelId})`;
+		} catch (error) {
+			if (error instanceof this.sql.PostgresError && error.code === '23505') {
+				throw new UserError({
+					identifier: ErrorIdentifiers.DatabaseError,
+					message: `War Streak Announcement for **${clan.name} (${clan.tag})** is already running in this server`
+				});
+			}
+		}
+
+		return interaction.editReply({
+			embeds: [
+				new EmbedBuilder() //
+					.setTitle(`${Emotes.Success} Success`)
+					.setDescription(`Successfully started War Streak Announcement for ${clan.name} (${clan.tag})`)
 					.setColor(Colors.Green)
 			]
 		});

@@ -11,7 +11,8 @@ import { logInfo, logWarning } from '#utils/functions/logging';
 @ApplyOptions<ScheduledTask.Options>({
 	pattern: '00 */2 * * *',
 	customJobOptions: {
-		removeOnComplete: true
+		removeOnComplete: true,
+		removeOnFail: true
 	}
 })
 export class SyncClanEmbedTask extends ScheduledTask {

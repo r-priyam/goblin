@@ -5,8 +5,8 @@ import { Util } from 'clashofclans.js';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
 import { bold, EmbedBuilder, ChatInputCommandInteraction } from 'discord.js';
 import { ValidateTag } from '#lib/decorators/ValidateTag';
-import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
+import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import { Colors, Emotes, ErrorIdentifiers } from '#utils/constants';
 import { automationMemberCheck } from '#utils/functions/automationMemberCheck';
 import { addTagOption } from '#utils/functions/commandOptions';
@@ -20,7 +20,11 @@ import { addTagOption } from '#utils/functions/commandOptions';
 				option //
 					.setName('type')
 					.setDescription('The type of automation to stop')
-					.addChoices({ name: 'Clan Embed', value: 'clanEmbed' }, { name: 'War Image', value: 'warImage' })
+					.addChoices(
+						{ name: 'Clan Embed', value: 'clanEmbed' },
+						{ name: 'War Image', value: 'warImage' },
+						{ name: 'War Streak Announcement', value: 'warStreakAnnouncement' }
+					)
 					.setRequired(true)
 			)
 			.addStringOption((option) =>
@@ -35,7 +39,10 @@ export class StopCommand extends GoblinCommand {
 	public override async chatInputRun(interaction: ChatInputCommandInteraction<'cached'>) {
 		automationMemberCheck(interaction.guildId, interaction.member);
 
-		const stopType = interaction.options.getString('type', true) as 'clanEmbed' | 'warImage';
+		const stopType = interaction.options.getString('type', true) as
+			| 'clanEmbed'
+			| 'warImage'
+			| 'warStreakAnnouncement';
 		return this[stopType](interaction);
 	}
 
@@ -90,6 +97,33 @@ export class StopCommand extends GoblinCommand {
 				new EmbedBuilder()
 					.setTitle(`${Emotes.Success} Success`)
 					.setDescription(`Successfully stopped ${bold(clanTag)} War Image in this server`)
+					.setColor(Colors.Green)
+			]
+		});
+	}
+
+	private async warStreakAnnouncement(interaction: ChatInputCommand.Interaction) {
+		await interaction.deferReply({ ephemeral: true });
+		const clanTag = Util.formatTag(interaction.options.getString('tag', true));
+
+		const [result] = await this.sql<[{ clanName?: string }]>`DELETE
+																 FROM war_win_streak_announcement
+																 WHERE clan_tag = ${clanTag}
+																   AND guild_id = ${interaction.guildId}
+																 RETURNING clan_tag`;
+
+		if (!result) {
+			throw new UserError({
+				identifier: ErrorIdentifiers.DatabaseError,
+				message: `Can't find any War Streak Announcement running for ${bold(clanTag)} in this server`
+			});
+		}
+
+		return interaction.editReply({
+			embeds: [
+				new EmbedBuilder()
+					.setTitle(`${Emotes.Success} Success`)
+					.setDescription(`Successfully stopped ${bold(clanTag)} War Streak Announcement in this server`)
 					.setColor(Colors.Green)
 			]
 		});
