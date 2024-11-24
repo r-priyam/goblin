@@ -3,13 +3,12 @@ import { ScheduledTask } from '@sapphire/plugin-scheduled-tasks';
 import { Result } from '@sapphire/result';
 import type { Clan, HTTPError as COCHttpError } from 'clashofclans.js';
 import { RESTJSONErrorCodes, Routes } from 'discord-api-types/v10';
-import { EmbedBuilder, Status } from 'discord.js';
+import { bold, EmbedBuilder, Status } from 'discord.js';
 import type { HTTPError } from 'discord.js';
-import { BlueNumberEmotes } from '#lib/coc';
 import { logInfo, logWarning } from '#utils/functions/logging';
 
 @ApplyOptions<ScheduledTask.Options>({
-	pattern: '00 */2 * * *',
+	pattern: '*/2 * * * *',
 	customJobOptions: {
 		removeOnComplete: true,
 		removeOnFail: true
@@ -35,6 +34,11 @@ export class WarStreakAnnouncer extends ScheduledTask {
 																	 current_win_streak
 																   FROM war_win_streak_announcement
 																   WHERE enabled = true`;
+
+		if (!data) {
+			return;
+		}
+
 		for (const x of data) {
 			await this.announceWarStreak(x);
 		}
@@ -53,16 +57,17 @@ export class WarStreakAnnouncer extends ScheduledTask {
 		}
 
 		const streakMessage = this.#winStreakMessages[Math.floor(Math.random() * this.#winStreakMessages.length)]
-			.replace('#NAME', clan.name)
-			.replace('#STREAK', BlueNumberEmotes[clan.warWinStreak]);
+			.replace('#NAME', bold(clan.name))
+			.replace('#STREAK', bold(`${clan.warWinStreak}`));
 
-		const streakEmabed = new EmbedBuilder()
+		const streakEmbed = new EmbedBuilder()
 			.setDescription(streakMessage)
-			.setColor(this.#winStreakColors[Math.floor(Math.random() * this.#winStreakColors.length)]);
+			.setColor(this.#winStreakColors[Math.floor(Math.random() * this.#winStreakColors.length)])
+			.setThumbnail(clan.badge.medium);
 
 		const result = await Result.fromAsync<unknown, HTTPError>(async () =>
 			this.client.rest.post(Routes.channelMessages(data.channelId), {
-				body: { embeds: [streakEmabed.toJSON()] }
+				body: { embeds: [streakEmbed.toJSON()] }
 			})
 		);
 

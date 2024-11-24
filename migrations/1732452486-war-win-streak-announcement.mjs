@@ -11,7 +11,7 @@ export async function up(sql) {
 			guild_id       TEXT    NOT NULL,
 			channel_id     TEXT    NOT NULL,
 			enabled        BOOLEAN                  DEFAULT TRUE,
-			started_at     TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+			started_at     TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
 			updated_at     TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 		);
 	`);
