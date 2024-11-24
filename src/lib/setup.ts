@@ -7,7 +7,7 @@ import { URL } from 'node:url';
 import { inspect } from 'node:util';
 
 import { container, Piece } from '@sapphire/framework';
-import Sentry from '@sentry/node';
+import * as Sentry from '@sentry/node';
 import { envParseString, setup } from '@skyra/env-utilities';
 import { createColors } from 'colorette';
 

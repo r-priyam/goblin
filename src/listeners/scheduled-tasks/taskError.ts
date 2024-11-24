@@ -1,7 +1,7 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { Listener } from '@sapphire/framework';
 import { ScheduledTaskEvents, type ScheduledTask } from '@sapphire/plugin-scheduled-tasks';
-import Sentry from '@sentry/node';
+import * as Sentry from '@sentry/node';
 import { bold, DiscordAPIError, HTTPError, EmbedBuilder } from 'discord.js';
 
 import { Colors } from '#utils/constants';
