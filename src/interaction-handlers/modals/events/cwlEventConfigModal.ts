@@ -2,9 +2,7 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { SnowflakeRegex } from '@sapphire/discord.js-utilities';
 import { InteractionHandler, InteractionHandlerTypes, UserError } from '@sapphire/framework';
 import { EmbedBuilder } from 'discord.js';
-
 import type { ModalSubmitInteraction } from 'discord.js';
-
 import {
 	Colors,
 	ErrorIdentifiers,

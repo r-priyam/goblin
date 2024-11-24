@@ -2,9 +2,7 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes, UserError } from '@sapphire/framework';
 import { Result } from '@sapphire/result';
 import { EmbedBuilder } from 'discord.js';
-
 import type { ModalSubmitInteraction } from 'discord.js';
-
 import { Colors, Emotes, ErrorIdentifiers, ModalCustomIds, ModalInputCustomIds } from '#utils/constants';
 
 @ApplyOptions<InteractionHandler.Options>({

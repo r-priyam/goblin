@@ -1,6 +1,7 @@
 import { Time } from '@sapphire/cron';
 import { ApplyOptions } from '@sapphire/decorators';
 import { isNullishOrEmpty } from '@sapphire/utilities';
+import type { Achievement } from 'clashofclans.js';
 import {
 	ActionRowBuilder,
 	ButtonBuilder,
@@ -10,13 +11,10 @@ import {
 	ButtonStyle,
 	userMention
 } from 'discord.js';
-
-import type { GoblinPlayer } from '#lib/coc';
-import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
-import type { Achievement } from 'clashofclans.js';
 import type { ChatInputCommandInteraction } from 'discord.js';
-
+import type { GoblinPlayer } from '#lib/coc';
 import { LabelEmotes, MiscEmotes, RawPosition } from '#lib/coc';
+import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { collectorFiler } from '#utils/InteractionHelpers';
 import { Colors } from '#utils/constants';

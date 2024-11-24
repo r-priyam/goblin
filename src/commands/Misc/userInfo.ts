@@ -1,10 +1,8 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { ButtonStyle } from 'discord-api-types/v10';
 import { ActionRowBuilder, ButtonBuilder, EmbedBuilder, time, TimestampStyles } from 'discord.js';
-
-import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import type { ChatInputCommandInteraction, GuildMember, Role } from 'discord.js';
-
+import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#lib/util/constants';
 

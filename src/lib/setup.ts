@@ -5,12 +5,10 @@ import '@sapphire/plugin-scheduled-tasks/register';
 import process from 'node:process';
 import { URL } from 'node:url';
 import { inspect } from 'node:util';
-
 import { container, Piece } from '@sapphire/framework';
 import * as Sentry from '@sentry/node';
 import { envParseString, setup } from '@skyra/env-utilities';
 import { createColors } from 'colorette';
-
 import { GoblinRedisClient } from '#lib/redis-cache/RedisCacheClient';
 import { SrcDir } from '#utils/constants';
 import { logSuccess, logWarning } from '#utils/functions/logging';

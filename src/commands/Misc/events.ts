@@ -2,10 +2,8 @@ import { ApplyOptions } from '@sapphire/decorators';
 import { UserError } from '@sapphire/framework';
 import { ButtonStyle } from 'discord-api-types/v10';
 import { ActionRowBuilder, ButtonBuilder, EmbedBuilder, bold } from 'discord.js';
-
-import type { GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
 import type { ChatInputCommandInteraction } from 'discord.js';
-
+import type { GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
 import { GoblinSubCommand } from '#lib/extensions/GoblinSubCommand';
 import { Prompter } from '#utils/classes/prompter';
 import { ButtonCustomIds, Colors, ErrorIdentifiers } from '#utils/constants';

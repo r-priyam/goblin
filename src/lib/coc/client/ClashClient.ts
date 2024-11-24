@@ -1,9 +1,7 @@
 import { Time } from '@sapphire/cron';
 import { envParseString } from '@skyra/env-utilities';
 import { Client, RESTManager } from 'clashofclans.js';
-
 import type { OverrideOptions } from 'clashofclans.js';
-
 import { ClanHelper } from '#lib/coc/structure/ClanHelper';
 import { ClientCache } from '#lib/coc/structure/ClientCache';
 import { LinkApi } from '#lib/coc/structure/LinkApi';

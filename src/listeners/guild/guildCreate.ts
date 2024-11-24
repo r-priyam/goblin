@@ -1,9 +1,7 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { Events, Listener } from '@sapphire/framework';
 import { EmbedBuilder } from 'discord.js';
-
 import type { Guild } from 'discord.js';
-
 import { Colors } from '#utils/constants';
 import { useGuildLogsWebhook } from '#utils/webhooks/guildLogs';
 

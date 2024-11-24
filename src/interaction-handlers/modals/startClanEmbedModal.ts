@@ -1,11 +1,9 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { SnowflakeRegex } from '@sapphire/discord.js-utilities';
 import { InteractionHandler, InteractionHandlerTypes, UserError } from '@sapphire/framework';
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, inlineCode } from 'discord.js';
-
 import type { Clan } from 'clashofclans.js';
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, inlineCode } from 'discord.js';
 import type { ModalSubmitInteraction } from 'discord.js';
-
 import {
 	ButtonCustomIds,
 	Colors,

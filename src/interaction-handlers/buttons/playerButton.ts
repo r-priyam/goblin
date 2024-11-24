@@ -2,9 +2,7 @@ import { Time } from '@sapphire/cron';
 import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes } from '@sapphire/framework';
 import { EmbedBuilder } from 'discord.js';
-
 import type { ButtonInteraction } from 'discord.js';
-
 import { Colors } from '#utils/constants';
 
 @ApplyOptions<InteractionHandler.Options>({

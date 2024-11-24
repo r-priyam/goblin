@@ -2,15 +2,12 @@ import { readFile } from 'node:fs/promises';
 import { cpus, uptime, type CpuInfo } from 'node:os';
 import process from 'node:process';
 import { URL } from 'node:url';
-
 import { ApplyOptions } from '@sapphire/decorators';
 import { version as sapphireVersion } from '@sapphire/framework';
 import { roundNumber } from '@sapphire/utilities';
 import { EmbedBuilder, version, hideLinkEmbed, hyperlink, time, TimestampStyles, userMention } from 'discord.js';
-
-import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import type { ChatInputCommandInteraction } from 'discord.js';
-
+import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#root/lib/util/constants';
 import { seconds } from '#utils/functions/time';

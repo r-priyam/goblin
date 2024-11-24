@@ -3,7 +3,6 @@ import { Listener } from '@sapphire/framework';
 import { ScheduledTaskEvents, type ScheduledTask } from '@sapphire/plugin-scheduled-tasks';
 import * as Sentry from '@sentry/node';
 import { bold, DiscordAPIError, HTTPError, EmbedBuilder } from 'discord.js';
-
 import { Colors } from '#utils/constants';
 import { getCodeLine, getErrorLine, getPathLine } from '#utils/functions/errorHelper';
 import { useErrorLogsWebhook } from '#utils/webhooks/errorLogs';

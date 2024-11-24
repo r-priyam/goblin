@@ -1,9 +1,7 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { Events, Listener } from '@sapphire/framework';
-import { EmbedBuilder } from 'discord.js';
-
 import type { ChatInputCommandDeniedPayload, UserError } from '@sapphire/framework';
-
+import { EmbedBuilder } from 'discord.js';
 import { Colors } from '#utils/constants';
 
 @ApplyOptions<Listener.Options>({

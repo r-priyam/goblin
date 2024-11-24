@@ -1,10 +1,8 @@
+import type { UserError } from '@sapphire/framework';
 import { codeBlock } from '@sapphire/utilities';
 import { RESTJSONErrorCodes } from 'discord-api-types/v10';
 import { userMention, EmbedBuilder } from 'discord.js';
-
-import type { UserError } from '@sapphire/framework';
 import type { CommandInteraction, DiscordAPIError, HTTPError, Interaction } from 'discord.js';
-
 import { Colors, Emotes } from '#utils/constants';
 
 export const IgnoredCodes = new Set([RESTJSONErrorCodes.UnknownChannel, RESTJSONErrorCodes.UnknownMessage]);

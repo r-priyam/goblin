@@ -2,10 +2,8 @@ import { container } from '@sapphire/framework';
 import { Result } from '@sapphire/result';
 import { isNullish } from '@sapphire/utilities';
 import { envParseInteger, envParseString } from '@skyra/env-utilities';
-import Redis from 'ioredis';
-
 import type { SelectMenuComponentOptionData } from 'discord.js';
-
+import Redis from 'ioredis';
 import { RedisKeys } from '#utils/constants';
 
 export enum RedisMethods {

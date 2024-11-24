@@ -1,13 +1,10 @@
 import { Buffer } from 'node:buffer';
-
 import { Time } from '@sapphire/cron';
 import { container } from '@sapphire/framework';
 import { isNullish, isNullishOrEmpty } from '@sapphire/utilities';
 import { Util } from 'clashofclans.js';
-import { fetch } from 'undici';
-
 import type { RequestOptions } from 'clashofclans.js';
-
+import { fetch } from 'undici';
 import { RedisKeys } from '#utils/constants';
 import { seconds } from '#utils/functions/time';
 

@@ -5,12 +5,10 @@ import { isNullishOrEmpty } from '@sapphire/utilities';
 import { Util } from 'clashofclans.js';
 import { PermissionFlagsBits, RESTJSONErrorCodes, Routes } from 'discord-api-types/v10';
 import { ActionRowBuilder, EmbedBuilder, StringSelectMenuBuilder, bold, inlineCode, userMention } from 'discord.js';
-
-import type { GoblinPlayer } from '#lib/coc';
-import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import type { ChatInputCommandInteraction, HTTPError } from 'discord.js';
-
+import type { GoblinPlayer } from '#lib/coc';
 import { TownHallEmotes } from '#lib/coc';
+import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors, Emotes, ErrorIdentifiers, SelectMenuCustomIds } from '#utils/constants';
 

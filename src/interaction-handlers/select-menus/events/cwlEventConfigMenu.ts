@@ -1,9 +1,7 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes, UserError } from '@sapphire/framework';
 import { ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } from 'discord.js';
-
 import type { StringSelectMenuInteraction } from 'discord.js';
-
 import {
 	ErrorIdentifiers,
 	ModalCustomIds,

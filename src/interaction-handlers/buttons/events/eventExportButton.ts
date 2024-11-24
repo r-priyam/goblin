@@ -1,11 +1,8 @@
 import { Buffer } from 'node:buffer';
-
 import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes, UserError } from '@sapphire/framework';
 import { isNullOrUndefinedOrEmpty } from '@sapphire/utilities';
-
 import type { ButtonInteraction } from 'discord.js';
-
 import { ButtonCustomIds, ErrorIdentifiers } from '#utils/constants';
 
 @ApplyOptions<InteractionHandler.Options>({
