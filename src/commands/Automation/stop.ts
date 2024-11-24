@@ -110,7 +110,7 @@ export class StopCommand extends GoblinCommand {
 		const clanTag = Util.formatTag(interaction.options.getString('tag', true));
 
 		const [result] = await this.sql<[{ clanName?: string }]>`DELETE
-																 FROM war_streak_announcement
+																 FROM war_win_streak_announcement
 																 WHERE clan_tag = ${clanTag}
 																   AND guild_id = ${interaction.guildId}
 																 RETURNING clan_tag`;

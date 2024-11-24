@@ -125,8 +125,8 @@ export class StartCommand extends GoblinCommand {
 		const clan = await this.coc.clanHelper.info(interaction, interaction.options.getString('tag', true));
 
 		try {
-			await this.sql`INSERT INTO war_streak_announcement (clan_tag, guild_id, channel_id)
-						   VALUES (${clan.tag}, ${interaction.guildId}, ${interaction.channelId})`;
+			await this.sql`INSERT INTO war_win_streak_announcement (clan_tag, current_win_streak, guild_id, channel_id)
+						   VALUES (${clan.tag}, ${clan.warWinStreak}, ${interaction.guildId}, ${interaction.channelId})`;
 		} catch (error) {
 			if (error instanceof this.sql.PostgresError && error.code === '23505') {
 				throw new UserError({

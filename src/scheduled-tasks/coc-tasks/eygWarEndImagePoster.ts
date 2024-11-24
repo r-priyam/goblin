@@ -16,7 +16,7 @@ import { MetaDir } from '#utils/constants';
 import { logInfo, logWarning } from '#utils/functions/logging';
 
 @ApplyOptions<ScheduledTask.Options>({
-	pattern: '*/5 * * * *',
+	pattern: '*/2 * * * *',
 	customJobOptions: {
 		removeOnComplete: true,
 		removeOnFail: true
