@@ -27,9 +27,9 @@ import { addTagOption } from '#utils/functions/commandOptions';
 					.setName('type')
 					.setDescription('The type of automation to start')
 					.addChoices(
-						{ name: 'Clan Embed', value: 'clanEmbed' },
-						{ name: 'War Image', value: 'warImage' },
-						{ name: 'War Streak Announcement', value: 'warStreakAnnouncement' }
+						{ name: 'Clan Embed 📊', value: 'clanEmbed' },
+						{ name: 'War Image 🎞️', value: 'warImage' },
+						{ name: 'War Streak Announcement 📢', value: 'warStreakAnnouncement' }
 					)
 					.setRequired(true)
 			)
