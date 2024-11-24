@@ -1,12 +1,10 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { ScheduledTask } from '@sapphire/plugin-scheduled-tasks';
 import { Result } from '@sapphire/result';
+import type { Clan, HTTPError as COCHttpError } from 'clashofclans.js';
 import { RESTJSONErrorCodes, Routes } from 'discord-api-types/v10';
 import { Status } from 'discord.js';
-
-import type { Clan, HTTPError as COCHttpError } from 'clashofclans.js';
 import type { HTTPError } from 'discord.js';
-
 import { BlueNumberEmotes, TownHallEmotes } from '#lib/coc';
 import { logInfo, logWarning } from '#utils/functions/logging';
 

@@ -4,9 +4,7 @@ import { InteractionHandler, InteractionHandlerTypes, UserError } from '@sapphir
 import { isNullishOrEmpty } from '@sapphire/utilities';
 import { Util } from 'clashofclans.js';
 import { ActionRowBuilder, EmbedBuilder, StringSelectMenuBuilder, bold } from 'discord.js';
-
 import type { ButtonInteraction, SelectMenuComponentOptionData } from 'discord.js';
-
 import { TownHallEmotes } from '#lib/coc';
 import { Prompter } from '#utils/classes/prompter';
 import { ButtonCustomIds, Colors, ErrorIdentifiers, RedisKeys, SelectMenuCustomIds } from '#utils/constants';

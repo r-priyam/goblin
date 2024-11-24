@@ -3,7 +3,6 @@ import { ScheduledTask } from '@sapphire/plugin-scheduled-tasks';
 import { isNullish } from '@sapphire/utilities';
 import { envParseString } from '@skyra/env-utilities';
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, bold, roleMention, time, TimestampStyles } from 'discord.js';
-
 import type { TextChannel } from 'discord.js';
 
 @ApplyOptions<ScheduledTask.Options>({

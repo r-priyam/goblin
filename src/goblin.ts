@@ -1,8 +1,6 @@
 import '#lib/setup';
 import { exit } from 'node:process';
-
 import * as Sentry from '@sentry/node';
-
 import { GoblinClient } from '#lib/extensions/GoblinClient';
 import { logSuccess } from '#utils/functions/logging';
 

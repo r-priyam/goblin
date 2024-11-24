@@ -3,11 +3,9 @@ import { PaginatedMessage } from '@sapphire/discord.js-utilities';
 import { UserError } from '@sapphire/framework';
 import { isNullish } from '@sapphire/utilities';
 import { EmbedBuilder, bold, userMention } from 'discord.js';
-
-import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import type { ChatInputCommandInteraction } from 'discord.js';
-
 import { MiscEmotes, RawPosition, TownHallEmotes } from '#lib/coc';
+import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { PlayerCommand } from '#root/commands/Player/player';
 import { Colors, ErrorIdentifiers } from '#root/lib/util/constants';

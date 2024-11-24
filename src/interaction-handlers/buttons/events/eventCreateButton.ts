@@ -1,9 +1,7 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { InteractionHandler, InteractionHandlerTypes } from '@sapphire/framework';
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, StringSelectMenuBuilder } from 'discord.js';
-
 import type { ButtonInteraction } from 'discord.js';
-
 import { ButtonCustomIds, Colors, Emotes, SelectMenuCustomIds, SelectMenuOptionsValue } from '#utils/constants';
 import { checkUser, eventConfigMessage } from '#utils/functions/eventHelpers';
 

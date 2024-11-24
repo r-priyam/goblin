@@ -3,7 +3,6 @@ import { envParseBoolean, envParseInteger, envParseString } from '@skyra/env-uti
 import { GatewayIntentBits } from 'discord-api-types/v10';
 import { ActivityType } from 'discord.js';
 import postgres from 'postgres';
-
 import { GoblinClashClient } from '#lib/coc';
 import { GoblinRedisClient } from '#lib/redis-cache/RedisCacheClient';
 import { loadFAQs } from '#utils/faq';

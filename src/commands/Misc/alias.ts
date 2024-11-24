@@ -3,12 +3,10 @@ import { UserError } from '@sapphire/framework';
 import { envParseArray, envParseString } from '@skyra/env-utilities';
 import { Util } from 'clashofclans.js';
 import { EmbedBuilder, ChatInputCommandInteraction, codeBlock } from 'discord.js';
-import { markdownTable } from 'markdown-table';
-
-import type { GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
 import type { GuildMember } from 'discord.js';
-
+import { markdownTable } from 'markdown-table';
 import { ValidateTag } from '#lib/decorators/ValidateTag';
+import type { GoblinSubCommandOptions } from '#lib/extensions/GoblinSubCommand';
 import { GoblinSubCommand } from '#lib/extensions/GoblinSubCommand';
 import { RedisMethods } from '#lib/redis-cache/RedisCacheClient';
 import { Colors, Emotes, ErrorIdentifiers, RedisKeys } from '#utils/constants';

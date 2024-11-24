@@ -1,17 +1,14 @@
 import { fileURLToPath, URL } from 'node:url';
-
 import { createCanvas, loadImage, GlobalFonts } from '@napi-rs/canvas';
+import type { Image, SKRSContext2D } from '@napi-rs/canvas';
 import { ApplyOptions } from '@sapphire/decorators';
 import { ScheduledTask } from '@sapphire/plugin-scheduled-tasks';
 import { Result } from '@sapphire/result';
+import type { ClanWar, WarClan, HTTPError as COCHttpError } from 'clashofclans.js';
 import { Routes, RESTJSONErrorCodes } from 'discord-api-types/v10';
 import { Status } from 'discord.js';
-import { fetch } from 'undici';
-
-import type { Image, SKRSContext2D } from '@napi-rs/canvas';
-import type { ClanWar, WarClan, HTTPError as COCHttpError } from 'clashofclans.js';
 import type { HTTPError } from 'discord.js';
-
+import { fetch } from 'undici';
 import { MetaDir } from '#utils/constants';
 import { logInfo, logWarning } from '#utils/functions/logging';
 

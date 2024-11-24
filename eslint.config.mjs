@@ -10,6 +10,7 @@ const config = [
 	...common,
 	...node,
 	...typescript,
+	...prettier,
 	{
 		languageOptions: {
 			parserOptions: {
@@ -25,22 +26,9 @@ const config = [
 			'@typescript-eslint/consistent-type-definitions': 0,
 			'unicorn/number-literal-case': 0,
 			'unicorn/numeric-separators-style': 0,
-			'unicorn/new-for-builtins': 0,
-			'import-x/extensions': 0,
-			'import-x/order': [
-				2,
-				{
-					'alphabetize': {
-						caseInsensitive: false,
-						order: 'asc'
-					},
-					'groups': ['builtin', 'external', 'internal', 'parent', 'sibling', 'index', 'type'],
-					'newlines-between': 'always'
-				}
-			]
+			'unicorn/new-for-builtins': 0
 		}
-	},
-	...prettier
+	}
 ];
 
 export default config;

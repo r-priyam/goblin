@@ -4,10 +4,8 @@ import { PaginatedMessage } from '@sapphire/discord.js-utilities';
 import { inlineCodeBlock } from '@sapphire/utilities';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
 import { EmbedBuilder, roleMention } from 'discord.js';
-
-import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import type { ChatInputCommandInteraction } from 'discord.js';
-
+import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
 import { Colors } from '#root/lib/util/constants';
 

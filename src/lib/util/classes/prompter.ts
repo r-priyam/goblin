@@ -9,9 +9,7 @@ import {
 	ComponentType,
 	EmbedBuilder
 } from 'discord.js';
-
 import type { CommandInteraction, ButtonInteraction } from 'discord.js';
-
 import { Colors, Emotes } from '#utils/constants';
 import { seconds } from '#utils/functions/time';
 
@@ -29,7 +27,9 @@ export class Prompter {
 	}
 
 	public async prompt() {
-		if (!this.interaction.channel?.isSendable()) return false;
+		if (!this.interaction.channel?.isSendable()) {
+			return false;
+		}
 
 		if (this.interaction.replied || this.interaction.deferred) {
 			await this.interaction.editReply({

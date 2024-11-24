@@ -14,10 +14,8 @@ import {
 	inlineCode,
 	ButtonStyle
 } from 'discord.js';
-import { nanoid } from 'nanoid';
-
 import type { ButtonInteraction, TextChannel, User } from 'discord.js';
-
+import { nanoid } from 'nanoid';
 import { ButtonCustomIds, Colors, Emotes, ErrorIdentifiers } from '#utils/constants';
 import { checkUser, extractConfigsFromValues } from '#utils/functions/eventHelpers';
 import { seconds } from '#utils/functions/time';

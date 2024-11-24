@@ -1,5 +1,4 @@
 import { Command } from '@sapphire/framework';
-
 import type { ApplicationCommandRegistry, ApplicationCommandRegistryRegisterOptions } from '@sapphire/framework';
 import type { SlashCommandBuilder } from 'discord.js';
 
