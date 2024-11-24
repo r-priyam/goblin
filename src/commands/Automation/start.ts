@@ -10,14 +10,12 @@ import {
 	EmbedBuilder,
 	bold
 } from 'discord.js';
-
 import { ValidateTag } from '#lib/decorators/ValidateTag';
 import { GoblinCommand } from '#lib/extensions/GoblinCommand';
+import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 import { Colors, Emotes, ErrorIdentifiers, ModalCustomIds, ModalInputCustomIds } from '#utils/constants';
 import { automationMemberCheck } from '#utils/functions/automationMemberCheck';
 import { addTagOption } from '#utils/functions/commandOptions';
-
-import type { GoblinCommandOptions } from '#lib/extensions/GoblinCommand';
 
 @ApplyOptions<GoblinCommandOptions>({
 	command: (builder) =>
