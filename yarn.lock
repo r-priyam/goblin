@@ -5160,12 +5160,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clashofclans.js@npm:^3.3.18":
-  version: 3.3.18
-  resolution: "clashofclans.js@npm:3.3.18"
+"clashofclans.js@npm:^3.3.19":
+  version: 3.3.19
+  resolution: "clashofclans.js@npm:3.3.19"
   dependencies:
     undici: "npm:^5.23.0"
-  checksum: 10/1cffff442e003e3841187ebdfc171d371b1efa9d6cfd0a72f10fde6a05ed53d6cb56fc7aeb2562fb1e238ddc31254386f04ecb2f8e6aae38f52d004a509d00b6
+  checksum: 10/d34893fb8556720d9830d8c6422e62c5120d48fda88bd2a29369117d7b3e1298327a13195c607ecd1d924078dbee65f34e6517586c750ca717e3c201d55e25b3
   languageName: node
   linkType: hard
 
@@ -7672,7 +7672,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:^8.16.0"
     bufferutil: "npm:^4.0.8"
     bullmq: "npm:^5.29.1"
-    clashofclans.js: "npm:^3.3.18"
+    clashofclans.js: "npm:^3.3.19"
     colorette: "npm:^2.0.20"
     cz-conventional-changelog: "npm:^3.3.0"
     discord-api-types: "npm:^0.37.109"
