@@ -89,6 +89,7 @@ export const HomeBaseTroopEmotes: { [key: string]: string } = {
 	'Yeti': '<:Yeti:696281814293282857>',
 	'Dragon Rider': '<:DragonRider:854290952888909834>',
 	'Electro Titan': '<:ElectroTitan:1029113633243922572>',
+	'Thrower': '<:Thrower:1310580248857018410>',
 	'Root Rider': '<:RootRider:1184210445544992788>',
 	'Minion': '<:Minion:696281875794231326>',
 	'Hog Rider': '<:HogRider:696281961257238579>',
@@ -99,7 +100,8 @@ export const HomeBaseTroopEmotes: { [key: string]: string } = {
 	'Bowler': '<:bowler:696282213360074782>',
 	'Ice Golem': '<:IceGolem:696282324798799892>',
 	'Headhunter': '<:Headhunter:724650414066106459>',
-	'Apprentice Warden': '<:ApprenticeWarden:1117866249645461604>'
+	'Apprentice Warden': '<:ApprenticeWarden:1117866249645461604>',
+	'Druid': '<:Druid:1252640516881911900>'
 };
 
 export const BuilderBaseTroopEmotes: { [key: string]: string } = {
@@ -126,6 +128,7 @@ export const SpellEmotes: { [key: string]: string } = {
 	'Clone Spell': '<:Clone:696302107950710795>',
 	'Invisibility Spell': '<:Invisible:787186410032463882>',
 	'Recall Spell': '<:Recall:1029115194552623227>',
+	'Revive Spell': '<:Revive:1310678415707475999>',
 	'Poison Spell': '<:Poison:696302119434846231>',
 	'Earthquake Spell': '<:Earthquake:696302170957414460>',
 	'Haste Spell': '<:Haste:696302178763276348>',
@@ -139,6 +142,7 @@ export const HeroEmotes: { [key: string]: string } = {
 	'Archer Queen': '<:ArcherQueen:696305403046133780>',
 	'Grand Warden': '<:GrandWarden:841295204476780586>',
 	'Royal Champion': '<:RoyalChampion:813806447934308422>',
+	'Minion Prince': '<:MinionPrince:1310574226448584704>',
 	'Battle Machine': '<:BattleMachine:1108950875742933065>',
 	'Battle Copter': '<:BC:1108949723752185986>'
 };
@@ -157,13 +161,13 @@ export const HeroPetEmotes: { [key: string]: string } = {
 };
 
 export const SiegeMachineEmotes: { [key: string]: string } = {
-	'Wall Wrecker': '<:WallWrecker:701628825142034482>',
-	'Battle Blimp': '<:BattleBlimp:701628824395317328>',
-	'Stone Slammer': '<:StoneSlammer:701628824688918588>',
-	'Siege Barracks': '<:SiegeBarracks:701628824651169913>',
-	'Log Launcher': '<:LogLauncher:785540240358113312>',
-	'Flame Flinger': '<:FlameFlinger:918875579904847873>',
-	'Battle Drill': '<:BattleDrill:1029589373039157471>'
+	'Wall Wrecker': '<:WallWrecker:696282434278522931>',
+	'Battle Blimp': '<:BattleBlimp:696282472480112731>',
+	'Stone Slammer': '<:StoneSlammer:696282610472714271>',
+	'Siege Barracks': '<:SiegeBarracks:696282751988400199>',
+	'Log Launcher': '<:LogLauncher:918762884257939478>',
+	'Flame Flinger': '<:FlameFlinger:918762753013981235>',
+	'Battle Drill': '<:BattleDrill:1029114347949142087>'
 };
 
 export const SuperTroopEmotes: { [key: string]: string } = {
@@ -234,7 +238,8 @@ export const TownHallEmotes: { [key: number | string]: string } = {
 	13: '<:TownHall13:766207117103071242>',
 	14: '<:TownHall14:829392900110549038>',
 	15: '<:TownHall15:1029109199105425530>',
-	16: '<:TownHall16:1184211259130925166>'
+	16: '<:TownHall16:1184211259130925166>',
+	17: '<:TownHall17:1310678877194158132>'
 };
 
 export const BlueNumberEmotes: { [key: number]: string } = {
@@ -288,4 +293,34 @@ export const BlueNumberEmotes: { [key: number]: string } = {
 	48: '<:48:813801189174804510>',
 	49: '<:49:813801190353666048>',
 	50: '<:50:813801189258035210>'
+};
+
+export const HeroEquipment: Record<string, string> = {
+	'Rage Gem': '<:RageGem:1188865437354688562>',
+	'Archer Puppet': '<:ArcherPuppet:1188865376193355886>',
+	'Barbarian Puppet': '<:BarbarianPuppet:1188865383587922000>',
+	'Earthquake Boots': '<:EarthquakeBoots:1188865390365908993>',
+	'Eternal Tome': '<:EternalTome:1188865397370400901>',
+	'Haste Vial': '<:HasteVial:1223325003013947452>',
+	'Healer Puppet': '<:HealerPuppet:1188865407923277915>',
+	'Healing Tome': '<:HealingTome:1188865415108104292>',
+	'Hog Rider Puppet': '<:HogPuppet:1223328048351543446>',
+	'Rage Vial': '<:RageVial:1188865442819866684>',
+	'Life Gem': '<:LifeGem:1188865430689939506>',
+	'Giant Arrow': '<:GiantArrow:1188865401908637706>',
+	'Royal Gem': '<:RoyalGem:1188865449836941393>',
+	'Invisibility Vial': '<:InvisibilityVial:1188865423668687008>',
+	'Seeking Shield': '<:SeekingShield:1188865455469908033>',
+	'Vampstache': '<:Vampstache:1188865462675705927>',
+	'Giant Gauntlet': '<:GiantGauntlet:1189622189994025041>',
+	'Frozen Arrow': '<:FrozenArrow:1189622209568841748>',
+	'Fireball': '<:Fireball:1223332499162398800>',
+	'Spiky Ball': '<:SpikeyBall:1234940460070600804>',
+	'Rocket Spear': '<:RocketSpear:1223332521358528695>',
+	'Magic Mirror': '<:MagicMirror:1252640509403467787>',
+	'Lavaloon Puppet': '<:LavaloonPuppet:1300117184496013403>',
+	'Dark Orb': '<:DarkOrb:1310574234543587358>',
+	'Henchmen Puppet': '<:Henchmen:1310574231544926218>'
+	// 'Electro Boots': '<:ElectroBoots:1252640513790705686>',
+	// 'Heroic Torch': '<:HeroicTorch:1252640503988486327>'
 };

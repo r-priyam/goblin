@@ -68,9 +68,10 @@ export class PlayerCommand extends GoblinCommand {
 			{ name: 'Dark Troops', value: units.unit('DARK') },
 			{ name: 'Spells', value: units.unit('SPELLS') },
 			{ name: 'Siege Machines', value: units.unit('SIEGE') },
-			{ name: 'Heroes Pets', value: units.unit('PETS') },
+			{ name: 'Hero Pets', value: units.unit('PETS') },
 			{ name: 'Builder Troops', value: units.unit('BUILDER') },
 			{ name: 'Heroes', value: units.unit('HEROES') },
+			{ name: 'Equipment', value: units.unit('EQUIPMENT') },
 			{ name: 'Super Troops', value: units.unit('SUPER') }
 		];
 
@@ -87,7 +88,9 @@ export class PlayerCommand extends GoblinCommand {
 				continue;
 			}
 
-			embed.addFields({ name: field.name, value: field.value, inline: false });
+			for (const [index, chunk] of field.value.entries()) {
+				embed.addFields({ name: index === 0 ? field.name : `\u200B`, value: chunk, inline: false });
+			}
 		}
 
 		return embed;
