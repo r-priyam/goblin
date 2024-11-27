@@ -1,6 +1,7 @@
 import { DarkElixirTroops, ElixirTroops } from 'clashofclans.js';
 import type { Player } from 'clashofclans.js';
 import { inlineCode } from 'discord.js';
+import { cluster } from 'radash';
 import {
 	BuilderBaseTroopEmotes,
 	HeroEmotes,
@@ -8,7 +9,8 @@ import {
 	HomeBaseTroopEmotes,
 	SiegeMachineEmotes,
 	SpellEmotes,
-	SuperTroopEmotes
+	SuperTroopEmotes,
+	HeroEquipment
 } from '#lib/coc';
 
 export class UnitsHelper {
@@ -18,7 +20,7 @@ export class UnitsHelper {
 		this.player = player;
 	}
 
-	public unit(type: 'BUILDER' | 'DARK' | 'ELIXIR' | 'HEROES' | 'PETS' | 'SIEGE' | 'SPELLS' | 'SUPER') {
+	public unit(type: 'BUILDER' | 'DARK' | 'ELIXIR' | 'EQUIPMENT' | 'HEROES' | 'PETS' | 'SIEGE' | 'SPELLS' | 'SUPER') {
 		const data: { emoji: string; level: string }[] = [];
 
 		switch (type) {
@@ -76,6 +78,16 @@ export class UnitsHelper {
 
 				return this.formatValue(data);
 
+			case 'EQUIPMENT':
+				for (const equipment of this.player.heroEquipment) {
+					data.push({
+						emoji: HeroEquipment[equipment.name],
+						level: this.formatInlineBlock(equipment.level, equipment.hallMaxLevel)
+					});
+				}
+
+				return this.formatValue(data);
+
 			case 'PETS':
 				for (const pet of this.player.heroPets) {
 					data.push({
@@ -104,15 +116,19 @@ export class UnitsHelper {
 				}
 
 				return this.formatValue(data);
-			default:
-				return 'Not Implemented';
 		}
 	}
 
 	protected formatValue(value: { emoji: string; level: string }[]) {
-		let formattedValue = '';
-		if (value.length > 0) {
-			for (const [index_, data] of value.entries()) {
+		const formattedValues = [];
+		if (!value.length) {
+			return;
+		}
+
+		const chunkedValues = cluster(value, 20);
+		for (const chunk of chunkedValues) {
+			let formattedValue = '';
+			for (const [index_, data] of chunk.entries()) {
 				let index = index_;
 				index++;
 				formattedValue += `${data.emoji} ${data.level} `;
@@ -122,9 +138,11 @@ export class UnitsHelper {
 					formattedValue += '\n';
 				}
 			}
+
+			formattedValues.push(formattedValue);
 		}
 
-		return formattedValue;
+		return formattedValues;
 	}
 
 	protected formatInlineBlock(troopOrSpellLevel: number, troopOrSpellMaxLevel: number) {
