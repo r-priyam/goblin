@@ -17,8 +17,7 @@ export class BotListener extends Listener<typeof Events.MessageCreate> {
 		}
 
 		const cachedAlias = await this.redis.fetch(RedisKeys.ClanAlias, undefined);
-		const aliasedMessage = message.content.toUpperCase().split(' ', 1);
-
+		const aliasedMessage = message.content.toUpperCase().split(' ');
 		if (aliasedMessage.length > 1 || !cachedAlias) {
 			return;
 		}
