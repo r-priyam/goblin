@@ -47,7 +47,7 @@
 	},
 	"dependencies": {
 		"@ltd/j-toml": "^1.38.0",
-		"@napi-rs/canvas": "0.1.52",
+		"@napi-rs/canvas": "0.1.64",
 		"@sapphire/cron": "^1.2.1",
 		"@sapphire/decorators": "^6.1.1",
 		"@sapphire/discord.js-utilities": "^7.3.1",
@@ -89,7 +89,7 @@
 		"@swc/core": "^1.9.3",
 		"@types/figlet": "^1.7.0",
 		"@types/gradient-string": "^1.1.6",
-		"@types/node": "^22.10.0",
+		"@types/node": "^22.10.1",
 		"@typescript-eslint/eslint-plugin": "^8.16.0",
 		"@typescript-eslint/parser": "^8.16.0",
 		"cz-conventional-changelog": "^3.3.0",
