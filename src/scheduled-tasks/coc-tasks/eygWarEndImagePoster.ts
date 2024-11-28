@@ -174,6 +174,7 @@ export class EYGWarEndImagePoster extends ScheduledTask {
 		// Left star is for the clan, right star is for the opponent
 		let leftStar: Image;
 		let rightStar: Image;
+
 		switch (war.status) {
 			case 'lose':
 				leftStar = await loadImage(new URL('images/RedStar.png', MetaDir));
@@ -184,12 +185,10 @@ export class EYGWarEndImagePoster extends ScheduledTask {
 				rightStar = await loadImage(new URL('images/RedStar.png', MetaDir));
 				break;
 			case 'tie':
-				return;
 			case 'pending':
-				return;
-			default:
 				leftStar = await loadImage(new URL('images/Star.png', MetaDir));
 				rightStar = await loadImage(new URL('images/Star.png', MetaDir));
+				break;
 		}
 
 		context.drawImage(leftStar, 850, 750, 200, 200);
