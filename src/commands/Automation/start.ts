@@ -17,6 +17,8 @@ import { Colors, Emotes, ErrorIdentifiers, ModalCustomIds, ModalInputCustomIds }
 import { automationMemberCheck } from '#utils/functions/automationMemberCheck';
 import { addTagOption } from '#utils/functions/commandOptions';
 
+type StartType = 'clanEmbed' | 'clanLevelUp' | 'warImage' | 'warStreakAnnouncement';
+
 @ApplyOptions<GoblinCommandOptions>({
 	command: (builder) =>
 		builder
@@ -29,7 +31,8 @@ import { addTagOption } from '#utils/functions/commandOptions';
 					.addChoices(
 						{ name: 'Clan Embed 📊', value: 'clanEmbed' },
 						{ name: 'War Image 🎞️', value: 'warImage' },
-						{ name: 'War Streak Announcement 📢', value: 'warStreakAnnouncement' }
+						{ name: 'War Streak Announcement 📢', value: 'warStreakAnnouncement' },
+						{ name: 'Clan Level Up 🆙', value: 'clanLevelUp' }
 					)
 					.setRequired(true)
 			)
@@ -45,10 +48,7 @@ export class StartCommand extends GoblinCommand {
 	public override async chatInputRun(interaction: ChatInputCommandInteraction<'cached'>) {
 		automationMemberCheck(interaction.guildId, interaction.member);
 
-		const startType = interaction.options.getString('type', true) as
-			| 'clanEmbed'
-			| 'warImage'
-			| 'warStreakAnnouncement';
+		const startType = interaction.options.getString('type', true) as StartType;
 		return this[startType](interaction);
 	}
 
@@ -139,6 +139,35 @@ export class StartCommand extends GoblinCommand {
 				new EmbedBuilder() //
 					.setTitle(`${Emotes.Success} Success`)
 					.setDescription(`Successfully started War Streak Announcement for ${clan.name} (${clan.tag})`)
+					.setColor(Colors.Green)
+			]
+		});
+	}
+
+	private async clanLevelUp(interaction: ChatInputCommandInteraction<'cached'>) {
+		await interaction.deferReply({ ephemeral: true });
+
+		const clan = await this.coc.clanHelper.info(interaction, interaction.options.getString('tag', true));
+
+		try {
+			await this.sql`INSERT INTO clan_level_up (clan_tag, guild_id, channel_id, current_level)
+						   VALUES (${clan.tag}, ${interaction.guildId}, ${interaction.channelId}, ${clan.level})`;
+		} catch (error) {
+			if (error instanceof this.sql.PostgresError && error.code === '23505') {
+				throw new UserError({
+					identifier: ErrorIdentifiers.DatabaseError,
+					message: `Clan Level Announcement for **${clan.name} (${clan.tag})** is already running in this server`
+				});
+			}
+
+			throw error;
+		}
+
+		return interaction.editReply({
+			embeds: [
+				new EmbedBuilder() //
+					.setTitle(`${Emotes.Success} Success`)
+					.setDescription(`Successfully started Clan Level Announcement for ${clan.name} (${clan.tag})`)
 					.setColor(Colors.Green)
 			]
 		});

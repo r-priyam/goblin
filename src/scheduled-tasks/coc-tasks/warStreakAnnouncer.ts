@@ -105,7 +105,7 @@ export class WarStreakAnnouncer extends ScheduledTask {
 
 	/**
 	 * Get clan information from the clan tag.
-	 * Stops the clan embed if clan not found and logs it
+	 * Stops the war announcer if clan not found and logs it
 	 *
 	 * @param clanTag - Clan Tag to get information for
 	 * @param channelId - Channel ID where the clan board is running
@@ -116,7 +116,10 @@ export class WarStreakAnnouncer extends ScheduledTask {
 		if (result.isErr() && result.unwrapErr().status === 404) {
 			await this.stopWarStreakAnnouncer(clanTag, channelId);
 			this.logger.info(
-				logInfo('ClanEmbed Syncer', `Stopping clan embed for ${clanTag} with reason Clan not found`)
+				logInfo(
+					'War Streak Announcer',
+					`Stopping war streak announcement for ${clanTag} with reason Clan not found`
+				)
 			);
 			return;
 		}
