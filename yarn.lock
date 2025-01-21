@@ -7575,7 +7575,7 @@ __metadata:
     string-strip-html: "npm:^13.4.8"
     tsup: "npm:8.3.5"
     typescript: "npm:^5.7.3"
-    undici: "npm:^7.2.1"
+    undici: "npm:^7.2.3"
     utf-8-validate: "npm:^6.0.5"
     zlib-sync: "npm:^0.1.9"
   languageName: unknown
@@ -12553,10 +12553,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"undici@npm:^7.2.1":
-  version: 7.2.1
-  resolution: "undici@npm:7.2.1"
-  checksum: 10/36ae7060097c029607d348e55e71ded43ebf5988754989e88408f125bd30cd9f3659598c1d37ffa8d9102f627b7f0f82f3d88fd7c2cd20e9f1f1a63adc934cee
+"undici@npm:^7.2.3":
+  version: 7.2.3
+  resolution: "undici@npm:7.2.3"
+  checksum: 10/92870d186682c19f4b9909e4b6229a88b4e73e6e12d7a3e151033cefb66579bdc1d36e46d97e386161ba0afcd84b718e917fca7b7f08d409d918689343034c09
   languageName: node
   linkType: hard
 
