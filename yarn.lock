@@ -12545,18 +12545,18 @@ __metadata:
   linkType: hard
 
 "undici@npm:^5.23.0":
-  version: 5.28.4
-  resolution: "undici@npm:5.28.4"
+  version: 5.28.5
+  resolution: "undici@npm:5.28.5"
   dependencies:
     "@fastify/busboy": "npm:^2.0.0"
-  checksum: 10/a666a9f5ac4270c659fafc33d78b6b5039a0adbae3e28f934774c85dcc66ea91da907896f12b414bd6f578508b44d5dc206fa636afa0e49a4e1c9e99831ff065
+  checksum: 10/459cd84ab75fe90d696fa2634a8b5b23f9e1080b27236c6809bd74e51862be85df6d95b4a8fed3ee42554495008cb3c05f1bc9d4a1807478f433cca567003d70
   languageName: node
   linkType: hard
 
 "undici@npm:^7.2.1":
-  version: 7.2.1
-  resolution: "undici@npm:7.2.1"
-  checksum: 10/36ae7060097c029607d348e55e71ded43ebf5988754989e88408f125bd30cd9f3659598c1d37ffa8d9102f627b7f0f82f3d88fd7c2cd20e9f1f1a63adc934cee
+  version: 7.2.3
+  resolution: "undici@npm:7.2.3"
+  checksum: 10/92870d186682c19f4b9909e4b6229a88b4e73e6e12d7a3e151033cefb66579bdc1d36e46d97e386161ba0afcd84b718e917fca7b7f08d409d918689343034c09
   languageName: node
   linkType: hard
 
