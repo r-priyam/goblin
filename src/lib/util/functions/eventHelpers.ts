@@ -1,17 +1,20 @@
+import { Duration, DurationFormatter } from '@sapphire/duration';
 import { UserError } from '@sapphire/framework';
-import { bold, channelMention, italic, roleMention, ButtonBuilder } from 'discord.js';
 import type { ButtonStyle } from 'discord.js';
+import { bold, channelMention, italic, roleMention, ButtonBuilder } from 'discord.js';
 import { ErrorIdentifiers, EventConfigDefaultValues } from '#utils/constants';
 
 export function eventConfigMessage({
 	eventName,
 	registrationChannel,
 	startRolePing,
-	endRolePing
+	endRolePing,
+	registrationEndTime
 }: {
 	endRolePing?: string;
 	eventName?: string;
 	registrationChannel?: string;
+	registrationEndTime?: string;
 	startRolePing?: string;
 }) {
 	return `
@@ -22,12 +25,14 @@ ${bold('Registration Channel:')} ${
 	}
 ${bold('Start Role Ping:')} ${startRolePing ? roleMention(startRolePing) : italic('Not Configured')}
 ${bold('End Role Ping:')} ${endRolePing ? roleMention(endRolePing) : italic('Not Configured')}
+${bold('Registration End Time:')} ${registrationEndTime ? new DurationFormatter().format(new Duration(registrationEndTime).offset) : italic('Not Configured (Default: 7 days)')}
 
-${bold('Configuaration Fields Information')}
+${bold('Configuration Fields Information')}
 ● Event Name - The name of the event
 ● Registration Channel - The channel where only bot will accept the applications
 ● Start Role Ping - The role to ping when the event will start
 ● End Role Ping - The role to ping when the event will end
+● Registration End Time - The time when the registration will end, default is 7 days
 
 ${bold('FAQs')}
 1. Please select the applicable option from the select menu to configure the config values.
@@ -42,14 +47,15 @@ export function extractConfigsFromValues(values: string[], isSubmit = false) {
 		endRolePing: string | null;
 		eventName: string | null;
 		registrationChannel: string | null;
+		registrationEndTime: string | null;
 		startRolePing: string | null;
 	} = {
 		eventName: null,
 		registrationChannel: null,
 		startRolePing: null,
-		endRolePing: null
+		endRolePing: null,
+		registrationEndTime: null
 	};
-
 	for (const [index, value] of values.entries()) {
 		let val: string | null = value.split('**').pop()!.trim();
 
@@ -88,6 +94,9 @@ export function extractConfigsFromValues(values: string[], isSubmit = false) {
 					break;
 				case 3:
 					valuesToReturn.endRolePing = val;
+					break;
+				case 4:
+					valuesToReturn.registrationEndTime = val;
 					break;
 				default:
 					throw new UserError({

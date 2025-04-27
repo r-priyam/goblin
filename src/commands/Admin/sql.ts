@@ -35,6 +35,7 @@ export class SQLCommand extends GoblinCommand {
 
 		if (!success) {
 			return interaction.editReply({
+				/* eslint-disable  @typescript-eslint/no-base-to-string */
 				content: `${codeBlock('bash', String(result))}\nExecuted in: \`${inlineCodeBlock(executionTime)}\``
 			});
 		}

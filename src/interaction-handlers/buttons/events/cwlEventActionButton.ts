@@ -1,5 +1,5 @@
-import { Time } from '@sapphire/cron';
 import { ApplyOptions } from '@sapphire/decorators';
+import { Duration } from '@sapphire/duration';
 import { InteractionHandler, InteractionHandlerTypes, UserError } from '@sapphire/framework';
 import { Result } from '@sapphire/result';
 import {
@@ -51,19 +51,23 @@ export class ButtonHandler extends InteractionHandler {
 			});
 		}
 
-		const rawConfigValues = interaction.message.embeds[0].description?.split('\n').slice(1, 5);
-		const { eventName, registrationChannel, startRolePing, endRolePing } = extractConfigsFromValues(
-			rawConfigValues!,
-			true
-		);
+		const rawConfigValues = interaction.message.embeds[0].description?.split('\n').slice(1, 6);
+		const { eventName, registrationChannel, startRolePing, endRolePing, registrationEndTime } =
+			extractConfigsFromValues(rawConfigValues!, true);
 
 		const eventId = nanoid(16).replaceAll(/[_-]/gi, '');
+
+		let eventEndDuration = new Duration('7d');
+		if (registrationEndTime) {
+			eventEndDuration = new Duration(registrationEndTime);
+		}
 
 		const messageId = await this.sendEventStartMessage(
 			eventName!,
 			registrationChannel!,
 			interaction.user.id,
 			eventId,
+			eventEndDuration,
 			startRolePing
 		);
 
@@ -89,7 +93,7 @@ export class ButtonHandler extends InteractionHandler {
         `;
 
 		const messageUrl = `https://discord.com/channels/${interaction.guildId}/${interaction.channelId}/${messageId}`;
-		await this.sendSuccessToAuthor(interaction.user, eventId, eventName!, messageUrl);
+		await this.sendSuccessToAuthor(interaction.user, eventId, eventName!, messageUrl, eventEndDuration);
 		await this.tasks.create(
 			{
 				name: 'cwlEventEnd',
@@ -103,7 +107,7 @@ export class ButtonHandler extends InteractionHandler {
 			},
 			{
 				repeated: false,
-				delay: Time.Day * 7
+				delay: eventEndDuration.offset
 			}
 		);
 
@@ -125,6 +129,7 @@ export class ButtonHandler extends InteractionHandler {
 		channelId: string,
 		authorId: string,
 		eventId: string,
+		eventEndDuration: Duration,
 		pingToRole: string | null
 	) {
 		const channel = await this.client.channels.fetch(channelId);
@@ -146,7 +151,7 @@ export class ButtonHandler extends InteractionHandler {
 						.setDescription(
 							`
 ${bold('Started By: ')}${userMention(authorId)}
-Ends ${time(seconds.fromMilliseconds(Date.now() + Time.Day * 7), TimestampStyles.RelativeTime)}
+Event Ends ${time(seconds.fromMilliseconds(Date.now() + eventEndDuration.offset), TimestampStyles.RelativeTime)}
 
 ${bold('Tip')} Click on buttons to see what they can do? 🤪😉`
 						)
@@ -180,7 +185,13 @@ ${bold('Tip')} Click on buttons to see what they can do? 🤪😉`
 		return result.unwrap().id;
 	}
 
-	private async sendSuccessToAuthor(user: User, id: string, name: string, messageUrl: string) {
+	private async sendSuccessToAuthor(
+		user: User,
+		id: string,
+		name: string,
+		messageUrl: string,
+		eventEndDuration: Duration
+	) {
 		const embed = new EmbedBuilder()
 			.setTitle(`${Emotes.Success} Created Event`)
 			.setDescription(
@@ -188,6 +199,7 @@ ${bold('Tip')} Click on buttons to see what they can do? 🤪😉`
 ${bold('Name:')} ${inlineCode(name)}
 ${bold('Unique Id:')} ${inlineCode(id)}
 ${bold('Registration Message Link:')} [${bold('Click me')}](${messageUrl})
+${bold('Event Ends')} ${time(seconds.fromMilliseconds(Date.now() + eventEndDuration.offset), TimestampStyles.RelativeTime)}
 
 Regards,
 Cute Goblin

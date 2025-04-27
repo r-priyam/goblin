@@ -3170,6 +3170,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sapphire/duration@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "@sapphire/duration@npm:1.2.0"
+  checksum: 10/70fdb4f699ff5ecdccb25ba72a5917956195e9d377dd2dc7affaa0ec1e1145d1f5c3f79e595ac0f6edcec2a78fdc14acc5fdc591b1559f17df69532eb428967b
+  languageName: node
+  linkType: hard
+
 "@sapphire/framework@npm:5.3.2":
   version: 5.3.2
   resolution: "@sapphire/framework@npm:5.3.2"
@@ -7656,6 +7663,7 @@ __metadata:
     "@sapphire/cron": "npm:^1.2.1"
     "@sapphire/decorators": "npm:^6.1.1"
     "@sapphire/discord.js-utilities": "npm:^7.3.2"
+    "@sapphire/duration": "npm:^1.2.0"
     "@sapphire/framework": "npm:5.3.2"
     "@sapphire/plugin-logger": "npm:^4.0.2"
     "@sapphire/plugin-scheduled-tasks": "npm:^10.0.2"

@@ -44,9 +44,12 @@ export enum ModalInputCustomIds {
 	EventEndRolePing = 'event-end-role-ping',
 	EventName = 'event-name',
 	EventRegistrationChannel = 'event-registration-channel',
+	EventRegistrationEndTime = 'event-registration-end-time',
 	EventStartRolePing = 'event-start-role-ping',
 	FifteenRequirements = 'fifteen-requirements-input',
 	FourteenRequirements = 'fourteen-requirements-input',
+	SeventeenRequirements = 'seventeen-requirements-input',
+	SixTeenRequirements = 'sixteen-requirements-input',
 	StartClanEmbedColor = 'start-clan-embed-color-input',
 	StartClanEmbedLeader = 'start-clan-embed-leader-input',
 	ThirteenRequirements = 'thirteen-requirements-input',
@@ -91,6 +94,7 @@ export enum SelectMenuOptionsValue {
 	EventEndRolePing = 'event-end-role-ping',
 	EventName = 'event-name',
 	EventRegistrationChannel = 'event-registration-channel',
+	EventRegistrationEndTime = 'event-registration-end-time',
 	EventStartRolePing = 'event-start-role-ping'
 }
 

@@ -28,7 +28,7 @@ export class ModalHandler extends InteractionHandler {
 		await interaction.deferUpdate();
 		checkUser(interaction.message!.interaction!.user.id, interaction.user.id);
 
-		const rawConfigValues = interaction.message?.embeds[0].description?.split('\n').slice(1, 5);
+		const rawConfigValues = interaction.message?.embeds[0].description?.split('\n').slice(1, 6);
 		const parsedData = extractConfigsFromValues(rawConfigValues!);
 
 		const eventName = this.getConfigValue(interaction.fields, ModalInputCustomIds.EventName);
@@ -38,12 +38,17 @@ export class ModalHandler extends InteractionHandler {
 		);
 		const startRolePing = this.getConfigValue(interaction.fields, ModalInputCustomIds.EventStartRolePing);
 		const endRolePing = this.getConfigValue(interaction.fields, ModalInputCustomIds.EventEndRolePing);
+		const registrationEndTime = this.getConfigValue(
+			interaction.fields,
+			ModalInputCustomIds.EventRegistrationEndTime
+		);
 
 		const valueToSend = {
 			eventName: eventName ?? parsedData.eventName,
 			registrationChannel: registrationChannel ?? parsedData.registrationChannel,
 			startRolePing: startRolePing ?? parsedData.startRolePing,
-			endRolePing: endRolePing ?? parsedData.endRolePing
+			endRolePing: endRolePing ?? parsedData.endRolePing,
+			registrationEndTime: registrationEndTime ?? parsedData.registrationEndTime
 		};
 
 		// verify that all the values are still valid snowflake

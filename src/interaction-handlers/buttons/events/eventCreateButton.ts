@@ -76,6 +76,10 @@ export class ButtonHandler extends InteractionHandler {
 						{
 							label: '＠ Event End Role Ping',
 							value: SelectMenuOptionsValue.EventEndRolePing
+						},
+						{
+							label: '⏰ Event Registration End Time',
+							value: SelectMenuOptionsValue.EventRegistrationEndTime
 						}
 					])
 			),

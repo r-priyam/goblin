@@ -47,6 +47,15 @@ export class SelectMenuHandler extends InteractionHandler {
 				return this.some({
 					model: this.modalGenerator('Event End Role', ModalInputCustomIds.EventEndRolePing)
 				});
+			case SelectMenuOptionsValue.EventRegistrationEndTime:
+				return this.some({
+					model: this.modalGenerator(
+						'Event Registration End Time',
+						ModalInputCustomIds.EventRegistrationEndTime,
+						true,
+						2
+					)
+				});
 			default:
 				throw new UserError({
 					identifier: ErrorIdentifiers.CWLEventProcess,
@@ -56,7 +65,7 @@ export class SelectMenuHandler extends InteractionHandler {
 		}
 	}
 
-	private modalGenerator(fieldName: string, customId: string, required = false) {
+	private modalGenerator(fieldName: string, customId: string, required = false, minLength = 5) {
 		return new ModalBuilder()
 			.setTitle(`${fieldName} Config Form`)
 			.setCustomId(ModalCustomIds.CWLEvent)
@@ -66,7 +75,7 @@ export class SelectMenuHandler extends InteractionHandler {
 						.setLabel(`Enter ${fieldName}`)
 						.setCustomId(customId)
 						.setStyle(TextInputStyle.Short)
-						.setMinLength(5)
+						.setMinLength(minLength)
 						.setMaxLength(22)
 						.setRequired(required)
 				)
