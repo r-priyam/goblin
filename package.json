@@ -98,7 +98,7 @@
 		"eslint-config-neon": "^0.2.4",
 		"eslint-formatter-pretty": "^6.0.1",
 		"ley": "^0.8.1",
-		"lint-staged": "^15.4.3",
+		"lint-staged": "^16.0.0",
 		"prettier": "^3.5.1",
 		"tsup": "8.3.6",
 		"typescript": "^5.7.3"
