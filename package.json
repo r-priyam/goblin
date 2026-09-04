@@ -94,7 +94,7 @@
 		"@typescript-eslint/eslint-plugin": "^8.24.0",
 		"@typescript-eslint/parser": "^8.24.0",
 		"cz-conventional-changelog": "^3.3.0",
-		"eslint": "^9.20.1",
+		"eslint": "^10.10.0",
 		"eslint-config-neon": "^0.2.4",
 		"eslint-formatter-pretty": "^6.0.1",
 		"ley": "^0.8.1",
