@@ -96,7 +96,7 @@
 		"cz-conventional-changelog": "^3.3.0",
 		"eslint": "^9.20.1",
 		"eslint-config-neon": "^0.2.4",
-		"eslint-formatter-pretty": "^6.0.1",
+		"eslint-formatter-pretty": "^7.1.0",
 		"ley": "^0.8.1",
 		"lint-staged": "^15.4.3",
 		"prettier": "^3.5.1",
