@@ -5293,6 +5293,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"commander@npm:^14.0.0":
+  version: 14.0.3
+  resolution: "commander@npm:14.0.3"
+  checksum: 10/dfa9ebe2a433d277de5cb0252d23b10a543d245d892db858d23b516336a835c50fd4f52bee4cd13c705cc8acb6f03dc632c73dd806f7d06d3353eb09953dd17a
+  languageName: node
+  linkType: hard
+
 "commander@npm:^4.0.0":
   version: 4.1.1
   resolution: "commander@npm:4.1.1"
@@ -7170,11 +7177,13 @@ __metadata:
   linkType: hard
 
 "figlet@npm:^1.8.0":
-  version: 1.8.0
-  resolution: "figlet@npm:1.8.0"
+  version: 1.12.0
+  resolution: "figlet@npm:1.12.0"
+  dependencies:
+    commander: "npm:^14.0.0"
   bin:
     figlet: bin/index.js
-  checksum: 10/e52933f9cba3c03c6f399763363502b6e6396d1ca6ca9d79cd8bd467aa85b64ee12c7b2cc5ae5901af5a6fe085414accac14890949130e908da8dd2a8bb8c8ac
+  checksum: 10/1f2805189f243d5e04ea42132c37e6ac41f7b2cf5f9970fae0950041f7cd91e5948c0b7e87e9c908b274b5c0df1b6e12fd6f1e6b7609db7a6ee390f8b88ec3dd
   languageName: node
   linkType: hard
 
